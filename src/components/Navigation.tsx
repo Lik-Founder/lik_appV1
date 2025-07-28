@@ -1,4 +1,4 @@
-import { Home, Search, MessageCircle, User } from '@phosphor-icons/react';
+import { Home, Search, GameController, MessageCircle, User } from '@phosphor-icons/react';
 import { TabType } from '@/lib/types';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
@@ -14,7 +14,8 @@ interface NavigationProps {
 export function Navigation({ activeTab, onTabChange, deviceType, orientation }: NavigationProps) {
   const navItems = [
     { id: 'home' as TabType, icon: Home, label: 'Home' },
-    { id: 'search' as TabType, icon: Search, label: 'Search' },
+    { id: 'search' as TabType, icon: Search, label: 'Explore' },
+    { id: 'lik' as TabType, icon: GameController, label: 'Lik' },
     { id: 'messages' as TabType, icon: MessageCircle, label: 'Messages' },
     { id: 'profile' as TabType, icon: User, label: 'Profile' },
   ];

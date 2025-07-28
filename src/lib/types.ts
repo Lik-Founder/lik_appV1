@@ -61,4 +61,38 @@ export interface Conversation {
   unreadCount: number;
 }
 
-export type TabType = 'home' | 'search' | 'messages' | 'profile';
+export type TabType = 'home' | 'search' | 'lik' | 'messages' | 'profile';
+
+// Lik page specific types
+export interface UserProgress {
+  level: number;
+  xp: number;
+  xpToNextLevel: number;
+  streakCount: number;
+  likTickets: number;
+  likCoins: number;
+}
+
+export interface Bounty {
+  id: string;
+  dishName: string;
+  restaurantName: string;
+  category: string;
+  timeRemaining: string;
+  rating: number;
+  reward: number;
+  imageUrl: string;
+  difficulty: 'Easy' | 'Medium' | 'Hard' | 'Extreme';
+}
+
+export interface Quest {
+  id: string;
+  name: string;
+  type: 'solo' | 'team';
+  reward: number;
+  difficulty: 'Easy' | 'Medium' | 'Hard' | 'Extreme';
+  locationCount: number;
+  timeLimit: string;
+  imageUrl: string;
+  description: string;
+}
