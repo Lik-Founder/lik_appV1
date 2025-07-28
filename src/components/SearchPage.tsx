@@ -9,6 +9,7 @@ import {
   SlidersHorizontal as FilterIcon,
   ArrowsClockwise as SwipeIcon,
   Heart as FavoritesIcon,
+  Heart,
   Star,
   DotsThree,
   MapPin
