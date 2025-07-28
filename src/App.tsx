@@ -42,8 +42,8 @@ function App() {
         height: device.orientation === 'landscape' ? '100vh' : '100dvh' // Use dynamic viewport height
       }}
     >
-      {/* Mobile Header - Hide on Lik page */}
-      {activeTab !== 'lik' && (
+      {/* Mobile Header - Hide on Lik and Explore pages */}
+      {activeTab !== 'lik' && activeTab !== 'search' && (
         <div 
           className={cn(
             "border-b border-border bg-background/95 backdrop-blur-sm sticky top-0 z-10",
