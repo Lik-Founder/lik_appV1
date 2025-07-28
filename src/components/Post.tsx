@@ -2,6 +2,8 @@ import { useState, useRef } from 'react';
 import { Heart, MessageCircle, DotsThree, Bookmark, PaperPlaneTilt } from '@phosphor-icons/react';
 import { Post as PostType, User } from '@/lib/types';
 import { DeviceType, Orientation } from '@/hooks/use-device';
+import { useSwipe } from '@/hooks/use-swipe';
+import { useHapticFeedback } from '@/hooks/use-haptic';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
@@ -23,7 +25,55 @@ export function Post({ post, user, onLike, onComment, onUserClick, deviceType, o
   const [imageLoaded, setImageLoaded] = useState(false);
   const [showHeartAnimation, setShowHeartAnimation] = useState(false);
   const [lastTap, setLastTap] = useState(0);
+  const [swipeOffset, setSwipeOffset] = useState(0);
   const imageRef = useRef<HTMLImageElement>(null);
+  const { triggerHaptic } = useHapticFeedback();
+
+  // Handle swipe gestures on post image
+  const swipeRef = useSwipe({
+    onSwipeLeft: () => {
+      // Quick action: bookmark post
+      triggerHaptic('light');
+      setSwipeOffset(-50);
+      setTimeout(() => setSwipeOffset(0), 200);
+    },
+    onSwipeRight: () => {
+      // Quick action: like post
+      if (!post.isLiked) {
+        onLike(post.id);
+        triggerHaptic('success');
+        setShowHeartAnimation(true);
+        setTimeout(() => setShowHeartAnimation(false), 800);
+      } else {
+        triggerHaptic('light');
+      }
+      setSwipeOffset(50);
+      setTimeout(() => setSwipeOffset(0), 200);
+    },
+    onSwipeUp: () => {
+      // Quick action: comment
+      triggerHaptic('medium');
+      onComment(post.id);
+    },
+    onSwipeDown: () => {
+      // Quick action: share
+      triggerHaptic('light');
+      // You could call a share function here
+    },
+    onSwiping: (data) => {
+      // Provide visual feedback during swipe
+      const maxOffset = 100;
+      const offset = Math.max(-maxOffset, Math.min(maxOffset, data.deltaX * 0.3));
+      setSwipeOffset(offset);
+    },
+    onSwipeEnd: () => {
+      // Reset offset when swipe ends
+      setTimeout(() => setSwipeOffset(0), 100);
+    }
+  }, {
+    threshold: 80,
+    preventDefaultTouchmoveEvent: false
+  });
 
   // Handle double-tap to like on mobile
   const handleImageTap = (e: React.TouchEvent) => {
@@ -33,6 +83,7 @@ export function Post({ post, user, onLike, onComment, onUserClick, deviceType, o
     if (now - lastTap < DOUBLE_TAP_DELAY && !post.isLiked) {
       // Double tap detected - trigger like
       onLike(post.id);
+      triggerHaptic('heavy');
       setShowHeartAnimation(true);
       setTimeout(() => setShowHeartAnimation(false), 800);
       
@@ -100,9 +151,28 @@ export function Post({ post, user, onLike, onComment, onUserClick, deviceType, o
         </div>
 
         {/* Post Image */}
-        <div className="relative mb-3 bg-muted rounded-lg overflow-hidden">
+        <div 
+          ref={swipeRef}
+          className="relative mb-3 bg-muted rounded-lg overflow-hidden"
+          style={{
+            transform: `translateX(${swipeOffset}px)`,
+            transition: swipeOffset === 0 ? 'transform 0.2s ease' : 'none'
+          }}
+        >
           {!imageLoaded && (
             <div className="absolute inset-0 bg-muted animate-pulse aspect-square" />
+          )}
+          
+          {/* Swipe action indicators */}
+          {swipeOffset > 20 && (
+            <div className="absolute left-4 top-1/2 transform -translate-y-1/2 z-10 bg-red-500 text-white rounded-full p-2">
+              <Heart size={20} weight="fill" />
+            </div>
+          )}
+          {swipeOffset < -20 && (
+            <div className="absolute right-4 top-1/2 transform -translate-y-1/2 z-10 bg-blue-500 text-white rounded-full p-2">
+              <Bookmark size={20} weight="fill" />
+            </div>
           )}
           
           {/* Heart animation overlay */}
@@ -124,6 +194,13 @@ export function Post({ post, user, onLike, onComment, onUserClick, deviceType, o
             onLoad={() => setImageLoaded(true)}
             onTouchEnd={handleImageTap}
           />
+          
+          {/* Swipe hint overlay */}
+          {deviceType === 'phone' && (
+            <div className="absolute bottom-2 left-1/2 transform -translate-x-1/2 text-white/70 text-xs bg-black/30 px-2 py-1 rounded opacity-0 hover:opacity-100 transition-opacity">
+              ← Like | Bookmark →
+            </div>
+          )}
         </div>
 
         {/* Action Buttons */}

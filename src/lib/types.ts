@@ -35,7 +35,10 @@ export interface Comment {
 export interface Story {
   id: string;
   userId: string;
-  imageUrl: string;
+  imageUrl: string; // For backward compatibility
+  mediaUrl: string; // New field for both images and videos
+  type: 'image' | 'video';
+  caption?: string;
   timestamp: number;
   isViewed: boolean;
   duration: number;

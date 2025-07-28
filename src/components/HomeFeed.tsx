@@ -49,7 +49,6 @@ export function HomeFeed() {
         story.id === storyId ? { ...story, isViewed: true } : story
       )
     );
-    toast.info('Story viewer coming soon!');
   };
 
   const handleAddStory = () => {

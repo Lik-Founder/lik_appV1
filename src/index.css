@@ -190,6 +190,135 @@ body {
   will-change: transform, opacity;
 }
 
+/* Swipe action icons */
+.swipe-action-icon {
+  transition: all 0.2s ease;
+  transform: scale(0.8);
+  opacity: 0;
+}
+
+.swipe-action-icon.active {
+  transform: scale(1);
+  opacity: 1;
+}
+
+/* Enhanced post swipe animations */
+.post-swipe-container {
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: transform;
+}
+
+.post-swipe-container.swiping {
+  transition: none;
+}
+
+/* Story viewer enhancements */
+.story-progress-bar {
+  transition: width 0.1s linear;
+  will-change: width;
+}
+
+.story-tap-area {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 33.333%;
+  z-index: 5;
+}
+
+.story-tap-area.left {
+  left: 0;
+}
+
+.story-tap-area.center {
+  left: 33.333%;
+}
+
+.story-tap-area.right {
+  right: 0;
+}
+
+/* Gesture feedback for different swipe directions */
+.swipe-feedback {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+  transition: all 0.2s ease;
+  z-index: 10;
+}
+
+.swipe-feedback.left {
+  left: 20px;
+  opacity: 0;
+}
+
+.swipe-feedback.right {
+  right: 20px;
+  opacity: 0;
+}
+
+.swipe-feedback.active {
+  opacity: 1;
+  transform: translateY(-50%) scale(1.1);
+}
+
+/* Story viewer safe area adjustments */
+.story-viewer {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: black;
+}
+
+.story-controls {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 10;
+  background: linear-gradient(to bottom, rgba(0,0,0,0.6), transparent);
+  padding-top: max(var(--safe-area-inset-top), 8px);
+}
+
+.story-content {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Enhanced touch responsiveness for mobile */
+@media (hover: none) and (pointer: coarse) {
+  .touch-feedback:active {
+    transform: scale(0.95);
+    opacity: 0.8;
+  }
+  
+  .story-ring:active,
+  .story-ring-viewed:active {
+    transform: scale(0.9);
+  }
+  
+  .swipe-action-icon {
+    touch-action: manipulation;
+  }
+}
+
+/* Haptic feedback preparation class */
+.haptic-feedback {
+  will-change: transform;
+}
+
+/* Improved animation performance */
+.gpu-layer {
+  transform: translateZ(0);
+  will-change: transform, opacity;
+  backface-visibility: hidden;
+  perspective: 1000px;
+}
+
 /* Mobile keyboard handling */
 .keyboard-adjust {
   transition: height 0.3s ease;

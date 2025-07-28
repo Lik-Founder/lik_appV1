@@ -16,13 +16,18 @@
 - **Key Moments**: Story viewing, post interactions, content creation, direct messaging
 
 ## Essential Features
-- **Home Feed**: Infinite scroll of posts with optimized touch interactions
-- **Stories**: Horizontal scrolling stories with tap-to-advance functionality
+- **Home Feed**: Infinite scroll of posts with optimized touch interactions and swipe gestures
+- **Stories**: Horizontal scrolling stories with advanced swipe navigation and story viewer
 - **Post Creation**: Mobile-optimized photo/video capture and editing
 - **Search & Discovery**: Touch-friendly search with visual grid results
 - **Direct Messages**: Mobile-native messaging interface
 - **User Profiles**: Touch-optimized profile viewing and editing
-- **Interactions**: Double-tap to like, swipe gestures, pull-to-refresh
+- **Swipe Interactions**: 
+  - Story navigation with left/right swipes
+  - Post interactions (swipe right to like, left to bookmark, up for comments)
+  - Double-tap to like with haptic feedback
+  - Pull-to-refresh functionality
+- **Haptic Feedback**: Native-feeling tactile responses for all major interactions
 
 ## Design Direction
 
@@ -101,7 +106,21 @@
 - **iOS Safari**: Optimized for iOS-specific behaviors and safe areas
 - **Android Chrome**: Android-specific touch behaviors and material design cues
 - **PWA Support**: Installable app experience with proper manifest
-- **Touch Gestures**: Swipe, pinch-to-zoom, pull-to-refresh, double-tap interactions
+- **Advanced Touch Gestures**: 
+  - **Story Navigation**: Left/right swipes with smooth transitions and haptic feedback
+  - **Post Interactions**: Multi-directional swipes (right to like, left to bookmark, up for comments, down to share)
+  - **Double-tap**: Enhanced like functionality with heart animation and strong haptic feedback
+  - **Pull-to-refresh**: Native-feeling feed refresh with visual indicators
+  - **Haptic Feedback System**: Light, medium, heavy, and success feedback patterns
+- **Gesture Performance**: Hardware-accelerated animations, GPU-optimized transforms
+- **Accessibility**: Gesture alternatives for users who prefer tap interactions
+
+## Swipe Gesture Implementation Details
+- **Story Viewer**: Full-screen immersive experience with swipe navigation between stories
+- **Post Swiping**: Visual feedback during swipes with action preview icons
+- **Threshold Detection**: 80px minimum swipe distance for reliable gesture recognition
+- **Momentum Handling**: Natural physics-based animations following gesture completion
+- **Cross-platform Support**: Consistent behavior across iOS and Android devices
 
 ## Reflection
 This mobile-only approach allows us to create a more focused, touch-optimized experience that feels native to mobile platforms while maintaining Instagram's familiar interface patterns. The elimination of desktop considerations enables deeper optimization for mobile-specific interactions and performance.

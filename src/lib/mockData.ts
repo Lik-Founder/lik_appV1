@@ -115,6 +115,9 @@ export const generateMockStories = (): Story[] => [
     id: '1',
     userId: '2',
     imageUrl: 'https://images.unsplash.com/photo-1526045612212-70caf35c14df?w=400&h=600&fit=crop',
+    mediaUrl: 'https://images.unsplash.com/photo-1526045612212-70caf35c14df?w=400&h=600&fit=crop',
+    type: 'image',
+    caption: 'Beautiful sunset from my balcony! 🌅',
     timestamp: Date.now() - 3600000,
     isViewed: false,
     duration: 15000
@@ -123,8 +126,33 @@ export const generateMockStories = (): Story[] => [
     id: '2',
     userId: '3',
     imageUrl: 'https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=400&h=600&fit=crop',
+    mediaUrl: 'https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=400&h=600&fit=crop',
+    type: 'image',
+    caption: 'Coffee time ☕',
     timestamp: Date.now() - 7200000,
     isViewed: true,
+    duration: 15000
+  },
+  {
+    id: '3',
+    userId: '1',
+    imageUrl: 'https://images.unsplash.com/photo-1519904981063-b0cf448d479e?w=400&h=600&fit=crop',
+    mediaUrl: 'https://images.unsplash.com/photo-1519904981063-b0cf448d479e?w=400&h=600&fit=crop',
+    type: 'image',
+    caption: 'Mountain adventures 🏔️',
+    timestamp: Date.now() - 10800000,
+    isViewed: false,
+    duration: 15000
+  },
+  {
+    id: '4',
+    userId: '4',
+    imageUrl: 'https://images.unsplash.com/photo-1565299624946-b28f40a0ca4b?w=400&h=600&fit=crop',
+    mediaUrl: 'https://images.unsplash.com/photo-1565299624946-b28f40a0ca4b?w=400&h=600&fit=crop',
+    type: 'image',
+    caption: 'Fresh pizza from the oven! 🍕',
+    timestamp: Date.now() - 14400000,
+    isViewed: false,
     duration: 15000
   }
 ];
