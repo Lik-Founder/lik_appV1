@@ -42,23 +42,25 @@ function App() {
         height: device.orientation === 'landscape' ? '100vh' : '100dvh' // Use dynamic viewport height
       }}
     >
-      {/* Mobile Header */}
-      <div 
-        className={cn(
-          "border-b border-border bg-background/95 backdrop-blur-sm sticky top-0 z-10",
-          device.hasNotch && "safe-top"
-        )}
-        style={{ paddingTop: device.hasNotch ? safeArea.top : 16 }}
-      >
-        <div className="px-4 py-3">
-          <h1 className={cn(
-            "font-bold instagram-gradient bg-clip-text text-transparent",
-            device.type === 'phone' ? 'text-xl' : 'text-2xl'
-          )}>
-            Instagram
-          </h1>
+      {/* Mobile Header - Hide on Lik page */}
+      {activeTab !== 'lik' && (
+        <div 
+          className={cn(
+            "border-b border-border bg-background/95 backdrop-blur-sm sticky top-0 z-10",
+            device.hasNotch && "safe-top"
+          )}
+          style={{ paddingTop: device.hasNotch ? safeArea.top : 16 }}
+        >
+          <div className="px-4 py-3">
+            <h1 className={cn(
+              "font-bold instagram-gradient bg-clip-text text-transparent",
+              device.type === 'phone' ? 'text-xl' : 'text-2xl'
+            )}>
+              Instagram
+            </h1>
+          </div>
         </div>
-      </div>
+      )}
 
       {/* Main Content Area */}
       <div className="flex-1 overflow-hidden">

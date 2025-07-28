@@ -255,10 +255,10 @@ export function LikPage() {
         )}
       </div>
 
-      {/* Map Button */}
-      <div className="p-4 border-t border-border">
-        <Button className="w-full bg-foreground text-background hover:bg-foreground/90">
-          <MapPin size={16} className="mr-2" />
+      {/* Map Button - Smaller */}
+      <div className="p-3 border-t border-border">
+        <Button size="sm" className="bg-foreground text-background hover:bg-foreground/90 px-4 py-2">
+          <MapPin size={14} className="mr-1.5" />
           Map
         </Button>
       </div>
