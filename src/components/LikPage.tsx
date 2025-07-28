@@ -208,37 +208,42 @@ export function LikPage() {
 
       {/* Scrollable Content */}
       <div className="flex-1 overflow-y-auto scrollbar-hide pb-16">
-        {/* Filter Tabs */}
-        <div className="px-4 py-4 flex justify-center">
-          <div className="flex gap-2">
-            {(['nearby', 'most-wanted', 'for-you'] as const).map((filter) => (
-              <Button
-                key={filter}
-                variant={selectedFilter === filter ? 'default' : 'outline'}
-                size="sm"
-                onClick={() => setSelectedFilter(filter)}
-                className="rounded-full"
-              >
-                {filter === 'nearby' && 'Nearby'}
-                {filter === 'most-wanted' && 'Most Wanted'}
-                {filter === 'for-you' && 'For You'}
-              </Button>
-            ))}
-          </div>
-        </div>
+        {/* Show filter tabs and search only for bounties */}
+        {activeView === 'bounties' && (
+          <>
+            {/* Filter Tabs */}
+            <div className="px-4 py-4 flex justify-center">
+              <div className="flex gap-2">
+                {(['nearby', 'most-wanted', 'for-you'] as const).map((filter) => (
+                  <Button
+                    key={filter}
+                    variant={selectedFilter === filter ? 'default' : 'outline'}
+                    size="sm"
+                    onClick={() => setSelectedFilter(filter)}
+                    className="rounded-full"
+                  >
+                    {filter === 'nearby' && 'Nearby'}
+                    {filter === 'most-wanted' && 'Most Wanted'}
+                    {filter === 'for-you' && 'For You'}
+                  </Button>
+                ))}
+              </div>
+            </div>
 
-        {/* Search Bar */}
-        <div className="px-4 pb-4">
-          <div className="relative">
-            <MagnifyingGlass className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground" size={16} />
-            <Input
-              placeholder={`Search For ${activeView === 'bounties' ? 'Bounty' : 'Quest'}`}
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              className="pl-10"
-            />
-          </div>
-        </div>
+            {/* Search Bar */}
+            <div className="px-4 pb-4">
+              <div className="relative">
+                <MagnifyingGlass className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground" size={16} />
+                <Input
+                  placeholder="Search For Bounty"
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  className="pl-10"
+                />
+              </div>
+            </div>
+          </>
+        )}
 
         {activeView === 'bounties' ? (
           <BountiesView bounties={bounties} />
