@@ -6,13 +6,14 @@ import { SearchPage } from '@/components/SearchPage';
 import { CreatePost } from '@/components/CreatePost';
 import { MessagesPage } from '@/components/MessagesPage';
 import { ProfilePage } from '@/components/ProfilePage';
-import { useIsMobile } from '@/hooks/use-mobile';
+import { useDevice, useSafeArea } from '@/hooks/use-device';
 import { Toaster } from '@/components/ui/sonner';
 import { cn } from '@/lib/utils';
 
 function App() {
   const [activeTab, setActiveTab] = useState<TabType>('home');
-  const isMobile = useIsMobile();
+  const device = useDevice();
+  const safeArea = useSafeArea();
 
   const renderActiveTab = () => {
     switch (activeTab) {
@@ -32,55 +33,59 @@ function App() {
   };
 
   return (
-    <div className="h-screen bg-background">
-      <div className="h-full flex flex-col md:flex-row">
-        {/* Desktop Sidebar */}
-        {!isMobile && (
-          <div className="w-64 border-r border-border bg-background">
-            <div className="p-6 border-b border-border">
-              <h1 className="text-2xl font-bold instagram-gradient bg-clip-text text-transparent">
-                Instagram
-              </h1>
-            </div>
-            <Navigation 
-              activeTab={activeTab} 
-              onTabChange={setActiveTab}
-              className="flex-col items-start"
-            />
-          </div>
+    <div 
+      className={cn(
+        "h-screen bg-background flex flex-col",
+        device.hasNotch && "safe-area"
+      )}
+      style={{
+        height: device.orientation === 'landscape' ? '100vh' : '100dvh' // Use dynamic viewport height
+      }}
+    >
+      {/* Mobile Header */}
+      <div 
+        className={cn(
+          "border-b border-border bg-background/95 backdrop-blur-sm sticky top-0 z-10",
+          device.hasNotch && "safe-top"
         )}
-
-        {/* Main Content */}
-        <div className="flex-1 flex flex-col min-h-0">
-          {/* Mobile Header */}
-          {isMobile && (
-            <div className="border-b border-border bg-background p-4">
-              <h1 className="text-xl font-bold instagram-gradient bg-clip-text text-transparent">
-                Instagram
-              </h1>
-            </div>
-          )}
-
-          {/* Content Area */}
-          <div className="flex-1 overflow-hidden">
-            {renderActiveTab()}
-          </div>
-
-          {/* Mobile Bottom Navigation */}
-          {isMobile && (
-            <Navigation 
-              activeTab={activeTab} 
-              onTabChange={setActiveTab}
-              className="border-t"
-            />
-          )}
+        style={{ paddingTop: device.hasNotch ? safeArea.top : 16 }}
+      >
+        <div className="px-4 py-3">
+          <h1 className={cn(
+            "font-bold instagram-gradient bg-clip-text text-transparent",
+            device.type === 'phone' ? 'text-xl' : 'text-2xl'
+          )}>
+            Instagram
+          </h1>
         </div>
       </div>
 
+      {/* Main Content Area */}
+      <div className="flex-1 overflow-hidden">
+        {renderActiveTab()}
+      </div>
+
+      {/* Bottom Navigation */}
+      <div 
+        className={cn(
+          "border-t border-border bg-background/95 backdrop-blur-sm",
+          device.hasNotch && "safe-bottom"
+        )}
+        style={{ paddingBottom: device.hasNotch ? safeArea.bottom : 0 }}
+      >
+        <Navigation 
+          activeTab={activeTab} 
+          onTabChange={setActiveTab}
+          deviceType={device.type}
+          orientation={device.orientation}
+        />
+      </div>
+
       <Toaster 
-        position={isMobile ? "top-center" : "bottom-right"}
+        position="top-center"
         richColors
         closeButton
+        offset={device.hasNotch ? safeArea.top + 60 : 60}
       />
     </div>
   );

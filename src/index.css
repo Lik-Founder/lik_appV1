@@ -59,33 +59,285 @@
   --radius-full: 9999px;
 }
 
+/* Mobile-first responsive design */
+html {
+  /* Safe area support for iOS devices */
+  padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+  
+  /* Prevent zoom on input focus (iOS) */
+  -webkit-text-size-adjust: 100%;
+  
+  /* Smooth scrolling */
+  scroll-behavior: smooth;
+}
+
 body {
   font-family: 'Inter', sans-serif;
+  
+  /* Prevent overscroll (iOS rubber band effect) */
+  overscroll-behavior-y: none;
+  
+  /* Improve touch scrolling on iOS */
+  -webkit-overflow-scrolling: touch;
+  
+  /* Prevent text selection on UI elements */
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+  
+  /* Disable pull-to-refresh on some browsers */
+  overscroll-behavior: none;
+}
+
+/* Allow text selection on content areas */
+.selectable-text {
+  -webkit-user-select: text;
+  -moz-user-select: text;
+  user-select: text;
+}
+
+/* Mobile-optimized touch targets */
+.touch-target {
+  min-height: 44px;
+  min-width: 44px;
+}
+
+/* iOS-specific safe area variables */
+:root {
+  --safe-area-inset-top: env(safe-area-inset-top, 0);
+  --safe-area-inset-bottom: env(safe-area-inset-bottom, 0);
+  --safe-area-inset-left: env(safe-area-inset-left, 0);
+  --safe-area-inset-right: env(safe-area-inset-right, 0);
 }
 
 .instagram-gradient {
   background: linear-gradient(45deg, #f09433 0%,#e6683c 25%,#dc2743 50%,#cc2366 75%,#bc1888 100%);
 }
 
+/* Enhanced mobile interactions */
 .story-ring {
   background: linear-gradient(45deg, #f09433 0%,#e6683c 25%,#dc2743 50%,#cc2366 75%,#bc1888 100%);
   padding: 2px;
   border-radius: 50%;
+  transition: transform 0.15s ease;
+  will-change: transform;
+}
+
+.story-ring:active {
+  transform: scale(0.95);
 }
 
 .story-ring-viewed {
   background: oklch(0.8 0 0);
   padding: 2px;
   border-radius: 50%;
+  transition: transform 0.15s ease;
+  will-change: transform;
 }
 
+.story-ring-viewed:active {
+  transform: scale(0.95);
+}
+
+/* Mobile-optimized scrollbars */
 .scrollbar-hide {
   -ms-overflow-style: none;
   scrollbar-width: none;
+  /* Smooth scrolling on mobile */
+  -webkit-overflow-scrolling: touch;
+  /* Improve scroll performance */
+  scroll-behavior: smooth;
 }
 
 .scrollbar-hide::-webkit-scrollbar {
   display: none;
+}
+
+/* Pull-to-refresh custom styling */
+.pull-to-refresh {
+  overscroll-behavior-y: contain;
+  /* Hardware acceleration for smooth scrolling */
+  transform: translateZ(0);
+  will-change: transform;
+}
+
+/* Double-tap to like animation */
+@keyframes heartPop {
+  0% { 
+    opacity: 0; 
+    transform: scale(0) rotate(-12deg); 
+  }
+  50% { 
+    opacity: 1; 
+    transform: scale(1.2) rotate(-12deg); 
+  }
+  100% { 
+    opacity: 0; 
+    transform: scale(1) rotate(-12deg); 
+  }
+}
+
+.heart-animation {
+  animation: heartPop 0.8s ease-out;
+  pointer-events: none;
+  position: absolute;
+  z-index: 10;
+}
+
+/* Swipe gestures feedback */
+.swipe-indicator {
+  transition: transform 0.2s ease, opacity 0.2s ease;
+  will-change: transform, opacity;
+}
+
+/* Mobile keyboard handling */
+.keyboard-adjust {
+  transition: height 0.3s ease;
+  will-change: height;
+}
+
+/* iOS notch support */
+.safe-top {
+  padding-top: max(var(--safe-area-inset-top), 0px);
+}
+
+.safe-bottom {
+  padding-bottom: max(var(--safe-area-inset-bottom), 0px);
+}
+
+.safe-left {
+  padding-left: max(var(--safe-area-inset-left), 0px);
+}
+
+.safe-right {
+  padding-right: max(var(--safe-area-inset-right), 0px);
+}
+
+/* Full safe area padding */
+.safe-area {
+  padding: max(var(--safe-area-inset-top), 0px) max(var(--safe-area-inset-right), 0px) max(var(--safe-area-inset-bottom), 0px) max(var(--safe-area-inset-left), 0px);
+}
+
+/* High-performance transforms */
+.gpu-accelerated {
+  transform: translateZ(0);
+  will-change: transform;
+}
+
+/* Touch feedback improvements */
+.touch-feedback {
+  transition: all 0.15s ease;
+  will-change: transform, opacity;
+}
+
+.touch-feedback:active {
+  transform: scale(0.95);
+  opacity: 0.8;
+}
+
+/* Optimized image loading */
+.lazy-image {
+  transition: opacity 0.3s ease;
+  will-change: opacity;
+}
+
+.lazy-image.loading {
+  opacity: 0;
+}
+
+.lazy-image.loaded {
+  opacity: 1;
+}
+
+/* Mobile-specific responsive utilities */
+@media (max-width: 480px) {
+  .mobile-sm\:text-sm { font-size: 0.875rem; line-height: 1.25rem; }
+  .mobile-sm\:text-xs { font-size: 0.75rem; line-height: 1rem; }
+  .mobile-sm\:p-3 { padding: 0.75rem; }
+  .mobile-sm\:p-2 { padding: 0.5rem; }
+  .mobile-sm\:gap-2 { gap: 0.5rem; }
+  .mobile-sm\:gap-3 { gap: 0.75rem; }
+}
+
+@media (min-width: 481px) and (max-width: 768px) {
+  .mobile-md\:text-base { font-size: 1rem; line-height: 1.5rem; }
+  .mobile-md\:p-4 { padding: 1rem; }
+  .mobile-md\:gap-4 { gap: 1rem; }
+}
+
+@media (min-width: 769px) {
+  .tablet\:grid-cols-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .tablet\:p-6 { padding: 1.5rem; }
+  .tablet\:gap-6 { gap: 1.5rem; }
+  .tablet\:text-lg { font-size: 1.125rem; line-height: 1.75rem; }
+}
+
+@media (orientation: landscape) {
+  .landscape\:h-screen { height: 100vh; }
+  .landscape\:h-dvh { height: 100dvh; }
+  .landscape\:flex-row { flex-direction: row; }
+  .landscape\:max-h-screen { max-height: 100vh; }
+}
+
+@media (orientation: portrait) {
+  .portrait\:h-dvh { height: 100dvh; }
+  .portrait\:max-h-dvh { max-height: 100dvh; }
+}
+
+/* Foldable device support */
+@media (screen-spanning: single-fold-vertical) {
+  .foldable\:grid-cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .foldable\:flex-row { flex-direction: row; }
+}
+
+/* Prevent iOS zoom on input focus */
+input, textarea, select {
+  font-size: 16px;
+  line-height: 1.5;
+  /* Prevent auto-zoom on iOS */
+  transform: translateZ(0);
+}
+
+@media (max-width: 480px) {
+  input, textarea, select {
+    font-size: 16px; /* Critical for preventing iOS zoom */
+    line-height: 1.5;
+  }
+}
+
+/* Improved focus states for accessibility */
+.focus-visible\:ring-2:focus-visible {
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+  box-shadow: 0 0 0 2px var(--ring);
+}
+
+/* High contrast support */
+@media (prefers-contrast: high) {
+  .story-ring {
+    filter: contrast(1.5);
+  }
+  
+  .text-muted-foreground {
+    opacity: 1;
+    color: var(--foreground);
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  
+  .heart-animation {
+    animation: none;
+  }
 }
 
 @supports (background-clip: text) {

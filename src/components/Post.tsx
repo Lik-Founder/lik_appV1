@@ -1,10 +1,12 @@
-import { useState } from 'react';
-import { Heart, MessageCircle, DotsThree, Bookmark } from '@phosphor-icons/react';
+import { useState, useRef } from 'react';
+import { Heart, MessageCircle, DotsThree, Bookmark, PaperPlaneTilt } from '@phosphor-icons/react';
 import { Post as PostType, User } from '@/lib/types';
+import { DeviceType, Orientation } from '@/hooks/use-device';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { formatDistanceToNow } from 'date-fns';
+import { cn } from '@/lib/utils';
 
 interface PostProps {
   post: PostType;
@@ -12,18 +14,59 @@ interface PostProps {
   onLike: (postId: string) => void;
   onComment: (postId: string) => void;
   onUserClick: (userId: string) => void;
+  deviceType: DeviceType;
+  orientation: Orientation;
 }
 
-export function Post({ post, user, onLike, onComment, onUserClick }: PostProps) {
+export function Post({ post, user, onLike, onComment, onUserClick, deviceType, orientation }: PostProps) {
   const [showAllComments, setShowAllComments] = useState(false);
   const [imageLoaded, setImageLoaded] = useState(false);
+  const [showHeartAnimation, setShowHeartAnimation] = useState(false);
+  const [lastTap, setLastTap] = useState(0);
+  const imageRef = useRef<HTMLImageElement>(null);
+
+  // Handle double-tap to like on mobile
+  const handleImageTap = (e: React.TouchEvent) => {
+    const now = Date.now();
+    const DOUBLE_TAP_DELAY = 300;
+    
+    if (now - lastTap < DOUBLE_TAP_DELAY && !post.isLiked) {
+      // Double tap detected - trigger like
+      onLike(post.id);
+      setShowHeartAnimation(true);
+      setTimeout(() => setShowHeartAnimation(false), 800);
+      
+      // Create heart animation at touch point
+      const rect = e.currentTarget.getBoundingClientRect();
+      const touch = e.changedTouches[0];
+      const x = touch.clientX - rect.left;
+      const y = touch.clientY - rect.top;
+      
+      // You could implement a more sophisticated animation here
+    }
+    setLastTap(now);
+  };
+
+  const avatarSize = deviceType === 'tablet' ? 'w-10 h-10' : 'w-8 h-8';
+  const iconSize = deviceType === 'tablet' ? 28 : 24;
+  const padding = deviceType === 'tablet' ? 'p-6' : 'p-4';
 
   return (
-    <Card className="border-0 border-b border-border last:border-b-0 rounded-none">
-      <div className="p-4">
-        <div className="flex items-center gap-3 mb-3">
-          <button onClick={() => onUserClick(user.id)}>
-            <Avatar className="w-8 h-8">
+    <Card className={cn(
+      "border-0 border-b border-border last:border-b-0 rounded-none bg-background",
+      deviceType === 'tablet' && "mx-2 mb-4 border border-border rounded-lg last:border-b"
+    )}>
+      <div className={padding}>
+        {/* Post Header */}
+        <div className={cn(
+          "flex items-center gap-3 mb-3",
+          deviceType === 'tablet' && "gap-4"
+        )}>
+          <button 
+            onClick={() => onUserClick(user.id)}
+            className="touch-target active:scale-95 transition-transform duration-150"
+          >
+            <Avatar className={avatarSize}>
               <AvatarImage src={user.avatar} alt={user.username} />
               <AvatarFallback>{user.username[0]?.toUpperCase()}</AvatarFallback>
             </Avatar>
@@ -31,40 +74,71 @@ export function Post({ post, user, onLike, onComment, onUserClick }: PostProps) 
           <div className="flex-1">
             <button 
               onClick={() => onUserClick(user.id)}
-              className="font-semibold text-sm hover:text-muted-foreground transition-colors"
+              className={cn(
+                "font-semibold hover:text-muted-foreground transition-colors touch-target",
+                deviceType === 'tablet' ? "text-base" : "text-sm"
+              )}
             >
               {user.username}
             </button>
             {post.location && (
-              <p className="text-xs text-muted-foreground">{post.location}</p>
+              <p className={cn(
+                "text-muted-foreground",
+                deviceType === 'tablet' ? "text-sm" : "text-xs"
+              )}>
+                {post.location}
+              </p>
             )}
           </div>
-          <Button variant="ghost" size="sm" className="p-2">
-            <DotsThree size={16} />
+          <Button 
+            variant="ghost" 
+            size="sm" 
+            className="touch-target active:scale-90 transition-transform duration-150"
+          >
+            <DotsThree size={iconSize} />
           </Button>
         </div>
 
+        {/* Post Image */}
         <div className="relative mb-3 bg-muted rounded-lg overflow-hidden">
           {!imageLoaded && (
             <div className="absolute inset-0 bg-muted animate-pulse aspect-square" />
           )}
+          
+          {/* Heart animation overlay */}
+          {showHeartAnimation && (
+            <div className="absolute inset-0 flex items-center justify-center z-10 pointer-events-none">
+              <Heart 
+                size={80} 
+                weight="fill" 
+                className="text-red-500 heart-animation"
+              />
+            </div>
+          )}
+          
           <img
+            ref={imageRef}
             src={post.imageUrl}
             alt={post.caption}
-            className="w-full aspect-square object-cover"
+            className="w-full aspect-square object-cover touch-target"
             onLoad={() => setImageLoaded(true)}
+            onTouchEnd={handleImageTap}
           />
         </div>
 
-        <div className="flex items-center gap-4 mb-3">
+        {/* Action Buttons */}
+        <div className={cn(
+          "flex items-center gap-4 mb-3",
+          deviceType === 'tablet' && "gap-6"
+        )}>
           <Button
             variant="ghost"
             size="sm"
             onClick={() => onLike(post.id)}
-            className="p-0 hover:bg-transparent"
+            className="p-0 hover:bg-transparent touch-target active:scale-90 transition-all duration-150"
           >
             <Heart 
-              size={24} 
+              size={iconSize} 
               weight={post.isLiked ? "fill" : "regular"}
               className={post.isLiked ? "text-red-500" : "text-foreground"}
             />
@@ -73,21 +147,41 @@ export function Post({ post, user, onLike, onComment, onUserClick }: PostProps) 
             variant="ghost"
             size="sm"
             onClick={() => onComment(post.id)}
-            className="p-0 hover:bg-transparent"
+            className="p-0 hover:bg-transparent touch-target active:scale-90 transition-all duration-150"
           >
-            <MessageCircle size={24} />
+            <MessageCircle size={iconSize} />
+          </Button>
+          <Button
+            variant="ghost"
+            size="sm"
+            className="p-0 hover:bg-transparent touch-target active:scale-90 transition-all duration-150"
+          >
+            <PaperPlaneTilt size={iconSize} />
           </Button>
           <div className="flex-1" />
-          <Button variant="ghost" size="sm" className="p-0 hover:bg-transparent">
-            <Bookmark size={24} />
+          <Button 
+            variant="ghost" 
+            size="sm" 
+            className="p-0 hover:bg-transparent touch-target active:scale-90 transition-all duration-150"
+          >
+            <Bookmark size={iconSize} />
           </Button>
         </div>
 
+        {/* Post Content */}
         <div className="space-y-2">
-          <p className="font-semibold text-sm">{post.likes.toLocaleString()} likes</p>
+          <p className={cn(
+            "font-semibold",
+            deviceType === 'tablet' ? "text-base" : "text-sm"
+          )}>
+            {post.likes.toLocaleString()} likes
+          </p>
           
           {post.caption && (
-            <p className="text-sm">
+            <p className={cn(
+              "selectable-text",
+              deviceType === 'tablet' ? "text-base" : "text-sm"
+            )}>
               <span className="font-semibold mr-2">{user.username}</span>
               {post.caption}
             </p>
@@ -98,14 +192,23 @@ export function Post({ post, user, onLike, onComment, onUserClick }: PostProps) 
               {!showAllComments && post.comments.length > 2 && (
                 <button
                   onClick={() => setShowAllComments(true)}
-                  className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+                  className={cn(
+                    "text-muted-foreground hover:text-foreground transition-colors touch-target",
+                    deviceType === 'tablet' ? "text-base" : "text-sm"
+                  )}
                 >
                   View all {post.comments.length} comments
                 </button>
               )}
               
               {(showAllComments ? post.comments : post.comments.slice(-2)).map((comment) => (
-                <div key={comment.id} className="text-sm">
+                <div 
+                  key={comment.id} 
+                  className={cn(
+                    "selectable-text",
+                    deviceType === 'tablet' ? "text-base" : "text-sm"
+                  )}
+                >
                   <span className="font-semibold mr-2">{comment.username}</span>
                   {comment.text}
                 </div>
@@ -113,7 +216,10 @@ export function Post({ post, user, onLike, onComment, onUserClick }: PostProps) 
             </div>
           )}
 
-          <p className="text-xs text-muted-foreground uppercase tracking-wide">
+          <p className={cn(
+            "text-muted-foreground uppercase tracking-wide",
+            deviceType === 'tablet' ? "text-sm" : "text-xs"
+          )}>
             {formatDistanceToNow(new Date(post.timestamp))} ago
           </p>
         </div>

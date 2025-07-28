@@ -2,14 +2,16 @@ import { Home, Search, PlusSquare, MessageCircle, User } from '@phosphor-icons/r
 import { TabType } from '@/lib/types';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
+import { DeviceType, Orientation } from '@/hooks/use-device';
 
 interface NavigationProps {
   activeTab: TabType;
   onTabChange: (tab: TabType) => void;
-  className?: string;
+  deviceType: DeviceType;
+  orientation: Orientation;
 }
 
-export function Navigation({ activeTab, onTabChange, className }: NavigationProps) {
+export function Navigation({ activeTab, onTabChange, deviceType, orientation }: NavigationProps) {
   const navItems = [
     { id: 'home' as TabType, icon: Home, label: 'Home' },
     { id: 'search' as TabType, icon: Search, label: 'Search' },
@@ -18,8 +20,19 @@ export function Navigation({ activeTab, onTabChange, className }: NavigationProp
     { id: 'profile' as TabType, icon: User, label: 'Profile' },
   ];
 
+  // Icon size based on device type
+  const iconSize = deviceType === 'tablet' ? 28 : 24;
+  
+  // Show labels on tablets or landscape phones
+  const showLabels = deviceType === 'tablet' || 
+    (deviceType === 'phone' && orientation === 'landscape');
+
   return (
-    <nav className={cn("flex items-center justify-around bg-background border-t border-border md:flex-col md:justify-start md:gap-6 md:border-t-0 md:border-r md:p-6", className)}>
+    <nav className={cn(
+      "flex items-center justify-around bg-background/95 backdrop-blur-sm",
+      "touch-target safe-bottom",
+      orientation === 'landscape' && deviceType === 'phone' ? "px-2 py-1" : "px-4 py-2"
+    )}>
       {navItems.map((item) => {
         const Icon = item.icon;
         const isActive = activeTab === item.id;
@@ -31,16 +44,26 @@ export function Navigation({ activeTab, onTabChange, className }: NavigationProp
             size="sm"
             onClick={() => onTabChange(item.id)}
             className={cn(
-              "flex flex-col items-center gap-1 p-3 md:flex-row md:w-full md:justify-start md:gap-3",
+              "flex flex-col items-center gap-1 touch-target transition-all duration-200",
+              "active:scale-95 active:bg-muted/50",
+              showLabels ? "p-3" : "p-2",
               isActive && "text-foreground",
               !isActive && "text-muted-foreground hover:text-foreground"
             )}
           >
             <Icon 
-              size={24} 
+              size={iconSize} 
               weight={isActive ? "fill" : "regular"}
+              className="transition-transform duration-200"
             />
-            <span className="text-xs md:text-sm">{item.label}</span>
+            {showLabels && (
+              <span className={cn(
+                "transition-opacity duration-200",
+                deviceType === 'tablet' ? "text-sm" : "text-xs"
+              )}>
+                {item.label}
+              </span>
+            )}
           </Button>
         );
       })}
