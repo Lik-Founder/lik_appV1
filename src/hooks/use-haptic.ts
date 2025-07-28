@@ -36,20 +36,23 @@ export function useHapticFeedback() {
       // but we can use the Taptic Engine through PWA if installed
       try {
         // This is experimental and may not work in all cases
-        const impact = new (window as any).ImpactFeedbackGenerator?.();
-        if (impact) {
-          switch (type) {
-            case 'light':
-              impact.impactOccurred(0); // UIImpactFeedbackStyleLight
-              break;
-            case 'medium':
-              impact.impactOccurred(1); // UIImpactFeedbackStyleMedium
-              break;
-            case 'heavy':
-              impact.impactOccurred(2); // UIImpactFeedbackStyleHeavy
-              break;
-            default:
-              impact.impactOccurred(0);
+        const ImpactFeedbackGenerator = (window as any).ImpactFeedbackGenerator;
+        if (ImpactFeedbackGenerator) {
+          const impact = new ImpactFeedbackGenerator();
+          if (impact) {
+            switch (type) {
+              case 'light':
+                impact.impactOccurred(0); // UIImpactFeedbackStyleLight
+                break;
+              case 'medium':
+                impact.impactOccurred(1); // UIImpactFeedbackStyleMedium
+                break;
+              case 'heavy':
+                impact.impactOccurred(2); // UIImpactFeedbackStyleHeavy
+                break;
+              default:
+                impact.impactOccurred(0);
+            }
           }
         }
       } catch (error) {
