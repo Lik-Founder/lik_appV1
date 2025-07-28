@@ -61,4 +61,4 @@ export interface Conversation {
   unreadCount: number;
 }
 
-export type TabType = 'home' | 'search' | 'create' | 'messages' | 'profile';
+export type TabType = 'home' | 'search' | 'messages' | 'profile';

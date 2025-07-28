@@ -3,7 +3,6 @@ import { TabType } from '@/lib/types';
 import { Navigation } from '@/components/Navigation';
 import { HomeFeed } from '@/components/HomeFeed';
 import { SearchPage } from '@/components/SearchPage';
-import { CreatePost } from '@/components/CreatePost';
 import { MessagesPage } from '@/components/MessagesPage';
 import { ProfilePage } from '@/components/ProfilePage';
 import { useDevice, useSafeArea } from '@/hooks/use-device';
@@ -21,8 +20,6 @@ function App() {
         return <HomeFeed />;
       case 'search':
         return <SearchPage />;
-      case 'create':
-        return <CreatePost />;
       case 'messages':
         return <MessagesPage />;
       case 'profile':

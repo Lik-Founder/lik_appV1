@@ -289,6 +289,26 @@ body {
   justify-content: center;
 }
 
+/* Floating Action Button */
+.fab {
+  position: fixed;
+  z-index: 10;
+  background: linear-gradient(45deg, #f09433 0%,#e6683c 25%,#dc2743 50%,#cc2366 75%,#bc1888 100%);
+  border-radius: 50%;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  transition: all 0.2s ease;
+  will-change: transform, box-shadow;
+}
+
+.fab:hover {
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+  transform: translateY(-1px);
+}
+
+.fab:active {
+  transform: scale(0.95) translateY(-1px);
+}
+
 /* Enhanced touch responsiveness for mobile */
 @media (hover: none) and (pointer: coarse) {
   .touch-feedback:active {
