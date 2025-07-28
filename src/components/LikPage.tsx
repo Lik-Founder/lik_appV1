@@ -169,7 +169,7 @@ export function LikPage() {
         </div>
 
         {/* Secondary Navigation */}
-        <div className="px-4 py-2 flex items-center justify-between">
+        <div className="px-4 py-2 flex items-center justify-center">
           <div className="flex items-center gap-4">
             {/* Leaderboard */}
             <Button variant="ghost" size="sm" className="p-2">
@@ -195,29 +195,31 @@ export function LikPage() {
                 Quests
               </Button>
             </div>
-          </div>
 
-          {/* Rewards */}
-          <Button variant="ghost" size="sm" className="p-2">
-            <Gift size={20} />
-          </Button>
+            {/* Rewards */}
+            <Button variant="ghost" size="sm" className="p-2">
+              <Gift size={20} />
+            </Button>
+          </div>
         </div>
 
         {/* Filter Tabs */}
-        <div className="px-4 pb-3 flex gap-2">
-          {(['nearby', 'most-wanted', 'for-you'] as const).map((filter) => (
-            <Button
-              key={filter}
-              variant={selectedFilter === filter ? 'default' : 'outline'}
-              size="sm"
-              onClick={() => setSelectedFilter(filter)}
-              className="rounded-full"
-            >
-              {filter === 'nearby' && 'Nearby'}
-              {filter === 'most-wanted' && 'Most Wanted'}
-              {filter === 'for-you' && 'For You'}
-            </Button>
-          ))}
+        <div className="px-4 pb-3 flex justify-center">
+          <div className="flex gap-2">
+            {(['nearby', 'most-wanted', 'for-you'] as const).map((filter) => (
+              <Button
+                key={filter}
+                variant={selectedFilter === filter ? 'default' : 'outline'}
+                size="sm"
+                onClick={() => setSelectedFilter(filter)}
+                className="rounded-full"
+              >
+                {filter === 'nearby' && 'Nearby'}
+                {filter === 'most-wanted' && 'Most Wanted'}
+                {filter === 'for-you' && 'For You'}
+              </Button>
+            ))}
+          </div>
         </div>
 
         {/* Search Bar */}
@@ -274,7 +276,9 @@ function BountiesView({ bounties }: { bounties: Bounty[] }) {
     <div className="p-4 space-y-4">
       {/* Promoted Bounties Carousel */}
       <div className="space-y-3">
-        <h3 className="font-semibold text-sm text-muted-foreground uppercase tracking-wide">Featured</h3>
+        <div className="text-center">
+          <h3 className="font-semibold text-sm text-muted-foreground uppercase tracking-wide">Featured</h3>
+        </div>
         <div className="flex gap-3 overflow-x-auto scrollbar-hide">
           {bounties.map((bounty) => (
             <Card key={bounty.id} className="min-w-[280px] overflow-hidden">
@@ -351,7 +355,9 @@ function QuestsView({ quests }: { quests: Quest[] }) {
     <div className="p-4 space-y-4">
       {/* Promoted Quests */}
       <div className="space-y-3">
-        <h3 className="font-semibold text-sm text-muted-foreground uppercase tracking-wide">Epic Quests</h3>
+        <div className="text-center">
+          <h3 className="font-semibold text-sm text-muted-foreground uppercase tracking-wide">Epic Quests</h3>
+        </div>
         <div className="space-y-3">
           {quests.map((quest) => (
             <Card key={quest.id} className="overflow-hidden">
