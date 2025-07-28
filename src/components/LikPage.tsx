@@ -237,7 +237,7 @@ export function LikPage() {
       </div>
 
       {/* Scrollable Content */}
-      <div className="flex-1 overflow-y-auto scrollbar-hide pb-16">
+      <div className="flex-1 overflow-y-auto scrollbar-hide pb-16 pt-4">
         {activeView === 'bounties' ? (
           <BountiesView bounties={bounties} />
         ) : (
@@ -261,7 +261,7 @@ export function LikPage() {
 
 function BountiesView({ bounties }: { bounties: Bounty[] }) {
   return (
-    <div className="p-4 space-y-4">
+    <div className="px-4 space-y-4">
       {/* Promoted Bounties Carousel */}
       <div className="space-y-3">
         <div className="text-center">
@@ -340,7 +340,7 @@ function BountiesView({ bounties }: { bounties: Bounty[] }) {
 
 function QuestsView({ quests }: { quests: Quest[] }) {
   return (
-    <div className="p-4 space-y-4">
+    <div className="px-4 space-y-4">
       {/* Promoted Quests */}
       <div className="space-y-3">
         <div className="text-center">
