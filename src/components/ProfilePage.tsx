@@ -6,8 +6,9 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Grid3X3, Heart, MessageCircle, Settings, Plus } from '@phosphor-icons/react';
+import { Grid3X3, Heart, MessageCircle, Settings, Plus, Camera } from '@phosphor-icons/react';
 import { CreatePostModal } from '@/components/CreatePostModal';
+import { CreateStoryModal } from '@/components/CreateStoryModal';
 import { useDevice } from '@/hooks/use-device';
 import { cn } from '@/lib/utils';
 import { toast } from 'sonner';
@@ -16,6 +17,7 @@ export function ProfilePage() {
   const [currentUser, setCurrentUser] = useKV<User>('currentUser', getCurrentUser());
   const [posts] = useKV<PostType[]>('posts', generateMockPosts());
   const [isCreatePostOpen, setIsCreatePostOpen] = useState(false);
+  const [isCreateStoryOpen, setIsCreateStoryOpen] = useState(false);
   const device = useDevice();
   
   const userPosts = posts.filter(post => post.userId === currentUser.id);
@@ -163,11 +165,25 @@ export function ProfilePage() {
         </Tabs>
       </div>
 
-      {/* Floating Action Button */}
-      <div className="fixed bottom-0 right-0 p-4 z-10" style={{ 
+      {/* Floating Action Buttons */}
+      <div className="fixed bottom-0 right-0 p-4 z-10 flex flex-col gap-3" style={{ 
         bottom: device.hasNotch ? 'calc(env(safe-area-inset-bottom) + 80px)' : '80px',
         right: '16px'
       }}>
+        {/* Story Creation Button */}
+        <Button
+          size="lg"
+          variant="secondary"
+          className={cn(
+            "w-12 h-12 rounded-full bg-white/90 backdrop-blur-sm border border-border touch-feedback shadow-lg",
+            "active:scale-95"
+          )}
+          onClick={() => setIsCreateStoryOpen(true)}
+        >
+          <Camera size={20} />
+        </Button>
+        
+        {/* Post Creation Button */}
         <Button
           size="lg"
           className={cn(
@@ -184,6 +200,12 @@ export function ProfilePage() {
       <CreatePostModal 
         open={isCreatePostOpen} 
         onOpenChange={setIsCreatePostOpen}
+      />
+      
+      {/* Create Story Modal */}
+      <CreateStoryModal 
+        open={isCreateStoryOpen} 
+        onOpenChange={setIsCreateStoryOpen}
       />
     </ScrollArea>
   );

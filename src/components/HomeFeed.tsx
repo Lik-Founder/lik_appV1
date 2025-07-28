@@ -4,6 +4,7 @@ import { Post as PostType, Story as StoryType, User } from '@/lib/types';
 import { generateMockPosts, generateMockStories, generateMockUsers, getCurrentUser } from '@/lib/mockData';
 import { Post } from '@/components/Post';
 import { StoriesBar } from '@/components/StoriesBar';
+import { CreateStoryModal } from '@/components/CreateStoryModal';
 import { useDevice } from '@/hooks/use-device';
 import { toast } from 'sonner';
 import { cn } from '@/lib/utils';
@@ -15,6 +16,7 @@ export function HomeFeed() {
   const [currentUser] = useKV<User>('currentUser', getCurrentUser());
   const [isRefreshing, setIsRefreshing] = useState(false);
   const [pullDistance, setPullDistance] = useState(0);
+  const [isCreateStoryOpen, setIsCreateStoryOpen] = useState(false);
   
   const device = useDevice();
   const containerRef = useRef<HTMLDivElement>(null);
@@ -52,7 +54,7 @@ export function HomeFeed() {
   };
 
   const handleAddStory = () => {
-    toast.info('Story creation coming soon!');
+    setIsCreateStoryOpen(true);
   };
 
   // Pull-to-refresh functionality
@@ -163,6 +165,12 @@ export function HomeFeed() {
           )}
         </div>
       </div>
+      
+      {/* Create Story Modal */}
+      <CreateStoryModal 
+        open={isCreateStoryOpen} 
+        onOpenChange={setIsCreateStoryOpen}
+      />
     </div>
   );
 }
