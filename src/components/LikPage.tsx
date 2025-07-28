@@ -223,8 +223,8 @@ export function LikPage() {
         </div>
 
         {/* Search Bar */}
-        <div className="px-4 pb-3 flex items-center gap-2">
-          <div className="flex-1 relative">
+        <div className="px-4 pb-3">
+          <div className="relative">
             <MagnifyingGlass className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground" size={16} />
             <Input
               placeholder={`Search For ${activeView === 'bounties' ? 'Bounty' : 'Quest'}`}
@@ -233,18 +233,6 @@ export function LikPage() {
               className="pl-10"
             />
           </div>
-          <Button variant="outline" size="sm" className="p-2">
-            <div className="w-4 h-4 flex items-center justify-center">
-              <div className="w-3 h-0.5 bg-current mb-1"></div>
-              <div className="w-3 h-0.5 bg-current"></div>
-              <div className="w-3 h-0.5 bg-current mt-1"></div>
-            </div>
-          </Button>
-          <Button variant="outline" size="sm" className="p-2">
-            <div className="w-4 h-4 rounded-full border-2 border-current relative">
-              <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-1 h-1 bg-current rounded-full"></div>
-            </div>
-          </Button>
         </div>
       </div>
 
@@ -279,8 +267,8 @@ function BountiesView({ bounties }: { bounties: Bounty[] }) {
         <div className="text-center">
           <h3 className="font-semibold text-sm text-muted-foreground uppercase tracking-wide">Featured</h3>
         </div>
-        <div className="flex gap-3 overflow-x-auto scrollbar-hide">
-          {bounties.map((bounty) => (
+        <div className="flex gap-3 overflow-x-auto scrollbar-hide justify-center">
+          {bounties.slice(0, 2).map((bounty) => (
             <Card key={bounty.id} className="min-w-[280px] overflow-hidden">
               <div className="relative">
                 <div className="aspect-[4/3] bg-muted flex items-center justify-center">
