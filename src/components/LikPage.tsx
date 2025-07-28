@@ -203,8 +203,13 @@ export function LikPage() {
           </div>
         </div>
 
+
+      </div>
+
+      {/* Scrollable Content */}
+      <div className="flex-1 overflow-y-auto scrollbar-hide pb-16">
         {/* Filter Tabs */}
-        <div className="px-4 pb-3 flex justify-center">
+        <div className="px-4 py-4 flex justify-center">
           <div className="flex gap-2">
             {(['nearby', 'most-wanted', 'for-you'] as const).map((filter) => (
               <Button
@@ -223,7 +228,7 @@ export function LikPage() {
         </div>
 
         {/* Search Bar */}
-        <div className="px-4 pb-3">
+        <div className="px-4 pb-4">
           <div className="relative">
             <MagnifyingGlass className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground" size={16} />
             <Input
@@ -234,10 +239,7 @@ export function LikPage() {
             />
           </div>
         </div>
-      </div>
 
-      {/* Scrollable Content */}
-      <div className="flex-1 overflow-y-auto scrollbar-hide pb-16 pt-4">
         {activeView === 'bounties' ? (
           <BountiesView bounties={bounties} />
         ) : (
