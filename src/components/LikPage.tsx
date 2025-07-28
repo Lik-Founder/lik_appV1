@@ -91,7 +91,7 @@ export function LikPage() {
   const xpProgress = (userProgress.xp / userProgress.xpToNextLevel) * 100;
 
   return (
-    <div className="h-full flex flex-col bg-background overflow-hidden">
+    <div className="h-full flex flex-col bg-background overflow-hidden relative">
       {/* Fixed Header */}
       <div className="bg-background border-b border-border">
         {/* Top Section - User Progress */}
@@ -247,7 +247,7 @@ export function LikPage() {
       </div>
 
       {/* Scrollable Content */}
-      <div className="flex-1 overflow-y-auto scrollbar-hide">
+      <div className="flex-1 overflow-y-auto scrollbar-hide pb-16">
         {activeView === 'bounties' ? (
           <BountiesView bounties={bounties} />
         ) : (
@@ -255,9 +255,12 @@ export function LikPage() {
         )}
       </div>
 
-      {/* Map Button - Smaller */}
-      <div className="p-3 border-t border-border">
-        <Button size="sm" className="bg-foreground text-background hover:bg-foreground/90 px-4 py-2">
+      {/* Floating Map Button */}
+      <div className="fixed bottom-20 left-1/2 transform -translate-x-1/2 z-10">
+        <Button 
+          size="sm" 
+          className="bg-foreground text-background hover:bg-foreground/90 px-4 py-2 rounded-full shadow-lg border border-border/20"
+        >
           <MapPin size={14} className="mr-1.5" />
           Map
         </Button>
