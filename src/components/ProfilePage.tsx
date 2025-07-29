@@ -21,6 +21,8 @@ export function ProfilePage() {
   const [currentUser, setCurrentUser] = useKV<User>('currentUser', getCurrentUser());
   const [posts] = useKV<PostType[]>('posts', generateMockPosts());
   const [cartItemsDetailed, setCartItemsDetailed] = useKV<CartItem[]>('cart-items-detailed', []);
+  const [favoriteRestaurants] = useKV<any[]>('favorite-restaurants', []);
+  const [favoriteDishes] = useKV<any[]>('favorite-dishes', []);
   const [isCreatePostOpen, setIsCreatePostOpen] = useState(false);
   const [isCreateStoryOpen, setIsCreateStoryOpen] = useState(false);
   const [isOrderHistoryOpen, setIsOrderHistoryOpen] = useState(false);
@@ -30,9 +32,21 @@ export function ProfilePage() {
   const userPosts = posts.filter(post => post.userId === currentUser.id);
 
   // Mock recent orders - in a real app this would come from an API
-  const recentOrders: Order[] = JSON.parse(localStorage.getItem('orders') || '[]')
-    .slice(0, 3) // Show only last 3 orders
-    .filter((order: Order) => order.status === 'delivered'); // Only show delivered orders for reordering
+  const allOrders: Order[] = JSON.parse(localStorage.getItem('orders') || '[]');
+  const recentOrders = allOrders
+    .sort((a, b) => b.timestamp - a.timestamp)
+    .slice(0, 3); // Show last 3 orders regardless of status
+  const deliveredOrders = allOrders.filter((order: Order) => order.status === 'delivered');
+  const frequentlyOrderedRestaurants = deliveredOrders
+    .reduce((acc, order) => {
+      acc[order.restaurantName] = (acc[order.restaurantName] || 0) + 1;
+      return acc;
+    }, {} as Record<string, number>);
+  
+  const topRestaurants = Object.entries(frequentlyOrderedRestaurants)
+    .sort(([,a], [,b]) => b - a)
+    .slice(0, 3)
+    .map(([name, count]) => ({ name, count }));
 
   const handleEditProfile = () => {
     toast.info('Profile editing coming soon!');
@@ -84,6 +98,25 @@ export function ProfilePage() {
       month: 'short',
       day: 'numeric'
     });
+  };
+
+  const getStatusColor = (status: Order['status']) => {
+    switch (status) {
+      case 'pending':
+        return 'bg-yellow-100 text-yellow-800';
+      case 'confirmed':
+        return 'bg-blue-100 text-blue-800';
+      case 'preparing':
+        return 'bg-orange-100 text-orange-800';
+      case 'on_the_way':
+        return 'bg-purple-100 text-purple-800';
+      case 'delivered':
+        return 'bg-green-100 text-green-800';
+      case 'cancelled':
+        return 'bg-red-100 text-red-800';
+      default:
+        return 'bg-gray-100 text-gray-800';
+    }
   };
 
   return (
@@ -152,11 +185,11 @@ export function ProfilePage() {
             </Button>
           </div>
 
-          {/* Quick Reorder Section */}
-          {recentOrders.length > 0 && (
+          {/* Enhanced Recent Activity Section */}
+          {(recentOrders.length > 0 || topRestaurants.length > 0) && (
             <div className="mb-6">
               <div className="flex items-center justify-between mb-3">
-                <h3 className="font-semibold">Quick Reorder</h3>
+                <h3 className="font-semibold">Recent Activity</h3>
                 <Button 
                   variant="ghost" 
                   size="sm"
@@ -166,41 +199,78 @@ export function ProfilePage() {
                   View All
                 </Button>
               </div>
-              <div className="space-y-2">
-                {recentOrders.map((order) => (
-                  <Card key={order.id} className="p-3">
-                    <div className="flex items-center justify-between">
-                      <div className="flex-1 min-w-0">
-                        <h4 className="font-medium truncate">{order.restaurantName}</h4>
-                        <p className="text-sm text-muted-foreground">
-                          {formatDate(order.timestamp)} • {order.items.length} items • ${order.total.toFixed(2)}
-                        </p>
-                        <div className="flex items-center gap-1 mt-1">
-                          {order.items.slice(0, 2).map((item, index) => (
-                            <Badge key={index} variant="secondary" className="text-xs">
-                              {item.name}
+              
+              {/* Recent Orders */}
+              {recentOrders.length > 0 && (
+                <div className="space-y-2 mb-4">
+                  <h4 className="text-sm font-medium text-muted-foreground">Recent Orders</h4>
+                  {recentOrders.map((order) => (
+                    <Card key={order.id} className="p-3">
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-3 flex-1 min-w-0">
+                          <div className="w-10 h-10 bg-muted rounded-lg flex items-center justify-center flex-shrink-0">
+                            <ShoppingCart size={16} className="text-muted-foreground" />
+                          </div>
+                          <div className="flex-1 min-w-0">
+                            <h4 className="font-medium truncate">{order.restaurantName}</h4>
+                            <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                              <span>{formatDate(order.timestamp)}</span>
+                              <span>•</span>
+                              <span>{order.items.length} items</span>
+                              <span>•</span>
+                              <span>${order.total.toFixed(2)}</span>
+                            </div>
+                            <Badge 
+                              className={cn("text-xs mt-1", getStatusColor(order.status))}
+                              variant="secondary"
+                            >
+                              {order.status.replace('_', ' ')}
                             </Badge>
-                          ))}
-                          {order.items.length > 2 && (
-                            <Badge variant="secondary" className="text-xs">
-                              +{order.items.length - 2} more
-                            </Badge>
-                          )}
+                          </div>
                         </div>
+                        {order.status === 'delivered' && (
+                          <Button
+                            variant="outline"
+                            size="sm"
+                            onClick={() => handleQuickReorder(order)}
+                            className="ml-3 flex-shrink-0"
+                          >
+                            <ArrowsClockwise size={14} className="mr-1" />
+                            Reorder
+                          </Button>
+                        )}
                       </div>
-                      <Button
-                        variant="outline"
-                        size="sm"
-                        onClick={() => handleQuickReorder(order)}
-                        className="ml-3"
-                      >
-                        <ArrowsClockwise size={14} className="mr-1" />
-                        Reorder
-                      </Button>
-                    </div>
-                  </Card>
-                ))}
-              </div>
+                    </Card>
+                  ))}
+                </div>
+              )}
+
+              {/* Frequently Ordered Restaurants */}
+              {topRestaurants.length > 0 && (
+                <div className="space-y-2">
+                  <h4 className="text-sm font-medium text-muted-foreground">Your Favorites</h4>
+                  <div className="grid grid-cols-1 gap-2">
+                    {topRestaurants.map((restaurant, index) => (
+                      <Card key={restaurant.name} className="p-2">
+                        <div className="flex items-center gap-3">
+                          <div className="w-8 h-8 bg-gradient-to-r from-primary to-accent rounded-full flex items-center justify-center flex-shrink-0">
+                            <Star size={12} className="text-white fill-current" />
+                          </div>
+                          <div className="flex-1 min-w-0">
+                            <h5 className="font-medium text-sm truncate">{restaurant.name}</h5>
+                            <p className="text-xs text-muted-foreground">
+                              {restaurant.count} order{restaurant.count > 1 ? 's' : ''}
+                            </p>
+                          </div>
+                          <Badge variant="secondary" className="text-xs">
+                            #{index + 1}
+                          </Badge>
+                        </div>
+                      </Card>
+                    ))}
+                  </div>
+                </div>
+              )}
             </div>
           )}
         </div>
@@ -256,20 +326,109 @@ export function ProfilePage() {
           </TabsContent>
 
           <TabsContent value="favorites" className="mt-0">
-            <div className="p-6 text-center">
-              <Heart size={48} className="mx-auto mb-4 text-muted-foreground" />
-              <h3 className="text-lg font-semibold mb-2">Your Favorites</h3>
-              <p className="text-muted-foreground mb-4">
-                Save restaurants and dishes you love for quick access
-              </p>
-              <Button 
-                variant="outline"
-                onClick={() => setIsFavoritesOpen(true)}
-              >
-                <Heart size={16} className="mr-2" />
-                View Favorites
-              </Button>
-            </div>
+            {favoriteRestaurants.length === 0 && favoriteDishes.length === 0 ? (
+              <div className="p-6 text-center">
+                <Heart size={48} className="mx-auto mb-4 text-muted-foreground" />
+                <h3 className="text-lg font-semibold mb-2">Your Favorites</h3>
+                <p className="text-muted-foreground mb-4">
+                  Save restaurants and dishes you love for quick access
+                </p>
+                <Button 
+                  variant="outline"
+                  onClick={() => setIsFavoritesOpen(true)}
+                >
+                  <Heart size={16} className="mr-2" />
+                  Explore Favorites
+                </Button>
+              </div>
+            ) : (
+              <div className="p-4 space-y-4">
+                {favoriteRestaurants.length > 0 && (
+                  <div>
+                    <div className="flex items-center justify-between mb-3">
+                      <h4 className="font-semibold">Restaurants ({favoriteRestaurants.length})</h4>
+                      <Button 
+                        variant="ghost" 
+                        size="sm"
+                        onClick={() => setIsFavoritesOpen(true)}
+                        className="text-sm text-muted-foreground"
+                      >
+                        View All
+                      </Button>
+                    </div>
+                    <div className="grid grid-cols-2 gap-3">
+                      {favoriteRestaurants.slice(0, 4).map((restaurant: any) => (
+                        <Card key={restaurant.id} className="overflow-hidden">
+                          <div className="aspect-square bg-muted relative">
+                            <img
+                              src={restaurant.image}
+                              alt={restaurant.name}
+                              className="w-full h-full object-cover"
+                            />
+                            <div className="absolute top-2 right-2">
+                              <Heart size={16} className="text-red-500 fill-current" />
+                            </div>
+                          </div>
+                          <div className="p-2">
+                            <h5 className="font-medium text-sm truncate">{restaurant.name}</h5>
+                            <div className="flex items-center gap-1 mt-1">
+                              <Star size={10} className="text-yellow-400 fill-current" />
+                              <span className="text-xs text-muted-foreground">{restaurant.rating}</span>
+                            </div>
+                          </div>
+                        </Card>
+                      ))}
+                    </div>
+                  </div>
+                )}
+                
+                {favoriteDishes.length > 0 && (
+                  <div>
+                    <div className="flex items-center justify-between mb-3">
+                      <h4 className="font-semibold">Dishes ({favoriteDishes.length})</h4>
+                      <Button 
+                        variant="ghost" 
+                        size="sm"
+                        onClick={() => setIsFavoritesOpen(true)}
+                        className="text-sm text-muted-foreground"
+                      >
+                        View All
+                      </Button>
+                    </div>
+                    <div className="grid grid-cols-2 gap-3">
+                      {favoriteDishes.slice(0, 4).map((dish: any) => (
+                        <Card key={dish.id} className="overflow-hidden">
+                          <div className="aspect-square bg-muted relative">
+                            <img
+                              src={dish.image}
+                              alt={dish.name}
+                              className="w-full h-full object-cover"
+                            />
+                            <div className="absolute top-2 right-2">
+                              <Heart size={16} className="text-red-500 fill-current" />
+                            </div>
+                          </div>
+                          <div className="p-2">
+                            <h5 className="font-medium text-sm truncate">{dish.name}</h5>
+                            <p className="text-xs text-muted-foreground truncate">{dish.restaurantName}</p>
+                            <p className="text-sm font-bold mt-1">${dish.price.toFixed(2)}</p>
+                          </div>
+                        </Card>
+                      ))}
+                    </div>
+                  </div>
+                )}
+                
+                <Button 
+                  variant="outline"
+                  className="w-full"
+                  onClick={() => setIsFavoritesOpen(true)}
+                >
+                  <Heart size={16} className="mr-2" />
+                  Manage All Favorites
+                </Button>
+              </div>
+            )}
           </TabsContent>
 
           <TabsContent value="saved" className="mt-0">
