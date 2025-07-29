@@ -24,7 +24,8 @@ import {
   X,
   Images,
   ArrowRight,
-  ArrowLeft as ArrowLeftIcon
+  ArrowLeft as ArrowLeftIcon,
+  Storefront
 } from '@phosphor-icons/react';
 import { toast } from 'sonner';
 import { cn } from '@/lib/utils';
@@ -129,6 +130,7 @@ export function RestaurantProfile({ restaurantId, onBack }: RestaurantProfilePro
   const [activeTab, setActiveTab] = useState<'reviews' | 'posts' | 'menu' | 'gallery'>('reviews');
   const [selectedImageIndex, setSelectedImageIndex] = useState<number | null>(null);
   const [showAwardsPage, setShowAwardsPage] = useState(false);
+  const [showDeliveryPage, setShowDeliveryPage] = useState(false);
   const device = useDevice();
 
   const handleLikeReview = (reviewId: string) => {
@@ -221,7 +223,26 @@ export function RestaurantProfile({ restaurantId, onBack }: RestaurantProfilePro
     setShowAwardsPage(false);
   };
 
+  const handleShowDelivery = () => {
+    setShowDeliveryPage(true);
+  };
+
+  const handleBackFromDelivery = () => {
+    setShowDeliveryPage(false);
+  };
+
   const padding = device.type === 'tablet' ? 'p-6' : 'p-4';
+
+  // Show delivery page if requested
+  if (showDeliveryPage) {
+    return (
+      <RestaurantDeliveryPage 
+        restaurantId={restaurantId}
+        restaurant={restaurant}
+        onBack={handleBackFromDelivery}
+      />
+    );
+  }
 
   // Show awards page if requested
   if (showAwardsPage) {
@@ -256,6 +277,14 @@ export function RestaurantProfile({ restaurantId, onBack }: RestaurantProfilePro
           </Button>
           
           <div className="flex items-center gap-2">
+            <Button
+              onClick={handleShowDelivery}
+              variant="ghost"
+              size="sm"
+              className="bg-black/50 hover:bg-black/70 text-white h-10 w-10 p-0 rounded-full backdrop-blur-sm"
+            >
+              <Storefront size={18} />
+            </Button>
             <Button
               onClick={handleShowAwards}
               variant="ghost"
@@ -1314,6 +1343,449 @@ function generateMockGallery(): GalleryImage[] {
       timestamp: Date.now() - 1296000000,
       likes: 289,
       isLiked: true
+    }
+  ];
+}
+
+// Restaurant Delivery Page Component
+interface RestaurantDeliveryPageProps {
+  restaurantId: string;
+  restaurant: Restaurant;
+  onBack: () => void;
+}
+
+interface DeliveryItem {
+  id: string;
+  name: string;
+  description: string;
+  price: number;
+  originalPrice?: number;
+  image: string;
+  category: string;
+  cookingTime: string;
+  rating: number;
+  reviewCount: number;
+  isPopular: boolean;
+  customizations: string[];
+  tags: string[];
+}
+
+function RestaurantDeliveryPage({ restaurantId, restaurant, onBack }: RestaurantDeliveryPageProps) {
+  const [deliveryItems] = useKV<DeliveryItem[]>(`delivery-items-${restaurantId}`, generateDeliveryItems());
+  const [cart, setCart] = useKV<{id: string, quantity: number, customizations: string[]}[]>('delivery-cart', []);
+  const [selectedCategory, setSelectedCategory] = useState<string>('all');
+  const device = useDevice();
+
+  const categories = ['all', ...new Set(deliveryItems.map(item => item.category))];
+  const filteredItems = selectedCategory === 'all' 
+    ? deliveryItems 
+    : deliveryItems.filter(item => item.category === selectedCategory);
+
+  const getCartItemCount = () => {
+    return cart.reduce((total, item) => total + item.quantity, 0);
+  };
+
+  const getCartTotal = () => {
+    return cart.reduce((total, cartItem) => {
+      const item = deliveryItems.find(i => i.id === cartItem.id);
+      return total + (item ? item.price * cartItem.quantity : 0);
+    }, 0);
+  };
+
+  const addToCart = (itemId: string) => {
+    setCart(currentCart => {
+      const existingItem = currentCart.find(item => item.id === itemId);
+      if (existingItem) {
+        return currentCart.map(item =>
+          item.id === itemId 
+            ? { ...item, quantity: item.quantity + 1 }
+            : item
+        );
+      } else {
+        return [...currentCart, { id: itemId, quantity: 1, customizations: [] }];
+      }
+    });
+    toast.success('Added to cart!');
+  };
+
+  const removeFromCart = (itemId: string) => {
+    setCart(currentCart => {
+      const existingItem = currentCart.find(item => item.id === itemId);
+      if (existingItem && existingItem.quantity > 1) {
+        return currentCart.map(item =>
+          item.id === itemId 
+            ? { ...item, quantity: item.quantity - 1 }
+            : item
+        );
+      } else {
+        return currentCart.filter(item => item.id !== itemId);
+      }
+    });
+  };
+
+  const getItemQuantity = (itemId: string) => {
+    const cartItem = cart.find(item => item.id === itemId);
+    return cartItem ? cartItem.quantity : 0;
+  };
+
+  const padding = device.type === 'tablet' ? 'p-6' : 'p-4';
+
+  return (
+    <div className="h-full bg-background flex flex-col">
+      {/* Header */}
+      <div className="bg-background border-b border-border safe-top">
+        <div className="flex items-center justify-between p-4">
+          <Button
+            onClick={onBack}
+            variant="ghost"
+            size="sm"
+            className="h-10 w-10 p-0 rounded-full"
+          >
+            <ArrowLeft size={18} />
+          </Button>
+          
+          <div className="text-center">
+            <h1 className="font-bold text-lg">{restaurant.name}</h1>
+            <p className="text-sm text-muted-foreground">Delivery • 25-35 min</p>
+          </div>
+
+          <div className="w-10" /> {/* Spacer */}
+        </div>
+
+        {/* Restaurant Info Bar */}
+        <div className="flex items-center gap-4 px-4 pb-4">
+          <Avatar className="w-12 h-12">
+            <AvatarImage src={restaurant.avatar} />
+            <AvatarFallback>{restaurant.name[0]}</AvatarFallback>
+          </Avatar>
+          <div className="flex-1">
+            <div className="flex items-center gap-2">
+              <div className="flex items-center gap-1">
+                <Star size={14} className="text-yellow-400 fill-current" />
+                <span className="font-semibold text-sm">{restaurant.rating}</span>
+              </div>
+              <span className="text-sm text-muted-foreground">•</span>
+              <span className="text-sm text-muted-foreground">$2.99 delivery</span>
+              <span className="text-sm text-muted-foreground">•</span>
+              <span className="text-sm text-muted-foreground">$15 min</span>
+            </div>
+            <p className="text-xs text-muted-foreground mt-1">{restaurant.location}</p>
+          </div>
+        </div>
+
+        {/* Category Filter */}
+        <div className="px-4 pb-4">
+          <div className="flex gap-2 overflow-x-auto scrollbar-hide">
+            {categories.map((category) => (
+              <Button
+                key={category}
+                variant={selectedCategory === category ? "default" : "outline"}
+                size="sm"
+                onClick={() => setSelectedCategory(category)}
+                className="flex-shrink-0 capitalize"
+              >
+                {category === 'all' ? 'All Items' : category}
+              </Button>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* Items List */}
+      <div className="flex-1 overflow-y-auto scrollbar-hide">
+        <div className={cn("space-y-4", padding, "pb-24")}>
+          {/* Popular Items */}
+          {selectedCategory === 'all' && (
+            <div className="mb-6">
+              <h2 className="text-lg font-semibold mb-3">Popular Items</h2>
+              <div className="space-y-3">
+                {deliveryItems.filter(item => item.isPopular).slice(0, 3).map((item) => (
+                  <DeliveryItemCard 
+                    key={item.id}
+                    item={item}
+                    quantity={getItemQuantity(item.id)}
+                    onAdd={() => addToCart(item.id)}
+                    onRemove={() => removeFromCart(item.id)}
+                  />
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* All Items by Category */}
+          {categories.filter(cat => cat !== 'all').map(category => {
+            const categoryItems = filteredItems.filter(item => item.category === category);
+            if (categoryItems.length === 0) return null;
+
+            return (
+              <div key={category} className="mb-6">
+                <h2 className="text-lg font-semibold mb-3 capitalize">{category}</h2>
+                <div className="space-y-3">
+                  {categoryItems.map((item) => (
+                    <DeliveryItemCard 
+                      key={item.id}
+                      item={item}
+                      quantity={getItemQuantity(item.id)}
+                      onAdd={() => addToCart(item.id)}
+                      onRemove={() => removeFromCart(item.id)}
+                    />
+                  ))}
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+
+      {/* Cart Summary - Fixed Bottom */}
+      {getCartItemCount() > 0 && (
+        <div className="fixed bottom-0 left-0 right-0 bg-primary text-primary-foreground p-4 safe-bottom">
+          <div className="flex items-center justify-between">
+            <div>
+              <span className="font-semibold">
+                {getCartItemCount()} {getCartItemCount() === 1 ? 'item' : 'items'}
+              </span>
+              <span className="text-primary-foreground/80 ml-2">in cart</span>
+            </div>
+            <div className="flex items-center gap-3">
+              <span className="font-bold text-lg">
+                ${getCartTotal().toFixed(2)}
+              </span>
+              <Button 
+                variant="secondary"
+                size="sm"
+                className="bg-white text-primary hover:bg-white/90"
+              >
+                View Cart
+              </Button>
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
+interface DeliveryItemCardProps {
+  item: DeliveryItem;
+  quantity: number;
+  onAdd: () => void;
+  onRemove: () => void;
+}
+
+function DeliveryItemCard({ item, quantity, onAdd, onRemove }: DeliveryItemCardProps) {
+  return (
+    <div className="bg-card rounded-lg border border-border overflow-hidden">
+      <div className="flex">
+        <div className="flex-1 p-4">
+          <div className="flex items-start justify-between mb-2">
+            <div className="flex-1">
+              <div className="flex items-center gap-2 mb-1">
+                <h3 className="font-semibold">{item.name}</h3>
+                {item.isPopular && (
+                  <Badge variant="secondary" className="text-xs bg-orange-100 text-orange-600">
+                    Popular
+                  </Badge>
+                )}
+              </div>
+              <p className="text-sm text-muted-foreground line-clamp-2 mb-2">
+                {item.description}
+              </p>
+              
+              {/* Rating & Cook Time */}
+              <div className="flex items-center gap-3 mb-2">
+                <div className="flex items-center gap-1">
+                  <Star size={12} className="text-yellow-400 fill-current" />
+                  <span className="text-sm font-medium">{item.rating}</span>
+                  <span className="text-xs text-muted-foreground">({item.reviewCount})</span>
+                </div>
+                <span className="text-xs text-muted-foreground">•</span>
+                <span className="text-xs text-muted-foreground">{item.cookingTime}</span>
+              </div>
+
+              {/* Price */}
+              <div className="flex items-center gap-2 mb-2">
+                <span className="text-lg font-bold">${item.price}</span>
+                {item.originalPrice && (
+                  <span className="text-sm text-muted-foreground line-through">
+                    ${item.originalPrice}
+                  </span>
+                )}
+              </div>
+
+              {/* Tags */}
+              <div className="flex flex-wrap gap-1">
+                {item.tags.slice(0, 2).map((tag, index) => (
+                  <span key={index} className="text-xs text-blue-500">{tag}</span>
+                ))}
+              </div>
+            </div>
+          </div>
+          
+          {/* Add/Remove Controls */}
+          {quantity > 0 ? (
+            <div className="flex items-center gap-3">
+              <Button
+                onClick={onRemove}
+                variant="outline"
+                size="sm"
+                className="h-8 w-8 p-0 rounded-full"
+              >
+                -
+              </Button>
+              <span className="font-semibold min-w-[2ch] text-center">{quantity}</span>
+              <Button
+                onClick={onAdd}
+                variant="default"
+                size="sm"
+                className="h-8 w-8 p-0 rounded-full"
+              >
+                +
+              </Button>
+            </div>
+          ) : (
+            <Button
+              onClick={onAdd}
+              size="sm"
+              className="w-full"
+            >
+              Add to Cart
+            </Button>
+          )}
+        </div>
+        
+        {/* Item Image */}
+        <div className="w-24 h-24 flex-shrink-0 relative">
+          <img
+            src={item.image}
+            alt={item.name}
+            className="w-full h-full object-cover"
+          />
+          {quantity > 0 && (
+            <div className="absolute -top-1 -right-1 bg-primary text-primary-foreground rounded-full w-6 h-6 flex items-center justify-center text-xs font-bold">
+              {quantity}
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function generateDeliveryItems(): DeliveryItem[] {
+  return [
+    {
+      id: '1',
+      name: 'Margherita Pizza',
+      description: 'Fresh mozzarella, basil, and San Marzano tomatoes on our signature wood-fired crust',
+      price: 18.99,
+      originalPrice: 21.99,
+      image: 'https://images.unsplash.com/photo-1565299624946-b28f40a0ca4b?w=200&h=200&fit=crop',
+      category: 'Pizza',
+      cookingTime: '15-20 min',
+      rating: 4.8,
+      reviewCount: 124,
+      isPopular: true,
+      customizations: ['Extra Cheese', 'Gluten-Free Crust', 'Extra Basil'],
+      tags: ['#Vegetarian', '#Classic', '#Wood-Fired']
+    },
+    {
+      id: '2',
+      name: 'Truffle Risotto',
+      description: 'Creamy Arborio rice with black truffle shavings and aged Parmigiano-Reggiano',
+      price: 32.99,
+      image: 'https://images.unsplash.com/photo-1565299624946-b28f40a0ca4b?w=200&h=200&fit=crop',
+      category: 'Mains',
+      cookingTime: '25-30 min',
+      rating: 4.9,
+      reviewCount: 89,
+      isPopular: true,
+      customizations: ['Extra Truffle', 'Vegetarian Option'],
+      tags: ['#Truffle', '#Premium', '#Vegetarian']
+    },
+    {
+      id: '3',
+      name: 'Prosciutto & Arugula Pizza',
+      description: 'San Daniele prosciutto, fresh arugula, and shaved parmesan on white sauce base',
+      price: 24.99,
+      image: 'https://images.unsplash.com/photo-1565299507177-b0ac66763828?w=200&h=200&fit=crop',
+      category: 'Pizza',
+      cookingTime: '15-20 min',
+      rating: 4.7,
+      reviewCount: 156,
+      isPopular: true,
+      customizations: ['Extra Prosciutto', 'No Arugula', 'Gluten-Free Crust'],
+      tags: ['#Prosciutto', '#Arugula', '#White Sauce']
+    },
+    {
+      id: '4',
+      name: 'Burrata Caprese',
+      description: 'Fresh burrata with heirloom tomatoes, basil, and aged balsamic reduction',
+      price: 16.99,
+      image: 'https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=200&h=200&fit=crop',
+      category: 'Appetizers',
+      cookingTime: '5-10 min',
+      rating: 4.6,
+      reviewCount: 98,
+      isPopular: false,
+      customizations: ['Extra Burrata', 'No Balsamic'],
+      tags: ['#Fresh', '#Vegetarian', '#Caprese']
+    },
+    {
+      id: '5',
+      name: 'Osso Buco',
+      description: 'Slow-braised veal shanks with saffron risotto and gremolata',
+      price: 45.99,
+      image: 'https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=200&h=200&fit=crop',
+      category: 'Mains',
+      cookingTime: '35-40 min',
+      rating: 4.8,
+      reviewCount: 67,
+      isPopular: false,
+      customizations: ['Extra Sauce', 'No Gremolata'],
+      tags: ['#Signature', '#Braised', '#Traditional']
+    },
+    {
+      id: '6',
+      name: 'Tiramisu',
+      description: 'Classic Italian dessert with espresso-soaked ladyfingers and mascarpone',
+      price: 12.99,
+      image: 'https://images.unsplash.com/photo-1571877227200-a0d98ea607e9?w=200&h=200&fit=crop',
+      category: 'Desserts',
+      cookingTime: 'Ready now',
+      rating: 4.9,
+      reviewCount: 203,
+      isPopular: true,
+      customizations: ['Extra Cocoa', 'Decaf Version'],
+      tags: ['#Classic', '#Espresso', '#Mascarpone']
+    },
+    {
+      id: '7',
+      name: 'Caesar Salad',
+      description: 'Crisp romaine lettuce with parmesan, croutons, and our house-made Caesar dressing',
+      price: 14.99,
+      image: 'https://images.unsplash.com/photo-1512852939750-1305098529bf?w=200&h=200&fit=crop',
+      category: 'Salads',
+      cookingTime: '5-10 min',
+      rating: 4.4,
+      reviewCount: 87,
+      isPopular: false,
+      customizations: ['Add Chicken', 'Add Shrimp', 'No Croutons'],
+      tags: ['#Classic', '#Crispy', '#Fresh']
+    },
+    {
+      id: '8',
+      name: 'Gelato Trio',
+      description: 'Three scoops of our artisanal gelato: pistachio, stracciatella, and limoncello',
+      price: 9.99,
+      image: 'https://images.unsplash.com/photo-1567206563064-6f60f40a2b57?w=200&h=200&fit=crop',
+      category: 'Desserts',
+      cookingTime: 'Ready now',
+      rating: 4.7,
+      reviewCount: 142,
+      isPopular: false,
+      customizations: ['Different Flavors', 'Extra Scoop'],
+      tags: ['#Artisanal', '#Italian', '#Fresh']
     }
   ];
 }
