@@ -19,7 +19,11 @@ import {
   Play,
   DotsThree,
   Camera,
-  Plus
+  Plus,
+  X,
+  Images,
+  ArrowRight,
+  ArrowLeft as ArrowLeftIcon
 } from '@phosphor-icons/react';
 import { toast } from 'sonner';
 import { cn } from '@/lib/utils';
@@ -105,12 +109,24 @@ interface MenuItem {
   tags: string[];
 }
 
+interface GalleryImage {
+  id: string;
+  url: string;
+  caption: string;
+  category: 'food' | 'interior' | 'exterior' | 'staff' | 'events';
+  timestamp: number;
+  likes: number;
+  isLiked: boolean;
+}
+
 export function RestaurantProfile({ restaurantId, onBack }: RestaurantProfileProps) {
   const [restaurant, setRestaurant] = useKV<Restaurant>(`restaurant-${restaurantId}`, generateMockRestaurant(restaurantId));
   const [reviews, setReviews] = useKV<Review[]>(`restaurant-reviews-${restaurantId}`, generateMockReviews());
   const [posts, setPosts] = useKV<RestaurantPost[]>(`restaurant-posts-${restaurantId}`, generateMockPosts());
   const [menuItems, setMenuItems] = useKV<MenuItem[]>(`restaurant-menu-${restaurantId}`, generateMockMenu());
-  const [activeTab, setActiveTab] = useState<'reviews' | 'posts' | 'menu'>('reviews');
+  const [galleryImages, setGalleryImages] = useKV<GalleryImage[]>(`restaurant-gallery-${restaurantId}`, generateMockGallery());
+  const [activeTab, setActiveTab] = useState<'reviews' | 'posts' | 'menu' | 'gallery'>('reviews');
+  const [selectedImageIndex, setSelectedImageIndex] = useState<number | null>(null);
   const device = useDevice();
 
   const handleLikeReview = (reviewId: string) => {
@@ -131,6 +147,34 @@ export function RestaurantProfile({ restaurantId, onBack }: RestaurantProfilePro
           : post
       )
     );
+  };
+
+  const handleLikeGalleryImage = (imageId: string) => {
+    setGalleryImages(current =>
+      current.map(image =>
+        image.id === imageId
+          ? { ...image, isLiked: !image.isLiked, likes: image.isLiked ? image.likes - 1 : image.likes + 1 }
+          : image
+      )
+    );
+  };
+
+  const openImageViewer = (index: number) => {
+    setSelectedImageIndex(index);
+  };
+
+  const closeImageViewer = () => {
+    setSelectedImageIndex(null);
+  };
+
+  const navigateImage = (direction: 'prev' | 'next') => {
+    if (selectedImageIndex === null) return;
+    
+    if (direction === 'prev') {
+      setSelectedImageIndex(selectedImageIndex > 0 ? selectedImageIndex - 1 : galleryImages.length - 1);
+    } else {
+      setSelectedImageIndex(selectedImageIndex < galleryImages.length - 1 ? selectedImageIndex + 1 : 0);
+    }
   };
 
   const handleFollow = () => {
@@ -329,6 +373,12 @@ export function RestaurantProfile({ restaurantId, onBack }: RestaurantProfilePro
               Posts
             </TabsTrigger>
             <TabsTrigger
+              value="gallery"
+              className="flex-1 h-full data-[state=active]:bg-transparent data-[state=active]:shadow-none data-[state=active]:border-b-2 data-[state=active]:border-primary rounded-none"
+            >
+              Gallery
+            </TabsTrigger>
+            <TabsTrigger
               value="menu"
               className="flex-1 h-full data-[state=active]:bg-transparent data-[state=active]:shadow-none data-[state=active]:border-b-2 data-[state=active]:border-primary rounded-none"
             >
@@ -351,6 +401,14 @@ export function RestaurantProfile({ restaurantId, onBack }: RestaurantProfilePro
           <PostsSection
             posts={posts}
             onLikePost={handleLikePost}
+            padding={padding}
+          />
+        )}
+        {activeTab === 'gallery' && (
+          <GallerySection
+            images={galleryImages}
+            onLikeImage={handleLikeGalleryImage}
+            onImageClick={openImageViewer}
             padding={padding}
           />
         )}
@@ -389,6 +447,17 @@ export function RestaurantProfile({ restaurantId, onBack }: RestaurantProfilePro
           </Button>
         </div>
       </div>
+
+      {/* Image Viewer Modal */}
+      {selectedImageIndex !== null && (
+        <ImageViewer
+          images={galleryImages}
+          currentIndex={selectedImageIndex}
+          onClose={closeImageViewer}
+          onNavigate={navigateImage}
+          onLike={handleLikeGalleryImage}
+        />
+      )}
     </div>
   );
 }
@@ -619,7 +688,216 @@ interface MenuSectionProps {
   padding: string;
 }
 
-function MenuSection({ menuItems, padding }: MenuSectionProps) {
+interface GallerySectionProps {
+  images: GalleryImage[];
+  onLikeImage: (imageId: string) => void;
+  onImageClick: (index: number) => void;
+  padding: string;
+}
+
+interface ImageViewerProps {
+  images: GalleryImage[];
+  currentIndex: number;
+  onClose: () => void;
+  onNavigate: (direction: 'prev' | 'next') => void;
+  onLike: (imageId: string) => void;
+}
+
+function GallerySection({ images, onLikeImage, onImageClick, padding }: GallerySectionProps) {
+  const [selectedCategory, setSelectedCategory] = useState<string>('all');
+  
+  const categories = ['all', ...new Set(images.map(img => img.category))];
+  const filteredImages = selectedCategory === 'all' 
+    ? images 
+    : images.filter(img => img.category === selectedCategory);
+
+  const getCategoryLabel = (category: string) => {
+    const labels: Record<string, string> = {
+      all: 'All',
+      food: 'Food',
+      interior: 'Interior',
+      exterior: 'Exterior',
+      staff: 'Staff',
+      events: 'Events'
+    };
+    return labels[category] || category;
+  };
+
+  return (
+    <div className={cn("pb-20", padding)}>
+      {/* Category Filter */}
+      <div className="mb-4">
+        <div className="flex gap-2 overflow-x-auto scrollbar-hide pb-2">
+          {categories.map((category) => (
+            <Button
+              key={category}
+              variant={selectedCategory === category ? "default" : "outline"}
+              size="sm"
+              onClick={() => setSelectedCategory(category)}
+              className="flex-shrink-0 capitalize"
+            >
+              {getCategoryLabel(category)}
+            </Button>
+          ))}
+        </div>
+      </div>
+
+      {/* Images Grid */}
+      <div className="grid grid-cols-2 gap-2 md:grid-cols-3">
+        {filteredImages.map((image, index) => (
+          <div 
+            key={image.id}
+            className="relative aspect-square bg-muted rounded-lg overflow-hidden cursor-pointer group"
+            onClick={() => onImageClick(images.indexOf(image))}
+          >
+            <img
+              src={image.url}
+              alt={image.caption}
+              className="w-full h-full object-cover transition-transform group-hover:scale-105"
+            />
+            
+            {/* Overlay on hover */}
+            <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-end">
+              <div className="p-3 w-full">
+                <p className="text-white text-sm font-medium line-clamp-2">
+                  {image.caption}
+                </p>
+                <div className="flex items-center justify-between mt-2">
+                  <Badge 
+                    variant="secondary" 
+                    className="text-xs bg-white/20 text-white border-white/30"
+                  >
+                    {getCategoryLabel(image.category)}
+                  </Badge>
+                  <div className="flex items-center gap-1 text-white">
+                    <Heart 
+                      size={14} 
+                      className={cn(
+                        image.isLiked ? "fill-current text-red-400" : ""
+                      )}
+                    />
+                    <span className="text-xs">{image.likes}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Like indicator */}
+            {image.isLiked && (
+              <div className="absolute top-2 right-2">
+                <Heart size={16} className="text-red-500 fill-current" />
+              </div>
+            )}
+          </div>
+        ))}
+      </div>
+
+      {/* Empty state */}
+      {filteredImages.length === 0 && (
+        <div className="text-center py-12">
+          <Images size={48} className="mx-auto text-muted-foreground mb-4" />
+          <h3 className="text-lg font-medium mb-2">No images found</h3>
+          <p className="text-muted-foreground">
+            No images in this category yet.
+          </p>
+        </div>
+      )}
+    </div>
+  );
+}
+
+function ImageViewer({ images, currentIndex, onClose, onNavigate, onLike }: ImageViewerProps) {
+  const currentImage = images[currentIndex];
+
+  if (!currentImage) return null;
+
+  return (
+    <div className="fixed inset-0 bg-black z-50 flex items-center justify-center">
+      {/* Header */}
+      <div className="absolute top-0 left-0 right-0 z-10 p-4 bg-gradient-to-b from-black/80 to-transparent safe-top">
+        <div className="flex items-center justify-between">
+          <Button
+            onClick={onClose}
+            variant="ghost"
+            size="sm"
+            className="text-white hover:bg-white/20 h-10 w-10 p-0 rounded-full"
+          >
+            <X size={20} />
+          </Button>
+          
+          <div className="text-center text-white">
+            <span className="text-sm">
+              {currentIndex + 1} of {images.length}
+            </span>
+          </div>
+          
+          <Button
+            onClick={() => onLike(currentImage.id)}
+            variant="ghost"
+            size="sm"
+            className="text-white hover:bg-white/20 h-10 w-10 p-0 rounded-full"
+          >
+            <Heart 
+              size={20} 
+              className={cn(
+                currentImage.isLiked ? "fill-current text-red-400" : ""
+              )}
+            />
+          </Button>
+        </div>
+      </div>
+
+      {/* Main Image */}
+      <div className="relative w-full h-full flex items-center justify-center p-4">
+        <img
+          src={currentImage.url}
+          alt={currentImage.caption}
+          className="max-w-full max-h-full object-contain"
+        />
+        
+        {/* Navigation Buttons */}
+        {images.length > 1 && (
+          <>
+            <Button
+              onClick={() => onNavigate('prev')}
+              variant="ghost"
+              size="lg"
+              className="absolute left-4 top-1/2 -translate-y-1/2 text-white hover:bg-white/20 h-12 w-12 p-0 rounded-full"
+            >
+              <ArrowLeftIcon size={24} />
+            </Button>
+            
+            <Button
+              onClick={() => onNavigate('next')}
+              variant="ghost"
+              size="lg"
+              className="absolute right-4 top-1/2 -translate-y-1/2 text-white hover:bg-white/20 h-12 w-12 p-0 rounded-full"
+            >
+              <ArrowRight size={24} />
+            </Button>
+          </>
+        )}
+      </div>
+
+      {/* Bottom Info */}
+      <div className="absolute bottom-0 left-0 right-0 z-10 p-4 bg-gradient-to-t from-black/80 to-transparent safe-bottom">
+        <div className="text-center text-white">
+          <h3 className="font-medium mb-1">{currentImage.caption}</h3>
+          <div className="flex items-center justify-center gap-4 text-sm text-white/80">
+            <Badge variant="secondary" className="bg-white/20 text-white border-white/30">
+              {currentImage.category}
+            </Badge>
+            <div className="flex items-center gap-1">
+              <Heart size={14} />
+              <span>{currentImage.likes} likes</span>
+            </div>
+            <span>{new Date(currentImage.timestamp).toLocaleDateString()}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
   const categories = [...new Set(menuItems.map(item => item.category))];
 
   return (
@@ -871,6 +1149,155 @@ function generateMockMenu(): MenuItem[] {
       hasArPreview: false,
       isPopular: true,
       tags: ['#Classic', '#Espresso']
+    }
+  ];
+}
+
+function generateMockGallery(): GalleryImage[] {
+  return [
+    // Food Images
+    {
+      id: '1',
+      url: 'https://images.unsplash.com/photo-1565299624946-b28f40a0ca4b?w=600&h=600&fit=crop',
+      caption: 'Fresh seafood risotto with perfectly cooked prawns',
+      category: 'food',
+      timestamp: Date.now() - 86400000,
+      likes: 45,
+      isLiked: false
+    },
+    {
+      id: '2',
+      url: 'https://images.unsplash.com/photo-1546833999-b9f581a1996d?w=600&h=600&fit=crop',
+      caption: 'Handmade pasta with truffle oil and parmesan',
+      category: 'food',
+      timestamp: Date.now() - 172800000,
+      likes: 67,
+      isLiked: true
+    },
+    {
+      id: '3',
+      url: 'https://images.unsplash.com/photo-1565299507177-b0ac66763828?w=600&h=600&fit=crop',
+      caption: 'Wood-fired Margherita pizza with fresh basil',
+      category: 'food',
+      timestamp: Date.now() - 259200000,
+      likes: 89,
+      isLiked: false
+    },
+    {
+      id: '4',
+      url: 'https://images.unsplash.com/photo-1571877227200-a0d98ea607e9?w=600&h=600&fit=crop',
+      caption: 'Classic tiramisu with espresso and mascarpone',
+      category: 'food',
+      timestamp: Date.now() - 345600000,
+      likes: 34,
+      isLiked: true
+    },
+    {
+      id: '5',
+      url: 'https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=600&h=600&fit=crop',
+      caption: 'Braised osso buco with saffron risotto',
+      category: 'food',
+      timestamp: Date.now() - 432000000,
+      likes: 56,
+      isLiked: false
+    },
+    
+    // Interior Images
+    {
+      id: '6',
+      url: 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=600&h=600&fit=crop',
+      caption: 'Elegant dining room with warm ambient lighting',
+      category: 'interior',
+      timestamp: Date.now() - 518400000,
+      likes: 123,
+      isLiked: true
+    },
+    {
+      id: '7',
+      url: 'https://images.unsplash.com/photo-1600891964092-4316c288032e?w=600&h=600&fit=crop',
+      caption: 'Cozy booth seating perfect for intimate dinners',
+      category: 'interior',
+      timestamp: Date.now() - 604800000,
+      likes: 78,
+      isLiked: false
+    },
+    {
+      id: '8',
+      url: 'https://images.unsplash.com/photo-1559329007-40df8a9345d8?w=600&h=600&fit=crop',
+      caption: 'Open kitchen showcasing our culinary artistry',
+      category: 'interior',
+      timestamp: Date.now() - 691200000,
+      likes: 92,
+      isLiked: true
+    },
+    
+    // Exterior Images
+    {
+      id: '9',
+      url: 'https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=600&h=600&fit=crop',
+      caption: 'Beautiful outdoor terrace with garden views',
+      category: 'exterior',
+      timestamp: Date.now() - 777600000,
+      likes: 156,
+      isLiked: false
+    },
+    {
+      id: '10',
+      url: 'https://images.unsplash.com/photo-1424847651672-bf20a4b0982b?w=600&h=600&fit=crop',
+      caption: 'Charming entrance with traditional Italian architecture',
+      category: 'exterior',
+      timestamp: Date.now() - 864000000,
+      likes: 87,
+      isLiked: true
+    },
+    
+    // Staff Images
+    {
+      id: '11',
+      url: 'https://images.unsplash.com/photo-1577219491135-ce391730fb2c?w=600&h=600&fit=crop',
+      caption: 'Chef Antonio preparing fresh pasta in the kitchen',
+      category: 'staff',
+      timestamp: Date.now() - 950400000,
+      likes: 234,
+      isLiked: true
+    },
+    {
+      id: '12',
+      url: 'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=600&h=600&fit=crop',
+      caption: 'Our dedicated team ready to serve you',
+      category: 'staff',
+      timestamp: Date.now() - 1036800000,
+      likes: 145,
+      isLiked: false
+    },
+    
+    // Events Images
+    {
+      id: '13',
+      url: 'https://images.unsplash.com/photo-1530062845289-9109b2ca2b35?w=600&h=600&fit=crop',
+      caption: 'Wine tasting event featuring local Italian vintages',
+      category: 'events',
+      timestamp: Date.now() - 1123200000,
+      likes: 198,
+      isLiked: true
+    },
+    {
+      id: '14',
+      url: 'https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=600&h=600&fit=crop',
+      caption: 'Live cooking demonstration with Chef Antonio',
+      category: 'events',
+      timestamp: Date.now() - 1209600000,
+      likes: 167,
+      isLiked: false
+    },
+    {
+      id: '15',
+      url: 'https://images.unsplash.com/photo-1519671482749-fd09be7ccebf?w=600&h=600&fit=crop',
+      caption: 'Private dining event in our exclusive wine cellar',
+      category: 'events',
+      timestamp: Date.now() - 1296000000,
+      likes: 289,
+      isLiked: true
     }
   ];
 }
