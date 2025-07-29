@@ -172,3 +172,49 @@ export interface Quest {
   imageUrl: string;
   description: string;
 }
+
+// Cart and Checkout types
+export interface CartItem {
+  id: string;
+  restaurantId: string;
+  restaurantName: string;
+  itemId: string;
+  name: string;
+  description: string;
+  price: number;
+  image: string;
+  quantity: number;
+  customizations?: string[];
+}
+
+export interface DeliveryInfo {
+  address: string;
+  instructions?: string;
+  estimatedTime: string;
+  fee: number;
+}
+
+export interface PaymentMethod {
+  id: string;
+  type: 'card' | 'paypal' | 'apple_pay' | 'google_pay';
+  last4?: string;
+  cardType?: 'visa' | 'mastercard' | 'amex';
+  isDefault: boolean;
+}
+
+export interface Order {
+  id: string;
+  restaurantId: string;
+  restaurantName: string;
+  items: CartItem[];
+  subtotal: number;
+  deliveryFee: number;
+  tip: number;
+  tax: number;
+  total: number;
+  deliveryInfo: DeliveryInfo;
+  paymentMethod: PaymentMethod;
+  status: 'pending' | 'confirmed' | 'preparing' | 'on_the_way' | 'delivered' | 'cancelled';
+  timestamp: number;
+  estimatedDelivery: string;
+}

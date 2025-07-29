@@ -6,9 +6,10 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Grid3X3, Heart, MessageCircle, Settings, Plus, Camera } from '@phosphor-icons/react';
+import { Grid3X3, Heart, MessageCircle, Settings, Plus, Camera, ClockCounterClockwise } from '@phosphor-icons/react';
 import { CreatePostModal } from '@/components/CreatePostModal';
 import { CreateStoryModal } from '@/components/CreateStoryModal';
+import { OrderHistory } from '@/components/OrderHistory';
 import { useDevice } from '@/hooks/use-device';
 import { cn } from '@/lib/utils';
 import { toast } from 'sonner';
@@ -18,6 +19,7 @@ export function ProfilePage() {
   const [posts] = useKV<PostType[]>('posts', generateMockPosts());
   const [isCreatePostOpen, setIsCreatePostOpen] = useState(false);
   const [isCreateStoryOpen, setIsCreateStoryOpen] = useState(false);
+  const [isOrderHistoryOpen, setIsOrderHistoryOpen] = useState(false);
   const device = useDevice();
   
   const userPosts = posts.filter(post => post.userId === currentUser.id);
@@ -87,8 +89,10 @@ export function ProfilePage() {
             <Button 
               variant="secondary" 
               className="flex-1"
+              onClick={() => setIsOrderHistoryOpen(true)}
             >
-              Share Profile
+              <ClockCounterClockwise size={16} className="mr-2" />
+              Orders
             </Button>
           </div>
         </div>
@@ -206,6 +210,12 @@ export function ProfilePage() {
       <CreateStoryModal 
         open={isCreateStoryOpen} 
         onOpenChange={setIsCreateStoryOpen}
+      />
+
+      {/* Order History Modal */}
+      <OrderHistory 
+        isOpen={isOrderHistoryOpen}
+        onClose={() => setIsOrderHistoryOpen(false)}
       />
     </ScrollArea>
   );

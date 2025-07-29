@@ -4,6 +4,8 @@ import { useDevice } from '@/hooks/use-device';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
+import { Cart } from '@/components/Cart';
+import { Checkout } from '@/components/Checkout';
 import { 
   Search as SearchIcon, 
   SlidersHorizontal as FilterIcon,
@@ -17,10 +19,12 @@ import {
   Truck,
   Lightning,
   Plus,
-  Minus
+  Minus,
+  ShoppingCart
 } from '@phosphor-icons/react';
 import { toast } from 'sonner';
 import { cn } from '@/lib/utils';
+import { CartItem } from '@/lib/types';
 
 interface FoodPost {
   id: string;
@@ -67,6 +71,9 @@ export function SearchPage() {
   const [posts, setPosts] = useKV<FoodPost[]>('food-posts', generateMockFoodPosts());
   const [restaurants, setRestaurants] = useKV<Restaurant[]>('restaurants', generateMockRestaurants());
   const [cartItems, setCartItems] = useKV<{[key: string]: number}>('cart-items', {});
+  const [cartItemsDetailed, setCartItemsDetailed] = useKV<CartItem[]>('cart-items-detailed', []);
+  const [showCart, setShowCart] = useState(false);
+  const [showCheckout, setShowCheckout] = useState(false);
   const device = useDevice();
 
   const preferences = ['Vegan', 'Halal', 'Mexican', 'Asian', 'Coffee', 'Pizza', 'Burgers', 'Healthy'];
@@ -95,16 +102,58 @@ export function SearchPage() {
   };
 
   const addToCart = (restaurantId: string, itemId: string) => {
+    const restaurant = restaurants.find(r => r.id === restaurantId);
+    const menuItems = generateMenuItems(restaurantId);
+    const item = menuItems.find(i => i.id === itemId);
+    
+    if (!restaurant || !item) return;
+
+    const cartItemId = `${restaurantId}-${itemId}`;
+    
+    // Update simple cart count
     const key = `${restaurantId}-${itemId}`;
     setCartItems(current => ({
       ...current,
       [key]: (current[key] || 0) + 1
     }));
+
+    // Update detailed cart items
+    setCartItemsDetailed(current => {
+      const existingItemIndex = current.findIndex(i => i.id === cartItemId);
+      
+      if (existingItemIndex >= 0) {
+        // Update quantity of existing item
+        return current.map((item, index) =>
+          index === existingItemIndex
+            ? { ...item, quantity: item.quantity + 1 }
+            : item
+        );
+      } else {
+        // Add new item to cart
+        const newCartItem: CartItem = {
+          id: cartItemId,
+          restaurantId,
+          restaurantName: restaurant.name,
+          itemId,
+          name: item.name,
+          description: item.description,
+          price: item.price,
+          image: item.image,
+          quantity: 1,
+          customizations: item.customizations
+        };
+        return [...current, newCartItem];
+      }
+    });
+
     toast.success('Added to cart!');
   };
 
   const removeFromCart = (restaurantId: string, itemId: string) => {
+    const cartItemId = `${restaurantId}-${itemId}`;
     const key = `${restaurantId}-${itemId}`;
+    
+    // Update simple cart count
     setCartItems(current => {
       const newCart = { ...current };
       if (newCart[key] > 1) {
@@ -113,6 +162,27 @@ export function SearchPage() {
         delete newCart[key];
       }
       return newCart;
+    });
+
+    // Update detailed cart items
+    setCartItemsDetailed(current => {
+      const existingItemIndex = current.findIndex(i => i.id === cartItemId);
+      
+      if (existingItemIndex >= 0) {
+        const item = current[existingItemIndex];
+        if (item.quantity > 1) {
+          // Decrease quantity
+          return current.map((item, index) =>
+            index === existingItemIndex
+              ? { ...item, quantity: item.quantity - 1 }
+              : item
+          );
+        } else {
+          // Remove item completely
+          return current.filter((_, index) => index !== existingItemIndex);
+        }
+      }
+      return current;
     });
   };
 
@@ -132,6 +202,33 @@ export function SearchPage() {
   const openFavorites = () => {
     toast.info('Favorites page coming soon!');
   };
+
+  const handleCartOpen = () => {
+    setShowCart(true);
+  };
+
+  const handleCartClose = () => {
+    setShowCart(false);
+  };
+
+  const handleCheckoutOpen = (items: CartItem[]) => {
+    setShowCart(false);
+    setShowCheckout(true);
+  };
+
+  const handleCheckoutClose = () => {
+    setShowCheckout(false);
+    // Clear cart after successful checkout
+    setCartItems({});
+    setCartItemsDetailed([]);
+  };
+
+  const handleCheckoutBack = () => {
+    setShowCheckout(false);
+    setShowCart(true);
+  };
+
+  const totalCartItems = cartItemsDetailed.reduce((sum, item) => sum + item.quantity, 0);
 
   // Grid columns based on device type
   const gridCols = device.type === 'tablet' ? 'grid-cols-3' : 'grid-cols-2';
@@ -183,7 +280,7 @@ export function SearchPage() {
           </div>
 
           {/* Right Icons */}
-          {!isDeliveryMode && (
+          {!isDeliveryMode ? (
             <>
               <Button
                 variant="ghost"
@@ -203,6 +300,23 @@ export function SearchPage() {
                 <FavoritesIcon size={18} />
               </Button>
             </>
+          ) : (
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={handleCartOpen}
+              className="h-8 w-8 p-0 rounded-full relative"
+            >
+              <ShoppingCart size={18} />
+              {totalCartItems > 0 && (
+                <Badge
+                  variant="destructive"
+                  className="absolute -top-1 -right-1 h-5 w-5 p-0 text-xs flex items-center justify-center"
+                >
+                  {totalCartItems}
+                </Badge>
+              )}
+            </Button>
           )}
         </div>
 
@@ -273,6 +387,38 @@ export function SearchPage() {
           <span className="text-sm font-medium">Map</span>
         </Button>
       )}
+
+      {/* Floating Cart Button - Only show in delivery mode with items */}
+      {isDeliveryMode && totalCartItems > 0 && (
+        <Button
+          onClick={handleCartOpen}
+          className={cn(
+            "fixed z-10 rounded-full shadow-lg bg-primary text-primary-foreground",
+            "hover:bg-primary/90 transition-all duration-200",
+            "bottom-20 left-1/2 transform -translate-x-1/2",
+            device.type === 'tablet' ? "h-12 px-6" : "h-10 px-4"
+          )}
+        >
+          <ShoppingCart size={16} className="mr-2" />
+          <span className="text-sm font-medium">
+            {totalCartItems} items • ${cartItemsDetailed.reduce((sum, item) => sum + (item.price * item.quantity), 0).toFixed(2)}
+          </span>
+        </Button>
+      )}
+
+      {/* Cart and Checkout Modals */}
+      <Cart
+        isOpen={showCart}
+        onClose={handleCartClose}
+        onCheckout={handleCheckoutOpen}
+      />
+      
+      <Checkout
+        isOpen={showCheckout}
+        onClose={handleCheckoutClose}
+        onBack={handleCheckoutBack}
+        cartItems={cartItemsDetailed}
+      />
     </div>
   );
 }
