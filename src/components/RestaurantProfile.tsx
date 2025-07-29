@@ -324,6 +324,27 @@ export function RestaurantProfile({ restaurantId, onBack }: RestaurantProfilePro
               <MapPin size={16} />
               <span>{restaurant.location}</span>
             </div>
+
+            {/* Follow and Favorite Buttons */}
+            <div className="flex gap-3 mt-3">
+              <Button
+                onClick={handleFollow}
+                variant={restaurant.isFollowing ? "outline" : "default"}
+                size="sm"
+                className="flex-1"
+              >
+                <Plus size={14} className="mr-2" />
+                {restaurant.isFollowing ? 'Following' : 'Follow'}
+              </Button>
+              <Button
+                variant="outline"
+                size="sm"
+                className="flex-1"
+              >
+                <Heart size={14} className="mr-2" />
+                Favorite
+              </Button>
+            </div>
           </div>
         </div>
 
@@ -420,34 +441,6 @@ export function RestaurantProfile({ restaurantId, onBack }: RestaurantProfilePro
         )}
       </div>
 
-      {/* Bottom Action Bar */}
-      <div className="sticky bottom-0 bg-background/95 backdrop-blur-sm border-t border-border safe-bottom">
-        <div className={cn("flex gap-3", padding, "py-3")}>
-          <Button
-            onClick={handleFollow}
-            variant={restaurant.isFollowing ? "outline" : "default"}
-            className="flex-1"
-          >
-            <Plus size={16} className="mr-2" />
-            {restaurant.isFollowing ? 'Following' : 'Follow'}
-          </Button>
-          <Button
-            variant="outline"
-            className="flex-1"
-          >
-            <Star size={16} className="mr-2" />
-            Review
-          </Button>
-          <Button
-            variant="outline"
-            className="flex-1"
-          >
-            <Heart size={16} className="mr-2" />
-            Favorite
-          </Button>
-        </div>
-      </div>
-
       {/* Image Viewer Modal */}
       {selectedImageIndex !== null && (
         <ImageViewer
@@ -470,7 +463,7 @@ interface ReviewsSectionProps {
 
 function ReviewsSection({ reviews, onLikeReview, padding }: ReviewsSectionProps) {
   return (
-    <div className={cn("space-y-4", padding, "pb-20")}>
+    <div className={cn("space-y-4", padding, "pb-4")}>
       {reviews.map((review) => (
         <div key={review.id} className="bg-card rounded-lg border border-border overflow-hidden">
           {/* Media */}
@@ -597,7 +590,7 @@ interface PostsSectionProps {
 
 function PostsSection({ posts, onLikePost, padding }: PostsSectionProps) {
   return (
-    <div className={cn("space-y-4", padding, "pb-20")}>
+    <div className={cn("space-y-4", padding, "pb-4")}>
       {posts.map((post) => (
         <div key={post.id} className="bg-card rounded-lg border border-border overflow-hidden">
           {/* Media */}
@@ -724,7 +717,7 @@ function GallerySection({ images, onLikeImage, onImageClick, padding }: GalleryS
   };
 
   return (
-    <div className={cn("pb-20", padding)}>
+    <div className={cn("pb-4", padding)}>
       {/* Category Filter */}
       <div className="mb-4">
         <div className="flex gap-2 overflow-x-auto scrollbar-hide pb-2">
@@ -903,7 +896,7 @@ function MenuSection({ menuItems, padding }: MenuSectionProps) {
   const categories = [...new Set(menuItems.map(item => item.category))];
 
   return (
-    <div className={cn("pb-20", padding)}>
+    <div className={cn("pb-4", padding)}>
       {categories.map((category) => (
         <div key={category} className="mb-6">
           <h3 className="text-lg font-semibold mb-3">{category}</h3>
