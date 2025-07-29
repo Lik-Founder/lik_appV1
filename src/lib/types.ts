@@ -30,6 +30,9 @@ export interface Comment {
   timestamp: number;
   likes: number;
   isLiked: boolean;
+  parentId?: string; // For threaded replies
+  replies?: Comment[]; // Nested replies array
+  replyCount?: number; // Count of direct replies
 }
 
 export interface Story {

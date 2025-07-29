@@ -10,6 +10,7 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { CommentItem } from '@/components/CommentItem';
 import { EmojiPicker } from '@/components/EmojiPicker';
+import { organizeComments, getTotalCommentCount } from '@/utils/commentUtils';
 import { formatDistanceToNow } from 'date-fns';
 import { cn } from '@/lib/utils';
 
@@ -22,10 +23,73 @@ interface CommentModalProps {
 }
 
 export function CommentModal({ isOpen, onClose, postId, postAuthor, deviceType }: CommentModalProps) {
-  const [comments, setComments] = useKV<Comment[]>(`comments-${postId}`, []);
+  // Sample threaded comments for demonstration
+  const sampleComments: Comment[] = [
+    {
+      id: '1',
+      userId: 'user1',
+      username: 'foodie_sarah',
+      text: 'This place looks amazing! Have you tried their pasta special?',
+      timestamp: Date.now() - 3600000, // 1 hour ago
+      likes: 12,
+      isLiked: false
+    },
+    {
+      id: '2',
+      userId: 'user2',
+      username: 'chef_marco',
+      text: 'Yes! Their truffle pasta is incredible. The chef there is a master.',
+      timestamp: Date.now() - 3300000, // 55 minutes ago
+      likes: 8,
+      isLiked: true,
+      parentId: '1'
+    },
+    {
+      id: '3',
+      userId: 'user3',
+      username: 'pasta_lover',
+      text: '@chef_marco Do they make their own pasta? The texture looks perfect!',
+      timestamp: Date.now() - 3000000, // 50 minutes ago
+      likes: 5,
+      isLiked: false,
+      parentId: '1'
+    },
+    {
+      id: '4',
+      userId: 'user2',
+      username: 'chef_marco',
+      text: '@pasta_lover Absolutely! Hand-rolled daily. They use semolina from Italy.',
+      timestamp: Date.now() - 2700000, // 45 minutes ago
+      likes: 3,
+      isLiked: false,
+      parentId: '3'
+    },
+    {
+      id: '5',
+      userId: 'user4',
+      username: 'local_guide',
+      text: 'The ambiance here is perfect for date nights! 🍝✨',
+      timestamp: Date.now() - 1800000, // 30 minutes ago
+      likes: 15,
+      isLiked: true
+    },
+    {
+      id: '6',
+      userId: 'user5',
+      username: 'wine_enthusiast',
+      text: '@local_guide What wine would you recommend with their seafood dishes?',
+      timestamp: Date.now() - 1500000, // 25 minutes ago
+      likes: 2,
+      isLiked: false,
+      parentId: '5'
+    }
+  ];
+
+  const [comments, setComments] = useKV<Comment[]>(`comments-${postId}`, sampleComments);
   const [users] = useKV<User[]>('users', []);
   const [newComment, setNewComment] = useState('');
   const [replyingTo, setReplyingTo] = useState<string | null>(null);
+  const [replyingToParent, setReplyingToParent] = useState<string | null>(null);
   const [modalOffset, setModalOffset] = useState(0);
   const [isDragging, setIsDragging] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -45,6 +109,71 @@ export function CommentModal({ isOpen, onClose, postId, postAuthor, deviceType }
     postCount: 0,
     isFollowing: false
   };
+
+  // Mock additional users for comments
+  const mockCommentUsers: User[] = [
+    {
+      id: 'user1',
+      username: 'foodie_sarah',
+      displayName: 'Sarah Chen',
+      avatar: 'https://images.unsplash.com/photo-1494790108755-2616b612b786?w=150&h=150&fit=crop&crop=face',
+      bio: 'Food explorer',
+      followerCount: 1200,
+      followingCount: 340,
+      postCount: 89,
+      isFollowing: false
+    },
+    {
+      id: 'user2',
+      username: 'chef_marco',
+      displayName: 'Marco Rodriguez',
+      avatar: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face',
+      bio: 'Professional chef',
+      followerCount: 5600,
+      followingCount: 120,
+      postCount: 245,
+      isFollowing: true
+    },
+    {
+      id: 'user3',
+      username: 'pasta_lover',
+      displayName: 'Alex Kim',
+      avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face',
+      bio: 'Pasta enthusiast',
+      followerCount: 850,
+      followingCount: 200,
+      postCount: 156,
+      isFollowing: false
+    },
+    {
+      id: 'user4',
+      username: 'local_guide',
+      displayName: 'Emma Wilson',
+      avatar: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=150&h=150&fit=crop&crop=face',
+      bio: 'Local food guide',
+      followerCount: 2300,
+      followingCount: 180,
+      postCount: 312,
+      isFollowing: true
+    },
+    {
+      id: 'user5',
+      username: 'wine_enthusiast',
+      displayName: 'James Parker',
+      avatar: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150&h=150&fit=crop&crop=face',
+      bio: 'Wine connoisseur',
+      followerCount: 1800,
+      followingCount: 90,
+      postCount: 198,
+      isFollowing: false
+    }
+  ];
+
+  // Transform flat comments array into threaded structure
+  const threadedComments = organizeComments(comments);
+  
+  // Count total comments including replies
+  const totalCommentCount = getTotalCommentCount(threadedComments);
 
   // Handle modal drag to dismiss
   useEffect(() => {
@@ -113,7 +242,8 @@ export function CommentModal({ isOpen, onClose, postId, postAuthor, deviceType }
   }, [isOpen, onClose, newComment]);
 
   const getUserById = (userId: string) => {
-    return users.find(u => u.id === userId) || currentUser;
+    const allUsers = [...users, ...mockCommentUsers, currentUser];
+    return allUsers.find(u => u.id === userId) || currentUser;
   };
 
   const handleAddComment = () => {
@@ -126,12 +256,14 @@ export function CommentModal({ isOpen, onClose, postId, postAuthor, deviceType }
       text: newComment.trim(),
       timestamp: Date.now(),
       likes: 0,
-      isLiked: false
+      isLiked: false,
+      parentId: replyingToParent || undefined
     };
 
     setComments(prevComments => [...prevComments, comment]);
     setNewComment('');
     setReplyingTo(null);
+    setReplyingToParent(null);
     triggerHaptic('light');
     
     // Show success feedback
@@ -158,9 +290,16 @@ export function CommentModal({ isOpen, onClose, postId, postAuthor, deviceType }
   };
 
   const handleDeleteComment = (commentId: string) => {
-    setComments(prevComments => 
-      prevComments.filter(comment => comment.id !== commentId)
-    );
+    // Remove the comment and all its replies
+    const removeCommentAndReplies = (comments: Comment[], targetId: string): Comment[] => {
+      return comments.filter(comment => {
+        if (comment.id === targetId) return false;
+        if (comment.parentId === targetId) return false;
+        return true;
+      });
+    };
+
+    setComments(prevComments => removeCommentAndReplies(prevComments, commentId));
     triggerHaptic('medium');
   };
 
@@ -169,10 +308,24 @@ export function CommentModal({ isOpen, onClose, postId, postAuthor, deviceType }
     inputRef.current?.focus();
   };
 
-  const handleReply = (commentId: string, username: string) => {
+  const handleReply = (commentId: string, username: string, parentId?: string) => {
     setReplyingTo(commentId);
+    setReplyingToParent(parentId || commentId);
     setNewComment(`@${username} `);
     inputRef.current?.focus();
+  };
+
+  const cancelReply = () => {
+    setReplyingTo(null);
+    setReplyingToParent(null);
+    setNewComment('');
+    inputRef.current?.focus();
+  };
+
+  const getReplyingToUsername = () => {
+    if (!replyingTo) return '';
+    const comment = comments.find(c => c.id === replyingTo);
+    return comment ? getUserById(comment.userId).username : '';
   };
 
   if (!isOpen) return null;
@@ -207,7 +360,7 @@ export function CommentModal({ isOpen, onClose, postId, postAuthor, deviceType }
             "font-semibold",
             deviceType === 'tablet' ? "text-lg" : "text-base"
           )}>
-            Comments ({comments.length})
+            Comments ({totalCommentCount})
           </h2>
           <Button
             variant="ghost"
@@ -225,7 +378,7 @@ export function CommentModal({ isOpen, onClose, postId, postAuthor, deviceType }
             "space-y-4 py-4",
             deviceType === 'tablet' && "space-y-6"
           )}>
-            {comments.length === 0 ? (
+            {threadedComments.length === 0 ? (
               <div className="text-center py-12">
                 <MessageCircle size={48} className="mx-auto text-muted-foreground mb-4" />
                 <p className="text-muted-foreground text-sm mb-2">
@@ -236,7 +389,7 @@ export function CommentModal({ isOpen, onClose, postId, postAuthor, deviceType }
                 </p>
               </div>
             ) : (
-              comments.map((comment, index) => {
+              threadedComments.map((comment, index) => {
                 const user = getUserById(comment.userId);
                 return (
                   <div 
@@ -252,6 +405,9 @@ export function CommentModal({ isOpen, onClose, postId, postAuthor, deviceType }
                       onReply={handleReply}
                       onDelete={user.id === currentUser.id ? handleDeleteComment : undefined}
                       deviceType={deviceType}
+                      depth={0}
+                      maxDepth={3}
+                      getUserById={getUserById}
                     />
                   </div>
                 );
@@ -266,13 +422,10 @@ export function CommentModal({ isOpen, onClose, postId, postAuthor, deviceType }
             <div className="flex items-center gap-2 mb-2 px-3 py-2 bg-muted rounded-lg">
               <ArrowBendUpLeft size={14} className="text-muted-foreground" />
               <span className="text-sm text-muted-foreground">
-                Replying to comment
+                Replying to @{getReplyingToUsername()}
               </span>
               <button
-                onClick={() => {
-                  setReplyingTo(null);
-                  setNewComment('');
-                }}
+                onClick={cancelReply}
                 className="ml-auto text-muted-foreground hover:text-foreground"
               >
                 <X size={14} />

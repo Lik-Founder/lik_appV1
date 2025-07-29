@@ -576,6 +576,115 @@ input, textarea, select {
   opacity: 0.7;
 }
 
+/* Comment threading styles */
+.comment-thread {
+  position: relative;
+}
+
+.comment-thread-line {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: var(--border);
+  opacity: 0.3;
+  border-radius: 1px;
+}
+
+.comment-thread-connector {
+  position: absolute;
+  left: -12px;
+  top: 16px;
+  width: 12px;
+  height: 2px;
+  background: var(--border);
+  opacity: 0.3;
+}
+
+/* Reply indicator animation */
+.reply-indicator {
+  transform: translateX(-100%);
+  animation: slideInReply 0.3s ease-out;
+}
+
+@keyframes slideInReply {
+  0% {
+    opacity: 0;
+    transform: translateX(-100%);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Comment collapse/expand animation */
+.comment-replies-enter {
+  animation: expandReplies 0.3s ease-out;
+}
+
+.comment-replies-exit {
+  animation: collapseReplies 0.3s ease-out;
+}
+
+@keyframes expandReplies {
+  0% {
+    opacity: 0;
+    max-height: 0;
+    transform: translateY(-10px);
+  }
+  100% {
+    opacity: 1;
+    max-height: 1000px;
+    transform: translateY(0);
+  }
+}
+
+@keyframes collapseReplies {
+  0% {
+    opacity: 1;
+    max-height: 1000px;
+    transform: translateY(0);
+  }
+  100% {
+    opacity: 0;
+    max-height: 0;
+    transform: translateY(-10px);
+  }
+}
+
+/* Nested comment styling */
+.comment-nested-1 {
+  margin-left: 20px;
+}
+
+.comment-nested-2 {
+  margin-left: 40px;
+}
+
+.comment-nested-3 {
+  margin-left: 60px;
+}
+
+/* Thread depth indicator */
+.comment-depth-indicator {
+  position: absolute;
+  left: -8px;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: linear-gradient(to bottom, var(--primary), var(--accent));
+  border-radius: 1px;
+  opacity: 0.6;
+}
+
+/* Threaded comment hover effects */
+.comment-thread:hover .comment-depth-indicator {
+  opacity: 1;
+  width: 3px;
+}
+
 /* Emoji picker animations */
 .emoji-picker-enter {
   animation: emojiPickerSlideUp 0.2s ease-out;
@@ -607,23 +716,6 @@ input, textarea, select {
 
 .comment-like-animation {
   animation: commentLikePop 0.3s ease-out;
-}
-
-/* Reply indicator animation */
-.reply-indicator {
-  transform: translateX(-100%);
-  animation: slideInReply 0.3s ease-out;
-}
-
-@keyframes slideInReply {
-  0% {
-    opacity: 0;
-    transform: translateX(-100%);
-  }
-  100% {
-    opacity: 1;
-    transform: translateX(0);
-  }
 }
 
 /* Improved keyboard handling for comments */

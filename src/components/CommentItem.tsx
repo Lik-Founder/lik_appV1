@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Heart, ArrowBendUpLeft, DotsThree } from '@phosphor-icons/react';
+import { Heart, ArrowBendUpLeft, DotsThree, CaretDown, CaretRight } from '@phosphor-icons/react';
 import { Comment as CommentType, User } from '@/lib/types';
 import { DeviceType } from '@/hooks/use-device';
 import { useHapticFeedback } from '@/hooks/use-haptic';
@@ -19,9 +19,12 @@ interface CommentItemProps {
   user: User;
   isAuthor: boolean;
   onLike: (commentId: string) => void;
-  onReply: (commentId: string, username: string) => void;
+  onReply: (commentId: string, username: string, parentId?: string) => void;
   onDelete?: (commentId: string) => void;
   deviceType: DeviceType;
+  depth?: number; // For threading depth
+  maxDepth?: number; // Maximum nesting depth
+  getUserById?: (userId: string) => User;
 }
 
 export function CommentItem({ 
@@ -31,10 +34,14 @@ export function CommentItem({
   onLike, 
   onReply, 
   onDelete,
-  deviceType 
+  deviceType,
+  depth = 0,
+  maxDepth = 3,
+  getUserById
 }: CommentItemProps) {
   const [showMenu, setShowMenu] = useState(false);
   const [lastTap, setLastTap] = useState(0);
+  const [showReplies, setShowReplies] = useState(false);
   const { triggerHaptic } = useHapticFeedback();
 
   // Handle double-tap to like on mobile
@@ -49,12 +56,35 @@ export function CommentItem({
     setLastTap(now);
   };
 
+  const handleReplyClick = () => {
+    onReply(comment.id, user.username, comment.parentId || comment.id);
+  };
+
+  const toggleReplies = () => {
+    setShowReplies(!showReplies);
+    triggerHaptic('light');
+  };
+
   const avatarSize = deviceType === 'tablet' ? 'w-8 h-8' : 'w-7 h-7';
   const iconSize = deviceType === 'tablet' ? 16 : 14;
+  const isNested = depth > 0;
+  const hasReplies = comment.replies && comment.replies.length > 0;
+  const replyCount = comment.replyCount || comment.replies?.length || 0;
 
   return (
-    <div className="flex gap-3 group">
-      <Avatar className={avatarSize}>
+    <div className={cn(
+      "flex gap-3 group",
+      isNested && "ml-6 mt-3"
+    )}>
+      {/* Thread connector line for nested comments */}
+      {isNested && (
+        <div className="absolute left-6 top-0 w-0.5 h-full bg-border opacity-50" />
+      )}
+      
+      <Avatar className={cn(
+        avatarSize,
+        isNested && "w-6 h-6"
+      )}>
         <AvatarImage src={user.avatar} alt={user.username} />
         <AvatarFallback>{user.username[0]?.toUpperCase()}</AvatarFallback>
       </Avatar>
@@ -67,7 +97,8 @@ export function CommentItem({
           <div className="flex items-center gap-2 mb-1">
             <span className={cn(
               "font-semibold",
-              deviceType === 'tablet' ? "text-sm" : "text-xs"
+              deviceType === 'tablet' ? "text-sm" : "text-xs",
+              isNested && "text-xs"
             )}>
               {user.username}
             </span>
@@ -92,7 +123,7 @@ export function CommentItem({
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end" className="w-36">
-                <DropdownMenuItem onClick={() => onReply(comment.id, user.username)}>
+                <DropdownMenuItem onClick={handleReplyClick}>
                   <ArrowBendUpLeft size={14} className="mr-2" />
                   Reply
                 </DropdownMenuItem>
@@ -113,7 +144,8 @@ export function CommentItem({
           
           <p className={cn(
             "text-foreground selectable-text leading-relaxed",
-            deviceType === 'tablet' ? "text-sm" : "text-xs"
+            deviceType === 'tablet' ? "text-sm" : "text-xs",
+            isNested && "text-xs"
           )}>
             {comment.text}
           </p>
@@ -154,13 +186,57 @@ export function CommentItem({
             )}
           </button>
           
-          <button
-            onClick={() => onReply(comment.id, user.username)}
-            className="text-xs text-muted-foreground hover:text-foreground transition-colors touch-target font-medium"
-          >
-            Reply
-          </button>
+          {/* Only show reply button if we haven't reached max depth */}
+          {depth < maxDepth && (
+            <button
+              onClick={handleReplyClick}
+              className="text-xs text-muted-foreground hover:text-foreground transition-colors touch-target font-medium"
+            >
+              Reply
+            </button>
+          )}
+
+          {/* Show/Hide replies button */}
+          {hasReplies && (
+            <button
+              onClick={toggleReplies}
+              className="flex items-center gap-1 text-xs text-muted-foreground hover:text-foreground transition-colors touch-target font-medium"
+            >
+              {showReplies ? (
+                <CaretDown size={12} />
+              ) : (
+                <CaretRight size={12} />
+              )}
+              <span>
+                {replyCount} {replyCount === 1 ? 'reply' : 'replies'}
+              </span>
+            </button>
+          )}
         </div>
+
+        {/* Nested Replies */}
+        {hasReplies && showReplies && comment.replies && getUserById && (
+          <div className="mt-3 space-y-3 relative">
+            {comment.replies.map((reply) => {
+              const replyUser = getUserById(reply.userId);
+              return (
+                <CommentItem
+                  key={reply.id}
+                  comment={reply}
+                  user={replyUser}
+                  isAuthor={replyUser.id === user.id}
+                  onLike={onLike}
+                  onReply={onReply}
+                  onDelete={onDelete}
+                  deviceType={deviceType}
+                  depth={depth + 1}
+                  maxDepth={maxDepth}
+                  getUserById={getUserById}
+                />
+              );
+            })}
+          </div>
+        )}
       </div>
     </div>
   );
