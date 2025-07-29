@@ -71,7 +71,7 @@ export function Navigation({ activeTab, onTabChange, deviceType, orientation }: 
             />
             {showLabels && (
               <span className={cn(
-                "transition-opacity duration-200",
+                "transition-opacity duration-200 nav-rum-raisin",
                 deviceType === 'tablet' ? "text-sm" : "text-xs"
               )}>
                 {item.label}

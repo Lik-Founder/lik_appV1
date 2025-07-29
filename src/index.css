@@ -89,6 +89,11 @@ body {
   overscroll-behavior: none;
 }
 
+/* Navigation font styling */
+.nav-rum-raisin {
+  font-family: 'Rum Raisin', cursive;
+}
+
 /* Allow text selection on content areas */
 .selectable-text {
   -webkit-user-select: text;
