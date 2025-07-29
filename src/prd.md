@@ -1,138 +1,119 @@
-# Instagram Clone - Mobile-Only App
+# Restaurant Profile Page - Product Requirements Document
 
 ## Core Purpose & Success
-- **Mission Statement**: Create a mobile-native Instagram clone with all core features optimized for touch-first mobile experiences across iOS and Android platforms.
-- **Success Indicators**: Smooth touch interactions, fast loading, intuitive mobile navigation, and feature parity with Instagram's mobile app.
-- **Experience Qualities**: Intuitive, Fast, Familiar
+
+**Mission Statement**: Create an immersive, gamified restaurant profile experience that combines Yelp's comprehensive restaurant information with Lik's unique social discovery and leaderboard features.
+
+**Success Indicators**: 
+- High engagement with restaurant content (reviews, posts, menu)
+- Increased user interaction with gamification elements (badges, rankings)
+- Successful conversion to reservations, follows, and user-generated content
+
+**Experience Qualities**: Engaging, Informative, Gamified
 
 ## Project Classification & Approach
-- **Complexity Level**: Complex Application (advanced functionality, multimedia handling, social features)
-- **Primary User Activity**: Creating, Interacting, Consuming
+
+**Complexity Level**: Light Application (multiple features with basic state)
+**Primary User Activity**: Consuming and Interacting
 
 ## Thought Process for Feature Selection
-- **Core Problem Analysis**: Providing a familiar social media experience optimized specifically for mobile devices with touch-first interactions.
-- **User Context**: Users primarily engage through mobile devices during commutes, breaks, and leisure time.
-- **Critical Path**: Open app → Browse feed → Interact with content → Share/create content
-- **Key Moments**: Story viewing, post interactions, content creation, direct messaging
+
+**Core Problem Analysis**: Users need comprehensive restaurant information presented in an engaging, social format that leverages gamification to encourage exploration and interaction.
+
+**User Context**: Mobile users discovering restaurants, checking reviews, viewing menus, and engaging with restaurant content while on-the-go.
+
+**Critical Path**: Hero section → Restaurant info → Tab navigation → Content consumption → Action (follow/review/reserve)
+
+**Key Moments**: 
+1. First impression through hero section with ranking badges
+2. Trust building through reviews and ratings
+3. Action conversion through bottom CTA bar
 
 ## Essential Features
-- **Home Feed**: Infinite scroll of posts with optimized touch interactions and swipe gestures
-- **Stories**: Horizontal scrolling stories with advanced swipe navigation and story viewer
-- **Post Creation**: Mobile-optimized photo/video capture and editing
-- **Search & Discovery**: Touch-friendly search with visual grid results
-- **Enhanced Comment System**: 
-  - Sliding modal for full comment interaction
-  - Quick comment preview in feed
-  - Emoji picker with categorized selection
-  - Comment reactions and threading
-  - Gesture-based interactions (double-tap to like comments)
-  - Real-time comment updates with smooth animations
-  - Enhanced keyboard shortcuts (Escape to close, Cmd+Enter to submit)
-  - Drag-to-dismiss modal functionality
-- **Trending Feed**: TikTok-style vertical scrolling feed for food content discovery with three content types:
-  - User Posts: Standard food reviews by users with ratings and detailed reviews
-  - Restaurant Posts: Official restaurant content with verified badges and dish descriptions  
-  - Sponsored Ads: Promotional content with gamification elements and special offers
-- **User Profiles**: Touch-optimized profile viewing and editing
-- **Swipe Interactions**: 
-  - Story navigation with left/right swipes
-  - Post interactions (swipe right to like, left to bookmark, up for comments)
-  - Double-tap to like with haptic feedback
-  - Pull-to-refresh functionality
-- **Haptic Feedback**: Native-feeling tactile responses for all major interactions
+
+### Hero Section
+- **Functionality**: Full-width visual with overlay information and quick actions
+- **Purpose**: Create strong first impression and establish restaurant credibility through rankings
+- **Success Criteria**: Users understand restaurant positioning and quality immediately
+
+### Restaurant Summary Panel
+- **Functionality**: Core restaurant information with key metrics and contact actions
+- **Purpose**: Provide essential information users need to make decisions
+- **Success Criteria**: Users can quickly assess restaurant fit and take action
+
+### Tabbed Content Navigation
+- **Functionality**: Organized content sections (Reviews, Posts, Menu) with smooth transitions
+- **Purpose**: Structure comprehensive information in digestible sections
+- **Success Criteria**: Users can easily navigate between content types
+
+### Gamified Elements
+- **Functionality**: Ranking badges, award displays, leaderboard links, and progress indicators
+- **Purpose**: Differentiate from traditional restaurant apps through gaming mechanics
+- **Success Criteria**: Users engage with gamification features and feel motivated to participate
+
+### Interactive Content
+- **Functionality**: TikTok-style review posts, restaurant posts, and interactive menu with AR preview buttons
+- **Purpose**: Create engaging, social content consumption experience
+- **Success Criteria**: High content engagement and sharing rates
 
 ## Design Direction
 
 ### Visual Tone & Identity
-- **Emotional Response**: Familiar, engaging, and visually appealing - matching Instagram's established visual language
-- **Design Personality**: Clean, modern, photo-focused with subtle gradients and familiar iconography
-- **Visual Metaphors**: Camera-focused imagery, Instagram's signature gradient
-- **Simplicity Spectrum**: Clean interface that prioritizes content over chrome
+**Emotional Response**: Excitement, trust, and social connection
+**Design Personality**: Modern, vibrant, and gamified while maintaining professionalism
+**Visual Metaphors**: Gaming achievements, social media feeds, premium dining experiences
+**Simplicity Spectrum**: Rich interface with clear hierarchy to handle comprehensive information
 
 ### Color Strategy
-- **Color Scheme Type**: Instagram-inspired with custom accents
-- **Primary Color**: Instagram gradient (pink/purple/orange)
-- **Secondary Colors**: Clean whites and soft grays for backgrounds
-- **Accent Color**: Instagram gradient for highlights and CTAs
-- **Color Psychology**: Familiar Instagram branding for instant recognition
-- **Color Accessibility**: High contrast text on all backgrounds
-- **Foreground/Background Pairings**: 
-  - Primary text (black) on white backgrounds (contrast ratio 21:1)
-  - White text on gradient/accent backgrounds (contrast ratio 4.5:1+)
-  - Gray text for secondary information (contrast ratio 7:1)
+**Color Scheme Type**: Complementary with accent highlights
+**Primary Color**: Deep food-inspired orange (#f97316) for warmth and appetite appeal
+**Secondary Colors**: Clean grays and whites for content readability
+**Accent Color**: Vibrant blue (#3b82f6) for gamification elements and CTAs
+**Color Psychology**: Orange stimulates appetite and energy, blue builds trust and engagement
+**Foreground/Background Pairings**: 
+- Background (white): Dark gray text (#1f2937)
+- Card backgrounds (light gray): Medium gray text (#374151)
+- Primary orange: White text
+- Accent blue: White text
 
 ### Typography System
-- **Font Pairing Strategy**: Single font family (Inter) with multiple weights for hierarchy
-- **Typographic Hierarchy**: Bold headings, medium subheadings, regular body text
-- **Font Personality**: Clean, modern, highly legible on mobile screens
-- **Readability Focus**: Optimized for small screens with appropriate line heights
-- **Typography Consistency**: Consistent sizing scale and spacing
-- **Which fonts**: Inter (400, 500, 600 weights)
-- **Legibility Check**: Inter is highly optimized for screen reading and mobile displays
+**Font Pairing Strategy**: Single font family with varied weights for consistency
+**Typographic Hierarchy**: Bold headings, medium body text, light metadata
+**Font Personality**: Modern, clean, and highly legible
+**Readability Focus**: Optimal line spacing and contrast for mobile consumption
+**Which fonts**: Inter (already loaded)
+**Legibility Check**: Inter provides excellent mobile legibility at all sizes
 
 ### Visual Hierarchy & Layout
-- **Attention Direction**: Content-first design with minimal UI chrome
-- **White Space Philosophy**: Generous spacing between content blocks for touch clarity
-- **Grid System**: Flexible grid adapting to various screen sizes and orientations
-- **Responsive Approach**: Mobile-first with breakpoints for different device sizes
-- **Content Density**: Optimized for single-column mobile viewing
+**Attention Direction**: Hero → Restaurant info → Tabs → Action buttons
+**White Space Philosophy**: Generous spacing to prevent cramped mobile experience
+**Grid System**: Card-based layout with consistent spacing
+**Responsive Approach**: Mobile-first with adaptive content sizing
+**Content Density**: Balanced information richness with visual clarity
 
 ### Animations
-- **Purposeful Meaning**: Smooth transitions that provide feedback and maintain context
-- **Hierarchy of Movement**: Priority on content interactions (like animations, story progression)
-- **Contextual Appropriateness**: Native mobile-feeling animations with appropriate timing
+**Purposeful Meaning**: Subtle transitions that enhance navigation without distraction
+**Hierarchy of Movement**: Focus on tab transitions and interaction feedback
+**Contextual Appropriateness**: Professional yet engaging micro-interactions
 
 ### UI Elements & Component Selection
-- **Component Usage**: Bottom navigation, pull-to-refresh, swipe gestures, modal dialogs
-- **Component Customization**: Instagram-style rounded corners and gradient accents
-- **Component States**: Clear touch feedback with appropriate sizing for finger targets
-- **Icon Selection**: Phosphor icons matching Instagram's iconography
-- **Component Hierarchy**: Content prioritized over navigation chrome
-- **Spacing System**: Touch-friendly spacing with minimum 44px touch targets
-- **Mobile Adaptation**: Single-column layouts, bottom navigation, swipe gestures
-
-### Visual Consistency Framework
-- **Design System Approach**: Component-based with Instagram's established patterns
-- **Style Guide Elements**: Consistent spacing, typography, and interaction patterns
-- **Visual Rhythm**: Predictable content spacing and interaction feedback
-- **Brand Alignment**: Faithful to Instagram's visual identity
+**Component Usage**: Cards for content sections, tabs for navigation, badges for gamification
+**Component Customization**: Custom styling for rating displays and award badges
+**Component States**: Clear hover/active states for all interactive elements
+**Icon Selection**: Phosphor icons for consistency with existing app
+**Spacing System**: 4px base unit with 8px, 16px, 24px, 32px spacing scale
 
 ### Accessibility & Readability
-- **Contrast Goal**: WCAG AA compliance minimum for all text and interactive elements
-- **Touch Accessibility**: Minimum 44px touch targets, clear focus states
-- **Screen Reader Support**: Proper semantic markup and ARIA labels
-
-## Edge Cases & Problem Scenarios
-- **Network Connectivity**: Graceful handling of poor connections with loading states
-- **Device Variations**: Support for various screen sizes and orientations
-- **Touch Interactions**: Proper handling of gestures and accidental touches
-- **Content Loading**: Progressive image loading and error states
+**Contrast Goal**: WCAG AA compliance with 4.5:1 minimum contrast ratio
+**Touch Targets**: Minimum 44px touch targets for all interactive elements
+**Screen Reader Support**: Proper semantic HTML and ARIA labels
 
 ## Implementation Considerations
-- **Performance**: Optimized for mobile browsers and potential PWA installation
-- **Touch Interactions**: Native-feeling gesture support
-- **Responsive Design**: Breakpoints for phones, tablets, and foldable devices
-- **Content Management**: Efficient handling of media content and caching
 
-## Mobile Platform Considerations
-- **iOS Safari**: Optimized for iOS-specific behaviors and safe areas
-- **Android Chrome**: Android-specific touch behaviors and material design cues
-- **PWA Support**: Installable app experience with proper manifest
-- **Advanced Touch Gestures**: 
-  - **Story Navigation**: Left/right swipes with smooth transitions and haptic feedback
-  - **Post Interactions**: Multi-directional swipes (right to like, left to bookmark, up for comments, down to share)
-  - **Double-tap**: Enhanced like functionality with heart animation and strong haptic feedback
-  - **Pull-to-refresh**: Native-feeling feed refresh with visual indicators
-  - **Haptic Feedback System**: Light, medium, heavy, and success feedback patterns
-- **Gesture Performance**: Hardware-accelerated animations, GPU-optimized transforms
-- **Accessibility**: Gesture alternatives for users who prefer tap interactions
-
-## Swipe Gesture Implementation Details
-- **Story Viewer**: Full-screen immersive experience with swipe navigation between stories
-- **Post Swiping**: Visual feedback during swipes with action preview icons
-- **Threshold Detection**: 80px minimum swipe distance for reliable gesture recognition
-- **Momentum Handling**: Natural physics-based animations following gesture completion
-- **Cross-platform Support**: Consistent behavior across iOS and Android devices
+**Scalability Needs**: Component structure that supports additional restaurant features
+**Testing Focus**: Mobile touch interactions and content loading performance
+**Critical Questions**: How to balance comprehensive information with mobile usability
 
 ## Reflection
-This mobile-only approach allows us to create a more focused, touch-optimized experience that feels native to mobile platforms while maintaining Instagram's familiar interface patterns. The elimination of desktop considerations enables deeper optimization for mobile-specific interactions and performance.
+
+This approach uniquely combines traditional restaurant discovery with social gaming elements, creating an engaging experience that encourages both consumption and contribution. The mobile-first design ensures optimal usability while the gamification elements differentiate from existing restaurant apps.

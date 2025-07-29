@@ -195,7 +195,11 @@ const mockContent: (UserPost | RestaurantPost | AdPost)[] = [
   }
 ];
 
-export function TrendingPage() {
+interface TrendingPageProps {
+  onShowRestaurantProfile?: (restaurantId: string) => void;
+}
+
+export function TrendingPage({ onShowRestaurantProfile }: TrendingPageProps) {
   const [activeTab, setActiveTab] = useState<'following' | 'trending' | 'foryou'>('trending');
   const [currentIndex, setCurrentIndex] = useState(0);
   const [content, setContent] = useKV('trending-content', mockContent);
@@ -313,7 +317,12 @@ export function TrendingPage() {
                 <Badge variant="secondary" className="text-xs">Level {post.user.level}</Badge>
               </div>
               <div className="flex items-center gap-1 text-white/80 text-xs">
-                <span>{post.restaurant.name}</span>
+                <span 
+                  className="cursor-pointer hover:underline" 
+                  onClick={() => onShowRestaurantProfile?.('rest1')}
+                >
+                  {post.restaurant.name}
+                </span>
                 <Star size={10} className="text-yellow-400 fill-current" />
                 <span>{post.restaurant.rating}</span>
               </div>
@@ -372,7 +381,7 @@ export function TrendingPage() {
           {/* Restaurant profile section */}
           <div className="flex items-center gap-3">
             <div className="relative">
-              <Avatar className="w-10 h-10">
+              <Avatar className="w-10 h-10 cursor-pointer" onClick={() => onShowRestaurantProfile?.(post.restaurant.id)}>
                 <AvatarImage src={post.restaurant.avatar} />
                 <AvatarFallback>{post.restaurant.name[0]}</AvatarFallback>
               </Avatar>
@@ -385,7 +394,12 @@ export function TrendingPage() {
             </div>
             <div className="flex-1">
               <div className="flex items-center gap-2">
-                <span className="text-white font-medium text-sm">{post.restaurant.name}</span>
+                <span 
+                  className="text-white font-medium text-sm cursor-pointer hover:underline" 
+                  onClick={() => onShowRestaurantProfile?.(post.restaurant.id)}
+                >
+                  {post.restaurant.name}
+                </span>
                 {post.restaurant.isVerified && (
                   <CheckCircle size={14} className="text-blue-400 fill-current" />
                 )}
@@ -442,13 +456,18 @@ export function TrendingPage() {
         <div className="space-y-3">
           {/* Restaurant profile section */}
           <div className="flex items-center gap-3">
-            <Avatar className="w-10 h-10">
+            <Avatar className="w-10 h-10 cursor-pointer" onClick={() => onShowRestaurantProfile?.(post.restaurant.id)}>
               <AvatarImage src={post.restaurant.avatar} />
               <AvatarFallback>{post.restaurant.name[0]}</AvatarFallback>
             </Avatar>
             <div className="flex-1">
               <div className="flex items-center gap-2">
-                <span className="text-white font-medium text-sm">{post.restaurant.name}</span>
+                <span 
+                  className="text-white font-medium text-sm cursor-pointer hover:underline" 
+                  onClick={() => onShowRestaurantProfile?.(post.restaurant.id)}
+                >
+                  {post.restaurant.name}
+                </span>
                 {post.restaurant.isVerified && (
                   <CheckCircle size={14} className="text-blue-400 fill-current" />
                 )}
