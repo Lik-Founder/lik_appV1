@@ -22,7 +22,7 @@ import {
 import { cn } from '@/lib/utils';
 import { useKV } from '@github/spark/hooks';
 import { UserPost, RestaurantPost, AdPost, User, Comment } from '@/lib/types';
-import { useSwipeable } from 'react-swipeable';
+// Removed react-swipeable import - using native touch events instead
 
 // Mock data for trending content
 const mockUsers: User[] = [
@@ -251,32 +251,43 @@ export function TrendingPage({ onShowRestaurantProfile }: TrendingPageProps) {
     }
   };
 
-  // Handle vertical swiping for content navigation
-  const handlers = useSwipeable({
-    onSwipedUp: () => {
-      if (currentIndex < content.length - 1) {
-        setCurrentIndex(currentIndex + 1);
-        // Simulate haptic feedback
-        if (navigator.vibrate) {
-          navigator.vibrate(10);
-        }
+  // Handle touch events for swiping
+  const [touchStart, setTouchStart] = useState<number | null>(null);
+  const [touchEnd, setTouchEnd] = useState<number | null>(null);
+
+  // Minimum distance to trigger swipe
+  const minSwipeDistance = 50;
+
+  const onTouchStart = (e: React.TouchEvent) => {
+    setTouchEnd(null);
+    setTouchStart(e.targetTouches[0].clientY);
+  };
+
+  const onTouchMove = (e: React.TouchEvent) => {
+    setTouchEnd(e.targetTouches[0].clientY);
+  };
+
+  const onTouchEnd = () => {
+    if (!touchStart || !touchEnd) return;
+    
+    const distance = touchStart - touchEnd;
+    const isUpSwipe = distance > minSwipeDistance;
+    const isDownSwipe = distance < -minSwipeDistance;
+
+    if (isUpSwipe && currentIndex < content.length - 1) {
+      setCurrentIndex(currentIndex + 1);
+      // Simulate haptic feedback
+      if (navigator.vibrate) {
+        navigator.vibrate(10);
       }
-    },
-    onSwipedDown: () => {
-      if (currentIndex > 0) {
-        setCurrentIndex(currentIndex - 1);
-        // Simulate haptic feedback
-        if (navigator.vibrate) {
-          navigator.vibrate(10);
-        }
+    } else if (isDownSwipe && currentIndex > 0) {
+      setCurrentIndex(currentIndex - 1);
+      // Simulate haptic feedback
+      if (navigator.vibrate) {
+        navigator.vibrate(10);
       }
-    },
-    trackMouse: false, // Disable mouse tracking for better mobile performance
-    preventScrollOnSwipe: true,
-    delta: 50, // Minimum distance to trigger swipe
-    swipeDuration: 500, // Maximum time for a swipe
-    touchEventOptions: { passive: false }
-  });
+    }
+  };
 
   // Auto-scroll to current content
   useEffect(() => {
@@ -568,7 +579,9 @@ export function TrendingPage({ onShowRestaurantProfile }: TrendingPageProps) {
       {/* Scrollable content container */}
       <div 
         ref={containerRef}
-        {...handlers}
+        onTouchStart={onTouchStart}
+        onTouchMove={onTouchMove}
+        onTouchEnd={onTouchEnd}
         className="h-full overflow-y-auto snap-y snap-mandatory scrollbar-hide"
       >
         {content.map((post, index) => (
