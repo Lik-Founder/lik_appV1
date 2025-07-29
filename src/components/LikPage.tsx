@@ -350,7 +350,7 @@ function QuestsView({ quests }: { quests: Quest[] }) {
     <div className="px-4 space-y-4">
       {/* Promoted Quests */}
       <div className="space-y-3">
-        <div className="text-center">
+        <div className="text-center pt-2.5">
           <h3 className="font-semibold text-sm text-muted-foreground uppercase tracking-wide">Epic Quests</h3>
         </div>
         <div className="space-y-3">
