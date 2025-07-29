@@ -61,7 +61,80 @@ export interface Conversation {
   unreadCount: number;
 }
 
-export type TabType = 'home' | 'search' | 'lik' | 'messages' | 'profile';
+export type TabType = 'home' | 'search' | 'lik' | 'trending' | 'profile';
+
+// Trending page specific types
+export interface TrendingContent {
+  id: string;
+  type: 'user_post' | 'restaurant_post' | 'ad';
+  mediaUrl: string;
+  mediaType: 'image' | 'video';
+  likes: number;
+  comments: number;
+  shares: number;
+  saves: number;
+  isLiked: boolean;
+  isSaved: boolean;
+  location: string;
+  likedBy: User[];
+}
+
+export interface UserPost extends TrendingContent {
+  type: 'user_post';
+  user: User & { level: number };
+  restaurant: {
+    name: string;
+    rating: number;
+  };
+  review: {
+    rating: number;
+    price: string;
+    text: string;
+    tags: string[];
+  };
+}
+
+export interface RestaurantPost extends TrendingContent {
+  type: 'restaurant_post';
+  restaurant: {
+    id: string;
+    name: string;
+    avatar: string;
+    rating: number;
+    cuisineTypes: string[];
+    isOpen: boolean;
+    isVerified: boolean;
+  };
+  dish: {
+    name: string;
+    calories: number;
+    price: string;
+    description: string;
+    tags: string[];
+  };
+}
+
+export interface AdPost extends TrendingContent {
+  type: 'ad';
+  restaurant: {
+    id: string;
+    name: string;
+    avatar: string;
+    rating: number;
+    isVerified: boolean;
+  };
+  promotion: {
+    text: string;
+    likCoinReward: number;
+    questAvailable: boolean;
+    xpBonus: number;
+  };
+  challenge?: {
+    name: string;
+    description: string;
+  };
+  distance: number;
+}
 
 // Lik page specific types
 export interface UserProgress {

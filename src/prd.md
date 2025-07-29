@@ -21,6 +21,10 @@
 - **Post Creation**: Mobile-optimized photo/video capture and editing
 - **Search & Discovery**: Touch-friendly search with visual grid results
 - **Direct Messages**: Mobile-native messaging interface
+- **Trending Feed**: TikTok-style vertical scrolling feed for food content discovery with three content types:
+  - User Posts: Standard food reviews by users with ratings and detailed reviews
+  - Restaurant Posts: Official restaurant content with verified badges and dish descriptions  
+  - Sponsored Ads: Promotional content with gamification elements and special offers
 - **User Profiles**: Touch-optimized profile viewing and editing
 - **Swipe Interactions**: 
   - Story navigation with left/right swipes

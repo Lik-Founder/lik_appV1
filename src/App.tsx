@@ -4,7 +4,7 @@ import { Navigation } from '@/components/Navigation';
 import { HomeFeed } from '@/components/HomeFeed';
 import { SearchPage } from '@/components/SearchPage';
 import { LikPage } from '@/components/LikPage';
-import { MessagesPage } from '@/components/MessagesPage';
+import { TrendingPage } from '@/components/TrendingPage';
 import { ProfilePage } from '@/components/ProfilePage';
 import { useDevice, useSafeArea } from '@/hooks/use-device';
 import { Toaster } from '@/components/ui/sonner';
@@ -23,8 +23,8 @@ function App() {
         return <SearchPage />;
       case 'lik':
         return <LikPage />;
-      case 'messages':
-        return <MessagesPage />;
+      case 'trending':
+        return <TrendingPage />;
       case 'profile':
         return <ProfilePage />;
       default:
@@ -42,8 +42,8 @@ function App() {
         height: device.orientation === 'landscape' ? '100vh' : '100dvh' // Use dynamic viewport height
       }}
     >
-      {/* Mobile Header - Hide on Lik and Explore pages */}
-      {activeTab !== 'lik' && activeTab !== 'search' && (
+      {/* Mobile Header - Hide on Lik, Explore, and Trending pages */}
+      {activeTab !== 'lik' && activeTab !== 'search' && activeTab !== 'trending' && (
         <div 
           className={cn(
             "border-b border-border bg-background/95 backdrop-blur-sm sticky top-0 z-10",
