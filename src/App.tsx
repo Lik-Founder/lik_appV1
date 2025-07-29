@@ -70,7 +70,10 @@ function App() {
       {/* Bottom Navigation */}
       <div 
         className={cn(
-          "border-t border-border bg-background/95 backdrop-blur-sm",
+          "border-t backdrop-blur-sm",
+          activeTab === 'trending' 
+            ? "bg-black border-black/20" 
+            : "border-border bg-background/95",
           device.hasNotch && "safe-bottom"
         )}
         style={{ paddingBottom: device.hasNotch ? safeArea.bottom : 0 }}

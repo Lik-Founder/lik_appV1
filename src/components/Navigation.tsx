@@ -27,10 +27,14 @@ export function Navigation({ activeTab, onTabChange, deviceType, orientation }: 
   const showLabels = deviceType === 'tablet' || 
     (deviceType === 'phone' && orientation === 'landscape');
 
+  // Determine if we're on trending page for styling
+  const isOnTrendingPage = activeTab === 'trending';
+
   return (
     <nav className={cn(
-      "flex items-center justify-around bg-background/95 backdrop-blur-sm",
+      "flex items-center justify-around backdrop-blur-sm",
       "touch-target safe-bottom",
+      isOnTrendingPage ? "bg-black/95" : "bg-background/95",
       orientation === 'landscape' && deviceType === 'phone' ? "px-2 py-1" : "px-4 py-2"
     )}>
       {navItems.map((item) => {
@@ -45,10 +49,19 @@ export function Navigation({ activeTab, onTabChange, deviceType, orientation }: 
             onClick={() => onTabChange(item.id)}
             className={cn(
               "flex flex-col items-center gap-1 touch-target transition-all duration-200",
-              "active:scale-95 active:bg-muted/50",
+              "active:scale-95",
               showLabels ? "p-3" : "p-2",
-              isActive && "text-foreground",
-              !isActive && "text-muted-foreground hover:text-foreground"
+              isOnTrendingPage 
+                ? cn(
+                    "active:bg-white/10",
+                    isActive && "text-white",
+                    !isActive && "text-white/60 hover:text-white"
+                  )
+                : cn(
+                    "active:bg-muted/50",
+                    isActive && "text-foreground",
+                    !isActive && "text-muted-foreground hover:text-foreground"
+                  )
             )}
           >
             <Icon 
