@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { AwardsPage } from '@/components/AwardsPage';
 import { 
   ArrowLeft,
   Trophy,
@@ -127,6 +128,7 @@ export function RestaurantProfile({ restaurantId, onBack }: RestaurantProfilePro
   const [galleryImages, setGalleryImages] = useKV<GalleryImage[]>(`restaurant-gallery-${restaurantId}`, generateMockGallery());
   const [activeTab, setActiveTab] = useState<'reviews' | 'posts' | 'menu' | 'gallery'>('reviews');
   const [selectedImageIndex, setSelectedImageIndex] = useState<number | null>(null);
+  const [showAwardsPage, setShowAwardsPage] = useState(false);
   const device = useDevice();
 
   const handleLikeReview = (reviewId: string) => {
@@ -211,7 +213,25 @@ export function RestaurantProfile({ restaurantId, onBack }: RestaurantProfilePro
     toast.info('Opening message...');
   };
 
+  const handleShowAwards = () => {
+    setShowAwardsPage(true);
+  };
+
+  const handleBackFromAwards = () => {
+    setShowAwardsPage(false);
+  };
+
   const padding = device.type === 'tablet' ? 'p-6' : 'p-4';
+
+  // Show awards page if requested
+  if (showAwardsPage) {
+    return (
+      <AwardsPage 
+        restaurantId={restaurantId}
+        onBack={handleBackFromAwards}
+      />
+    );
+  }
 
   return (
     <div className="h-full bg-background overflow-hidden">
@@ -237,6 +257,7 @@ export function RestaurantProfile({ restaurantId, onBack }: RestaurantProfilePro
           
           <div className="flex items-center gap-2">
             <Button
+              onClick={handleShowAwards}
               variant="ghost"
               size="sm"
               className="bg-black/50 hover:bg-black/70 text-white h-10 w-10 p-0 rounded-full backdrop-blur-sm"
