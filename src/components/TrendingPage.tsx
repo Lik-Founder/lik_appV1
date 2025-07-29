@@ -2,6 +2,7 @@ import { useState, useRef, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { CommentModal } from '@/components/CommentModal';
 import { 
   Heart, 
   ChatCircle, 
@@ -20,7 +21,7 @@ import {
 } from '@phosphor-icons/react';
 import { cn } from '@/lib/utils';
 import { useKV } from '@github/spark/hooks';
-import { UserPost, RestaurantPost, AdPost, User } from '@/lib/types';
+import { UserPost, RestaurantPost, AdPost, User, Comment } from '@/lib/types';
 import { useSwipeable } from 'react-swipeable';
 
 // Mock data for trending content
@@ -198,6 +199,8 @@ export function TrendingPage() {
   const [activeTab, setActiveTab] = useState<'following' | 'trending' | 'foryou'>('trending');
   const [currentIndex, setCurrentIndex] = useState(0);
   const [content, setContent] = useKV('trending-content', mockContent);
+  const [showCommentModal, setShowCommentModal] = useState(false);
+  const [selectedPostId, setSelectedPostId] = useState<string | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
 
   // Handle like toggle
@@ -228,6 +231,12 @@ export function TrendingPage() {
           }
         : post
     ));
+  };
+
+  // Handle comment modal opening
+  const handleComment = (postId: string) => {
+    setSelectedPostId(postId);
+    setShowCommentModal(true);
   };
 
   // Handle double tap to like
@@ -561,7 +570,12 @@ export function TrendingPage() {
                 </div>
                 
                 <div className="flex flex-col items-center gap-1">
-                  <Button variant="ghost" size="sm" className="w-12 h-12 rounded-full text-white touch-feedback">
+                  <Button 
+                    variant="ghost" 
+                    size="sm" 
+                    onClick={() => handleComment(post.id)}
+                    className="w-12 h-12 rounded-full text-white touch-feedback"
+                  >
                     <ChatCircle size={24} />
                   </Button>
                   <span className="text-white text-xs">{post.comments}</span>
@@ -629,6 +643,20 @@ export function TrendingPage() {
           />
         ))}
       </div>
+
+      {/* Comment Modal */}
+      {selectedPostId && (
+        <CommentModal
+          isOpen={showCommentModal}
+          onClose={() => {
+            setShowCommentModal(false);
+            setSelectedPostId(null);
+          }}
+          postId={selectedPostId}
+          postAuthor={mockUsers[0]} // You could make this dynamic based on the selected post
+          deviceType="phone" // TrendingPage is mobile-first
+        />
+      )}
     </div>
   );
 }

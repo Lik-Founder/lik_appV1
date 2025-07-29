@@ -518,3 +518,148 @@ input, textarea, select {
     color: transparent;
   }
 }
+
+/* Comment system enhancements */
+.comment-modal {
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.comment-modal-content {
+  transform: translateY(100%);
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.comment-modal-content.open {
+  transform: translateY(0);
+}
+
+.comment-modal-content.closing {
+  transform: translateY(100%);
+}
+
+/* Comment item animations */
+.comment-item {
+  animation: slideInComment 0.3s ease-out;
+}
+
+@keyframes slideInComment {
+  0% {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Comment bubble hover effects */
+.comment-bubble {
+  transition: all 0.2s ease;
+  will-change: transform, box-shadow;
+}
+
+.comment-bubble:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+/* Enhanced touch feedback for comments */
+.comment-action {
+  transition: all 0.15s ease;
+  will-change: transform, opacity;
+}
+
+.comment-action:active {
+  transform: scale(0.9);
+  opacity: 0.7;
+}
+
+/* Emoji picker animations */
+.emoji-picker-enter {
+  animation: emojiPickerSlideUp 0.2s ease-out;
+}
+
+@keyframes emojiPickerSlideUp {
+  0% {
+    opacity: 0;
+    transform: translateY(10px) scale(0.95);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Comment like animation */
+@keyframes commentLikePop {
+  0% { 
+    transform: scale(1); 
+  }
+  50% { 
+    transform: scale(1.3); 
+  }
+  100% { 
+    transform: scale(1); 
+  }
+}
+
+.comment-like-animation {
+  animation: commentLikePop 0.3s ease-out;
+}
+
+/* Reply indicator animation */
+.reply-indicator {
+  transform: translateX(-100%);
+  animation: slideInReply 0.3s ease-out;
+}
+
+@keyframes slideInReply {
+  0% {
+    opacity: 0;
+    transform: translateX(-100%);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Improved keyboard handling for comments */
+.comment-input-focus {
+  transform: translateY(0);
+  transition: transform 0.3s ease;
+}
+
+/* Mobile keyboard adjustment */
+@media (max-height: 600px) {
+  .comment-modal-content {
+    max-height: 80vh;
+  }
+}
+
+/* Enhanced swipe indicators for comments */
+.comment-swipe-indicator {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  opacity: 0;
+  transition: all 0.2s ease;
+  pointer-events: none;
+}
+
+.comment-swipe-indicator.active {
+  opacity: 1;
+  transform: translateY(-50%) scale(1.1);
+}
+
+.comment-swipe-indicator.like {
+  right: 10px;
+  color: #ef4444;
+}
+
+.comment-swipe-indicator.reply {
+  left: 10px;
+  color: #3b82f6;
+}

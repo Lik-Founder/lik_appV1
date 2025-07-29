@@ -20,7 +20,15 @@
 - **Stories**: Horizontal scrolling stories with advanced swipe navigation and story viewer
 - **Post Creation**: Mobile-optimized photo/video capture and editing
 - **Search & Discovery**: Touch-friendly search with visual grid results
-- **Direct Messages**: Mobile-native messaging interface
+- **Enhanced Comment System**: 
+  - Sliding modal for full comment interaction
+  - Quick comment preview in feed
+  - Emoji picker with categorized selection
+  - Comment reactions and threading
+  - Gesture-based interactions (double-tap to like comments)
+  - Real-time comment updates with smooth animations
+  - Enhanced keyboard shortcuts (Escape to close, Cmd+Enter to submit)
+  - Drag-to-dismiss modal functionality
 - **Trending Feed**: TikTok-style vertical scrolling feed for food content discovery with three content types:
   - User Posts: Standard food reviews by users with ratings and detailed reviews
   - Restaurant Posts: Official restaurant content with verified badges and dish descriptions  

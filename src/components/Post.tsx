@@ -1,12 +1,15 @@
 import { useState, useRef } from 'react';
 import { Heart, MessageCircle, DotsThree, Bookmark, PaperPlaneTilt } from '@phosphor-icons/react';
-import { Post as PostType, User } from '@/lib/types';
+import { Post as PostType, User, Comment } from '@/lib/types';
 import { DeviceType, Orientation } from '@/hooks/use-device';
 import { useSwipe } from '@/hooks/use-swipe';
 import { useHapticFeedback } from '@/hooks/use-haptic';
+import { useKV } from '@github/spark/hooks';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { CommentModal } from '@/components/CommentModal';
+import { QuickCommentsView } from '@/components/QuickCommentsView';
 import { formatDistanceToNow } from 'date-fns';
 import { cn } from '@/lib/utils';
 
@@ -21,11 +24,12 @@ interface PostProps {
 }
 
 export function Post({ post, user, onLike, onComment, onUserClick, deviceType, orientation }: PostProps) {
-  const [showAllComments, setShowAllComments] = useState(false);
   const [imageLoaded, setImageLoaded] = useState(false);
   const [showHeartAnimation, setShowHeartAnimation] = useState(false);
   const [lastTap, setLastTap] = useState(0);
   const [swipeOffset, setSwipeOffset] = useState(0);
+  const [showCommentModal, setShowCommentModal] = useState(false);
+  const [comments] = useKV<Comment[]>(`comments-${post.id}`, []);
   const imageRef = useRef<HTMLImageElement>(null);
   const { triggerHaptic } = useHapticFeedback();
 
@@ -53,7 +57,7 @@ export function Post({ post, user, onLike, onComment, onUserClick, deviceType, o
     onSwipeUp: () => {
       // Quick action: comment
       triggerHaptic('medium');
-      onComment(post.id);
+      setShowCommentModal(true);
     },
     onSwipeDown: () => {
       // Quick action: share
@@ -223,7 +227,7 @@ export function Post({ post, user, onLike, onComment, onUserClick, deviceType, o
           <Button
             variant="ghost"
             size="sm"
-            onClick={() => onComment(post.id)}
+            onClick={() => setShowCommentModal(true)}
             className="p-0 hover:bg-transparent touch-target active:scale-90 transition-all duration-150"
           >
             <MessageCircle size={iconSize} />
@@ -264,33 +268,12 @@ export function Post({ post, user, onLike, onComment, onUserClick, deviceType, o
             </p>
           )}
 
-          {post.comments.length > 0 && (
-            <div className="space-y-1">
-              {!showAllComments && post.comments.length > 2 && (
-                <button
-                  onClick={() => setShowAllComments(true)}
-                  className={cn(
-                    "text-muted-foreground hover:text-foreground transition-colors touch-target",
-                    deviceType === 'tablet' ? "text-base" : "text-sm"
-                  )}
-                >
-                  View all {post.comments.length} comments
-                </button>
-              )}
-              
-              {(showAllComments ? post.comments : post.comments.slice(-2)).map((comment) => (
-                <div 
-                  key={comment.id} 
-                  className={cn(
-                    "selectable-text",
-                    deviceType === 'tablet' ? "text-base" : "text-sm"
-                  )}
-                >
-                  <span className="font-semibold mr-2">{comment.username}</span>
-                  {comment.text}
-                </div>
-              ))}
-            </div>
+          {comments.length > 0 && (
+            <QuickCommentsView
+              postId={post.id}
+              onOpenModal={() => setShowCommentModal(true)}
+              deviceType={deviceType}
+            />
           )}
 
           <p className={cn(
@@ -301,6 +284,15 @@ export function Post({ post, user, onLike, onComment, onUserClick, deviceType, o
           </p>
         </div>
       </div>
+
+      {/* Comment Modal */}
+      <CommentModal
+        isOpen={showCommentModal}
+        onClose={() => setShowCommentModal(false)}
+        postId={post.id}
+        postAuthor={user}
+        deviceType={deviceType}
+      />
     </Card>
   );
 }
