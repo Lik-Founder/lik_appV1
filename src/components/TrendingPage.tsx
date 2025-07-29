@@ -297,46 +297,47 @@ export function TrendingPage() {
         alt="User post"
         className="w-full h-full object-cover"
       />
-      
-      {/* Top overlay with user info */}
-      <div className="absolute top-0 left-0 right-0 p-4 bg-gradient-to-b from-black/60 to-transparent">
-        <div className="flex items-center gap-3">
-          <Avatar className="w-12 h-12 story-ring">
-            <AvatarImage src={post.user.avatar} />
-            <AvatarFallback>{post.user.displayName[0]}</AvatarFallback>
-          </Avatar>
-          <div className="flex-1">
-            <div className="flex items-center gap-2">
-              <span className="text-white font-medium">{post.user.displayName}</span>
-              <Badge variant="secondary" className="text-xs">Level {post.user.level}</Badge>
-            </div>
-            <div className="flex items-center gap-1 text-white/80 text-sm">
-              <span>{post.restaurant.name}</span>
-              <Star size={12} className="text-yellow-400 fill-current" />
-              <span>{post.restaurant.rating}</span>
-            </div>
-          </div>
-          {!post.user.isFollowing && (
-            <Button size="sm" className="bg-white text-black hover:bg-white/90">
-              <Plus size={16} className="mr-1" />
-              Follow
-            </Button>
-          )}
-        </div>
-      </div>
 
-      {/* Bottom overlay with review info */}
+      {/* Bottom overlay with user profile and review info */}
       <div className="absolute bottom-0 left-0 right-16 p-4 bg-gradient-to-t from-black/80 to-transparent">
-        <div className="space-y-2">
-          <div className="flex items-center gap-4 text-white">
-            <span className="text-lg font-bold">{post.review.rating}/10</span>
-            <span className="text-yellow-400 font-medium">{post.review.price}</span>
+        <div className="space-y-3">
+          {/* User profile section */}
+          <div className="flex items-center gap-3">
+            <Avatar className="w-10 h-10 story-ring">
+              <AvatarImage src={post.user.avatar} />
+              <AvatarFallback>{post.user.displayName[0]}</AvatarFallback>
+            </Avatar>
+            <div className="flex-1">
+              <div className="flex items-center gap-2">
+                <span className="text-white font-medium text-sm">{post.user.displayName}</span>
+                <Badge variant="secondary" className="text-xs">Level {post.user.level}</Badge>
+              </div>
+              <div className="flex items-center gap-1 text-white/80 text-xs">
+                <span>{post.restaurant.name}</span>
+                <Star size={10} className="text-yellow-400 fill-current" />
+                <span>{post.restaurant.rating}</span>
+              </div>
+            </div>
+            {!post.user.isFollowing && (
+              <Button size="sm" className="bg-white text-black hover:bg-white/90 text-xs px-2 py-1 h-7">
+                <Plus size={12} className="mr-1" />
+                Follow
+              </Button>
+            )}
           </div>
-          <p className="text-white text-sm leading-relaxed">{post.review.text}</p>
-          <div className="flex flex-wrap gap-2">
-            {post.review.tags.map((tag, index) => (
-              <span key={index} className="text-blue-300 text-sm">{tag}</span>
-            ))}
+          
+          {/* Review info section */}
+          <div className="space-y-2">
+            <div className="flex items-center gap-4 text-white">
+              <span className="text-lg font-bold">{post.review.rating}/10</span>
+              <span className="text-yellow-400 font-medium">{post.review.price}</span>
+            </div>
+            <p className="text-white text-sm leading-relaxed">{post.review.text}</p>
+            <div className="flex flex-wrap gap-2">
+              {post.review.tags.map((tag, index) => (
+                <span key={index} className="text-blue-300 text-sm">{tag}</span>
+              ))}
+            </div>
           </div>
         </div>
       </div>
@@ -364,51 +365,54 @@ export function TrendingPage() {
           className="w-full h-full object-cover"
         />
       )}
-      
-      {/* Top overlay with restaurant info */}
-      <div className="absolute top-0 left-0 right-0 p-4 bg-gradient-to-b from-black/60 to-transparent">
-        <div className="flex items-center gap-3">
-          <div className="relative">
-            <Avatar className="w-12 h-12">
-              <AvatarImage src={post.restaurant.avatar} />
-              <AvatarFallback>{post.restaurant.name[0]}</AvatarFallback>
-            </Avatar>
-            <div className="absolute -bottom-1 -right-1 bg-black rounded-full p-1">
-              <Star size={12} className="text-yellow-400 fill-current" />
-              <span className="text-white text-xs ml-1">{post.restaurant.rating}</span>
-            </div>
-          </div>
-          <div className="flex-1">
-            <div className="flex items-center gap-2">
-              <span className="text-white font-medium">{post.restaurant.name}</span>
-              {post.restaurant.isVerified && (
-                <CheckCircle size={16} className="text-blue-400 fill-current" />
-              )}
-            </div>
-            <div className="flex items-center gap-2 text-white/80 text-sm">
-              <span>{post.restaurant.cuisineTypes.join(' • ')}</span>
-              {post.restaurant.isOpen && (
-                <Badge variant="secondary" className="text-xs bg-green-600 text-white">Open Now</Badge>
-              )}
-            </div>
-          </div>
-        </div>
-      </div>
 
-      {/* Bottom overlay with dish info */}
+      {/* Bottom overlay with restaurant profile and dish info */}
       <div className="absolute bottom-0 left-0 right-16 p-4 bg-gradient-to-t from-black/80 to-transparent">
-        <div className="space-y-2">
-          <div className="flex items-center gap-4 text-white">
-            <span className="text-lg font-bold">{post.dish.name}</span>
-            <span className="text-yellow-400 font-medium">{post.dish.price}</span>
+        <div className="space-y-3">
+          {/* Restaurant profile section */}
+          <div className="flex items-center gap-3">
+            <div className="relative">
+              <Avatar className="w-10 h-10">
+                <AvatarImage src={post.restaurant.avatar} />
+                <AvatarFallback>{post.restaurant.name[0]}</AvatarFallback>
+              </Avatar>
+              <div className="absolute -bottom-1 -right-1 bg-black rounded-full px-1">
+                <div className="flex items-center gap-1">
+                  <Star size={10} className="text-yellow-400 fill-current" />
+                  <span className="text-white text-xs">{post.restaurant.rating}</span>
+                </div>
+              </div>
+            </div>
+            <div className="flex-1">
+              <div className="flex items-center gap-2">
+                <span className="text-white font-medium text-sm">{post.restaurant.name}</span>
+                {post.restaurant.isVerified && (
+                  <CheckCircle size={14} className="text-blue-400 fill-current" />
+                )}
+              </div>
+              <div className="flex items-center gap-2 text-white/80 text-xs">
+                <span>{post.restaurant.cuisineTypes.join(' • ')}</span>
+                {post.restaurant.isOpen && (
+                  <Badge variant="secondary" className="text-xs bg-green-600 text-white">Open Now</Badge>
+                )}
+              </div>
+            </div>
           </div>
-          <div className="text-white/80 text-sm">
-            <span>{post.dish.calories} cal • {post.dish.description}</span>
-          </div>
-          <div className="flex flex-wrap gap-2">
-            {post.dish.tags.map((tag, index) => (
-              <span key={index} className="text-blue-300 text-sm">{tag}</span>
-            ))}
+          
+          {/* Dish info section */}
+          <div className="space-y-2">
+            <div className="flex items-center gap-4 text-white">
+              <span className="text-lg font-bold">{post.dish.name}</span>
+              <span className="text-yellow-400 font-medium">{post.dish.price}</span>
+            </div>
+            <div className="text-white/80 text-sm">
+              <span>{post.dish.calories} cal • {post.dish.description}</span>
+            </div>
+            <div className="flex flex-wrap gap-2">
+              {post.dish.tags.map((tag, index) => (
+                <span key={index} className="text-blue-300 text-sm">{tag}</span>
+              ))}
+            </div>
           </div>
         </div>
       </div>
@@ -433,58 +437,59 @@ export function TrendingPage() {
         </Badge>
       </div>
 
-      {/* Top overlay with restaurant info */}
-      <div className="absolute top-16 left-0 right-0 p-4">
-        <div className="flex items-center gap-3">
-          <Avatar className="w-12 h-12">
-            <AvatarImage src={post.restaurant.avatar} />
-            <AvatarFallback>{post.restaurant.name[0]}</AvatarFallback>
-          </Avatar>
-          <div className="flex-1">
-            <div className="flex items-center gap-2">
-              <span className="text-white font-medium">{post.restaurant.name}</span>
-              {post.restaurant.isVerified && (
-                <CheckCircle size={16} className="text-blue-400 fill-current" />
-              )}
-            </div>
-            <div className="flex items-center gap-1 text-white/80 text-sm">
-              <Star size={12} className="text-yellow-400 fill-current" />
-              <span>{post.restaurant.rating}</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* Bottom overlay with promotion */}
+      {/* Bottom overlay with restaurant profile and promotion */}
       <div className="absolute bottom-0 left-0 right-16 p-4 bg-gradient-to-t from-black/80 to-transparent">
         <div className="space-y-3">
-          <p className="text-white text-lg font-medium">{post.promotion.text}</p>
-          <div className="flex items-center gap-2">
-            <Badge className="bg-yellow-500 text-black">
-              +{post.promotion.likCoinReward} Lik Coins
-            </Badge>
-            {post.promotion.questAvailable && (
-              <Badge className="bg-purple-600 text-white">
-                Quest Available (+{post.promotion.xpBonus} XP)
+          {/* Restaurant profile section */}
+          <div className="flex items-center gap-3">
+            <Avatar className="w-10 h-10">
+              <AvatarImage src={post.restaurant.avatar} />
+              <AvatarFallback>{post.restaurant.name[0]}</AvatarFallback>
+            </Avatar>
+            <div className="flex-1">
+              <div className="flex items-center gap-2">
+                <span className="text-white font-medium text-sm">{post.restaurant.name}</span>
+                {post.restaurant.isVerified && (
+                  <CheckCircle size={14} className="text-blue-400 fill-current" />
+                )}
+              </div>
+              <div className="flex items-center gap-1 text-white/80 text-xs">
+                <Star size={10} className="text-yellow-400 fill-current" />
+                <span>{post.restaurant.rating}</span>
+              </div>
+            </div>
+          </div>
+          
+          {/* Promotion section */}
+          <div className="space-y-3">
+            <p className="text-white text-lg font-medium">{post.promotion.text}</p>
+            <div className="flex items-center gap-2">
+              <Badge className="bg-yellow-500 text-black">
+                +{post.promotion.likCoinReward} Lik Coins
               </Badge>
+              {post.promotion.questAvailable && (
+                <Badge className="bg-purple-600 text-white">
+                  Quest Available (+{post.promotion.xpBonus} XP)
+                </Badge>
+              )}
+            </div>
+            <div className="flex gap-2">
+              <Button size="sm" className="bg-primary text-primary-foreground">
+                <GameController size={16} className="mr-1" />
+                Start Quest
+              </Button>
+              <Button size="sm" variant="secondary">
+                <ShoppingCart size={16} className="mr-1" />
+                Order Now
+              </Button>
+            </div>
+            {post.challenge && (
+              <div className="bg-black/50 rounded-lg p-2">
+                <p className="text-yellow-400 text-sm font-medium">{post.challenge.name}</p>
+                <p className="text-white/80 text-xs">{post.challenge.description}</p>
+              </div>
             )}
           </div>
-          <div className="flex gap-2">
-            <Button size="sm" className="bg-primary text-primary-foreground">
-              <GameController size={16} className="mr-1" />
-              Start Quest
-            </Button>
-            <Button size="sm" variant="secondary">
-              <ShoppingCart size={16} className="mr-1" />
-              Order Now
-            </Button>
-          </div>
-          {post.challenge && (
-            <div className="bg-black/50 rounded-lg p-2">
-              <p className="text-yellow-400 text-sm font-medium">{post.challenge.name}</p>
-              <p className="text-white/80 text-xs">{post.challenge.description}</p>
-            </div>
-          )}
         </div>
       </div>
     </div>
