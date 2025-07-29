@@ -543,12 +543,55 @@ input, textarea, select {
   animation: slideInComment 0.3s ease-out;
 }
 
-/* Mobile-optimized comment interaction improvements */
+/* Comment filter transition animations */
+.comment-filter-change {
+  animation: commentFilterUpdate 0.4s ease-out;
+}
+
+@keyframes commentFilterUpdate {
+  0% {
+    opacity: 0.7;
+    transform: translateY(4px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Enhanced comment item stagger animation for filter changes */
 .comment-item {
   animation: slideInComment 0.3s ease-out;
   /* Improve touch responsiveness on mobile */
   -webkit-tap-highlight-color: transparent;
   touch-action: manipulation;
+}
+
+@keyframes slideInComment {
+  0% {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Filter dropdown animations */
+.comment-sort-dropdown {
+  animation: dropdownSlideIn 0.2s ease-out;
+}
+
+@keyframes dropdownSlideIn {
+  0% {
+    opacity: 0;
+    transform: translateY(-8px) scale(0.95);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
 }
 
 /* Enhanced comment bubble styling */

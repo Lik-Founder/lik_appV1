@@ -135,6 +135,69 @@ export function sortCommentsByEngagement(comments: Comment[]): Comment[] {
 }
 
 /**
+ * Sort comments by most liked (highest likes first)
+ */
+export function sortCommentsByMostLiked(comments: Comment[]): Comment[] {
+  return [...comments].sort((a, b) => {
+    const aLikes = a.likes || 0;
+    const bLikes = b.likes || 0;
+    
+    // Sort by likes first, then by timestamp (newest first) for ties
+    if (aLikes !== bLikes) {
+      return bLikes - aLikes;
+    }
+    
+    return b.timestamp - a.timestamp;
+  });
+}
+
+/**
+ * Sort comments by newest first (most recent timestamp)
+ */
+export function sortCommentsByNewest(comments: Comment[]): Comment[] {
+  return [...comments].sort((a, b) => {
+    return b.timestamp - a.timestamp;
+  });
+}
+
+/**
+ * Sort comments by oldest first (earliest timestamp)
+ */
+export function sortCommentsByOldest(comments: Comment[]): Comment[] {
+  return [...comments].sort((a, b) => {
+    return a.timestamp - b.timestamp;
+  });
+}
+
+/**
+ * Sort comments based on the specified filter type
+ */
+export function sortCommentsByFilter(comments: Comment[], filter: 'engagement' | 'mostLiked' | 'newest' | 'oldest'): Comment[] {
+  const sortFunction = (commentsToSort: Comment[]) => {
+    switch (filter) {
+      case 'mostLiked':
+        return sortCommentsByMostLiked(commentsToSort);
+      case 'newest':
+        return sortCommentsByNewest(commentsToSort);
+      case 'oldest':
+        return sortCommentsByOldest(commentsToSort);
+      case 'engagement':
+      default:
+        return sortCommentsByEngagement(commentsToSort);
+    }
+  };
+
+  // Sort the main comments
+  const sortedComments = sortFunction(comments);
+
+  // Recursively sort replies within each comment thread
+  return sortedComments.map(comment => ({
+    ...comment,
+    replies: comment.replies ? sortCommentsByFilter(comment.replies, filter) : undefined
+  }));
+}
+
+/**
  * Flatten threaded comments back to a flat array
  */
 export function flattenComments(threadedComments: Comment[]): Comment[] {

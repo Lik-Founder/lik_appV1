@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
-import { X, Heart, ArrowBendUpLeft, PaperPlaneTilt, MessageCircle } from '@phosphor-icons/react';
+import { X, Heart, ArrowBendUpLeft, PaperPlaneTilt, MessageCircle, SortAscending, ThumbsUp, Clock } from '@phosphor-icons/react';
 import { Comment, User } from '@/lib/types';
 import { useKV } from '@github/spark/hooks';
 import { DeviceType } from '@/hooks/use-device';
@@ -10,7 +10,13 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { CommentItem } from '@/components/CommentItem';
 import { EmojiPicker } from '@/components/EmojiPicker';
-import { organizeComments, getTotalCommentCount, sortCommentsByEngagement } from '@/utils/commentUtils';
+import { 
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
+import { organizeComments, getTotalCommentCount, sortCommentsByFilter } from '@/utils/commentUtils';
 import { formatDistanceToNow } from 'date-fns';
 import { cn } from '@/lib/utils';
 
@@ -92,6 +98,7 @@ export function CommentModal({ isOpen, onClose, postId, postAuthor, deviceType }
   const [replyingToParent, setReplyingToParent] = useState<string | null>(null);
   const [modalOffset, setModalOffset] = useState(0);
   const [isDragging, setIsDragging] = useState(false);
+  const [sortFilter, setSortFilter] = useState<'engagement' | 'mostLiked' | 'newest' | 'oldest'>('engagement');
   const inputRef = useRef<HTMLInputElement>(null);
   const modalRef = useRef<HTMLDivElement>(null);
   const startY = useRef(0);
@@ -169,8 +176,8 @@ export function CommentModal({ isOpen, onClose, postId, postAuthor, deviceType }
     }
   ];
 
-  // Transform flat comments array into threaded structure and sort by engagement
-  const threadedComments = sortCommentsByEngagement(organizeComments(comments));
+  // Transform flat comments array into threaded structure and sort by selected filter
+  const threadedComments = sortCommentsByFilter(organizeComments(comments), sortFilter);
   
   // Count total comments including replies
   const totalCommentCount = getTotalCommentCount(threadedComments);
@@ -355,27 +362,120 @@ export function CommentModal({ isOpen, onClose, postId, postAuthor, deviceType }
         </div>
 
         {/* Header */}
-        <div className="flex items-center justify-between px-4 pb-4 border-b border-border">
-          <h2 className={cn(
-            "font-semibold",
-            deviceType === 'tablet' ? "text-lg" : "text-base"
-          )}>
-            Comments ({totalCommentCount})
-          </h2>
-          <Button
-            variant="ghost"
-            size="sm"
-            onClick={onClose}
-            className="touch-target"
-          >
-            <X size={iconSize} />
-          </Button>
+        <div className="px-4 pb-4 border-b border-border">
+          <div className="flex items-center justify-between">
+            <h2 className={cn(
+              "font-semibold",
+              deviceType === 'tablet' ? "text-lg" : "text-base"
+            )}>
+              Comments ({totalCommentCount})
+            </h2>
+            
+            <div className="flex items-center gap-2">
+              {/* Sort Filter Dropdown */}
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    className="touch-target flex items-center gap-1"
+                  >
+                    <SortAscending size={iconSize} />
+                    {deviceType === 'tablet' && (
+                      <span className="text-xs">
+                        {sortFilter === 'engagement' && 'Top'}
+                        {sortFilter === 'mostLiked' && 'Liked'}
+                        {sortFilter === 'newest' && 'New'}
+                        {sortFilter === 'oldest' && 'Old'}
+                      </span>
+                    )}
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end" className="w-40 comment-sort-dropdown">
+                  <DropdownMenuItem
+                    onClick={() => {
+                      setSortFilter('engagement');
+                      triggerHaptic('light');
+                    }}
+                    className={cn(
+                      "flex items-center gap-2",
+                      sortFilter === 'engagement' && "bg-muted"
+                    )}
+                  >
+                    <SortAscending size={16} />
+                    <span>Top Comments</span>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem
+                    onClick={() => {
+                      setSortFilter('mostLiked');
+                      triggerHaptic('light');
+                    }}
+                    className={cn(
+                      "flex items-center gap-2",
+                      sortFilter === 'mostLiked' && "bg-muted"
+                    )}
+                  >
+                    <ThumbsUp size={16} />
+                    <span>Most Liked</span>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem
+                    onClick={() => {
+                      setSortFilter('newest');
+                      triggerHaptic('light');
+                    }}
+                    className={cn(
+                      "flex items-center gap-2",
+                      sortFilter === 'newest' && "bg-muted"
+                    )}
+                  >
+                    <Clock size={16} />
+                    <span>Newest First</span>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem
+                    onClick={() => {
+                      setSortFilter('oldest');
+                      triggerHaptic('light');
+                    }}
+                    className={cn(
+                      "flex items-center gap-2",
+                      sortFilter === 'oldest' && "bg-muted"
+                    )}
+                  >
+                    <Clock size={16} className="rotate-180" />
+                    <span>Oldest First</span>
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+              
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={onClose}
+                className="touch-target"
+              >
+                <X size={iconSize} />
+              </Button>
+            </div>
+          </div>
+          
+          {/* Filter indicator */}
+          {sortFilter !== 'engagement' && (
+            <div className="mt-2 flex items-center gap-1">
+              <div className="h-1 w-1 bg-primary rounded-full" />
+              <span className="text-xs text-muted-foreground">
+                Sorted by {' '}
+                {sortFilter === 'mostLiked' && 'most liked'}
+                {sortFilter === 'newest' && 'newest first'}
+                {sortFilter === 'oldest' && 'oldest first'}
+              </span>
+            </div>
+          )}
         </div>
 
         {/* Comments List */}
         <ScrollArea className="flex-1 px-4">
           <div className={cn(
-            "space-y-6 py-4", // Increased spacing for better mobile UX
+            "space-y-6 py-4 transition-all duration-300", // Added transition for smooth filter changes
             deviceType === 'tablet' && "space-y-8"
           )}>
             {threadedComments.length === 0 ? (
@@ -395,11 +495,15 @@ export function CommentModal({ isOpen, onClose, postId, postAuthor, deviceType }
                   <div 
                     key={comment.id} 
                     className={cn(
-                      "comment-item relative",
+                      "comment-item relative transition-all duration-300", // Added transition for individual comments
                       // Add visual separation between top-level comments
                       index > 0 && "border-t border-border/30 pt-6"
                     )}
-                    style={{ animationDelay: `${index * 50}ms` }}
+                    style={{ 
+                      animationDelay: `${index * 50}ms`,
+                      transform: 'translateY(0)', // Ensure smooth positioning
+                      opacity: 1
+                    }}
                   >
                     <CommentItem
                       comment={comment}
