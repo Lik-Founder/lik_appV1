@@ -6,6 +6,8 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Cart } from '@/components/Cart';
 import { Checkout } from '@/components/Checkout';
+import { FavoritesPage } from '@/components/FavoritesPage';
+import { OrderHistory } from '@/components/OrderHistory';
 import { 
   Search as SearchIcon, 
   SlidersHorizontal as FilterIcon,
@@ -20,11 +22,12 @@ import {
   Lightning,
   Plus,
   Minus,
-  ShoppingCart
+  ShoppingCart,
+  ClockCounterClockwise
 } from '@phosphor-icons/react';
 import { toast } from 'sonner';
 import { cn } from '@/lib/utils';
-import { CartItem } from '@/lib/types';
+import { CartItem, FavoriteRestaurant, FavoriteDish } from '@/lib/types';
 
 interface FoodPost {
   id: string;
@@ -72,8 +75,12 @@ export function SearchPage() {
   const [restaurants, setRestaurants] = useKV<Restaurant[]>('restaurants', generateMockRestaurants());
   const [cartItems, setCartItems] = useKV<{[key: string]: number}>('cart-items', {});
   const [cartItemsDetailed, setCartItemsDetailed] = useKV<CartItem[]>('cart-items-detailed', []);
+  const [favoriteRestaurants, setFavoriteRestaurants] = useKV<FavoriteRestaurant[]>('favorite-restaurants', []);
+  const [favoriteDishes, setFavoriteDishes] = useKV<FavoriteDish[]>('favorite-dishes', []);
   const [showCart, setShowCart] = useState(false);
   const [showCheckout, setShowCheckout] = useState(false);
+  const [showFavorites, setShowFavorites] = useState(false);
+  const [showOrderHistory, setShowOrderHistory] = useState(false);
   const device = useDevice();
 
   const preferences = ['Vegan', 'Halal', 'Mexican', 'Asian', 'Coffee', 'Pizza', 'Burgers', 'Healthy'];
@@ -200,7 +207,60 @@ export function SearchPage() {
   };
 
   const openFavorites = () => {
-    toast.info('Favorites page coming soon!');
+    setShowFavorites(true);
+  };
+
+  const openOrderHistory = () => {
+    setShowOrderHistory(true);
+  };
+
+  const addToFavorites = (restaurant: Restaurant, dish?: MenuItem) => {
+    if (dish) {
+      // Add dish to favorites
+      const favoriteDish: FavoriteDish = {
+        id: dish.id,
+        name: dish.name,
+        description: dish.description,
+        price: dish.price,
+        image: dish.image,
+        restaurantId: restaurant.id,
+        restaurantName: restaurant.name,
+        dateAdded: Date.now()
+      };
+
+      setFavoriteDishes(current => {
+        if (current.some(fav => fav.id === dish.id)) {
+          toast.info('Dish already in favorites!');
+          return current;
+        }
+        toast.success('Dish added to favorites!');
+        return [...current, favoriteDish];
+      });
+    } else {
+      // Add restaurant to favorites
+      const favoriteRestaurant: FavoriteRestaurant = {
+        id: restaurant.id,
+        name: restaurant.name,
+        image: restaurant.image,
+        rating: restaurant.rating,
+        reviewCount: restaurant.reviewCount,
+        deliveryTime: restaurant.deliveryTime,
+        deliveryFee: restaurant.deliveryFee,
+        categories: restaurant.categories,
+        distance: restaurant.distance,
+        isPartner: restaurant.isPartner,
+        dateAdded: Date.now()
+      };
+
+      setFavoriteRestaurants(current => {
+        if (current.some(fav => fav.id === restaurant.id)) {
+          toast.info('Restaurant already in favorites!');
+          return current;
+        }
+        toast.success('Restaurant added to favorites!');
+        return [...current, favoriteRestaurant];
+      });
+    }
   };
 
   const handleCartOpen = () => {
@@ -320,6 +380,30 @@ export function SearchPage() {
           )}
         </div>
 
+        {/* Additional delivery mode buttons */}
+        {isDeliveryMode && (
+          <div className="flex items-center gap-2 px-4 pb-2">
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={openOrderHistory}
+              className="h-8 px-3 rounded-full text-xs"
+            >
+              <ClockCounterClockwise size={14} className="mr-1" />
+              Orders
+            </Button>
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={openFavorites}
+              className="h-8 px-3 rounded-full text-xs"
+            >
+              <FavoritesIcon size={14} className="mr-1" />
+              Favorites
+            </Button>
+          </div>
+        )}
+
         {/* Preference/Filter Chips */}
         <div className={cn("pb-3", padding, "pt-0")}>
           <div className="flex gap-2 overflow-x-auto scrollbar-hide">
@@ -351,6 +435,7 @@ export function SearchPage() {
           onAddToCart={addToCart}
           onRemoveFromCart={removeFromCart}
           getCartItemCount={getCartItemCount}
+          onAddToFavorites={addToFavorites}
           deviceType={device.type}
           padding={padding}
         />
@@ -406,7 +491,7 @@ export function SearchPage() {
         </Button>
       )}
 
-      {/* Cart and Checkout Modals */}
+      {/* Cart, Checkout, Favorites, and Order History Modals */}
       <Cart
         isOpen={showCart}
         onClose={handleCartClose}
@@ -418,6 +503,16 @@ export function SearchPage() {
         onClose={handleCheckoutClose}
         onBack={handleCheckoutBack}
         cartItems={cartItemsDetailed}
+      />
+
+      <FavoritesPage
+        isOpen={showFavorites}
+        onClose={() => setShowFavorites(false)}
+      />
+
+      <OrderHistory
+        isOpen={showOrderHistory}
+        onClose={() => setShowOrderHistory(false)}
       />
     </div>
   );
@@ -580,6 +675,7 @@ interface DeliveryViewProps {
   onAddToCart: (restaurantId: string, itemId: string) => void;
   onRemoveFromCart: (restaurantId: string, itemId: string) => void;
   getCartItemCount: (restaurantId: string, itemId: string) => number;
+  onAddToFavorites: (restaurant: Restaurant, dish?: MenuItem) => void;
   deviceType: 'phone' | 'tablet';
   padding: string;
 }
@@ -590,6 +686,7 @@ function DeliveryView({
   onAddToCart, 
   onRemoveFromCart, 
   getCartItemCount, 
+  onAddToFavorites,
   deviceType, 
   padding 
 }: DeliveryViewProps) {
@@ -608,6 +705,7 @@ function DeliveryView({
         onAddToCart={onAddToCart}
         onRemoveFromCart={onRemoveFromCart}
         getCartItemCount={getCartItemCount}
+        onAddToFavorites={onAddToFavorites}
         deviceType={deviceType}
         padding={padding}
       />
@@ -626,6 +724,7 @@ function DeliveryView({
                 key={`featured-${restaurant.id}`}
                 restaurant={restaurant}
                 onClick={() => setSelectedRestaurant(restaurant)}
+                onAddToFavorites={onAddToFavorites}
                 deviceType={deviceType}
               />
             ))}
@@ -640,6 +739,7 @@ function DeliveryView({
               key={restaurant.id}
               restaurant={restaurant}
               onClick={() => setSelectedRestaurant(restaurant)}
+              onAddToFavorites={onAddToFavorites}
               deviceType={deviceType}
             />
           ))}
@@ -652,15 +752,21 @@ function DeliveryView({
 interface FeaturedRestaurantCardProps {
   restaurant: Restaurant;
   onClick: () => void;
+  onAddToFavorites: (restaurant: Restaurant) => void;
   deviceType: 'phone' | 'tablet';
 }
 
-function FeaturedRestaurantCard({ restaurant, onClick, deviceType }: FeaturedRestaurantCardProps) {
+function FeaturedRestaurantCard({ restaurant, onClick, onAddToFavorites, deviceType }: FeaturedRestaurantCardProps) {
+  const handleFavoriteClick = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    onAddToFavorites(restaurant);
+  };
+
   return (
     <div
       onClick={onClick}
       className={cn(
-        "flex-shrink-0 bg-card rounded-lg border border-border overflow-hidden cursor-pointer",
+        "flex-shrink-0 bg-card rounded-lg border border-border overflow-hidden cursor-pointer relative",
         "touch-feedback transition-all duration-200 hover:shadow-md",
         deviceType === 'tablet' ? "w-64" : "w-56"
       )}
@@ -676,11 +782,21 @@ function FeaturedRestaurantCard({ restaurant, onClick, deviceType }: FeaturedRes
             {restaurant.promo}
           </div>
         )}
-        <div className="absolute top-2 right-2 bg-black/50 backdrop-blur-sm rounded px-2 py-1">
-          <div className="flex items-center gap-1">
-            <Star size={12} className="text-yellow-400 fill-current" />
-            <span className="text-white text-xs font-medium">{restaurant.rating}</span>
+        <div className="absolute top-2 right-2 flex gap-1">
+          <div className="bg-black/50 backdrop-blur-sm rounded px-2 py-1">
+            <div className="flex items-center gap-1">
+              <Star size={12} className="text-yellow-400 fill-current" />
+              <span className="text-white text-xs font-medium">{restaurant.rating}</span>
+            </div>
           </div>
+          <Button
+            variant="ghost"
+            size="sm"
+            onClick={handleFavoriteClick}
+            className="h-6 w-6 p-0 bg-black/50 hover:bg-black/70 rounded-full"
+          >
+            <Heart size={12} className="text-white" />
+          </Button>
         </div>
       </div>
       <div className="p-3">
@@ -704,10 +820,16 @@ function FeaturedRestaurantCard({ restaurant, onClick, deviceType }: FeaturedRes
 interface RestaurantCardProps {
   restaurant: Restaurant;
   onClick: () => void;
+  onAddToFavorites: (restaurant: Restaurant) => void;
   deviceType: 'phone' | 'tablet';
 }
 
-function RestaurantCard({ restaurant, onClick, deviceType }: RestaurantCardProps) {
+function RestaurantCard({ restaurant, onClick, onAddToFavorites, deviceType }: RestaurantCardProps) {
+  const handleFavoriteClick = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    onAddToFavorites(restaurant);
+  };
+
   return (
     <div
       onClick={onClick}
@@ -741,11 +863,21 @@ function RestaurantCard({ restaurant, onClick, deviceType }: RestaurantCardProps
                 <span className="text-sm text-muted-foreground">• {restaurant.distance}</span>
               </div>
             </div>
-            {restaurant.promo && (
-              <div className="bg-red-500 text-white px-2 py-1 rounded text-xs font-medium flex-shrink-0 ml-2">
-                {restaurant.promo}
-              </div>
-            )}
+            <div className="flex items-center gap-2 ml-2">
+              {restaurant.promo && (
+                <div className="bg-red-500 text-white px-2 py-1 rounded text-xs font-medium flex-shrink-0">
+                  {restaurant.promo}
+                </div>
+              )}
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={handleFavoriteClick}
+                className="h-8 w-8 p-0 rounded-full"
+              >
+                <Heart size={16} />
+              </Button>
+            </div>
           </div>
           <div className="flex items-center justify-between mt-2">
             <div className="flex items-center gap-4 text-xs text-muted-foreground">
@@ -771,6 +903,7 @@ interface RestaurantMenuProps {
   onAddToCart: (restaurantId: string, itemId: string) => void;
   onRemoveFromCart: (restaurantId: string, itemId: string) => void;
   getCartItemCount: (restaurantId: string, itemId: string) => number;
+  onAddToFavorites: (restaurant: Restaurant, dish?: MenuItem) => void;
   deviceType: 'phone' | 'tablet';
   padding: string;
 }
@@ -781,10 +914,15 @@ function RestaurantMenu({
   onAddToCart, 
   onRemoveFromCart, 
   getCartItemCount, 
+  onAddToFavorites,
   deviceType, 
   padding 
 }: RestaurantMenuProps) {
   const menuItems = generateMenuItems(restaurant.id);
+
+  const handleFavoriteRestaurant = () => {
+    onAddToFavorites(restaurant);
+  };
 
   return (
     <div className="flex-1 overflow-y-auto scrollbar-hide">
@@ -803,6 +941,14 @@ function RestaurantMenu({
           className="absolute top-4 left-4 bg-black/50 hover:bg-black/70 text-white h-8 w-8 p-0 rounded-full"
         >
           ←
+        </Button>
+        <Button
+          onClick={handleFavoriteRestaurant}
+          variant="ghost"
+          size="sm"
+          className="absolute top-4 right-4 bg-black/50 hover:bg-black/70 text-white h-8 w-8 p-0 rounded-full"
+        >
+          <Heart size={16} />
         </Button>
         <div className="absolute bottom-4 left-4 right-4">
           <h1 className="text-white text-2xl font-bold">{restaurant.name}</h1>
@@ -835,9 +981,10 @@ function RestaurantMenu({
             <MenuItem
               key={item.id}
               item={item}
-              restaurantId={restaurant.id}
+              restaurant={restaurant}
               onAddToCart={onAddToCart}
               onRemoveFromCart={onRemoveFromCart}
+              onAddToFavorites={onAddToFavorites}
               cartCount={getCartItemCount(restaurant.id, item.id)}
               deviceType={deviceType}
             />
@@ -850,21 +997,27 @@ function RestaurantMenu({
 
 interface MenuItemProps {
   item: MenuItem;
-  restaurantId: string;
+  restaurant: Restaurant;
   onAddToCart: (restaurantId: string, itemId: string) => void;
   onRemoveFromCart: (restaurantId: string, itemId: string) => void;
+  onAddToFavorites: (restaurant: Restaurant, dish: MenuItem) => void;
   cartCount: number;
   deviceType: 'phone' | 'tablet';
 }
 
 function MenuItem({ 
   item, 
-  restaurantId, 
+  restaurant, 
   onAddToCart, 
   onRemoveFromCart, 
+  onAddToFavorites,
   cartCount, 
   deviceType 
 }: MenuItemProps) {
+  const handleFavoriteDish = () => {
+    onAddToFavorites(restaurant, item);
+  };
+
   return (
     <div className="bg-card rounded-lg border border-border overflow-hidden">
       <div className="flex">
@@ -880,6 +1033,14 @@ function MenuItem({
               <p className="text-sm text-muted-foreground mt-1 line-clamp-2">{item.description}</p>
               <p className="text-lg font-bold mt-2">${item.price.toFixed(2)}</p>
             </div>
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={handleFavoriteDish}
+              className="h-8 w-8 p-0 rounded-full ml-2"
+            >
+              <Heart size={16} />
+            </Button>
           </div>
           
           {/* Add to Cart Controls */}
@@ -892,7 +1053,7 @@ function MenuItem({
             <div className="flex items-center gap-2">
               {cartCount > 0 && (
                 <Button
-                  onClick={() => onRemoveFromCart(restaurantId, item.id)}
+                  onClick={() => onRemoveFromCart(restaurant.id, item.id)}
                   variant="outline"
                   size="sm"
                   className="h-8 w-8 p-0 rounded-full"
@@ -904,7 +1065,7 @@ function MenuItem({
                 <span className="text-sm font-medium min-w-[20px] text-center">{cartCount}</span>
               )}
               <Button
-                onClick={() => onAddToCart(restaurantId, item.id)}
+                onClick={() => onAddToCart(restaurant.id, item.id)}
                 variant="default"
                 size="sm"
                 className="h-8 w-8 p-0 rounded-full bg-primary hover:bg-primary/90"

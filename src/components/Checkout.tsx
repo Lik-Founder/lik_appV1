@@ -131,6 +131,90 @@ export function Checkout({ isOpen, onClose, onBack, cartItems }: CheckoutProps) 
       orders.unshift(newOrder);
       localStorage.setItem('orders', JSON.stringify(orders));
 
+      // Add sample orders if this is the first order (for demo purposes)
+      if (orders.length === 1) {
+        const sampleOrders: Order[] = [
+          {
+            id: 'ORD-' + (Date.now() - 86400000), // 1 day ago
+            restaurantId: 'restaurant-0',
+            restaurantName: "Mario's Pizza Palace",
+            items: [
+              {
+                id: 'restaurant-0-item-0',
+                restaurantId: 'restaurant-0',
+                restaurantName: "Mario's Pizza Palace",
+                itemId: 'item-0',
+                name: 'Margherita Pizza',
+                description: 'Fresh mozzarella, basil, and tomato sauce',
+                price: 16.99,
+                image: 'https://images.unsplash.com/photo-1565299624946-b28f40a0ca4b?w=200&h=200&fit=crop',
+                quantity: 1
+              },
+              {
+                id: 'restaurant-0-item-1',
+                restaurantId: 'restaurant-0', 
+                restaurantName: "Mario's Pizza Palace",
+                itemId: 'item-1',
+                name: 'Caesar Salad',
+                description: 'Crisp romaine lettuce with parmesan cheese',
+                price: 12.99,
+                image: 'https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=200&h=200&fit=crop',
+                quantity: 1
+              }
+            ],
+            subtotal: 29.98,
+            deliveryFee: 2.99,
+            tip: 5.00,
+            tax: 2.40,
+            total: 40.37,
+            deliveryInfo: {
+              address: '123 Main St, New York, NY 10001',
+              estimatedTime: '25-35 min',
+              fee: 2.99
+            },
+            paymentMethod: selectedPayment,
+            status: 'delivered',
+            timestamp: Date.now() - 86400000,
+            estimatedDelivery: '25-35 min'
+          },
+          {
+            id: 'ORD-' + (Date.now() - 172800000), // 2 days ago
+            restaurantId: 'restaurant-1',
+            restaurantName: 'Tokyo Sushi Bar',
+            items: [
+              {
+                id: 'restaurant-1-item-2',
+                restaurantId: 'restaurant-1',
+                restaurantName: 'Tokyo Sushi Bar',
+                itemId: 'item-2',
+                name: 'Salmon Roll',
+                description: 'Fresh salmon with avocado and cucumber',
+                price: 18.99,
+                image: 'https://images.unsplash.com/photo-1563379091339-03246963d321?w=200&h=200&fit=crop',
+                quantity: 2
+              }
+            ],
+            subtotal: 37.98,
+            deliveryFee: 2.99,
+            tip: 7.00,
+            tax: 3.04,
+            total: 51.01,
+            deliveryInfo: {
+              address: '123 Main St, New York, NY 10001',
+              estimatedTime: '30-40 min',
+              fee: 2.99
+            },
+            paymentMethod: selectedPayment,
+            status: 'delivered',
+            timestamp: Date.now() - 172800000,
+            estimatedDelivery: '30-40 min'
+          }
+        ];
+        
+        orders.push(...sampleOrders);
+        localStorage.setItem('orders', JSON.stringify(orders));
+      }
+
       setPlacedOrderId(orderId);
       setOrderPlaced(true);
       

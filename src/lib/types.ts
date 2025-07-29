@@ -218,3 +218,29 @@ export interface Order {
   timestamp: number;
   estimatedDelivery: string;
 }
+
+// Favorites types
+export interface FavoriteRestaurant {
+  id: string;
+  name: string;
+  image: string;
+  rating: number;
+  reviewCount: number;
+  deliveryTime: string;
+  deliveryFee: number;
+  categories: string[];
+  distance: string;
+  isPartner: boolean;
+  dateAdded: number;
+}
+
+export interface FavoriteDish {
+  id: string;
+  name: string;
+  description: string;
+  price: number;
+  image: string;
+  restaurantId: string;
+  restaurantName: string;
+  dateAdded: number;
+}

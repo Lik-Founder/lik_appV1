@@ -13,11 +13,13 @@ import {
   CheckCircle,
   Clock,
   Star,
-  Phone
+  Phone,
+  ShoppingCart,
+  Plus
 } from '@phosphor-icons/react';
 import { toast } from 'sonner';
 import { cn } from '@/lib/utils';
-import { Order } from '@/lib/types';
+import { Order, CartItem } from '@/lib/types';
 
 interface OrderHistoryProps {
   isOpen: boolean;
@@ -27,6 +29,7 @@ interface OrderHistoryProps {
 export function OrderHistory({ isOpen, onClose }: OrderHistoryProps) {
   const [orders, setOrders] = useState<Order[]>([]);
   const [selectedOrder, setSelectedOrder] = useState<Order | null>(null);
+  const [cartItemsDetailed, setCartItemsDetailed] = useKV<CartItem[]>('cart-items-detailed', []);
   const device = useDevice();
 
   useEffect(() => {
@@ -89,8 +92,65 @@ export function OrderHistory({ isOpen, onClose }: OrderHistoryProps) {
   };
 
   const handleReorder = (order: Order) => {
-    toast.success('Items added to cart for reorder!');
+    // Add all items from the order to the current cart
+    const itemsToAdd = order.items.map(item => ({
+      ...item,
+      id: `${item.restaurantId}-${item.itemId}-${Date.now()}` // Create new ID to avoid conflicts
+    }));
+
+    setCartItemsDetailed(current => {
+      const updatedCart = [...current];
+      
+      itemsToAdd.forEach(newItem => {
+        const existingItemIndex = updatedCart.findIndex(
+          item => item.restaurantId === newItem.restaurantId && item.itemId === newItem.itemId
+        );
+        
+        if (existingItemIndex >= 0) {
+          // Update quantity of existing item
+          updatedCart[existingItemIndex] = {
+            ...updatedCart[existingItemIndex],
+            quantity: updatedCart[existingItemIndex].quantity + newItem.quantity
+          };
+        } else {
+          // Add new item
+          updatedCart.push(newItem);
+        }
+      });
+      
+      return updatedCart;
+    });
+
+    toast.success(`${order.items.length} items added to cart!`);
     onClose();
+  };
+
+  const handleReorderSingleItem = (item: CartItem, order: Order) => {
+    const cartItemId = `${item.restaurantId}-${item.itemId}-${Date.now()}`;
+    
+    setCartItemsDetailed(current => {
+      const existingItemIndex = current.findIndex(
+        cartItem => cartItem.restaurantId === item.restaurantId && cartItem.itemId === item.itemId
+      );
+      
+      if (existingItemIndex >= 0) {
+        // Update quantity of existing item
+        return current.map((cartItem, index) =>
+          index === existingItemIndex
+            ? { ...cartItem, quantity: cartItem.quantity + item.quantity }
+            : cartItem
+        );
+      } else {
+        // Add new item to cart
+        const newCartItem: CartItem = {
+          ...item,
+          id: cartItemId
+        };
+        return [...current, newCartItem];
+      }
+    });
+
+    toast.success(`${item.name} added to cart!`);
   };
 
   if (!isOpen) return null;
@@ -175,6 +235,14 @@ export function OrderHistory({ isOpen, onClose }: OrderHistoryProps) {
                       <span className="font-medium">${(item.price * item.quantity).toFixed(2)}</span>
                     </div>
                   </div>
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={() => handleReorderSingleItem(item, selectedOrder)}
+                    className="h-8 w-8 p-0 rounded-full flex-shrink-0"
+                  >
+                    <Plus size={14} />
+                  </Button>
                 </div>
               ))}
             </CardContent>
@@ -213,6 +281,14 @@ export function OrderHistory({ isOpen, onClose }: OrderHistoryProps) {
 
         {/* Actions */}
         <div className="border-t border-border p-4 space-y-3">
+          <Button 
+            variant="default" 
+            className="w-full"
+            onClick={() => handleReorder(selectedOrder)}
+          >
+            <ShoppingCart size={16} className="mr-2" />
+            Reorder All Items
+          </Button>
           {selectedOrder.status === 'delivered' && (
             <Button 
               variant="outline" 
@@ -278,18 +354,18 @@ export function OrderHistory({ isOpen, onClose }: OrderHistoryProps) {
                     <span className="text-sm font-medium">${order.total.toFixed(2)}</span>
                     <div className="flex items-center gap-2">
                       {getStatusIcon(order.status)}
-                      {order.status === 'delivered' && (
-                        <Button
-                          variant="outline"
-                          size="sm"
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            handleReorder(order);
-                          }}
-                        >
-                          Reorder
-                        </Button>
-                      )}
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          handleReorder(order);
+                        }}
+                        className="text-xs"
+                      >
+                        <Plus size={12} className="mr-1" />
+                        Reorder
+                      </Button>
                     </div>
                   </div>
                 </CardContent>
