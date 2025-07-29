@@ -154,7 +154,7 @@ export function AwardsPage({ restaurantId, onBack }: AwardsPageProps) {
         </div>
 
         {/* Title Overlay */}
-        <div className="absolute inset-0 flex flex-col justify-center items-center text-center text-white px-4">
+        <div className="absolute top-16 left-0 right-0 flex flex-col justify-center items-center text-center text-white px-4 pt-8">
           <div className="flex items-center gap-3 mb-2">
             <Trophy size={32} className="text-yellow-400" />
             <h1 className="text-3xl font-bold">Awards & Recognition</h1>
