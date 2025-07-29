@@ -12,7 +12,12 @@ import {
   Heart,
   Star,
   DotsThree,
-  MapPin
+  MapPin,
+  Clock,
+  Truck,
+  Lightning,
+  Plus,
+  Minus
 } from '@phosphor-icons/react';
 import { toast } from 'sonner';
 import { cn } from '@/lib/utils';
@@ -31,14 +36,41 @@ interface FoodPost {
   likes: number;
 }
 
+interface Restaurant {
+  id: string;
+  name: string;
+  image: string;
+  rating: number;
+  reviewCount: number;
+  deliveryTime: string;
+  deliveryFee: number;
+  categories: string[];
+  promo?: string;
+  distance: string;
+  isPartner: boolean;
+}
+
+interface MenuItem {
+  id: string;
+  name: string;
+  description: string;
+  price: number;
+  image: string;
+  isPopular?: boolean;
+  customizations?: string[];
+}
+
 export function SearchPage() {
   const [searchQuery, setSearchQuery] = useState('');
   const [isDeliveryMode, setIsDeliveryMode] = useState(false);
   const [activePreferences, setActivePreferences] = useKV<string[]>('food-preferences', ['Vegan']);
   const [posts, setPosts] = useKV<FoodPost[]>('food-posts', generateMockFoodPosts());
+  const [restaurants, setRestaurants] = useKV<Restaurant[]>('restaurants', generateMockRestaurants());
+  const [cartItems, setCartItems] = useKV<{[key: string]: number}>('cart-items', {});
   const device = useDevice();
 
   const preferences = ['Vegan', 'Halal', 'Mexican', 'Asian', 'Coffee', 'Pizza', 'Burgers', 'Healthy'];
+  const deliveryFilters = ['All', 'Fast Delivery', 'Free Delivery', 'Highly Rated', 'New'];
 
   const togglePreference = (pref: string) => {
     setActivePreferences(current => 
@@ -60,6 +92,33 @@ export function SearchPage() {
           : post
       )
     );
+  };
+
+  const addToCart = (restaurantId: string, itemId: string) => {
+    const key = `${restaurantId}-${itemId}`;
+    setCartItems(current => ({
+      ...current,
+      [key]: (current[key] || 0) + 1
+    }));
+    toast.success('Added to cart!');
+  };
+
+  const removeFromCart = (restaurantId: string, itemId: string) => {
+    const key = `${restaurantId}-${itemId}`;
+    setCartItems(current => {
+      const newCart = { ...current };
+      if (newCart[key] > 1) {
+        newCart[key] -= 1;
+      } else {
+        delete newCart[key];
+      }
+      return newCart;
+    });
+  };
+
+  const getCartItemCount = (restaurantId: string, itemId: string) => {
+    const key = `${restaurantId}-${itemId}`;
+    return cartItems[key] || 0;
   };
 
   const openMap = () => {
@@ -109,7 +168,7 @@ export function SearchPage() {
               size={16} 
             />
             <Input
-              placeholder="Search for restaurants, dishes, or tags"
+              placeholder={isDeliveryMode ? "Search restaurants & cuisines" : "Search for restaurants, dishes, or tags"}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="pl-9 pr-10 h-9 text-sm rounded-full bg-muted/50"
@@ -124,29 +183,33 @@ export function SearchPage() {
           </div>
 
           {/* Right Icons */}
-          <Button
-            variant="ghost"
-            size="sm"
-            onClick={openSwipeMode}
-            className="h-8 w-8 p-0 rounded-full"
-          >
-            <SwipeIcon size={18} />
-          </Button>
-          
-          <Button
-            variant="ghost"
-            size="sm"
-            onClick={openFavorites}
-            className="h-8 w-8 p-0 rounded-full"
-          >
-            <FavoritesIcon size={18} />
-          </Button>
+          {!isDeliveryMode && (
+            <>
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={openSwipeMode}
+                className="h-8 w-8 p-0 rounded-full"
+              >
+                <SwipeIcon size={18} />
+              </Button>
+              
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={openFavorites}
+                className="h-8 w-8 p-0 rounded-full"
+              >
+                <FavoritesIcon size={18} />
+              </Button>
+            </>
+          )}
         </div>
 
-        {/* Preference Chips */}
+        {/* Preference/Filter Chips */}
         <div className={cn("pb-3", padding, "pt-0")}>
           <div className="flex gap-2 overflow-x-auto scrollbar-hide">
-            {preferences.map((pref) => (
+            {(isDeliveryMode ? deliveryFilters : preferences).map((pref) => (
               <Badge
                 key={pref}
                 variant={activePreferences.includes(pref) ? "default" : "secondary"}
@@ -166,35 +229,50 @@ export function SearchPage() {
         </div>
       </div>
 
-      {/* Pinterest-Style Grid */}
-      <div className="flex-1 overflow-y-auto scrollbar-hide">
-        <div className={cn("pb-20", padding, "pt-2")}>
-          <div className={cn("grid gap-3", gridCols)}>
-            {posts.map((post) => (
-              <FoodCard
-                key={post.id}
-                post={post}
-                onLike={handleLike}
-                deviceType={device.type}
-              />
-            ))}
+      {/* Content Area */}
+      {isDeliveryMode ? (
+        <DeliveryView 
+          restaurants={restaurants}
+          searchQuery={searchQuery}
+          onAddToCart={addToCart}
+          onRemoveFromCart={removeFromCart}
+          getCartItemCount={getCartItemCount}
+          deviceType={device.type}
+          padding={padding}
+        />
+      ) : (
+        /* Pinterest-Style Grid */
+        <div className="flex-1 overflow-y-auto scrollbar-hide">
+          <div className={cn("pb-20", padding, "pt-2")}>
+            <div className={cn("grid gap-3", gridCols)}>
+              {posts.map((post) => (
+                <FoodCard
+                  key={post.id}
+                  post={post}
+                  onLike={handleLike}
+                  deviceType={device.type}
+                />
+              ))}
+            </div>
           </div>
         </div>
-      </div>
+      )}
 
-      {/* Floating Map Button */}
-      <Button
-        onClick={openMap}
-        className={cn(
-          "fixed z-10 rounded-full shadow-lg bg-background border border-border text-foreground",
-          "hover:bg-muted transition-all duration-200",
-          "bottom-20 left-1/2 transform -translate-x-1/2",
-          device.type === 'tablet' ? "h-12 px-6" : "h-10 px-4"
-        )}
-      >
-        <MapPin size={16} className="mr-2" />
-        <span className="text-sm font-medium">Map</span>
-      </Button>
+      {/* Floating Map Button - Only show in explore mode */}
+      {!isDeliveryMode && (
+        <Button
+          onClick={openMap}
+          className={cn(
+            "fixed z-10 rounded-full shadow-lg bg-background border border-border text-foreground",
+            "hover:bg-muted transition-all duration-200",
+            "bottom-20 left-1/2 transform -translate-x-1/2",
+            device.type === 'tablet' ? "h-12 px-6" : "h-10 px-4"
+          )}
+        >
+          <MapPin size={16} className="mr-2" />
+          <span className="text-sm font-medium">Map</span>
+        </Button>
+      )}
     </div>
   );
 }
@@ -346,5 +424,488 @@ function generateMockFoodPosts(): FoodPost[] {
     likedBy: Array.from({ length: Math.floor(Math.random() * 5) + 1 }, (_, j) => `user${j}`),
     isLiked: Math.random() > 0.5,
     likes: Math.floor(Math.random() * 100) + 10
+  }));
+}
+
+// Delivery mode components and mock data
+interface DeliveryViewProps {
+  restaurants: Restaurant[];
+  searchQuery: string;
+  onAddToCart: (restaurantId: string, itemId: string) => void;
+  onRemoveFromCart: (restaurantId: string, itemId: string) => void;
+  getCartItemCount: (restaurantId: string, itemId: string) => number;
+  deviceType: 'phone' | 'tablet';
+  padding: string;
+}
+
+function DeliveryView({ 
+  restaurants, 
+  searchQuery, 
+  onAddToCart, 
+  onRemoveFromCart, 
+  getCartItemCount, 
+  deviceType, 
+  padding 
+}: DeliveryViewProps) {
+  const [selectedRestaurant, setSelectedRestaurant] = useState<Restaurant | null>(null);
+
+  const filteredRestaurants = restaurants.filter(restaurant =>
+    restaurant.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    restaurant.categories.some(cat => cat.toLowerCase().includes(searchQuery.toLowerCase()))
+  );
+
+  if (selectedRestaurant) {
+    return (
+      <RestaurantMenu
+        restaurant={selectedRestaurant}
+        onBack={() => setSelectedRestaurant(null)}
+        onAddToCart={onAddToCart}
+        onRemoveFromCart={onRemoveFromCart}
+        getCartItemCount={getCartItemCount}
+        deviceType={deviceType}
+        padding={padding}
+      />
+    );
+  }
+
+  return (
+    <div className="flex-1 overflow-y-auto scrollbar-hide">
+      <div className={cn("pb-20", padding, "pt-2")}>
+        {/* Promoted Restaurants */}
+        <div className="mb-6">
+          <h2 className="text-lg font-semibold mb-3">Featured Restaurants</h2>
+          <div className="flex gap-3 overflow-x-auto scrollbar-hide pb-2">
+            {restaurants.slice(0, 5).map((restaurant) => (
+              <FeaturedRestaurantCard
+                key={`featured-${restaurant.id}`}
+                restaurant={restaurant}
+                onClick={() => setSelectedRestaurant(restaurant)}
+                deviceType={deviceType}
+              />
+            ))}
+          </div>
+        </div>
+
+        {/* Restaurant List */}
+        <div className="space-y-3">
+          <h2 className="text-lg font-semibold">All Restaurants</h2>
+          {filteredRestaurants.map((restaurant) => (
+            <RestaurantCard
+              key={restaurant.id}
+              restaurant={restaurant}
+              onClick={() => setSelectedRestaurant(restaurant)}
+              deviceType={deviceType}
+            />
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+interface FeaturedRestaurantCardProps {
+  restaurant: Restaurant;
+  onClick: () => void;
+  deviceType: 'phone' | 'tablet';
+}
+
+function FeaturedRestaurantCard({ restaurant, onClick, deviceType }: FeaturedRestaurantCardProps) {
+  return (
+    <div
+      onClick={onClick}
+      className={cn(
+        "flex-shrink-0 bg-card rounded-lg border border-border overflow-hidden cursor-pointer",
+        "touch-feedback transition-all duration-200 hover:shadow-md",
+        deviceType === 'tablet' ? "w-64" : "w-56"
+      )}
+    >
+      <div className="relative h-32">
+        <img
+          src={restaurant.image}
+          alt={restaurant.name}
+          className="w-full h-full object-cover"
+        />
+        {restaurant.promo && (
+          <div className="absolute top-2 left-2 bg-red-500 text-white px-2 py-1 rounded text-xs font-medium">
+            {restaurant.promo}
+          </div>
+        )}
+        <div className="absolute top-2 right-2 bg-black/50 backdrop-blur-sm rounded px-2 py-1">
+          <div className="flex items-center gap-1">
+            <Star size={12} className="text-yellow-400 fill-current" />
+            <span className="text-white text-xs font-medium">{restaurant.rating}</span>
+          </div>
+        </div>
+      </div>
+      <div className="p-3">
+        <h3 className="font-semibold truncate">{restaurant.name}</h3>
+        <p className="text-sm text-muted-foreground truncate">{restaurant.categories.join(', ')}</p>
+        <div className="flex items-center justify-between mt-2 text-xs text-muted-foreground">
+          <div className="flex items-center gap-1">
+            <Clock size={12} />
+            <span>{restaurant.deliveryTime}</span>
+          </div>
+          <div className="flex items-center gap-1">
+            <Truck size={12} />
+            <span>${restaurant.deliveryFee === 0 ? 'Free' : restaurant.deliveryFee}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+interface RestaurantCardProps {
+  restaurant: Restaurant;
+  onClick: () => void;
+  deviceType: 'phone' | 'tablet';
+}
+
+function RestaurantCard({ restaurant, onClick, deviceType }: RestaurantCardProps) {
+  return (
+    <div
+      onClick={onClick}
+      className={cn(
+        "bg-card rounded-lg border border-border overflow-hidden cursor-pointer",
+        "touch-feedback transition-all duration-200 hover:shadow-md"
+      )}
+    >
+      <div className="flex">
+        <div className="relative w-24 h-24 flex-shrink-0">
+          <img
+            src={restaurant.image}
+            alt={restaurant.name}
+            className="w-full h-full object-cover"
+          />
+          {restaurant.isPartner && (
+            <div className="absolute top-1 left-1 bg-blue-500 text-white p-1 rounded-full">
+              <Lightning size={8} className="fill-current" />
+            </div>
+          )}
+        </div>
+        <div className="flex-1 p-3">
+          <div className="flex items-start justify-between">
+            <div className="flex-1 min-w-0">
+              <h3 className="font-semibold truncate">{restaurant.name}</h3>
+              <p className="text-sm text-muted-foreground truncate">{restaurant.categories.join(', ')}</p>
+              <div className="flex items-center gap-1 mt-1">
+                <Star size={12} className="text-yellow-400 fill-current" />
+                <span className="text-sm font-medium">{restaurant.rating}</span>
+                <span className="text-sm text-muted-foreground">({restaurant.reviewCount})</span>
+                <span className="text-sm text-muted-foreground">• {restaurant.distance}</span>
+              </div>
+            </div>
+            {restaurant.promo && (
+              <div className="bg-red-500 text-white px-2 py-1 rounded text-xs font-medium flex-shrink-0 ml-2">
+                {restaurant.promo}
+              </div>
+            )}
+          </div>
+          <div className="flex items-center justify-between mt-2">
+            <div className="flex items-center gap-4 text-xs text-muted-foreground">
+              <div className="flex items-center gap-1">
+                <Clock size={12} />
+                <span>{restaurant.deliveryTime}</span>
+              </div>
+              <div className="flex items-center gap-1">
+                <Truck size={12} />
+                <span>{restaurant.deliveryFee === 0 ? 'Free delivery' : `$${restaurant.deliveryFee} delivery`}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+interface RestaurantMenuProps {
+  restaurant: Restaurant;
+  onBack: () => void;
+  onAddToCart: (restaurantId: string, itemId: string) => void;
+  onRemoveFromCart: (restaurantId: string, itemId: string) => void;
+  getCartItemCount: (restaurantId: string, itemId: string) => number;
+  deviceType: 'phone' | 'tablet';
+  padding: string;
+}
+
+function RestaurantMenu({ 
+  restaurant, 
+  onBack, 
+  onAddToCart, 
+  onRemoveFromCart, 
+  getCartItemCount, 
+  deviceType, 
+  padding 
+}: RestaurantMenuProps) {
+  const menuItems = generateMenuItems(restaurant.id);
+
+  return (
+    <div className="flex-1 overflow-y-auto scrollbar-hide">
+      {/* Restaurant Header */}
+      <div className="relative h-48">
+        <img
+          src={restaurant.image}
+          alt={restaurant.name}
+          className="w-full h-full object-cover"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+        <Button
+          onClick={onBack}
+          variant="ghost"
+          size="sm"
+          className="absolute top-4 left-4 bg-black/50 hover:bg-black/70 text-white h-8 w-8 p-0 rounded-full"
+        >
+          ←
+        </Button>
+        <div className="absolute bottom-4 left-4 right-4">
+          <h1 className="text-white text-2xl font-bold">{restaurant.name}</h1>
+          <div className="flex items-center gap-2 mt-1">
+            <div className="flex items-center gap-1">
+              <Star size={14} className="text-yellow-400 fill-current" />
+              <span className="text-white font-medium">{restaurant.rating}</span>
+              <span className="text-white/80">({restaurant.reviewCount})</span>
+            </div>
+            <span className="text-white/80">• {restaurant.distance}</span>
+          </div>
+          <div className="flex items-center gap-4 mt-2 text-white/80 text-sm">
+            <div className="flex items-center gap-1">
+              <Clock size={12} />
+              <span>{restaurant.deliveryTime}</span>
+            </div>
+            <div className="flex items-center gap-1">
+              <Truck size={12} />
+              <span>{restaurant.deliveryFee === 0 ? 'Free delivery' : `$${restaurant.deliveryFee} delivery`}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Menu Items */}
+      <div className={cn("pb-20", padding, "pt-4")}>
+        <h2 className="text-lg font-semibold mb-4">Menu</h2>
+        <div className="space-y-3">
+          {menuItems.map((item) => (
+            <MenuItem
+              key={item.id}
+              item={item}
+              restaurantId={restaurant.id}
+              onAddToCart={onAddToCart}
+              onRemoveFromCart={onRemoveFromCart}
+              cartCount={getCartItemCount(restaurant.id, item.id)}
+              deviceType={deviceType}
+            />
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+interface MenuItemProps {
+  item: MenuItem;
+  restaurantId: string;
+  onAddToCart: (restaurantId: string, itemId: string) => void;
+  onRemoveFromCart: (restaurantId: string, itemId: string) => void;
+  cartCount: number;
+  deviceType: 'phone' | 'tablet';
+}
+
+function MenuItem({ 
+  item, 
+  restaurantId, 
+  onAddToCart, 
+  onRemoveFromCart, 
+  cartCount, 
+  deviceType 
+}: MenuItemProps) {
+  return (
+    <div className="bg-card rounded-lg border border-border overflow-hidden">
+      <div className="flex">
+        <div className="flex-1 p-4">
+          <div className="flex items-start justify-between">
+            <div className="flex-1 min-w-0">
+              <div className="flex items-center gap-2">
+                <h3 className="font-semibold">{item.name}</h3>
+                {item.isPopular && (
+                  <Badge variant="secondary" className="text-xs">Popular</Badge>
+                )}
+              </div>
+              <p className="text-sm text-muted-foreground mt-1 line-clamp-2">{item.description}</p>
+              <p className="text-lg font-bold mt-2">${item.price.toFixed(2)}</p>
+            </div>
+          </div>
+          
+          {/* Add to Cart Controls */}
+          <div className="flex items-center justify-between mt-3">
+            <div className="text-xs text-muted-foreground">
+              {item.customizations && item.customizations.length > 0 && (
+                <span>Customizable</span>
+              )}
+            </div>
+            <div className="flex items-center gap-2">
+              {cartCount > 0 && (
+                <Button
+                  onClick={() => onRemoveFromCart(restaurantId, item.id)}
+                  variant="outline"
+                  size="sm"
+                  className="h-8 w-8 p-0 rounded-full"
+                >
+                  <Minus size={14} />
+                </Button>
+              )}
+              {cartCount > 0 && (
+                <span className="text-sm font-medium min-w-[20px] text-center">{cartCount}</span>
+              )}
+              <Button
+                onClick={() => onAddToCart(restaurantId, item.id)}
+                variant="default"
+                size="sm"
+                className="h-8 w-8 p-0 rounded-full bg-primary hover:bg-primary/90"
+              >
+                <Plus size={14} />
+              </Button>
+            </div>
+          </div>
+        </div>
+        
+        <div className="w-24 h-24 flex-shrink-0">
+          <img
+            src={item.image}
+            alt={item.name}
+            className="w-full h-full object-cover"
+          />
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// Mock data generators for delivery mode
+function generateMockRestaurants(): Restaurant[] {
+  const restaurantData = [
+    {
+      name: "Mario's Pizza Palace",
+      categories: ["Italian", "Pizza", "Pasta"],
+      image: "https://images.unsplash.com/photo-1565299624946-b28f40a0ca4b?w=400&h=300&fit=crop",
+      promo: "30% OFF",
+      deliveryTime: "20-35 min",
+      deliveryFee: 0,
+      isPartner: true
+    },
+    {
+      name: "Tokyo Sushi Bar",
+      categories: ["Japanese", "Sushi", "Asian"],
+      image: "https://images.unsplash.com/photo-1563379091339-03246963d321?w=400&h=300&fit=crop",
+      promo: undefined,
+      deliveryTime: "25-40 min",
+      deliveryFee: 2.99,
+      isPartner: true
+    },
+    {
+      name: "Healthy Bowl Co.",
+      categories: ["Healthy", "Bowls", "Vegan"],
+      image: "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=400&h=300&fit=crop",
+      promo: "Free Delivery",
+      deliveryTime: "15-30 min",
+      deliveryFee: 0,
+      isPartner: false
+    },
+    {
+      name: "Burger Junction",
+      categories: ["American", "Burgers", "Fast Food"],
+      image: "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=400&h=300&fit=crop",
+      promo: undefined,
+      deliveryTime: "10-25 min",
+      deliveryFee: 1.99,
+      isPartner: true
+    },
+    {
+      name: "Spice Route Indian",
+      categories: ["Indian", "Curry", "Halal"],
+      image: "https://images.unsplash.com/photo-1585937421612-70a008356fbe?w=400&h=300&fit=crop",
+      promo: "25% OFF",
+      deliveryTime: "30-45 min",
+      deliveryFee: 3.49,
+      isPartner: false
+    },
+    {
+      name: "Fresh Salad Works",
+      categories: ["Healthy", "Salads", "Organic"],
+      image: "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=400&h=300&fit=crop",
+      promo: undefined,
+      deliveryTime: "15-25 min",
+      deliveryFee: 0,
+      isPartner: true
+    }
+  ];
+
+  return restaurantData.map((data, i) => ({
+    id: `restaurant-${i}`,
+    name: data.name,
+    image: data.image,
+    rating: Number((4.0 + Math.random() * 1.0).toFixed(1)),
+    reviewCount: Math.floor(Math.random() * 1000) + 100,
+    deliveryTime: data.deliveryTime,
+    deliveryFee: data.deliveryFee,
+    categories: data.categories,
+    promo: data.promo,
+    distance: `${(0.5 + Math.random() * 2.5).toFixed(1)} mi`,
+    isPartner: data.isPartner
+  }));
+}
+
+function generateMenuItems(restaurantId: string): MenuItem[] {
+  const menuData = [
+    {
+      name: "Margherita Pizza",
+      description: "Fresh mozzarella, basil, and tomato sauce on our signature dough",
+      price: 16.99,
+      image: "https://images.unsplash.com/photo-1565299624946-b28f40a0ca4b?w=200&h=200&fit=crop",
+      isPopular: true,
+      customizations: ["Size", "Crust", "Extra Toppings"]
+    },
+    {
+      name: "Caesar Salad",
+      description: "Crisp romaine lettuce, parmesan cheese, croutons, and caesar dressing",
+      price: 12.99,
+      image: "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=200&h=200&fit=crop",
+      isPopular: false,
+      customizations: ["Protein", "Dressing"]
+    },
+    {
+      name: "Cheeseburger Deluxe",
+      description: "Angus beef patty with cheese, lettuce, tomato, onion, and special sauce",
+      price: 14.99,
+      image: "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=200&h=200&fit=crop",
+      isPopular: true,
+      customizations: ["Meat Temp", "Cheese Type", "Add-ons"]
+    },
+    {
+      name: "Chicken Teriyaki Bowl",
+      description: "Grilled chicken with teriyaki sauce, rice, and steamed vegetables",
+      price: 13.99,
+      image: "https://images.unsplash.com/photo-1563379091339-03246963d321?w=200&h=200&fit=crop",
+      isPopular: false,
+      customizations: ["Rice Type", "Sauce Level"]
+    },
+    {
+      name: "Fish Tacos",
+      description: "Beer-battered fish with cabbage slaw and chipotle mayo in corn tortillas",
+      price: 15.99,
+      image: "https://images.unsplash.com/photo-1551782450-a2132b4ba21d?w=200&h=200&fit=crop",
+      isPopular: true,
+      customizations: ["Spice Level", "Tortilla Type"]
+    }
+  ];
+
+  return menuData.map((data, i) => ({
+    id: `${restaurantId}-item-${i}`,
+    name: data.name,
+    description: data.description,
+    price: data.price,
+    image: data.image,
+    isPopular: data.isPopular,
+    customizations: data.customizations
   }));
 }
