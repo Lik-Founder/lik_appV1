@@ -299,7 +299,7 @@ export function TrendingPage() {
       />
 
       {/* Bottom overlay with user profile and review info */}
-      <div className="absolute bottom-0 left-0 right-16 p-4 bg-gradient-to-t from-black/80 to-transparent">
+      <div className="absolute bottom-12 left-0 right-16 p-4 bg-gradient-to-t from-black/80 to-transparent">
         <div className="space-y-3">
           {/* User profile section */}
           <div className="flex items-center gap-3">
@@ -333,7 +333,7 @@ export function TrendingPage() {
               <span className="text-yellow-400 font-medium">{post.review.price}</span>
             </div>
             <p className="text-white text-sm leading-relaxed">{post.review.text}</p>
-            <div className="flex flex-wrap gap-2">
+            <div className="flex flex-wrap gap-2 mb-2">
               {post.review.tags.map((tag, index) => (
                 <span key={index} className="text-blue-300 text-sm">{tag}</span>
               ))}
@@ -367,7 +367,7 @@ export function TrendingPage() {
       )}
 
       {/* Bottom overlay with restaurant profile and dish info */}
-      <div className="absolute bottom-0 left-0 right-16 p-4 bg-gradient-to-t from-black/80 to-transparent">
+      <div className="absolute bottom-12 left-0 right-16 p-4 bg-gradient-to-t from-black/80 to-transparent">
         <div className="space-y-3">
           {/* Restaurant profile section */}
           <div className="flex items-center gap-3">
@@ -408,7 +408,7 @@ export function TrendingPage() {
             <div className="text-white/80 text-sm">
               <span>{post.dish.calories} cal • {post.dish.description}</span>
             </div>
-            <div className="flex flex-wrap gap-2">
+            <div className="flex flex-wrap gap-2 mb-2">
               {post.dish.tags.map((tag, index) => (
                 <span key={index} className="text-blue-300 text-sm">{tag}</span>
               ))}
@@ -438,7 +438,7 @@ export function TrendingPage() {
       </div>
 
       {/* Bottom overlay with restaurant profile and promotion */}
-      <div className="absolute bottom-0 left-0 right-16 p-4 bg-gradient-to-t from-black/80 to-transparent">
+      <div className="absolute bottom-12 left-0 right-16 p-4 bg-gradient-to-t from-black/80 to-transparent">
         <div className="space-y-3">
           {/* Restaurant profile section */}
           <div className="flex items-center gap-3">
@@ -484,7 +484,7 @@ export function TrendingPage() {
               </Button>
             </div>
             {post.challenge && (
-              <div className="bg-black/50 rounded-lg p-2">
+              <div className="bg-black/50 rounded-lg p-2 mb-2">
                 <p className="text-yellow-400 text-sm font-medium">{post.challenge.name}</p>
                 <p className="text-white/80 text-xs">{post.challenge.description}</p>
               </div>
