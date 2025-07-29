@@ -898,6 +898,8 @@ function ImageViewer({ images, currentIndex, onClose, onNavigate, onLike }: Imag
     </div>
   );
 }
+
+function MenuSection({ menuItems, padding }: MenuSectionProps) {
   const categories = [...new Set(menuItems.map(item => item.category))];
 
   return (
