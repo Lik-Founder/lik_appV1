@@ -10,7 +10,7 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { CommentItem } from '@/components/CommentItem';
 import { EmojiPicker } from '@/components/EmojiPicker';
-import { organizeComments, getTotalCommentCount } from '@/utils/commentUtils';
+import { organizeComments, getTotalCommentCount, sortCommentsByEngagement } from '@/utils/commentUtils';
 import { formatDistanceToNow } from 'date-fns';
 import { cn } from '@/lib/utils';
 
@@ -169,8 +169,8 @@ export function CommentModal({ isOpen, onClose, postId, postAuthor, deviceType }
     }
   ];
 
-  // Transform flat comments array into threaded structure
-  const threadedComments = organizeComments(comments);
+  // Transform flat comments array into threaded structure and sort by engagement
+  const threadedComments = sortCommentsByEngagement(organizeComments(comments));
   
   // Count total comments including replies
   const totalCommentCount = getTotalCommentCount(threadedComments);
@@ -375,8 +375,8 @@ export function CommentModal({ isOpen, onClose, postId, postAuthor, deviceType }
         {/* Comments List */}
         <ScrollArea className="flex-1 px-4">
           <div className={cn(
-            "space-y-4 py-4",
-            deviceType === 'tablet' && "space-y-6"
+            "space-y-6 py-4", // Increased spacing for better mobile UX
+            deviceType === 'tablet' && "space-y-8"
           )}>
             {threadedComments.length === 0 ? (
               <div className="text-center py-12">
@@ -394,7 +394,11 @@ export function CommentModal({ isOpen, onClose, postId, postAuthor, deviceType }
                 return (
                   <div 
                     key={comment.id} 
-                    className="comment-item"
+                    className={cn(
+                      "comment-item relative",
+                      // Add visual separation between top-level comments
+                      index > 0 && "border-t border-border/30 pt-6"
+                    )}
                     style={{ animationDelay: `${index * 50}ms` }}
                   >
                     <CommentItem

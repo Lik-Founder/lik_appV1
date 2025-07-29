@@ -69,6 +69,72 @@ export function getMaxDepth(comments: Comment[]): number {
 }
 
 /**
+ * Get the total count of replies for a specific comment (recursive)
+ */
+export function getReplyCount(comment: Comment): number {
+  if (!comment.replies || comment.replies.length === 0) {
+    return comment.replyCount || 0;
+  }
+  
+  let count = comment.replies.length;
+  comment.replies.forEach(reply => {
+    count += getReplyCount(reply);
+  });
+  
+  return count;
+}
+
+/**
+ * Check if a comment thread should be collapsible based on reply count and depth
+ */
+export function shouldBeCollapsible(comment: Comment, depth: number = 0): boolean {
+  const replyCount = getReplyCount(comment);
+  
+  // Top-level comments with 2+ replies should be collapsible
+  if (depth === 0 && replyCount >= 2) return true;
+  
+  // Nested comments with 1+ replies should be collapsible
+  if (depth > 0 && replyCount >= 1) return true;
+  
+  return false;
+}
+
+/**
+ * Get thread preview data for collapsed threads
+ */
+export function getThreadPreview(comment: Comment, maxPreviewUsers: number = 3) {
+  if (!comment.replies) return null;
+  
+  const totalReplies = getReplyCount(comment);
+  const previewReplies = comment.replies.slice(0, maxPreviewUsers);
+  const remainingCount = Math.max(0, totalReplies - maxPreviewUsers);
+  
+  return {
+    totalReplies,
+    previewReplies,
+    remainingCount,
+    hasMore: remainingCount > 0
+  };
+}
+
+/**
+ * Sort comments by engagement (likes + replies) for better mobile UX
+ */
+export function sortCommentsByEngagement(comments: Comment[]): Comment[] {
+  return [...comments].sort((a, b) => {
+    const aEngagement = (a.likes || 0) + getReplyCount(a);
+    const bEngagement = (b.likes || 0) + getReplyCount(b);
+    
+    // Sort by engagement, then by timestamp (newest first)
+    if (aEngagement !== bEngagement) {
+      return bEngagement - aEngagement;
+    }
+    
+    return b.timestamp - a.timestamp;
+  });
+}
+
+/**
  * Flatten threaded comments back to a flat array
  */
 export function flattenComments(threadedComments: Comment[]): Comment[] {

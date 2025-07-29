@@ -1,8 +1,9 @@
-import { useState } from 'react';
-import { Heart, ArrowBendUpLeft, DotsThree, CaretDown, CaretRight } from '@phosphor-icons/react';
+import { useState, useEffect } from 'react';
+import { Heart, ArrowBendUpLeft, DotsThree, CaretDown, CaretRight, ChatsCircle } from '@phosphor-icons/react';
 import { Comment as CommentType, User } from '@/lib/types';
 import { DeviceType } from '@/hooks/use-device';
 import { useHapticFeedback } from '@/hooks/use-haptic';
+import { useCommentSwipe } from '@/hooks/use-comment-swipe';
 import { Button } from '@/components/ui/button';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import {
@@ -41,7 +42,8 @@ export function CommentItem({
 }: CommentItemProps) {
   const [showMenu, setShowMenu] = useState(false);
   const [lastTap, setLastTap] = useState(0);
-  const [showReplies, setShowReplies] = useState(false);
+  const [showReplies, setShowReplies] = useState(depth === 0); // Auto-expand top-level threads
+  const [isCollapsing, setIsCollapsing] = useState(false);
   const { triggerHaptic } = useHapticFeedback();
 
   // Handle double-tap to like on mobile
@@ -60,25 +62,89 @@ export function CommentItem({
     onReply(comment.id, user.username, comment.parentId || comment.id);
   };
 
+  // Swipe functionality for mobile interactions
+  const {
+    swipeDirection,
+    isSwiping,
+    handleTouchStart,
+    handleTouchMove,
+    handleTouchEnd,
+    getSwipeStyle
+  } = useCommentSwipe({
+    threshold: 60,
+    onSwipeLeft: () => {
+      triggerHaptic('light');
+      handleReplyClick();
+    },
+    onSwipeRight: () => {
+      onLike(comment.id);
+      triggerHaptic('light');
+    }
+  });
+
   const toggleReplies = () => {
-    setShowReplies(!showReplies);
+    if (showReplies) {
+      setIsCollapsing(true);
+      setTimeout(() => {
+        setShowReplies(false);
+        setIsCollapsing(false);
+      }, 200); // Match CSS animation duration
+    } else {
+      setShowReplies(true);
+    }
     triggerHaptic('light');
+  };
+
+  // Count total replies recursively
+  const countTotalReplies = (comment: CommentType): number => {
+    if (!comment.replies) return comment.replyCount || 0;
+    
+    let total = comment.replies.length;
+    comment.replies.forEach(reply => {
+      total += countTotalReplies(reply);
+    });
+    return total;
   };
 
   const avatarSize = deviceType === 'tablet' ? 'w-8 h-8' : 'w-7 h-7';
   const iconSize = deviceType === 'tablet' ? 16 : 14;
   const isNested = depth > 0;
   const hasReplies = comment.replies && comment.replies.length > 0;
-  const replyCount = comment.replyCount || comment.replies?.length || 0;
+  const totalReplies = countTotalReplies(comment);
+  const shouldShowCollapseButton = hasReplies && (totalReplies > 1 || depth === 0);
 
   return (
     <div className={cn(
-      "flex gap-3 group",
+      "flex gap-3 group relative",
       isNested && "ml-6 mt-3"
     )}>
       {/* Thread connector line for nested comments */}
       {isNested && (
-        <div className="absolute left-6 top-0 w-0.5 h-full bg-border opacity-50" />
+        <>
+          <div className="absolute left-6 top-0 w-0.5 h-full bg-border opacity-30 comment-thread-line" />
+          <div className="absolute left-6 top-4 w-3 h-0.5 bg-border opacity-30 comment-thread-connector" />
+        </>
+      )}
+      
+      {/* Collapsible indicator for threads with multiple replies */}
+      {shouldShowCollapseButton && depth === 0 && (
+        <div className="absolute -left-4 top-2 z-10">
+          <button
+            onClick={toggleReplies}
+            className={cn(
+              "w-6 h-6 rounded-full bg-background border border-border",
+              "flex items-center justify-center transition-all duration-200",
+              "hover:bg-muted hover:scale-105 active:scale-95 touch-target",
+              "shadow-sm"
+            )}
+          >
+            {showReplies ? (
+              <CaretDown size={12} className="text-muted-foreground" />
+            ) : (
+              <CaretRight size={12} className="text-muted-foreground" />
+            )}
+          </button>
+        </div>
       )}
       
       <Avatar className={cn(
@@ -91,8 +157,17 @@ export function CommentItem({
       
       <div className="flex-1 min-w-0">
         <div 
-          className="bg-muted rounded-2xl px-3 py-2 relative touch-feedback"
-          onTouchEnd={handleDoubleTap}
+          className={cn(
+            "bg-muted rounded-2xl px-3 py-2 relative touch-feedback comment-bubble",
+            isSwiping && "transition-none"
+          )}
+          style={getSwipeStyle()}
+          onTouchStart={handleTouchStart}
+          onTouchMove={handleTouchMove}
+          onTouchEnd={(e) => {
+            handleTouchEnd();
+            handleDoubleTap();
+          }}
         >
           <div className="flex items-center gap-2 mb-1">
             <span className={cn(
@@ -156,6 +231,26 @@ export function CommentItem({
               <Heart size={10} weight="fill" className="text-white" />
             </div>
           )}
+          
+          {/* Swipe indicators for mobile */}
+          {swipeDirection && (
+            <>
+              <div className={cn(
+                "absolute top-1/2 -translate-y-1/2 transition-all duration-200 pointer-events-none",
+                "comment-swipe-indicator",
+                swipeDirection === 'right' ? "left-2 text-red-500 active" : "left-2 opacity-0"
+              )}>
+                <Heart size={16} weight="fill" />
+              </div>
+              <div className={cn(
+                "absolute top-1/2 -translate-y-1/2 transition-all duration-200 pointer-events-none",
+                "comment-swipe-indicator", 
+                swipeDirection === 'left' ? "right-2 text-blue-500 active" : "right-2 opacity-0"
+              )}>
+                <ArrowBendUpLeft size={16} />
+              </div>
+            </>
+          )}
         </div>
         
         {/* Comment Actions */}
@@ -196,45 +291,101 @@ export function CommentItem({
             </button>
           )}
 
-          {/* Show/Hide replies button */}
-          {hasReplies && (
+          {/* Show/Hide replies button with enhanced styling */}
+          {shouldShowCollapseButton && depth > 0 && (
             <button
               onClick={toggleReplies}
-              className="flex items-center gap-1 text-xs text-muted-foreground hover:text-foreground transition-colors touch-target font-medium"
+              className={cn(
+                "flex items-center gap-1 text-xs transition-all duration-200 touch-target font-medium",
+                "px-2 py-1 rounded-full hover:bg-muted",
+                showReplies 
+                  ? "text-primary hover:text-primary/80" 
+                  : "text-muted-foreground hover:text-foreground"
+              )}
             >
               {showReplies ? (
-                <CaretDown size={12} />
+                <>
+                  <CaretDown size={12} />
+                  <span>Hide {totalReplies} {totalReplies === 1 ? 'reply' : 'replies'}</span>
+                </>
               ) : (
-                <CaretRight size={12} />
+                <>
+                  <CaretRight size={12} />
+                  <ChatsCircle size={12} />
+                  <span>Show {totalReplies} {totalReplies === 1 ? 'reply' : 'replies'}</span>
+                </>
               )}
-              <span>
-                {replyCount} {replyCount === 1 ? 'reply' : 'replies'}
-              </span>
+            </button>
+          )}
+          
+          {/* Compact thread summary for collapsed top-level threads */}
+          {!showReplies && depth === 0 && hasReplies && (
+            <button
+              onClick={toggleReplies}
+              className={cn(
+                "flex items-center gap-2 text-xs text-muted-foreground hover:text-foreground",
+                "transition-colors touch-target font-medium px-2 py-1 rounded-full hover:bg-muted"
+              )}
+            >
+              <ChatsCircle size={12} />
+              <span>{totalReplies} {totalReplies === 1 ? 'reply' : 'replies'}</span>
+              <CaretRight size={10} />
             </button>
           )}
         </div>
 
-        {/* Nested Replies */}
+        {/* Nested Replies with enhanced animations */}
         {hasReplies && showReplies && comment.replies && getUserById && (
-          <div className="mt-3 space-y-3 relative">
-            {comment.replies.map((reply) => {
+          <div className={cn(
+            "mt-3 space-y-3 relative overflow-hidden",
+            isCollapsing ? "comment-replies-exit" : "comment-replies-enter"
+          )}>
+            {/* Thread depth indicator */}
+            <div className="comment-depth-indicator" />
+            
+            {comment.replies.map((reply, index) => {
               const replyUser = getUserById(reply.userId);
               return (
-                <CommentItem
+                <div
                   key={reply.id}
-                  comment={reply}
-                  user={replyUser}
-                  isAuthor={replyUser.id === user.id}
-                  onLike={onLike}
-                  onReply={onReply}
-                  onDelete={onDelete}
-                  deviceType={deviceType}
-                  depth={depth + 1}
-                  maxDepth={maxDepth}
-                  getUserById={getUserById}
-                />
+                  className="comment-thread"
+                  style={{ animationDelay: `${index * 100}ms` }}
+                >
+                  <CommentItem
+                    comment={reply}
+                    user={replyUser}
+                    isAuthor={replyUser.id === user.id}
+                    onLike={onLike}
+                    onReply={onReply}
+                    onDelete={onDelete}
+                    deviceType={deviceType}
+                    depth={depth + 1}
+                    maxDepth={maxDepth}
+                    getUserById={getUserById}
+                  />
+                </div>
               );
             })}
+          </div>
+        )}
+        
+        {/* Load more indicator for collapsed threads */}
+        {!showReplies && hasReplies && totalReplies > 3 && depth === 0 && (
+          <div className="mt-2 ml-3">
+            <div className="flex items-center gap-2 text-xs text-muted-foreground">
+              <div className="flex -space-x-1">
+                {comment.replies?.slice(0, 3).map((reply, index) => {
+                  const replyUser = getUserById(reply.userId);
+                  return (
+                    <Avatar key={reply.id} className="w-4 h-4 border border-background">
+                      <AvatarImage src={replyUser.avatar} alt={replyUser.username} />
+                      <AvatarFallback className="text-xs">{replyUser.username[0]?.toUpperCase()}</AvatarFallback>
+                    </Avatar>
+                  );
+                })}
+              </div>
+              <span>and {totalReplies - 3} others replied</span>
+            </div>
           </div>
         )}
       </div>
