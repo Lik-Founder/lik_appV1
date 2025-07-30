@@ -154,7 +154,7 @@ export function AwardsPage({ restaurantId, onBack }: AwardsPageProps) {
         </div>
 
         {/* Title Overlay */}
-        <div className="absolute top-16 left-0 right-0 flex flex-col justify-center items-center text-center text-white px-4 pt-4">
+        <div className="absolute top-16 left-0 right-0 flex flex-col justify-center items-center text-center text-white px-4 pt-4 pb-20">
           <div className="flex items-center gap-3 mb-2">
             <Trophy size={32} className="text-yellow-400" />
             <h1 className="text-3xl font-bold">Awards & Recognition</h1>
@@ -163,7 +163,7 @@ export function AwardsPage({ restaurantId, onBack }: AwardsPageProps) {
         </div>
 
         {/* Dynamic Leaderboard Badge */}
-        <div className="absolute bottom-4 left-4 right-4 mt-4">
+        <div className="absolute bottom-4 left-4 right-4">
           <Card className="bg-black/70 backdrop-blur-sm border-yellow-500/30">
             <CardContent className="p-4">
               <div className="flex items-center justify-between text-white">
