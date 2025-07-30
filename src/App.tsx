@@ -58,8 +58,8 @@ function App() {
         height: device.orientation === 'landscape' ? '100vh' : '100dvh' // Use dynamic viewport height
       }}
     >
-      {/* Mobile Header - Hide on Lik, Explore, Trending pages, and Restaurant Profile */}
-      {activeTab !== 'lik' && activeTab !== 'search' && activeTab !== 'trending' && !showRestaurantProfile && (
+      {/* Mobile Header - Hide on Lik, Explore, Trending, Profile pages, and Restaurant Profile */}
+      {activeTab !== 'lik' && activeTab !== 'search' && activeTab !== 'trending' && activeTab !== 'profile' && !showRestaurantProfile && (
         <div 
           className={cn(
             "border-b border-border bg-background/95 backdrop-blur-sm sticky top-0 z-10",
