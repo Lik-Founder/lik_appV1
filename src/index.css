@@ -1149,6 +1149,169 @@ input, textarea, select {
   }
 }
 
+/* Carousel enhancements */
+.carousel-container {
+  position: relative;
+  overflow: hidden;
+  will-change: transform;
+  transform: translateZ(0);
+}
+
+.carousel-slide {
+  transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: transform;
+}
+
+.carousel-nav-button {
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: transform, opacity;
+}
+
+.carousel-nav-button:hover {
+  transform: scale(1.1);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.carousel-nav-button:active {
+  transform: scale(0.95);
+}
+
+.carousel-dot {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: transform, background-color, width;
+}
+
+.carousel-dot:hover {
+  transform: scale(1.2);
+}
+
+.carousel-dot.active {
+  transform: scale(1);
+}
+
+/* Horizontal carousel scroll enhancements */
+.horizontal-carousel {
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.horizontal-carousel::-webkit-scrollbar {
+  display: none;
+}
+
+/* Auto-scroll indicator pulse */
+@keyframes autoScrollPulse {
+  0%, 100% {
+    opacity: 0.6;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.2);
+  }
+}
+
+.auto-scroll-indicator {
+  animation: autoScrollPulse 2s ease-in-out infinite;
+}
+
+/* Progress bar animation for auto-scroll */
+.carousel-progress {
+  transform-origin: left;
+  animation: progressGrow var(--duration, 5000ms) linear infinite;
+}
+
+@keyframes progressGrow {
+  0% {
+    transform: scaleX(0);
+  }
+  100% {
+    transform: scaleX(1);
+  }
+}
+
+/* Touch feedback for carousel items */
+.carousel-item {
+  transition: transform 0.15s ease, opacity 0.15s ease;
+  will-change: transform, opacity;
+}
+
+.carousel-item:active {
+  transform: scale(0.98);
+  opacity: 0.9;
+}
+
+/* Smooth reveal animation for carousel content */
+.carousel-content-reveal {
+  animation: carouselContentSlideUp 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes carouselContentSlideUp {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Enhanced carousel arrow positioning */
+.carousel-arrow-left {
+  left: 8px;
+  transform: translateY(-50%);
+}
+
+.carousel-arrow-right {
+  right: 8px;
+  transform: translateY(-50%);
+}
+
+/* Mobile-specific carousel optimizations */
+@media (max-width: 480px) {
+  .carousel-nav-button {
+    width: 32px;
+    height: 32px;
+  }
+  
+  .carousel-arrow-left {
+    left: 4px;
+  }
+  
+  .carousel-arrow-right {
+    right: 4px;
+  }
+}
+
+/* Reduced motion support for carousels */
+@media (prefers-reduced-motion: reduce) {
+  .carousel-slide,
+  .carousel-dot,
+  .carousel-nav-button,
+  .carousel-item {
+    transition: none;
+    animation: none;
+  }
+  
+  .carousel-progress {
+    animation: none;
+  }
+}
+
+/* High performance GPU acceleration for carousels */
+.carousel-gpu-accelerated {
+  transform: translateZ(0);
+  will-change: transform;
+  backface-visibility: hidden;
+  perspective: 1000px;
+}
+
 /* Emoji picker animations */
 .emoji-picker-enter {
   animation: emojiPickerSlideUp 0.2s ease-out;

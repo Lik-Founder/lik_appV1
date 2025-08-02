@@ -4,6 +4,8 @@ import { Story as StoryType, User } from '@/lib/types';
 import { generateMockStories, generateMockUsers, getCurrentUser } from '@/lib/mockData';
 import { StoriesBar } from '@/components/StoriesBar';
 import { CreateStoryModal } from '@/components/CreateStoryModal';
+import { Carousel } from '@/components/Carousel';
+import { HorizontalCarousel } from '@/components/HorizontalCarousel';
 import { useDevice } from '@/hooks/use-device';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
@@ -30,6 +32,7 @@ export function HomeFeed() {
   const [currentUser] = useKV<User>('currentUser', getCurrentUser());
   const [isCreateStoryOpen, setIsCreateStoryOpen] = useState(false);
   const [activeReviewTab, setActiveReviewTab] = useState('Popular');
+  const [currentPromoIndex, setCurrentPromoIndex] = useState(0);
   
   const device = useDevice();
 
@@ -58,6 +61,18 @@ export function HomeFeed() {
       image: 'https://images.unsplash.com/photo-1571091718767-18b5b1457add?w=400&h=200&fit=crop',
       title: 'New Restaurant Alert',
       subtitle: 'Discover amazing flavors nearby'
+    },
+    {
+      id: '3',
+      image: 'https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?w=400&h=200&fit=crop',
+      title: 'Weekend Brunch Special',
+      subtitle: 'Free delivery on orders over $25'
+    },
+    {
+      id: '4',
+      image: 'https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=400&h=200&fit=crop',
+      title: 'Late Night Deals',
+      subtitle: '30% off after 9 PM'
     }
   ];
 
@@ -219,29 +234,28 @@ export function HomeFeed() {
         
         {/* Hero Carousel */}
         <div className="p-4">
-          <div className="relative overflow-hidden rounded-2xl">
-            <div className="flex transition-transform duration-300 ease-in-out">
-              {promoCarousel.map((promo) => (
-                <div key={promo.id} className="w-full flex-shrink-0 relative">
-                  <img 
-                    src={promo.image} 
-                    alt={promo.title}
-                    className="w-full h-48 object-cover"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-                  <div className="absolute bottom-4 left-4 text-white">
-                    <h3 className="font-bold text-lg">{promo.title}</h3>
-                    <p className="text-sm opacity-90">{promo.subtitle}</p>
-                  </div>
+          <Carousel 
+            autoScroll={true}
+            autoScrollInterval={4000}
+            showArrows={true}
+            showDots={true}
+            onSlideChange={(index) => setCurrentPromoIndex(index)}
+          >
+            {promoCarousel.map((promo) => (
+              <div key={promo.id} className="relative">
+                <img 
+                  src={promo.image} 
+                  alt={promo.title}
+                  className="w-full h-48 object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+                <div className="absolute bottom-4 left-4 text-white">
+                  <h3 className="font-bold text-lg">{promo.title}</h3>
+                  <p className="text-sm opacity-90">{promo.subtitle}</p>
                 </div>
-              ))}
-            </div>
-            <div className="flex justify-center gap-2 mt-3">
-              {promoCarousel.map((_, index) => (
-                <div key={index} className="w-2 h-2 rounded-full bg-muted" />
-              ))}
-            </div>
-          </div>
+              </div>
+            ))}
+          </Carousel>
         </div>
 
         {/* Stories Section */}
@@ -270,9 +284,13 @@ export function HomeFeed() {
             ))}
           </div>
           
-          <div className="flex gap-4 overflow-x-auto scrollbar-hide pb-2">
+          <HorizontalCarousel 
+            autoScroll={true}
+            autoScrollInterval={6000}
+            itemClassName="min-w-[200px]"
+          >
             {reviewCards.map((review) => (
-              <Card key={review.id} className="min-w-[200px] flex-shrink-0">
+              <Card key={review.id}>
                 <CardContent className="p-0">
                   <img 
                     src={review.image} 
@@ -300,15 +318,19 @@ export function HomeFeed() {
                 </CardContent>
               </Card>
             ))}
-          </div>
+          </HorizontalCarousel>
         </div>
 
         {/* Lik's Picks */}
         <div className="p-4">
           <h2 className="text-xl font-bold mb-4">Lik's Picks</h2>
-          <div className="flex gap-4 overflow-x-auto scrollbar-hide pb-2">
+          <HorizontalCarousel 
+            autoScroll={true}
+            autoScrollInterval={7000}
+            itemClassName="min-w-[280px]"
+          >
             {liksPicks.map((pick) => (
-              <Card key={pick.id} className="min-w-[280px] flex-shrink-0">
+              <Card key={pick.id}>
                 <CardContent className="p-0">
                   <img 
                     src={pick.image} 
@@ -340,7 +362,7 @@ export function HomeFeed() {
                 </CardContent>
               </Card>
             ))}
-          </div>
+          </HorizontalCarousel>
         </div>
 
         {/* Global Stories */}
@@ -368,9 +390,13 @@ export function HomeFeed() {
               <ArrowRight size={20} />
             </Button>
           </div>
-          <div className="flex gap-4 overflow-x-auto scrollbar-hide pb-2">
+          <HorizontalCarousel 
+            autoScroll={true}
+            autoScrollInterval={8000}
+            itemClassName="min-w-[300px]"
+          >
             {foodEvents.map((event) => (
-              <Card key={event.id} className="min-w-[300px] flex-shrink-0">
+              <Card key={event.id}>
                 <CardContent className="p-0">
                   <img 
                     src={event.image} 
@@ -401,7 +427,7 @@ export function HomeFeed() {
                 </CardContent>
               </Card>
             ))}
-          </div>
+          </HorizontalCarousel>
         </div>
 
         {/* Guides */}
@@ -412,9 +438,13 @@ export function HomeFeed() {
               <ArrowRight size={20} />
             </Button>
           </div>
-          <div className="flex gap-4 overflow-x-auto scrollbar-hide pb-2">
+          <HorizontalCarousel 
+            autoScroll={true}
+            autoScrollInterval={9000}
+            itemClassName="min-w-[250px]"
+          >
             {guides.map((guide) => (
-              <Card key={guide.id} className="min-w-[250px] flex-shrink-0">
+              <Card key={guide.id}>
                 <CardContent className="p-0">
                   <img 
                     src={guide.image} 
@@ -432,7 +462,7 @@ export function HomeFeed() {
                 </CardContent>
               </Card>
             ))}
-          </div>
+          </HorizontalCarousel>
         </div>
       </div>
       
