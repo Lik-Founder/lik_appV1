@@ -30,9 +30,10 @@ interface HomeFeedProps {
   onShowUserProfile?: (userId: string) => void;
   onShowRestaurantProfile?: (restaurantId: string) => void;
   onShowLeaderboard?: () => void;
+  onShowLikTV?: () => void;
 }
 
-export function HomeFeed({ onShowUserProfile, onShowRestaurantProfile, onShowLeaderboard }: HomeFeedProps) {
+export function HomeFeed({ onShowUserProfile, onShowRestaurantProfile, onShowLeaderboard, onShowLikTV }: HomeFeedProps) {
   const [stories, setStories] = useKV<StoryType[]>('stories', generateMockStories());
   const [users, setUsers] = useKV<User[]>('users', generateMockUsers());
   const [currentUser] = useKV<User>('currentUser', getCurrentUser());
@@ -226,7 +227,7 @@ export function HomeFeed({ onShowUserProfile, onShowRestaurantProfile, onShowLea
             <Button variant="ghost" size="icon" className="w-9 h-9">
               <GameController size={20} />
             </Button>
-            <Button variant="ghost" size="icon" className="w-9 h-9">
+            <Button variant="ghost" size="icon" className="w-9 h-9" onClick={onShowLikTV}>
               <Play size={20} />
             </Button>
             <Button variant="ghost" size="icon" className="w-9 h-9">
