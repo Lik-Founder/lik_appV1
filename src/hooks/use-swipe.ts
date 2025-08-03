@@ -1,77 +1,87 @@
-import { useRef, useCallback, useEffect } from 'react';
+import { useState, useRef, useCallback, useEffect } from 'react';
 
-export interface SwipeConfig {
+interface SwipeOptions {
   threshold?: number;
   preventDefaultTouchmoveEvent?: boolean;
   trackMouse?: boolean;
   trackTouch?: boolean;
-  delta?: number;
   rotationAngle?: number;
 }
 
-export interface SwipeEventData {
+interface SwipeEventData {
   event: TouchEvent | MouseEvent;
   absX: number;
   absY: number;
   deltaX: number;
   deltaY: number;
-  directionX: number;
-  directionY: number;
+  dir: 'left' | 'right' | 'up' | 'down';
   velocity: number;
+  startX: number;
+  startY: number;
+  endX: number;
+  endY: number;
 }
 
-export interface SwipeHandlers {
-  onSwipeLeft?: (data: SwipeEventData) => void;
-  onSwipeRight?: (data: SwipeEventData) => void;
-  onSwipeUp?: (data: SwipeEventData) => void;
-  onSwipeDown?: (data: SwipeEventData) => void;
-  onSwipeStart?: (data: SwipeEventData) => void;
-  onSwipeEnd?: (data: SwipeEventData) => void;
-  onSwiping?: (data: SwipeEventData) => void;
+interface SwipeHandlers {
+  onSwiped?: (eventData: SwipeEventData) => void;
+  onSwipedLeft?: (eventData: SwipeEventData) => void;
+  onSwipedRight?: (eventData: SwipeEventData) => void;
+  onSwipedUp?: (eventData: SwipeEventData) => void;
+  onSwipedDown?: (eventData: SwipeEventData) => void;
+  onSwipeStart?: (eventData: Partial<SwipeEventData>) => void;
+  onSwiping?: (eventData: SwipeEventData) => void;
+  onTap?: (eventData: Partial<SwipeEventData>) => void;
 }
 
-const defaultConfig: SwipeConfig = {
-  threshold: 100,
+const defaultOptions: SwipeOptions = {
+  threshold: 10,
   preventDefaultTouchmoveEvent: false,
   trackMouse: false,
   trackTouch: true,
-  delta: 10,
   rotationAngle: 0,
 };
 
-export function useSwipe(handlers: SwipeHandlers, config?: SwipeConfig) {
-  const elementRef = useRef<HTMLElement>(null);
-  const startRef = useRef<{ x: number; y: number; time: number } | null>(null);
-  const configRef = useRef({ ...defaultConfig, ...config });
+export function useSwipe(handlers: SwipeHandlers, options: SwipeOptions = {}) {
+  const opts = { ...defaultOptions, ...options };
+  const [isSwiping, setIsSwiping] = useState(false);
+  const [swipeDirection, setSwipeDirection] = useState<string | null>(null);
+  
+  const startPos = useRef({ x: 0, y: 0, time: 0 });
+  const currentPos = useRef({ x: 0, y: 0 });
+  const lastPos = useRef({ x: 0, y: 0 });
+  const velocity = useRef({ x: 0, y: 0 });
+  const isTracking = useRef(false);
 
-  // Update config ref when config changes
-  useEffect(() => {
-    configRef.current = { ...defaultConfig, ...config };
-  }, [config]);
+  const updateVelocity = useCallback(() => {
+    const now = Date.now();
+    const timeDiff = now - startPos.current.time;
+    
+    if (timeDiff > 0) {
+      velocity.current.x = (currentPos.current.x - startPos.current.x) / timeDiff;
+      velocity.current.y = (currentPos.current.y - startPos.current.y) / timeDiff;
+    }
+  }, []);
 
   const getEventData = useCallback((event: TouchEvent | MouseEvent): SwipeEventData => {
-    const touch = 'touches' in event ? event.touches[0] || event.changedTouches[0] : event;
-    const start = startRef.current;
-    
-    if (!start) {
-      return {
-        event,
-        absX: 0,
-        absY: 0,
-        deltaX: 0,
-        deltaY: 0,
-        directionX: 0,
-        directionY: 0,
-        velocity: 0,
-      };
-    }
-
-    const deltaX = touch.clientX - start.x;
-    const deltaY = touch.clientY - start.y;
+    const startX = startPos.current.x;
+    const startY = startPos.current.y;
+    const endX = currentPos.current.x;
+    const endY = currentPos.current.y;
+    const deltaX = endX - startX;
+    const deltaY = endY - startY;
     const absX = Math.abs(deltaX);
     const absY = Math.abs(deltaY);
-    const time = Date.now() - start.time;
-    const velocity = Math.sqrt(deltaX * deltaX + deltaY * deltaY) / time;
+    
+    let dir: 'left' | 'right' | 'up' | 'down';
+    if (absX > absY) {
+      dir = deltaX > 0 ? 'right' : 'left';
+    } else {
+      dir = deltaY > 0 ? 'down' : 'up';
+    }
+
+    const velocityMagnitude = Math.sqrt(
+      velocity.current.x * velocity.current.x + velocity.current.y * velocity.current.y
+    );
 
     return {
       event,
@@ -79,93 +89,142 @@ export function useSwipe(handlers: SwipeHandlers, config?: SwipeConfig) {
       absY,
       deltaX,
       deltaY,
-      directionX: deltaX > 0 ? 1 : -1,
-      directionY: deltaY > 0 ? 1 : -1,
-      velocity,
+      dir,
+      velocity: velocityMagnitude,
+      startX,
+      startY,
+      endX,
+      endY,
     };
   }, []);
 
   const handleStart = useCallback((event: TouchEvent | MouseEvent) => {
     const touch = 'touches' in event ? event.touches[0] : event;
-    startRef.current = {
+    
+    startPos.current = {
       x: touch.clientX,
       y: touch.clientY,
       time: Date.now(),
     };
-
-    const data = getEventData(event);
-    handlers.onSwipeStart?.(data);
-  }, [handlers, getEventData]);
+    
+    currentPos.current = {
+      x: touch.clientX,
+      y: touch.clientY,
+    };
+    
+    lastPos.current = {
+      x: touch.clientX,
+      y: touch.clientY,
+    };
+    
+    isTracking.current = true;
+    setIsSwiping(false);
+    setSwipeDirection(null);
+    
+    if (handlers.onSwipeStart) {
+      handlers.onSwipeStart({
+        event,
+        startX: startPos.current.x,
+        startY: startPos.current.y,
+      });
+    }
+  }, [handlers]);
 
   const handleMove = useCallback((event: TouchEvent | MouseEvent) => {
-    if (!startRef.current) return;
-
-    const config = configRef.current;
-    const data = getEventData(event);
-
-    if (config.preventDefaultTouchmoveEvent && 'touches' in event) {
+    if (!isTracking.current) return;
+    
+    const touch = 'touches' in event ? event.touches[0] : event;
+    
+    lastPos.current = { ...currentPos.current };
+    currentPos.current = {
+      x: touch.clientX,
+      y: touch.clientY,
+    };
+    
+    updateVelocity();
+    
+    const deltaX = currentPos.current.x - startPos.current.x;
+    const deltaY = currentPos.current.y - startPos.current.y;
+    const absX = Math.abs(deltaX);
+    const absY = Math.abs(deltaY);
+    
+    if (absX > opts.threshold! || absY > opts.threshold!) {
+      if (!isSwiping) {
+        setIsSwiping(true);
+      }
+      
+      const eventData = getEventData(event);
+      setSwipeDirection(eventData.dir);
+      
+      if (handlers.onSwiping) {
+        handlers.onSwiping(eventData);
+      }
+    }
+    
+    if (opts.preventDefaultTouchmoveEvent && event.cancelable) {
       event.preventDefault();
     }
-
-    // Only trigger swiping if movement is above delta threshold
-    if (data.absX > config.delta! || data.absY > config.delta!) {
-      handlers.onSwiping?.(data);
-    }
-  }, [handlers, getEventData]);
+  }, [handlers, isSwiping, opts.threshold, opts.preventDefaultTouchmoveEvent, updateVelocity, getEventData]);
 
   const handleEnd = useCallback((event: TouchEvent | MouseEvent) => {
-    if (!startRef.current) return;
-
-    const config = configRef.current;
-    const data = getEventData(event);
-
-    // Determine swipe direction based on threshold
-    const isSwipeLeft = data.deltaX < -config.threshold! && data.absX > data.absY;
-    const isSwipeRight = data.deltaX > config.threshold! && data.absX > data.absY;
-    const isSwipeUp = data.deltaY < -config.threshold! && data.absY > data.absX;
-    const isSwipeDown = data.deltaY > config.threshold! && data.absY > data.absX;
-
-    if (isSwipeLeft) handlers.onSwipeLeft?.(data);
-    if (isSwipeRight) handlers.onSwipeRight?.(data);
-    if (isSwipeUp) handlers.onSwipeUp?.(data);
-    if (isSwipeDown) handlers.onSwipeDown?.(data);
-
-    handlers.onSwipeEnd?.(data);
-    startRef.current = null;
-  }, [handlers, getEventData]);
-
-  useEffect(() => {
-    const element = elementRef.current;
-    if (!element) return;
-
-    const config = configRef.current;
-
-    if (config.trackTouch) {
-      element.addEventListener('touchstart', handleStart, { passive: true });
-      element.addEventListener('touchmove', handleMove, { passive: !config.preventDefaultTouchmoveEvent });
-      element.addEventListener('touchend', handleEnd, { passive: true });
-    }
-
-    if (config.trackMouse) {
-      element.addEventListener('mousedown', handleStart);
-      element.addEventListener('mousemove', handleMove);
-      element.addEventListener('mouseup', handleEnd);
-    }
-
-    return () => {
-      if (config.trackTouch) {
-        element.removeEventListener('touchstart', handleStart);
-        element.removeEventListener('touchmove', handleMove);
-        element.removeEventListener('touchend', handleEnd);
+    if (!isTracking.current) return;
+    
+    isTracking.current = false;
+    updateVelocity();
+    
+    const deltaX = currentPos.current.x - startPos.current.x;
+    const deltaY = currentPos.current.y - startPos.current.y;
+    const absX = Math.abs(deltaX);
+    const absY = Math.abs(deltaY);
+    
+    const eventData = getEventData(event);
+    
+    if (absX > opts.threshold! || absY > opts.threshold!) {
+      if (handlers.onSwiped) {
+        handlers.onSwiped(eventData);
       }
-
-      if (config.trackMouse) {
-        element.removeEventListener('mousedown', handleStart);
-        element.removeEventListener('mousemove', handleMove);
-        element.removeEventListener('mouseup', handleEnd);
+      
+      switch (eventData.dir) {
+        case 'left':
+          if (handlers.onSwipedLeft) handlers.onSwipedLeft(eventData);
+          break;
+        case 'right':
+          if (handlers.onSwipedRight) handlers.onSwipedRight(eventData);
+          break;
+        case 'up':
+          if (handlers.onSwipedUp) handlers.onSwipedUp(eventData);
+          break;
+        case 'down':
+          if (handlers.onSwipedDown) handlers.onSwipedDown(eventData);
+          break;
       }
-    };
-  }, [handleStart, handleMove, handleEnd]);
+    } else if (absX < 5 && absY < 5) {
+      // Consider it a tap
+      if (handlers.onTap) {
+        handlers.onTap({
+          event,
+          startX: startPos.current.x,
+          startY: startPos.current.y,
+        });
+      }
+    }
+    
+    setIsSwiping(false);
+    setSwipeDirection(null);
+  }, [handlers, opts.threshold, updateVelocity, getEventData]);
 
-  return elementRef;
+  const eventHandlers = {
+    onTouchStart: opts.trackTouch ? handleStart : undefined,
+    onTouchMove: opts.trackTouch ? handleMove : undefined,
+    onTouchEnd: opts.trackTouch ? handleEnd : undefined,
+    onMouseDown: opts.trackMouse ? handleStart : undefined,
+    onMouseMove: opts.trackMouse ? handleMove : undefined,
+    onMouseUp: opts.trackMouse ? handleEnd : undefined,
+  };
+
+  return {
+    ...eventHandlers,
+    isSwiping,
+    swipeDirection,
+  };
 }
