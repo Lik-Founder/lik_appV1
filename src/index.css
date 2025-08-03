@@ -580,24 +580,82 @@ body {
   
   /* Profile specific mobile optimizations */
   .profile-header-mobile {
-    padding: 1rem 0.75rem;
+    padding: 1.5rem 1rem;
+    max-width: 20rem;
+    margin: 0 auto;
   }
   
   .profile-stats-mobile {
     gap: 1.5rem;
+    justify-content: center;
+    width: 100%;
   }
   
   .profile-buttons-mobile {
     gap: 0.5rem;
-    max-width: 20rem;
+    max-width: 18rem;
+    margin: 0 auto;
+    width: 100%;
   }
   
   .profile-tab-content-mobile {
-    padding: 1.5rem;
+    padding: 1rem;
   }
   
   .profile-empty-state-mobile {
     padding: 2rem 1rem;
+  }
+  
+  /* Ensure buttons don't get cut off */
+  .profile-action-buttons {
+    min-width: 0;
+    flex: 1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  
+  /* Profile image sizing for mobile */
+  .profile-avatar-mobile {
+    width: 7rem;
+    height: 7rem;
+  }
+  
+  /* Level badge mobile styling */
+  .profile-level-badge-mobile {
+    min-width: 3rem;
+    height: 1.5rem;
+    font-size: 0.875rem;
+  }
+  
+  /* Stats text sizing */
+  .profile-stats-text {
+    font-size: 1rem;
+    line-height: 1.25rem;
+  }
+  
+  /* Bio view mobile optimizations */
+  .profile-bio-mobile {
+    max-width: 18rem;
+    margin: 0 auto;
+    padding: 1.5rem 1rem;
+  }
+  
+  .profile-achievement-card-mobile {
+    padding: 1rem;
+    border-radius: 1rem;
+  }
+  
+  /* Social links mobile sizing */
+  .profile-social-links-mobile {
+    gap: 0.75rem;
+    justify-content: center;
+  }
+  
+  .profile-social-button-mobile {
+    width: 2.5rem;
+    height: 2.5rem;
+    padding: 0.5rem;
   }
 }
 
