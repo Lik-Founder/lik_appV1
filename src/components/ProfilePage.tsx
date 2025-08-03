@@ -192,14 +192,23 @@ export function ProfilePage({ onShowLeaderboard }: ProfilePageProps = {}) {
             }}
           >
             {/* Main Profile View (Index 0) */}
-            <div className="w-full min-w-full px-6 py-6 flex-shrink-0">
+            <div className="w-full min-w-full px-4 py-4 flex-shrink-0">
               {/* Profile Header */}
-              <div className="flex flex-col items-center mb-6 max-w-sm mx-auto">
+              <div className="flex flex-col items-center mb-4 w-full">
                 {/* Profile Image with XP Ring */}
-                <div className="relative mb-8">
+                <div className="relative mb-6">
                   <div className="relative">
                     {/* XP Progress Ring */}
-                    <svg className="w-32 h-32 transform -rotate-90">
+                    <svg className="w-28 h-28 sm:w-32 sm:h-32 transform -rotate-90">
+                      <circle
+                        cx="56"
+                        cy="56"
+                        r="50"
+                        stroke="currentColor"
+                        strokeWidth="2.5"
+                        fill="none"
+                        className="text-muted sm:hidden"
+                      />
                       <circle
                         cx="64"
                         cy="64"
@@ -207,7 +216,19 @@ export function ProfilePage({ onShowLeaderboard }: ProfilePageProps = {}) {
                         stroke="currentColor"
                         strokeWidth="3"
                         fill="none"
-                        className="text-muted"
+                        className="text-muted hidden sm:block"
+                      />
+                      <circle
+                        cx="56"
+                        cy="56"
+                        r="50"
+                        stroke="url(#xpGradient)"
+                        strokeWidth="2.5"
+                        fill="none"
+                        strokeLinecap="round"
+                        className="transition-all duration-500 sm:hidden"
+                        strokeDasharray={`${2 * Math.PI * 50}`}
+                        strokeDashoffset={`${2 * Math.PI * 50 * (1 - (mockXP / mockXPToNext))}`}
                       />
                       <circle
                         cx="64"
@@ -217,7 +238,7 @@ export function ProfilePage({ onShowLeaderboard }: ProfilePageProps = {}) {
                         strokeWidth="3"
                         fill="none"
                         strokeLinecap="round"
-                        className="transition-all duration-500"
+                        className="transition-all duration-500 hidden sm:block"
                         strokeDasharray={`${2 * Math.PI * 58}`}
                         strokeDashoffset={`${2 * Math.PI * 58 * (1 - (mockXP / mockXPToNext))}`}
                       />
@@ -236,7 +257,7 @@ export function ProfilePage({ onShowLeaderboard }: ProfilePageProps = {}) {
                     <div className="absolute inset-3">
                       <Avatar className="w-full h-full">
                         <AvatarImage src={currentUser.avatar} alt={currentUser.username} />
-                        <AvatarFallback className="text-3xl">
+                        <AvatarFallback className="text-2xl sm:text-3xl">
                           {currentUser.username[0]?.toUpperCase()}
                         </AvatarFallback>
                       </Avatar>
@@ -244,131 +265,131 @@ export function ProfilePage({ onShowLeaderboard }: ProfilePageProps = {}) {
                   </div>
                   
                   {/* Level Badge */}
-                  <div className="absolute -bottom-2 left-1/2 transform -translate-x-1/2">
-                    <div className="bg-primary text-primary-foreground rounded-full px-4 py-2 min-w-[60px] flex items-center justify-center shadow-lg">
-                      <span className="text-base font-bold">{mockLevel}</span>
+                  <div className="absolute -bottom-1 left-1/2 transform -translate-x-1/2">
+                    <div className="bg-primary text-primary-foreground rounded-full px-3 py-1.5 sm:px-4 sm:py-2 min-w-[50px] sm:min-w-[60px] flex items-center justify-center shadow-lg">
+                      <span className="text-sm sm:text-base font-bold">{mockLevel}</span>
                     </div>
                   </div>
                 </div>
 
                 {/* Display Name & Username */}
-                <div className="text-center mb-6">
-                  <div className="flex items-center justify-center gap-2 mb-3">
-                    <h1 className="text-xl font-bold">DisplayName</h1>
-                    <CheckCircle size={20} className="text-blue-500" weight="fill" />
+                <div className="text-center mb-4 w-full px-2">
+                  <div className="flex items-center justify-center gap-2 mb-2">
+                    <h1 className="text-lg sm:text-xl font-bold truncate max-w-[200px]">DisplayName</h1>
+                    <CheckCircle size={18} className="text-blue-500 flex-shrink-0" weight="fill" />
                   </div>
-                  <p className="text-base text-muted-foreground">@username</p>
+                  <p className="text-sm sm:text-base text-muted-foreground">@username</p>
                 </div>
 
                 {/* Account Stats */}
-                <div className="flex justify-center gap-8 mb-6 w-full">
-                  <div className="text-center">
-                    <p className="text-lg font-bold">{mockFollowing}</p>
-                    <p className="text-sm text-muted-foreground">Following</p>
+                <div className="flex justify-center gap-6 sm:gap-8 mb-4 w-full max-w-xs">
+                  <div className="text-center flex-1">
+                    <p className="text-base sm:text-lg font-bold">{mockFollowing}</p>
+                    <p className="text-xs sm:text-sm text-muted-foreground">Following</p>
                   </div>
-                  <div className="text-center">
-                    <p className="text-lg font-bold">{mockFollowers}</p>
-                    <p className="text-sm text-muted-foreground">Followers</p>
+                  <div className="text-center flex-1">
+                    <p className="text-base sm:text-lg font-bold">{mockFollowers}</p>
+                    <p className="text-xs sm:text-sm text-muted-foreground">Followers</p>
                   </div>
-                  <div className="text-center">
-                    <p className="text-lg font-bold">{mockLikes}</p>
-                    <p className="text-sm text-muted-foreground">Likes</p>
+                  <div className="text-center flex-1">
+                    <p className="text-base sm:text-lg font-bold">{mockLikes}</p>
+                    <p className="text-xs sm:text-sm text-muted-foreground">Likes</p>
                   </div>
                 </div>
 
                 {/* Location */}
-                <div className="flex items-center justify-center gap-2 mb-8">
-                  <MapPin size={18} className="text-muted-foreground" />
-                  <span className="text-base text-muted-foreground">{mockLocation}</span>
+                <div className="flex items-center justify-center gap-2 mb-6">
+                  <MapPin size={16} className="text-muted-foreground flex-shrink-0" />
+                  <span className="text-sm sm:text-base text-muted-foreground truncate max-w-[200px]">{mockLocation}</span>
                 </div>
 
                 {/* Action Buttons */}
-                <div className="flex gap-3 w-full max-w-sm">
+                <div className="flex gap-2 sm:gap-3 w-full max-w-xs px-2">
                   <Button 
                     variant="secondary" 
-                    className="flex-1 h-11 text-base font-medium rounded-xl px-6"
+                    className="flex-1 h-10 sm:h-11 text-sm sm:text-base font-medium rounded-xl px-4 sm:px-6 min-w-0"
                     onClick={handleEditProfile}
                   >
-                    Edit Profile
+                    <span className="truncate">Edit Profile</span>
                   </Button>
                   <Button 
                     variant="secondary" 
-                    className="flex-1 h-11 text-base font-medium rounded-xl px-6"
+                    className="flex-1 h-10 sm:h-11 text-sm sm:text-base font-medium rounded-xl px-4 sm:px-6 min-w-0"
                     onClick={handleShareProfile}
                   >
-                    Share Profile
+                    <span className="truncate">Share Profile</span>
                   </Button>
                 </div>
               </div>
 
               {/* Swipe Indicator */}
-              <div className="flex justify-center gap-2 mb-4 mt-8">
+              <div className="flex justify-center gap-2 mb-4 mt-4">
                 <div className={cn("w-2 h-2 rounded-full transition-colors", swipeIndex === 0 ? "bg-primary" : "bg-muted-foreground/30")} />
                 <div className={cn("w-2 h-2 rounded-full transition-colors", swipeIndex === 1 ? "bg-primary" : "bg-muted-foreground/30")} />
               </div>
             </div>
 
             {/* Bio/Achievements View (Index 1) */}
-            <div className="w-full min-w-full px-6 py-6 flex-shrink-0">
-              <div className="flex flex-col h-full min-h-[500px] max-w-sm mx-auto">
+            <div className="w-full min-w-full px-4 py-4 flex-shrink-0">
+              <div className="flex flex-col h-full min-h-[400px] w-full max-w-sm mx-auto">
                 {/* Profile Avatar */}
-                <div className="flex justify-center mb-8">
-                  <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-purple-400 via-pink-400 to-orange-400 p-1">
+                <div className="flex justify-center mb-6">
+                  <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl bg-gradient-to-br from-purple-400 via-pink-400 to-orange-400 p-1">
                     <div className="w-full h-full rounded-xl bg-white flex items-center justify-center">
-                      <div className="w-8 h-8 bg-gradient-to-r from-blue-500 to-purple-600 rounded-lg"></div>
+                      <div className="w-6 h-6 sm:w-8 sm:h-8 bg-gradient-to-r from-blue-500 to-purple-600 rounded-lg"></div>
                     </div>
                   </div>
                 </div>
 
-                <div className="text-center mb-8">
-                  <h2 className="text-2xl font-bold mb-2">Bio</h2>
+                <div className="text-center mb-6">
+                  <h2 className="text-xl sm:text-2xl font-bold mb-2">Bio</h2>
                 </div>
                 
                 {/* Bio Questions */}
-                <div className="flex-1 flex flex-col justify-center space-y-8">
-                  <div className="bg-muted/50 rounded-2xl p-6">
-                    <p className="text-lg font-semibold mb-4">What is your favorite food?</p>
-                    <p className="text-base text-muted-foreground leading-relaxed">Pizza, especially Margherita with fresh basil</p>
+                <div className="flex-1 flex flex-col justify-center space-y-6">
+                  <div className="bg-muted/50 rounded-2xl p-4 sm:p-6">
+                    <p className="text-base sm:text-lg font-semibold mb-3 sm:mb-4">What is your favorite food?</p>
+                    <p className="text-sm sm:text-base text-muted-foreground leading-relaxed">Pizza, especially Margherita with fresh basil</p>
                   </div>
 
                   {/* Favorite Achievement Card */}
-                  <div className="bg-muted rounded-2xl p-6 flex items-center justify-between">
-                    <div className="flex-1 min-w-0">
-                      <h3 className="text-lg font-semibold mb-2">Favorite Achievement</h3>
-                      <p className="text-base text-muted-foreground">Pizza Conqueror</p>
+                  <div className="bg-muted rounded-2xl p-4 sm:p-6 flex items-center justify-between">
+                    <div className="flex-1 min-w-0 pr-4">
+                      <h3 className="text-base sm:text-lg font-semibold mb-2">Favorite Achievement</h3>
+                      <p className="text-sm sm:text-base text-muted-foreground">Pizza Conqueror</p>
                     </div>
-                    <div className="w-16 h-16 bg-black rounded-xl flex items-center justify-center ml-4">
-                      <span className="text-2xl">🍕</span>
+                    <div className="w-12 h-12 sm:w-16 sm:h-16 bg-black rounded-xl flex items-center justify-center flex-shrink-0">
+                      <span className="text-xl sm:text-2xl">🍕</span>
                     </div>
                   </div>
                 </div>
 
                 {/* Social Links */}
-                <div className="flex justify-center gap-4 mt-10 mb-8">
-                  <Button variant="ghost" size="sm" className="p-3 w-12 h-12 rounded-xl">
-                    <svg className="w-6 h-6" viewBox="0 0 24 24" fill="currentColor">
+                <div className="flex justify-center gap-3 sm:gap-4 mt-8 sm:mt-10 mb-6 sm:mb-8">
+                  <Button variant="ghost" size="sm" className="p-2.5 sm:p-3 w-10 h-10 sm:w-12 sm:h-12 rounded-xl">
+                    <svg className="w-5 h-5 sm:w-6 sm:h-6" viewBox="0 0 24 24" fill="currentColor">
                       <path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-2.84v5.79a2.1 2.1 0 01-2.09 2.09 2.1 2.1 0 01-2.09-2.09V2H6.96v5.79a4.83 4.83 0 01-3.77 4.25 4.83 4.83 0 013.77 4.25V22h2.84v-5.79a2.1 2.1 0 012.09-2.09 2.1 2.1 0 012.09 2.09V22h2.84v-5.79a4.83 4.83 0 013.77-4.25z"/>
                     </svg>
                   </Button>
-                  <Button variant="ghost" size="sm" className="p-3 w-12 h-12 rounded-xl">
-                    <svg className="w-6 h-6" viewBox="0 0 24 24" fill="currentColor">
+                  <Button variant="ghost" size="sm" className="p-2.5 sm:p-3 w-10 h-10 sm:w-12 sm:h-12 rounded-xl">
+                    <svg className="w-5 h-5 sm:w-6 sm:h-6" viewBox="0 0 24 24" fill="currentColor">
                       <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
                     </svg>
                   </Button>
-                  <Button variant="ghost" size="sm" className="p-3 w-12 h-12 rounded-xl">
-                    <svg className="w-6 h-6" viewBox="0 0 24 24" fill="currentColor">
+                  <Button variant="ghost" size="sm" className="p-2.5 sm:p-3 w-10 h-10 sm:w-12 sm:h-12 rounded-xl">
+                    <svg className="w-5 h-5 sm:w-6 sm:h-6" viewBox="0 0 24 24" fill="currentColor">
                       <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
                     </svg>
                   </Button>
-                  <Button variant="ghost" size="sm" className="p-3 w-12 h-12 rounded-xl">
-                    <svg className="w-6 h-6" viewBox="0 0 24 24" fill="currentColor">
+                  <Button variant="ghost" size="sm" className="p-2.5 sm:p-3 w-10 h-10 sm:w-12 sm:h-12 rounded-xl">
+                    <svg className="w-5 h-5 sm:w-6 sm:h-6" viewBox="0 0 24 24" fill="currentColor">
                       <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/>
                     </svg>
                   </Button>
                 </div>
 
                 {/* Page Indicator */}
-                <div className="flex justify-center gap-2">
+                <div className="flex justify-center gap-2 mt-4">
                   <div className={cn("w-2 h-2 rounded-full transition-colors", swipeIndex === 0 ? "bg-primary" : "bg-muted-foreground/30")} />
                   <div className={cn("w-2 h-2 rounded-full transition-colors", swipeIndex === 1 ? "bg-primary" : "bg-muted-foreground/30")} />
                 </div>
@@ -378,21 +399,21 @@ export function ProfilePage({ onShowLeaderboard }: ProfilePageProps = {}) {
 
           {/* Stories Section - Only show on main profile view */}
           {swipeIndex === 0 && (
-            <div className="px-6 mb-8">
-              <div className="flex gap-4 overflow-x-auto scrollbar-hide justify-center max-w-sm mx-auto">
+            <div className="px-4 mb-6">
+              <div className="flex gap-3 sm:gap-4 overflow-x-auto scrollbar-hide justify-center w-full max-w-sm mx-auto">
                 {/* Story 1 */}
-                <div className="flex flex-col items-center gap-2 flex-shrink-0">
-                  <div className="w-16 h-16 rounded-full border-2 border-primary p-0.5">
+                <div className="flex flex-col items-center gap-1.5 sm:gap-2 flex-shrink-0">
+                  <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-full border-2 border-primary p-0.5">
                     <div className="w-full h-full rounded-full bg-muted" />
                   </div>
-                  <span className="text-sm text-muted-foreground">Story</span>
+                  <span className="text-xs sm:text-sm text-muted-foreground">Story</span>
                 </div>
                 {/* Story 2 */}
-                <div className="flex flex-col items-center gap-2 flex-shrink-0">
-                  <div className="w-16 h-16 rounded-full border-2 border-primary p-0.5">
+                <div className="flex flex-col items-center gap-1.5 sm:gap-2 flex-shrink-0">
+                  <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-full border-2 border-primary p-0.5">
                     <div className="w-full h-full rounded-full bg-muted" />
                   </div>
-                  <span className="text-sm text-muted-foreground">Story</span>
+                  <span className="text-xs sm:text-sm text-muted-foreground">Story</span>
                 </div>
               </div>
             </div>
@@ -402,59 +423,59 @@ export function ProfilePage({ onShowLeaderboard }: ProfilePageProps = {}) {
           {swipeIndex === 0 && (
             <div className="sticky top-[45px] z-10 bg-background/95 backdrop-blur-sm border-b border-border">
               <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-              <TabsList className="grid w-full grid-cols-5 bg-transparent border-0 h-12 px-6">
-                <TabsTrigger value="posts" className="flex flex-col items-center gap-1 h-full data-[state=active]:bg-transparent p-2">
-                  <ForkKnife size={18} />
+              <TabsList className="grid w-full grid-cols-5 bg-transparent border-0 h-10 sm:h-12 px-4 sm:px-6">
+                <TabsTrigger value="posts" className="flex flex-col items-center gap-0.5 sm:gap-1 h-full data-[state=active]:bg-transparent p-1 sm:p-2">
+                  <ForkKnife size={16} className="sm:w-[18px] sm:h-[18px]" />
                 </TabsTrigger>
-                <TabsTrigger value="likes" className="flex flex-col items-center gap-1 h-full data-[state=active]:bg-transparent p-2">
-                  <Heart size={18} />
+                <TabsTrigger value="likes" className="flex flex-col items-center gap-0.5 sm:gap-1 h-full data-[state=active]:bg-transparent p-1 sm:p-2">
+                  <Heart size={16} className="sm:w-[18px] sm:h-[18px]" />
                 </TabsTrigger>
-                <TabsTrigger value="favorites" className="flex flex-col items-center gap-1 h-full data-[state=active]:bg-transparent p-2">
-                  <BookBookmark size={18} />
+                <TabsTrigger value="favorites" className="flex flex-col items-center gap-0.5 sm:gap-1 h-full data-[state=active]:bg-transparent p-1 sm:p-2">
+                  <BookBookmark size={16} className="sm:w-[18px] sm:h-[18px]" />
                 </TabsTrigger>
-                <TabsTrigger value="reposts" className="flex flex-col items-center gap-1 h-full data-[state=active]:bg-transparent p-2">
-                  <Share size={18} />
+                <TabsTrigger value="reposts" className="flex flex-col items-center gap-0.5 sm:gap-1 h-full data-[state=active]:bg-transparent p-1 sm:p-2">
+                  <Share size={16} className="sm:w-[18px] sm:h-[18px]" />
                 </TabsTrigger>
-                <TabsTrigger value="guides" className="flex flex-col items-center gap-1 h-full data-[state=active]:bg-transparent p-2">
-                  <Export size={18} />
+                <TabsTrigger value="guides" className="flex flex-col items-center gap-0.5 sm:gap-1 h-full data-[state=active]:bg-transparent p-1 sm:p-2">
+                  <Export size={16} className="sm:w-[18px] sm:h-[18px]" />
                 </TabsTrigger>
               </TabsList>
 
               {/* Search & Filter Bar */}
-              <div className="px-6 py-4 border-b border-border">
-                <div className="flex gap-3">
+              <div className="px-4 sm:px-6 py-3 sm:py-4 border-b border-border">
+                <div className="flex gap-2 sm:gap-3">
                   <div className="relative flex-1">
-                    <MagnifyingGlass size={18} className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground" />
+                    <MagnifyingGlass size={16} className="sm:w-[18px] sm:h-[18px] absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground" />
                     <Input 
                       placeholder="Search for Posts"
                       value={searchTerm}
                       onChange={(e) => setSearchTerm(e.target.value)}
-                      className="pl-12 bg-muted border-0 h-12 text-base rounded-xl"
+                      className="pl-10 sm:pl-12 bg-muted border-0 h-10 sm:h-12 text-sm sm:text-base rounded-xl"
                     />
                   </div>
-                  <Button variant="outline" size="sm" className="h-12 px-4 rounded-xl flex-shrink-0">
-                    <SlidersHorizontal size={18} />
+                  <Button variant="outline" size="sm" className="h-10 sm:h-12 px-3 sm:px-4 rounded-xl flex-shrink-0">
+                    <SlidersHorizontal size={16} className="sm:w-[18px] sm:h-[18px]" />
                   </Button>
                 </div>
               </div>
 
               {/* Tab Content */}
-              <div className="min-h-[300px]">
+              <div className="min-h-[250px] sm:min-h-[300px]">
                 <TabsContent value="posts" className="mt-0">
                   {userPosts.length === 0 ? (
-                    <div className="p-8 text-center">
-                      <ForkKnife size={48} className="mx-auto mb-4 text-muted-foreground" />
-                      <h3 className="text-lg font-semibold mb-3">No posts yet</h3>
-                      <p className="text-base text-muted-foreground mb-6">Start sharing your food adventures!</p>
+                    <div className="p-6 sm:p-8 text-center">
+                      <ForkKnife size={40} className="sm:w-12 sm:h-12 mx-auto mb-3 sm:mb-4 text-muted-foreground" />
+                      <h3 className="text-base sm:text-lg font-semibold mb-2 sm:mb-3">No posts yet</h3>
+                      <p className="text-sm sm:text-base text-muted-foreground mb-4 sm:mb-6">Start sharing your food adventures!</p>
                       <Button 
-                        className="instagram-gradient text-white border-0 h-12 px-8 text-base"
+                        className="instagram-gradient text-white border-0 h-10 sm:h-12 px-6 sm:px-8 text-sm sm:text-base"
                         onClick={() => setIsCreatePostOpen(true)}
                       >
                         Create your first post
                       </Button>
                     </div>
                   ) : (
-                    <div className="grid grid-cols-3 gap-1 p-4">
+                    <div className="grid grid-cols-3 gap-0.5 sm:gap-1 p-3 sm:p-4">
                       {userPosts.map(post => (
                         <button
                           key={post.id}
