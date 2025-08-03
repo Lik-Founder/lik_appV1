@@ -271,6 +271,7 @@ export function HomeFeed({ onShowUserProfile }: HomeFeedProps) {
           users={users}
           currentUser={currentUser}
           onStoryClick={handleStoryClick}
+          onUserClick={onShowUserProfile}
           onAddStory={handleAddStory}
           deviceType={device.type}
         />

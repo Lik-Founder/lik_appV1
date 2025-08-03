@@ -705,6 +705,7 @@ export function TrendingPage({ onShowRestaurantProfile, onShowUserProfile }: Tre
           postId={selectedPostId}
           postAuthor={mockUsers[0]} // You could make this dynamic based on the selected post
           deviceType="phone" // TrendingPage is mobile-first
+          onUserClick={onShowUserProfile}
         />
       )}
     </div>

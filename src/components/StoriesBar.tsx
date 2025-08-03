@@ -10,35 +10,43 @@ interface StoryProps {
   story: StoryType;
   user: User;
   onStoryClick: (storyId: string) => void;
+  onUserClick?: (userId: string) => void;
   deviceType: DeviceType;
 }
 
-export function Story({ story, user, onStoryClick, deviceType }: StoryProps) {
+export function Story({ story, user, onStoryClick, onUserClick, deviceType }: StoryProps) {
   const avatarSize = deviceType === 'tablet' ? 'w-16 h-16' : 'w-14 h-14';
   const textWidth = deviceType === 'tablet' ? 'w-20' : 'w-16';
   
   return (
-    <button
-      onClick={() => onStoryClick(story.id)}
-      className="flex flex-col items-center gap-1 min-w-0 touch-target active:scale-95 transition-transform duration-150"
-    >
-      <div className={cn(
-        "p-0.5 rounded-full transition-transform duration-150 active:scale-95",
-        story.isViewed ? "story-ring-viewed" : "story-ring"
-      )}>
-        <Avatar className={cn(avatarSize, "border-2 border-background")}>
-          <AvatarImage src={user.avatar} alt={user.username} />
-          <AvatarFallback>{user.username[0]?.toUpperCase()}</AvatarFallback>
-        </Avatar>
-      </div>
-      <span className={cn(
-        "text-xs text-center truncate selectable-text",
-        textWidth,
-        deviceType === 'tablet' && "text-sm"
-      )}>
-        {user.username}
-      </span>
-    </button>
+    <div className="flex flex-col items-center gap-1 min-w-0">
+      <button
+        onClick={() => onStoryClick(story.id)}
+        className="touch-target active:scale-95 transition-transform duration-150"
+      >
+        <div className={cn(
+          "p-0.5 rounded-full transition-transform duration-150 active:scale-95",
+          story.isViewed ? "story-ring-viewed" : "story-ring"
+        )}>
+          <Avatar className={cn(avatarSize, "border-2 border-background")}>
+            <AvatarImage src={user.avatar} alt={user.username} />
+            <AvatarFallback>{user.username[0]?.toUpperCase()}</AvatarFallback>
+          </Avatar>
+        </div>
+      </button>
+      <button
+        onClick={() => onUserClick?.(user.id)}
+        className="touch-target active:opacity-70 transition-opacity duration-150"
+      >
+        <span className={cn(
+          "text-xs text-center truncate selectable-text hover:text-primary transition-colors",
+          textWidth,
+          deviceType === 'tablet' && "text-sm"
+        )}>
+          {user.username}
+        </span>
+      </button>
+    </div>
   );
 }
 
@@ -46,12 +54,13 @@ interface StoriesBarProps {
   stories: StoryType[];
   users: User[];
   onStoryClick: (storyId: string) => void;
+  onUserClick?: (userId: string) => void;
   currentUser: User;
   onAddStory: () => void;
   deviceType: DeviceType;
 }
 
-export function StoriesBar({ stories, users, onStoryClick, currentUser, onAddStory, deviceType }: StoriesBarProps) {
+export function StoriesBar({ stories, users, onStoryClick, onUserClick, currentUser, onAddStory, deviceType }: StoriesBarProps) {
   const [viewerState, setViewerState] = useState<{
     isOpen: boolean;
     storyIndex: number;
@@ -145,6 +154,7 @@ export function StoriesBar({ stories, users, onStoryClick, currentUser, onAddSto
             story={story}
             user={user!}
             onStoryClick={handleStoryClick}
+            onUserClick={onUserClick}
             deviceType={deviceType}
           />
         ))}

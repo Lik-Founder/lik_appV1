@@ -22,6 +22,7 @@ interface CommentItemProps {
   onLike: (commentId: string) => void;
   onReply: (commentId: string, username: string, parentId?: string) => void;
   onDelete?: (commentId: string) => void;
+  onUserClick?: (userId: string) => void;
   deviceType: DeviceType;
   depth?: number; // For threading depth
   maxDepth?: number; // Maximum nesting depth
@@ -35,6 +36,7 @@ export function CommentItem({
   onLike, 
   onReply, 
   onDelete,
+  onUserClick,
   deviceType,
   depth = 0,
   maxDepth = 3,
@@ -147,13 +149,18 @@ export function CommentItem({
         </div>
       )}
       
-      <Avatar className={cn(
-        avatarSize,
-        isNested && "w-6 h-6"
-      )}>
-        <AvatarImage src={user.avatar} alt={user.username} />
-        <AvatarFallback>{user.username[0]?.toUpperCase()}</AvatarFallback>
-      </Avatar>
+      <button 
+        onClick={() => onUserClick?.(user.id)}
+        className="touch-target active:scale-95 transition-transform duration-150"
+      >
+        <Avatar className={cn(
+          avatarSize,
+          isNested && "w-6 h-6"
+        )}>
+          <AvatarImage src={user.avatar} alt={user.username} />
+          <AvatarFallback>{user.username[0]?.toUpperCase()}</AvatarFallback>
+        </Avatar>
+      </button>
       
       <div className="flex-1 min-w-0">
         <div 
@@ -170,13 +177,18 @@ export function CommentItem({
           }}
         >
           <div className="flex items-center gap-2 mb-1">
-            <span className={cn(
-              "font-semibold",
-              deviceType === 'tablet' ? "text-sm" : "text-xs",
-              isNested && "text-xs"
-            )}>
-              {user.username}
-            </span>
+            <button 
+              onClick={() => onUserClick?.(user.id)}
+              className="touch-target active:opacity-70 transition-opacity duration-150"
+            >
+              <span className={cn(
+                "font-semibold hover:text-primary transition-colors",
+                deviceType === 'tablet' ? "text-sm" : "text-xs",
+                isNested && "text-xs"
+              )}>
+                {user.username}
+              </span>
+            </button>
             {isAuthor && (
               <span className="text-xs text-primary font-medium">
                 Author
@@ -358,6 +370,7 @@ export function CommentItem({
                     onLike={onLike}
                     onReply={onReply}
                     onDelete={onDelete}
+                    onUserClick={onUserClick}
                     deviceType={deviceType}
                     depth={depth + 1}
                     maxDepth={maxDepth}
@@ -377,10 +390,16 @@ export function CommentItem({
                 {comment.replies?.slice(0, 3).map((reply, index) => {
                   const replyUser = getUserById(reply.userId);
                   return (
-                    <Avatar key={reply.id} className="w-4 h-4 border border-background">
-                      <AvatarImage src={replyUser.avatar} alt={replyUser.username} />
-                      <AvatarFallback className="text-xs">{replyUser.username[0]?.toUpperCase()}</AvatarFallback>
-                    </Avatar>
+                    <button 
+                      key={reply.id} 
+                      onClick={() => onUserClick?.(replyUser.id)}
+                      className="touch-target active:scale-90 transition-transform duration-150"
+                    >
+                      <Avatar className="w-4 h-4 border border-background">
+                        <AvatarImage src={replyUser.avatar} alt={replyUser.username} />
+                        <AvatarFallback className="text-xs">{replyUser.username[0]?.toUpperCase()}</AvatarFallback>
+                      </Avatar>
+                    </button>
                   );
                 })}
               </div>

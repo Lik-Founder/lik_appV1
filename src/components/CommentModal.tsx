@@ -26,9 +26,10 @@ interface CommentModalProps {
   postId: string;
   postAuthor: User;
   deviceType: DeviceType;
+  onUserClick?: (userId: string) => void;
 }
 
-export function CommentModal({ isOpen, onClose, postId, postAuthor, deviceType }: CommentModalProps) {
+export function CommentModal({ isOpen, onClose, postId, postAuthor, deviceType, onUserClick }: CommentModalProps) {
   // Sample threaded comments for demonstration
   const sampleComments: Comment[] = [
     {
@@ -512,6 +513,7 @@ export function CommentModal({ isOpen, onClose, postId, postAuthor, deviceType }
                       onLike={handleLikeComment}
                       onReply={handleReply}
                       onDelete={user.id === currentUser.id ? handleDeleteComment : undefined}
+                      onUserClick={onUserClick}
                       deviceType={deviceType}
                       depth={0}
                       maxDepth={3}

@@ -292,6 +292,7 @@ export function Post({ post, user, onLike, onComment, onUserClick, deviceType, o
         postId={post.id}
         postAuthor={user}
         deviceType={deviceType}
+        onUserClick={onUserClick}
       />
     </Card>
   );
