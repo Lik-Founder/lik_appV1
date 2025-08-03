@@ -8,6 +8,7 @@ import { TrendingPage } from '@/components/TrendingPage';
 import { ProfilePage } from '@/components/ProfilePage';
 import { RestaurantProfile } from '@/components/RestaurantProfile';
 import { UserProfile } from '@/components/UserProfile';
+import { LeaderboardPage } from '@/components/LeaderboardPage';
 import { SwipeIndicator } from '@/components/SwipeIndicator';
 import { useDevice, useSafeArea } from '@/hooks/use-device';
 import { useTabSwipe } from '@/hooks/use-tab-swipe';
@@ -18,6 +19,7 @@ function App() {
   const [activeTab, setActiveTab] = useState<TabType>('home');
   const [showRestaurantProfile, setShowRestaurantProfile] = useState<string | null>(null);
   const [showUserProfile, setShowUserProfile] = useState<string | null>(null);
+  const [showLeaderboard, setShowLeaderboard] = useState(false);
   const [showSwipeIndicator, setShowSwipeIndicator] = useState(false);
   const device = useDevice();
   const safeArea = useSafeArea();
@@ -29,10 +31,19 @@ function App() {
       setActiveTab(newTab);
       setShowSwipeIndicator(true);
     },
-    disabled: !!showRestaurantProfile || !!showUserProfile,
+    disabled: !!showRestaurantProfile || !!showUserProfile || showLeaderboard,
   });
 
   const renderActiveTab = () => {
+    // Show leaderboard if requested
+    if (showLeaderboard) {
+      return (
+        <LeaderboardPage 
+          onBack={() => setShowLeaderboard(false)}
+        />
+      );
+    }
+
     // Show restaurant profile if requested
     if (showRestaurantProfile) {
       return (
@@ -78,7 +89,7 @@ function App() {
           />
         );
       case 'profile':
-        return <ProfilePage />;
+        return <ProfilePage onShowLeaderboard={() => setShowLeaderboard(true)} />;
       default:
         return <HomeFeed onShowUserProfile={(userId) => setShowUserProfile(userId)} />;
     }
@@ -103,7 +114,7 @@ function App() {
       </div>
 
       {/* Swipe Indicator */}
-      {!showRestaurantProfile && !showUserProfile && (
+      {!showRestaurantProfile && !showUserProfile && !showLeaderboard && (
         <SwipeIndicator 
           activeTab={activeTab} 
           isVisible={showSwipeIndicator}
@@ -111,7 +122,7 @@ function App() {
       )}
 
       {/* Bottom Navigation - Hide when viewing restaurant profile */}
-      {!showRestaurantProfile && !showUserProfile && (
+      {!showRestaurantProfile && !showUserProfile && !showLeaderboard && (
         <div 
           className={cn(
             "border-t backdrop-blur-sm",

@@ -44,7 +44,11 @@ import { useDevice } from '@/hooks/use-device';
 import { cn } from '@/lib/utils';
 import { toast } from 'sonner';
 
-export function ProfilePage() {
+interface ProfilePageProps {
+  onShowLeaderboard?: () => void;
+}
+
+export function ProfilePage({ onShowLeaderboard }: ProfilePageProps = {}) {
   const [currentUser, setCurrentUser] = useKV<User>('currentUser', getCurrentUser());
   const [posts] = useKV<PostType[]>('posts', generateMockPosts());
   const [cartItemsDetailed, setCartItemsDetailed] = useKV<CartItem[]>('cart-items-detailed', []);
@@ -100,6 +104,14 @@ export function ProfilePage() {
     toast.info('Lik Passport coming soon!');
   };
 
+  const handleLeaderboard = () => {
+    if (onShowLeaderboard) {
+      onShowLeaderboard();
+    } else {
+      toast.info('Leaderboard coming soon!');
+    }
+  };
+
   const handleShareProfile = () => {
     toast.info('Profile sharing coming soon!');
   };
@@ -131,6 +143,9 @@ export function ProfilePage() {
             </Button>
             <Button variant="ghost" size="sm" onClick={handleNotifications} className="px-2 py-1 h-8">
               <Bell size={16} />
+            </Button>
+            <Button variant="ghost" size="sm" onClick={handleLeaderboard} className="px-2 py-1 h-8">
+              <Trophy size={16} />
             </Button>
             <Button variant="ghost" size="sm" onClick={handleSettings} className="px-2 py-1 h-8">
               <DotsThree size={16} />
