@@ -174,6 +174,7 @@ export interface Bounty {
   id: string;
   dishName: string;
   restaurantName: string;
+  restaurantId: string;
   category: string;
   timeRemaining: string;
   rating: number;

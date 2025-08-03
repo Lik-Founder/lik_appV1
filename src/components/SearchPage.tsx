@@ -502,6 +502,7 @@ export function SearchPage({ onShowUserProfile, onShowRestaurantProfile }: Searc
         isOpen={showCart}
         onClose={handleCartClose}
         onCheckout={handleCheckoutOpen}
+        onShowRestaurantProfile={onShowRestaurantProfile}
       />
       
       <Checkout
@@ -514,11 +515,13 @@ export function SearchPage({ onShowUserProfile, onShowRestaurantProfile }: Searc
       <FavoritesPage
         isOpen={showFavorites}
         onClose={() => setShowFavorites(false)}
+        onShowRestaurantProfile={onShowRestaurantProfile}
       />
 
       <OrderHistory
         isOpen={showOrderHistory}
         onClose={() => setShowOrderHistory(false)}
+        onShowRestaurantProfile={onShowRestaurantProfile}
       />
     </div>
   );

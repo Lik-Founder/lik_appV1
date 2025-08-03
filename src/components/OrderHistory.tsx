@@ -24,9 +24,10 @@ import { Order, CartItem } from '@/lib/types';
 interface OrderHistoryProps {
   isOpen: boolean;
   onClose: () => void;
+  onShowRestaurantProfile?: (restaurantId: string) => void;
 }
 
-export function OrderHistory({ isOpen, onClose }: OrderHistoryProps) {
+export function OrderHistory({ isOpen, onClose, onShowRestaurantProfile }: OrderHistoryProps) {
   const [orders, setOrders] = useState<Order[]>([]);
   const [selectedOrder, setSelectedOrder] = useState<Order | null>(null);
   const [cartItemsDetailed, setCartItemsDetailed] = useKV<CartItem[]>('cart-items-detailed', []);
@@ -199,7 +200,12 @@ export function OrderHistory({ isOpen, onClose }: OrderHistoryProps) {
           {/* Restaurant Info */}
           <Card>
             <CardHeader>
-              <CardTitle className="text-base">{selectedOrder.restaurantName}</CardTitle>
+              <CardTitle 
+                className="text-base cursor-pointer hover:underline"
+                onClick={() => onShowRestaurantProfile?.(selectedOrder.restaurantId)}
+              >
+                {selectedOrder.restaurantName}
+              </CardTitle>
             </CardHeader>
             <CardContent className="space-y-3">
               <div className="flex items-center gap-2 text-sm text-muted-foreground">
@@ -340,7 +346,12 @@ export function OrderHistory({ isOpen, onClose }: OrderHistoryProps) {
                 <CardContent className="p-4">
                   <div className="flex justify-between items-start mb-3">
                     <div>
-                      <h3 className="font-semibold">{order.restaurantName}</h3>
+                      <h3 
+                        className="font-semibold cursor-pointer hover:underline"
+                        onClick={() => onShowRestaurantProfile?.(order.restaurantId)}
+                      >
+                        {order.restaurantName}
+                      </h3>
                       <p className="text-sm text-muted-foreground">
                         {formatDate(order.timestamp)} • {order.items.length} items
                       </p>

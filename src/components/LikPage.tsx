@@ -35,6 +35,7 @@ const mockBounties: Bounty[] = [
     id: '1',
     dishName: 'Kebab Combo',
     restaurantName: 'Kebab Shop',
+    restaurantId: 'rest7',
     category: 'Middle Eastern',
     timeRemaining: '24:00',
     rating: 4.5,
@@ -46,6 +47,7 @@ const mockBounties: Bounty[] = [
     id: '2',
     dishName: 'French Toast',
     restaurantName: "Tex's Diner",
+    restaurantId: 'rest8',
     category: 'Breakfast',
     timeRemaining: '12:30',
     rating: 4.8,
@@ -80,7 +82,11 @@ const mockQuests: Quest[] = [
   }
 ];
 
-export function LikPage() {
+interface LikPageProps {
+  onShowRestaurantProfile?: (restaurantId: string) => void;
+}
+
+export function LikPage({ onShowRestaurantProfile }: LikPageProps) {
   const [userProgress] = useKV('user-progress', mockUserProgress);
   const [bounties] = useKV('bounties', mockBounties);
   const [quests] = useKV('quests', mockQuests);
@@ -286,7 +292,12 @@ function BountiesView({ bounties }: { bounties: Bounty[] }) {
                     <div className="flex items-center justify-between mb-2">
                       <div>
                         <h4 className="font-semibold text-lg">{bounty.dishName}</h4>
-                        <p className="text-sm opacity-90">{bounty.restaurantName}</p>
+                        <p 
+                          className="text-sm opacity-90 cursor-pointer hover:underline"
+                          onClick={() => onShowRestaurantProfile?.(bounty.restaurantId)}
+                        >
+                          {bounty.restaurantName}
+                        </p>
                       </div>
                       <div className="text-right">
                         <div className="flex items-center gap-1 mb-1">
@@ -325,7 +336,12 @@ function BountiesView({ bounties }: { bounties: Bounty[] }) {
               </div>
               <div className="p-3">
                 <h4 className="font-semibold text-sm mb-1">{bounty.dishName}</h4>
-                <p className="text-xs text-muted-foreground mb-2">{bounty.restaurantName}</p>
+                <p 
+                  className="text-xs text-muted-foreground mb-2 cursor-pointer hover:underline"
+                  onClick={() => onShowRestaurantProfile?.(bounty.restaurantId)}
+                >
+                  {bounty.restaurantName}
+                </p>
                 <div className="flex items-center justify-between text-xs">
                   <div className="flex items-center gap-1">
                     <Timer size={12} />

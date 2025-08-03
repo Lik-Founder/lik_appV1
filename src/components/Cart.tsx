@@ -23,9 +23,10 @@ interface CartProps {
   isOpen: boolean;
   onClose: () => void;
   onCheckout: (items: CartItem[]) => void;
+  onShowRestaurantProfile?: (restaurantId: string) => void;
 }
 
-export function Cart({ isOpen, onClose, onCheckout }: CartProps) {
+export function Cart({ isOpen, onClose, onCheckout, onShowRestaurantProfile }: CartProps) {
   const [cartItems, setCartItems] = useKV<CartItem[]>('cart-items-detailed', []);
   const [isLoading, setIsLoading] = useState(false);
   const device = useDevice();
@@ -146,7 +147,12 @@ export function Cart({ isOpen, onClose, onCheckout }: CartProps) {
                   <CardHeader className="pb-3">
                     <CardTitle className="text-base flex items-center gap-2">
                       <MapPin className="h-4 w-4 text-primary" />
-                      {restaurant.restaurantName}
+                      <span 
+                        className="cursor-pointer hover:underline"
+                        onClick={() => onShowRestaurantProfile?.(restaurantId)}
+                      >
+                        {restaurant.restaurantName}
+                      </span>
                     </CardTitle>
                   </CardHeader>
                   <CardContent className="space-y-3">

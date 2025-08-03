@@ -55,7 +55,12 @@ function App() {
 
     switch (activeTab) {
       case 'home':
-        return <HomeFeed onShowUserProfile={(userId) => setShowUserProfile(userId)} />;
+        return (
+          <HomeFeed 
+            onShowUserProfile={(userId) => setShowUserProfile(userId)}
+            onShowRestaurantProfile={(restaurantId) => setShowRestaurantProfile(restaurantId)}
+          />
+        );
       case 'search':
         return (
           <SearchPage 
@@ -64,7 +69,7 @@ function App() {
           />
         );
       case 'lik':
-        return <LikPage />;
+        return <LikPage onShowRestaurantProfile={(restaurantId) => setShowRestaurantProfile(restaurantId)} />;
       case 'trending':
         return (
           <TrendingPage 

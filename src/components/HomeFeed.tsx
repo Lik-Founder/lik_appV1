@@ -28,9 +28,10 @@ import {
 
 interface HomeFeedProps {
   onShowUserProfile?: (userId: string) => void;
+  onShowRestaurantProfile?: (restaurantId: string) => void;
 }
 
-export function HomeFeed({ onShowUserProfile }: HomeFeedProps) {
+export function HomeFeed({ onShowUserProfile, onShowRestaurantProfile }: HomeFeedProps) {
   const [stories, setStories] = useKV<StoryType[]>('stories', generateMockStories());
   const [users, setUsers] = useKV<User[]>('users', generateMockUsers());
   const [currentUser] = useKV<User>('currentUser', getCurrentUser());
@@ -91,7 +92,8 @@ export function HomeFeed({ onShowUserProfile }: HomeFeedProps) {
       verified: true,
       rating: 4.8,
       likes: 124,
-      restaurant: 'Bella Italia'
+      restaurant: 'Bella Italia',
+      restaurantId: 'rest1'
     },
     {
       id: '2',
@@ -101,7 +103,8 @@ export function HomeFeed({ onShowUserProfile }: HomeFeedProps) {
       verified: false,
       rating: 4.5,
       likes: 89,
-      restaurant: 'Taco Bell'
+      restaurant: 'Taco Bell',
+      restaurantId: 'rest2'
     },
     {
       id: '3',
@@ -111,7 +114,8 @@ export function HomeFeed({ onShowUserProfile }: HomeFeedProps) {
       verified: true,
       rating: 4.9,
       likes: 203,
-      restaurant: 'Sushi Palace'
+      restaurant: 'Sushi Palace',
+      restaurantId: 'rest3'
     }
   ];
 
@@ -120,6 +124,7 @@ export function HomeFeed({ onShowUserProfile }: HomeFeedProps) {
       id: '1',
       image: 'https://images.unsplash.com/photo-1571091718767-18b5b1457add?w=300&h=200&fit=crop',
       restaurant: 'Burger Barn',
+      restaurantId: 'rest4',
       rating: 4.8,
       dish: 'Big Ranch Burger Set',
       price: '$16.00',
@@ -130,6 +135,7 @@ export function HomeFeed({ onShowUserProfile }: HomeFeedProps) {
       id: '2',
       image: 'https://images.unsplash.com/photo-1565299624946-b28f40a0ca4b?w=300&h=200&fit=crop',
       restaurant: 'Pizza Corner',
+      restaurantId: 'rest5',
       rating: 4.6,
       dish: 'Margherita Supreme',
       price: '$18.50',
@@ -317,6 +323,14 @@ export function HomeFeed({ onShowUserProfile }: HomeFeedProps) {
                         <Badge variant="secondary" className="text-xs px-1 py-0">✓</Badge>
                       )}
                     </div>
+                    <div className="mb-2">
+                      <span 
+                        className="text-xs text-muted-foreground cursor-pointer hover:underline"
+                        onClick={() => onShowRestaurantProfile?.(review.restaurantId)}
+                      >
+                        at {review.restaurant}
+                      </span>
+                    </div>
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-1">
                         <Star size={14} className="fill-yellow-400 text-yellow-400" />
@@ -352,7 +366,12 @@ export function HomeFeed({ onShowUserProfile }: HomeFeedProps) {
                   />
                   <div className="p-4">
                     <div className="flex items-center justify-between mb-2">
-                      <h3 className="font-bold text-lg">{pick.restaurant}</h3>
+                      <h3 
+                        className="font-bold text-lg cursor-pointer hover:underline"
+                        onClick={() => onShowRestaurantProfile?.(pick.restaurantId)}
+                      >
+                        {pick.restaurant}
+                      </h3>
                       <div className="flex items-center gap-1">
                         <Star size={16} className="fill-yellow-400 text-yellow-400" />
                         <span className="font-medium">{pick.rating}</span>

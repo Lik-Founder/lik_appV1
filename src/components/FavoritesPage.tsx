@@ -28,9 +28,10 @@ import { FavoriteRestaurant, FavoriteDish, CartItem } from '@/lib/types';
 interface FavoritesPageProps {
   isOpen: boolean;
   onClose: () => void;
+  onShowRestaurantProfile?: (restaurantId: string) => void;
 }
 
-export function FavoritesPage({ isOpen, onClose }: FavoritesPageProps) {
+export function FavoritesPage({ isOpen, onClose, onShowRestaurantProfile }: FavoritesPageProps) {
   const [favoriteRestaurants, setFavoriteRestaurants] = useKV<FavoriteRestaurant[]>('favorite-restaurants', []);
   const [favoriteDishes, setFavoriteDishes] = useKV<FavoriteDish[]>('favorite-dishes', []);
   const [cartItemsDetailed, setCartItemsDetailed] = useKV<CartItem[]>('cart-items-detailed', []);
@@ -264,6 +265,7 @@ export function FavoritesPage({ isOpen, onClose }: FavoritesPageProps) {
                     key={restaurant.id}
                     restaurant={restaurant}
                     onRemove={() => removeFavoriteRestaurant(restaurant.id)}
+                    onShowRestaurantProfile={onShowRestaurantProfile}
                     deviceType={device.type}
                   />
                 ))}
@@ -325,6 +327,7 @@ export function FavoritesPage({ isOpen, onClose }: FavoritesPageProps) {
                     dish={dish}
                     onRemove={() => removeFavoriteDish(dish.id)}
                     onReorder={() => reorderDish(dish)}
+                    onShowRestaurantProfile={onShowRestaurantProfile}
                     deviceType={device.type}
                   />
                 ))}
@@ -340,10 +343,11 @@ export function FavoritesPage({ isOpen, onClose }: FavoritesPageProps) {
 interface RestaurantFavoriteCardProps {
   restaurant: FavoriteRestaurant;
   onRemove: () => void;
+  onShowRestaurantProfile?: (restaurantId: string) => void;
   deviceType: 'phone' | 'tablet';
 }
 
-function RestaurantFavoriteCard({ restaurant, onRemove, deviceType }: RestaurantFavoriteCardProps) {
+function RestaurantFavoriteCard({ restaurant, onRemove, onShowRestaurantProfile, deviceType }: RestaurantFavoriteCardProps) {
   return (
     <Card className="overflow-hidden hover:shadow-md transition-shadow">
       <CardContent className="p-0">
@@ -366,7 +370,12 @@ function RestaurantFavoriteCard({ restaurant, onRemove, deviceType }: Restaurant
           <div className="flex-1 p-3">
             <div className="flex items-start justify-between">
               <div className="flex-1 min-w-0">
-                <h3 className="font-semibold truncate">{restaurant.name}</h3>
+                <h3 
+                  className="font-semibold truncate cursor-pointer hover:underline"
+                  onClick={() => onShowRestaurantProfile?.(restaurant.id)}
+                >
+                  {restaurant.name}
+                </h3>
                 <p className="text-sm text-muted-foreground truncate">{restaurant.categories.join(', ')}</p>
                 <div className="flex items-center gap-2 mt-1">
                   <div className="flex items-center gap-1">
@@ -407,10 +416,11 @@ interface DishFavoriteCardProps {
   dish: FavoriteDish;
   onRemove: () => void;
   onReorder: () => void;
+  onShowRestaurantProfile?: (restaurantId: string) => void;
   deviceType: 'phone' | 'tablet';
 }
 
-function DishFavoriteCard({ dish, onRemove, onReorder, deviceType }: DishFavoriteCardProps) {
+function DishFavoriteCard({ dish, onRemove, onReorder, onShowRestaurantProfile, deviceType }: DishFavoriteCardProps) {
   return (
     <Card className="overflow-hidden hover:shadow-md transition-shadow">
       <CardContent className="p-0">
@@ -429,7 +439,12 @@ function DishFavoriteCard({ dish, onRemove, onReorder, deviceType }: DishFavorit
             <div className="flex items-start justify-between">
               <div className="flex-1 min-w-0">
                 <h3 className="font-semibold truncate">{dish.name}</h3>
-                <p className="text-sm text-muted-foreground truncate">{dish.restaurantName}</p>
+                <p 
+                  className="text-sm text-muted-foreground truncate cursor-pointer hover:underline"
+                  onClick={() => onShowRestaurantProfile?.(dish.restaurantId)}
+                >
+                  {dish.restaurantName}
+                </p>
                 <p className="text-sm text-muted-foreground mt-1 line-clamp-2">{dish.description}</p>
                 <div className="flex items-center justify-between mt-2">
                   <p className="text-lg font-bold">${dish.price.toFixed(2)}</p>

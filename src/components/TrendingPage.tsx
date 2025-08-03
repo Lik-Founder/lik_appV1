@@ -66,6 +66,7 @@ const mockContent: (UserPost | RestaurantPost | AdPost)[] = [
     likedBy: mockUsers.slice(0, 3),
     user: { ...mockUsers[0], level: 12 },
     restaurant: {
+      id: 'rest6',
       name: 'Gourmet Bistro',
       rating: 4.1
     },
@@ -339,7 +340,7 @@ export function TrendingPage({ onShowRestaurantProfile, onShowUserProfile }: Tre
               <div className="flex items-center gap-1 text-white/80 text-xs">
                 <span 
                   className="cursor-pointer hover:underline" 
-                  onClick={() => onShowRestaurantProfile?.('rest1')}
+                  onClick={() => onShowRestaurantProfile?.(post.restaurant.id)}
                 >
                   {post.restaurant.name}
                 </span>
