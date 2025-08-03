@@ -3,6 +3,7 @@ import { ArrowLeft, MagnifyingGlass, Globe, CaretDown, Star, Heart, TrendUp, Car
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { cn } from '@/lib/utils';
+import { toast } from 'sonner';
 
 interface LeaderboardPageProps {
   onBack: () => void;
@@ -239,15 +240,28 @@ function LeaderboardCard({
   onShowUserProfile?: (userId: string) => void;
 }) {
   const isTopThree = item.rank <= 3;
+  const [isPressed, setIsPressed] = useState(false);
   
   const handleClick = () => {
     if (activeTab === 'restaurants' && onShowRestaurantProfile) {
+      toast.success(`Opening ${item.name} profile`);
       onShowRestaurantProfile(item.id);
     } else if (activeTab === 'likers' && onShowUserProfile) {
+      toast.success(`Opening ${item.name} profile`);
       onShowUserProfile(item.id);
     }
     // For foods tab, we could navigate to a food detail page in the future
     // For now, foods don't have a specific navigation target
+  };
+
+  const handleTouchStart = () => {
+    if (isClickable) {
+      setIsPressed(true);
+    }
+  };
+
+  const handleTouchEnd = () => {
+    setIsPressed(false);
   };
 
   const isClickable = activeTab === 'restaurants' || activeTab === 'likers';
@@ -256,8 +270,9 @@ function LeaderboardCard({
     <div
       className={cn(
         "group relative p-4 rounded-2xl border transition-all duration-200 touch-feedback",
-        isClickable && "cursor-pointer hover:shadow-lg hover:scale-[1.02]",
+        isClickable && "cursor-pointer hover:shadow-lg",
         !isClickable && "cursor-default",
+        isPressed && isClickable && "scale-[0.98] shadow-sm",
         isFirst && item.rank === 1 
           ? "bg-gradient-to-br from-yellow-50 to-orange-50 border-yellow-200 shadow-lg" 
           : isClickable 
@@ -269,6 +284,11 @@ function LeaderboardCard({
         item.rank === 3 && "ring-orange-300"
       )}
       onClick={isClickable ? handleClick : undefined}
+      onTouchStart={handleTouchStart}
+      onTouchEnd={handleTouchEnd}
+      onMouseDown={handleTouchStart}
+      onMouseUp={handleTouchEnd}
+      onMouseLeave={handleTouchEnd}
     >
       <div className="flex items-center gap-4">
         {/* Rank */}
@@ -342,13 +362,19 @@ function LeaderboardCard({
               
               {/* Navigation Arrow or Info */}
               {isClickable ? (
-                <CaretRight 
-                  size={20} 
-                  className="text-muted-foreground transition-colors group-hover:text-foreground" 
-                />
+                <div className="flex items-center">
+                  <div className="text-xs text-primary font-medium mr-2 opacity-60 group-hover:opacity-100 transition-opacity">
+                    Tap to view
+                  </div>
+                  <CaretRight 
+                    size={20} 
+                    className="text-primary transition-all duration-200 group-hover:text-primary group-hover:transform group-hover:translate-x-1" 
+                  />
+                </div>
               ) : activeTab === 'foods' ? (
-                <div className="text-xs text-muted-foreground opacity-60">
-                  View only
+                <div className="text-xs text-muted-foreground opacity-60 text-center">
+                  <div>View only</div>
+                  <div className="text-[10px] mt-1">Coming soon</div>
                 </div>
               ) : null}
             </div>
@@ -375,8 +401,21 @@ export function LeaderboardPage({ onBack, onShowRestaurantProfile, onShowUserPro
     const periodText = sortPeriod === 'week' ? 'This Week' : 
                      sortPeriod === 'month' ? 'This Month' : 'This Year';
     const tabText = activeTab === 'restaurants' ? 'Restaurants' :
-                   activeTab === 'foods' ? 'Foods' : 'Likers';
+                   activeTab === 'foods' ? 'Dishes' : 'Food Lovers';
     return `Top ${tabText} ${periodText}`;
+  };
+
+  const getTabDescription = () => {
+    switch (activeTab) {
+      case 'restaurants':
+        return 'Most popular restaurants ranked by community ratings and reviews';
+      case 'foods':
+        return 'Highest rated dishes across all restaurants and cuisines';
+      case 'likers':
+        return 'Top food reviewers and content creators in the community';
+      default:
+        return '';
+    }
   };
 
   const getScopeText = () => {
@@ -410,19 +449,23 @@ export function LeaderboardPage({ onBack, onShowRestaurantProfile, onShowUserPro
       <div className="sticky top-0 z-10 bg-background/95 backdrop-blur-sm border-b">
         {/* Tabs */}
         <div className="flex p-4 gap-2">
-          {(['foods', 'restaurants', 'likers'] as TabType[]).map((tab) => (
+          {([
+            { key: 'foods', label: 'Dishes' },
+            { key: 'restaurants', label: 'Restaurants' },
+            { key: 'likers', label: 'Foodies' }
+          ] as { key: TabType; label: string }[]).map((tab) => (
             <Button
-              key={tab}
-              variant={activeTab === tab ? 'default' : 'secondary'}
-              onClick={() => setActiveTab(tab)}
+              key={tab.key}
+              variant={activeTab === tab.key ? 'default' : 'secondary'}
+              onClick={() => setActiveTab(tab.key)}
               className={cn(
-                "flex-1 rounded-full capitalize font-medium transition-all",
-                activeTab === tab 
-                  ? "bg-foreground text-background shadow-lg" 
-                  : "bg-muted hover:bg-muted/80 text-muted-foreground"
+                "flex-1 rounded-full font-medium transition-all duration-200",
+                activeTab === tab.key 
+                  ? "bg-foreground text-background shadow-lg transform scale-105" 
+                  : "bg-muted hover:bg-muted/80 text-muted-foreground hover:scale-102"
               )}
             >
-              {tab}
+              {tab.label}
             </Button>
           ))}
         </div>
@@ -437,7 +480,7 @@ export function LeaderboardPage({ onBack, onShowRestaurantProfile, onShowUserPro
                 className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground" 
               />
               <Input
-                placeholder={`Search for ${activeTab}`}
+                placeholder={`Search ${activeTab === 'restaurants' ? 'restaurants' : activeTab === 'foods' ? 'dishes' : 'foodies'}...`}
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 className="pl-10 rounded-full border-muted-foreground/20"
@@ -487,27 +530,37 @@ export function LeaderboardPage({ onBack, onShowRestaurantProfile, onShowUserPro
       {/* Content */}
       <div className="flex-1 overflow-auto">
         {/* Title */}
-        <div className="px-4 py-6">
-          <h2 className="text-2xl font-bold text-center text-foreground">
+        <div className="px-4 py-6 text-center">
+          <h2 className="text-2xl font-bold text-foreground mb-2">
             {getTabTitle()}
           </h2>
+          <p className="text-sm text-muted-foreground max-w-sm mx-auto leading-relaxed">
+            {getTabDescription()}
+          </p>
         </div>
 
         {/* Leaderboard List */}
-        <div className="px-4 pb-6 space-y-3">
+        <div className="px-4 pb-6 space-y-3 animate-in fade-in duration-300">
           {filteredData.length > 0 ? (
             filteredData.map((item, index) => (
-              <LeaderboardCard 
-                key={item.id} 
-                item={item} 
-                isFirst={index === 0}
-                activeTab={activeTab}
-                onShowRestaurantProfile={onShowRestaurantProfile}
-                onShowUserProfile={onShowUserProfile}
-              />
+              <div
+                key={item.id}
+                className="animate-in slide-in-from-bottom-4 duration-300"
+                style={{
+                  animationDelay: `${index * 50}ms`
+                }}
+              >
+                <LeaderboardCard 
+                  item={item} 
+                  isFirst={index === 0}
+                  activeTab={activeTab}
+                  onShowRestaurantProfile={onShowRestaurantProfile}
+                  onShowUserProfile={onShowUserProfile}
+                />
+              </div>
             ))
           ) : (
-            <div className="text-center py-12">
+            <div className="text-center py-12 animate-in fade-in duration-500">
               <p className="text-muted-foreground text-lg">No results found</p>
               <p className="text-muted-foreground text-sm mt-2">
                 Try adjusting your search or filters

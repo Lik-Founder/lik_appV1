@@ -37,51 +37,51 @@ interface UserProfileProps {
 const mockUsers: Record<string, User> = {
   '1': {
     id: '1',
-    username: 'foodie_sarah',
-    displayName: 'Sarah Chen',
-    avatar: 'https://images.unsplash.com/photo-1494790108755-2616b612b786?w=150&h=150&fit=crop&crop=face',
-    bio: '🍕 Food explorer & taste adventurer\n📍 NYC | Level 42 Foodie\n🏆 Top reviewer in Italian cuisine',
-    followerCount: 12500,
-    followingCount: 340,
-    postCount: 89,
+    username: 'foodieexplorer',
+    displayName: 'FoodieExplorer',
+    avatar: 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=150&h=150&fit=crop&crop=face',
+    bio: '🍕 Food explorer & taste adventurer\n📍 NYC | Level 47 Foodie\n🏆 Top reviewer across all cuisines',
+    followerCount: 45000,
+    followingCount: 1200,
+    postCount: 450,
     isFollowing: false,
     location: 'New York, NY',
-    level: 42,
-    xp: 18750,
-    streakCount: 12,
-    likCoins: 2400,
-    likTickets: 5,
-    joinDate: '2023-03-15',
+    level: 47,
+    xp: 25500,
+    streakCount: 18,
+    likCoins: 4200,
+    likTickets: 8,
+    joinDate: '2022-10-15',
     isVerified: true,
     favoriteAchievement: {
-      id: 'italian_master',
-      title: 'Italian Master',
-      description: 'Reviewed 50+ Italian restaurants',
-      icon: '🍝',
+      id: 'global_foodie',
+      title: 'Global Foodie',
+      description: 'Reviewed restaurants in 25+ countries',
+      icon: '🌍',
       rarity: 'legendary'
     },
     socialLinks: {
-      instagram: 'sarah_eats_nyc',
-      tiktok: 'foodie_sarah',
-      youtube: 'SarahFoodAdventures'
+      instagram: 'foodieexplorer_nyc',
+      tiktok: 'foodieexplorer',
+      youtube: 'FoodieExplorerChannel'
     }
   },
   '2': {
     id: '2',
-    username: 'chef_marco',
-    displayName: 'Marco Rodriguez',
-    avatar: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face',
-    bio: '👨‍🍳 Professional Chef at Le Bernardin\n🥘 Culinary Institute graduate\n🌟 Michelin-starred experience',
-    followerCount: 56000,
-    followingCount: 120,
-    postCount: 245,
+    username: 'chefmaster',
+    displayName: 'ChefMaster',
+    avatar: 'https://images.unsplash.com/photo-1494790108755-2616b612b5bc?w=150&h=150&fit=crop&crop=face',
+    bio: '👨‍🍳 Professional Chef & Food Critic\n🥘 Culinary Institute graduate\n🌟 Michelin-starred experience',
+    followerCount: 38000,
+    followingCount: 980,
+    postCount: 320,
     isFollowing: true,
     location: 'New York, NY',
-    level: 67,
-    xp: 34200,
-    streakCount: 28,
-    likCoins: 8900,
-    likTickets: 12,
+    level: 42,
+    xp: 22100,
+    streakCount: 25,
+    likCoins: 3800,
+    likTickets: 6,
     joinDate: '2022-08-10',
     isVerified: true,
     favoriteAchievement: {
@@ -92,8 +92,97 @@ const mockUsers: Record<string, User> = {
       rarity: 'legendary'
     },
     socialLinks: {
-      instagram: 'chef_marco_nyc',
-      youtube: 'MarcosCulinaryWorld'
+      instagram: 'chefmaster_nyc',
+      youtube: 'ChefMasterCooking'
+    }
+  },
+  '3': {
+    id: '3',
+    username: 'tasteadventurer',
+    displayName: 'TasteAdventurer',
+    avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face',
+    bio: '🌮 Always hunting for the next great bite\n📍 Brooklyn | Level 38 Explorer\n🎯 Specialty: Street Food & Hidden Gems',
+    followerCount: 28500,
+    followingCount: 850,
+    postCount: 280,
+    isFollowing: false,
+    location: 'Brooklyn, NY',
+    level: 38,
+    xp: 19800,
+    streakCount: 14,
+    likCoins: 3200,
+    likTickets: 4,
+    joinDate: '2023-01-20',
+    isVerified: false,
+    favoriteAchievement: {
+      id: 'street_food_master',
+      title: 'Street Food Master',
+      description: 'Discovered 100+ street food vendors',
+      icon: '🌮',
+      rarity: 'rare'
+    },
+    socialLinks: {
+      instagram: 'tasteadventurer',
+      tiktok: 'tasteadventurer'
+    }
+  },
+  '4': {
+    id: '4',
+    username: 'gourmetguru',
+    displayName: 'GourmetGuru',
+    avatar: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face',
+    bio: '🍷 Wine & Fine Dining Enthusiast\n📍 Manhattan | Level 35 Connoisseur\n🏅 Sommelier Level 2 Certified',
+    followerCount: 22000,
+    followingCount: 720,
+    postCount: 195,
+    isFollowing: true,
+    location: 'Manhattan, NY',
+    level: 35,
+    xp: 17400,
+    streakCount: 9,
+    likCoins: 2800,
+    likTickets: 3,
+    joinDate: '2023-03-05',
+    isVerified: true,
+    favoriteAchievement: {
+      id: 'wine_expert',
+      title: 'Wine Expert',
+      description: 'Certified sommelier and wine critic',
+      icon: '🍷',
+      rarity: 'epic'
+    },
+    socialLinks: {
+      instagram: 'gourmetguru_nyc'
+    }
+  },
+  '5': {
+    id: '5',
+    username: 'culinaryqueen',
+    displayName: 'CulinaryQueen',
+    avatar: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=150&h=150&fit=crop&crop=face',
+    bio: '👑 Dessert & Pastry Specialist\n📍 Queens | Level 31 Baker\n🧁 Featured in Food & Wine Magazine',
+    followerCount: 18500,
+    followingCount: 650,
+    postCount: 165,
+    isFollowing: false,
+    location: 'Queens, NY',
+    level: 31,
+    xp: 15200,
+    streakCount: 7,
+    likCoins: 2400,
+    likTickets: 2,
+    joinDate: '2023-05-12',
+    isVerified: false,
+    favoriteAchievement: {
+      id: 'dessert_master',
+      title: 'Dessert Master',
+      description: 'Expert in pastries and desserts',
+      icon: '🧁',
+      rarity: 'epic'
+    },
+    socialLinks: {
+      instagram: 'culinaryqueen',
+      youtube: 'CulinaryQueenBakes'
     }
   }
 };
