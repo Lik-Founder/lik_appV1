@@ -40,6 +40,14 @@ function App() {
       return (
         <LeaderboardPage 
           onBack={() => setShowLeaderboard(false)}
+          onShowRestaurantProfile={(restaurantId) => {
+            setShowLeaderboard(false);
+            setShowRestaurantProfile(restaurantId);
+          }}
+          onShowUserProfile={(userId) => {
+            setShowLeaderboard(false);
+            setShowUserProfile(userId);
+          }}
         />
       );
     }

@@ -1,11 +1,13 @@
 import { useState } from 'react';
-import { ArrowLeft, MagnifyingGlass, Globe, CaretDown, Star, Heart, TrendUp } from '@phosphor-icons/react';
+import { ArrowLeft, MagnifyingGlass, Globe, CaretDown, Star, Heart, TrendUp, CaretRight } from '@phosphor-icons/react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { cn } from '@/lib/utils';
 
 interface LeaderboardPageProps {
   onBack: () => void;
+  onShowRestaurantProfile?: (restaurantId: string) => void;
+  onShowUserProfile?: (userId: string) => void;
 }
 
 type TabType = 'foods' | 'restaurants' | 'likers';
@@ -29,10 +31,10 @@ interface LeaderboardItem {
 const mockData = {
   restaurants: [
     {
-      id: '1',
+      id: 'bella-italia', // Use the same ID as the restaurant profile
       rank: 1,
-      name: 'The Golden Spoon',
-      subtitle: 'American • New York City',
+      name: 'Bella Italia',
+      subtitle: 'Italian • Manhattan',
       imageUrl: `https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=120&h=120&fit=crop&crop=center`,
       rating: 4.8,
       likes: 200000,
@@ -43,8 +45,8 @@ const mockData = {
     {
       id: '2',
       rank: 2,
-      name: 'Bella Vista',
-      subtitle: 'Italian • Manhattan',
+      name: 'The Golden Spoon',
+      subtitle: 'American • New York City',
       imageUrl: `https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=120&h=120&fit=crop&crop=center`,
       rating: 4.4,
       likes: 180000,
@@ -223,21 +225,50 @@ function getRankStyle(rank: number) {
   }
 }
 
-function LeaderboardCard({ item, isFirst }: { item: LeaderboardItem; isFirst: boolean }) {
+function LeaderboardCard({ 
+  item, 
+  isFirst, 
+  activeTab, 
+  onShowRestaurantProfile, 
+  onShowUserProfile 
+}: { 
+  item: LeaderboardItem; 
+  isFirst: boolean;
+  activeTab: TabType;
+  onShowRestaurantProfile?: (restaurantId: string) => void;
+  onShowUserProfile?: (userId: string) => void;
+}) {
   const isTopThree = item.rank <= 3;
+  
+  const handleClick = () => {
+    if (activeTab === 'restaurants' && onShowRestaurantProfile) {
+      onShowRestaurantProfile(item.id);
+    } else if (activeTab === 'likers' && onShowUserProfile) {
+      onShowUserProfile(item.id);
+    }
+    // For foods tab, we could navigate to a food detail page in the future
+    // For now, foods don't have a specific navigation target
+  };
+
+  const isClickable = activeTab === 'restaurants' || activeTab === 'likers';
   
   return (
     <div
       className={cn(
-        "relative p-4 rounded-2xl border transition-all duration-200 hover:shadow-lg cursor-pointer",
+        "group relative p-4 rounded-2xl border transition-all duration-200 touch-feedback",
+        isClickable && "cursor-pointer hover:shadow-lg hover:scale-[1.02]",
+        !isClickable && "cursor-default",
         isFirst && item.rank === 1 
           ? "bg-gradient-to-br from-yellow-50 to-orange-50 border-yellow-200 shadow-lg" 
-          : "bg-card hover:bg-card/80",
+          : isClickable 
+            ? "bg-card hover:bg-card/80" 
+            : "bg-card",
         isTopThree && "ring-1",
         item.rank === 1 && "ring-yellow-300",
         item.rank === 2 && "ring-gray-300",
         item.rank === 3 && "ring-orange-300"
       )}
+      onClick={isClickable ? handleClick : undefined}
     >
       <div className="flex items-center gap-4">
         {/* Rank */}
@@ -285,27 +316,41 @@ function LeaderboardCard({ item, isFirst }: { item: LeaderboardItem; isFirst: bo
             </div>
 
             {/* Stats */}
-            <div className="text-right shrink-0">
-              <div className="flex items-center gap-1 text-yellow-500 font-semibold text-lg">
-                <Star size={18} className="fill-current" />
-                {item.rating}
-              </div>
-              <div className="flex items-center gap-1 text-red-500 text-sm mt-1">
-                <Heart size={14} className="fill-current" />
-                {item.likes >= 1000 
-                  ? `${(item.likes / 1000).toFixed(item.likes >= 100000 ? 0 : 1)}K`
-                  : item.likes
-                }
-              </div>
-              {item.reviews && (
-                <div className="flex items-center gap-1 text-muted-foreground text-xs mt-1">
-                  <TrendUp size={12} />
-                  {item.reviews >= 1000 
-                    ? `${(item.reviews / 1000).toFixed(1)}K`
-                    : item.reviews
+            <div className="text-right shrink-0 flex items-center gap-3">
+              <div>
+                <div className="flex items-center gap-1 text-yellow-500 font-semibold text-lg">
+                  <Star size={18} className="fill-current" />
+                  {item.rating}
+                </div>
+                <div className="flex items-center gap-1 text-red-500 text-sm mt-1">
+                  <Heart size={14} className="fill-current" />
+                  {item.likes >= 1000 
+                    ? `${(item.likes / 1000).toFixed(item.likes >= 100000 ? 0 : 1)}K`
+                    : item.likes
                   }
                 </div>
-              )}
+                {item.reviews && (
+                  <div className="flex items-center gap-1 text-muted-foreground text-xs mt-1">
+                    <TrendUp size={12} />
+                    {item.reviews >= 1000 
+                      ? `${(item.reviews / 1000).toFixed(1)}K`
+                      : item.reviews
+                    }
+                  </div>
+                )}
+              </div>
+              
+              {/* Navigation Arrow or Info */}
+              {isClickable ? (
+                <CaretRight 
+                  size={20} 
+                  className="text-muted-foreground transition-colors group-hover:text-foreground" 
+                />
+              ) : activeTab === 'foods' ? (
+                <div className="text-xs text-muted-foreground opacity-60">
+                  View only
+                </div>
+              ) : null}
             </div>
           </div>
         </div>
@@ -314,7 +359,7 @@ function LeaderboardCard({ item, isFirst }: { item: LeaderboardItem; isFirst: bo
   );
 }
 
-export function LeaderboardPage({ onBack }: LeaderboardPageProps) {
+export function LeaderboardPage({ onBack, onShowRestaurantProfile, onShowUserProfile }: LeaderboardPageProps) {
   const [activeTab, setActiveTab] = useState<TabType>('restaurants');
   const [searchQuery, setSearchQuery] = useState('');
   const [sortPeriod, setSortPeriod] = useState<SortPeriod>('week');
@@ -456,6 +501,9 @@ export function LeaderboardPage({ onBack }: LeaderboardPageProps) {
                 key={item.id} 
                 item={item} 
                 isFirst={index === 0}
+                activeTab={activeTab}
+                onShowRestaurantProfile={onShowRestaurantProfile}
+                onShowUserProfile={onShowUserProfile}
               />
             ))
           ) : (
