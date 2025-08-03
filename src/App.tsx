@@ -7,6 +7,7 @@ import { LikPage } from '@/components/LikPage';
 import { TrendingPage } from '@/components/TrendingPage';
 import { ProfilePage } from '@/components/ProfilePage';
 import { RestaurantProfile } from '@/components/RestaurantProfile';
+import { UserProfile } from '@/components/UserProfile';
 import { SwipeIndicator } from '@/components/SwipeIndicator';
 import { useDevice, useSafeArea } from '@/hooks/use-device';
 import { useTabSwipe } from '@/hooks/use-tab-swipe';
@@ -16,6 +17,7 @@ import { cn } from '@/lib/utils';
 function App() {
   const [activeTab, setActiveTab] = useState<TabType>('home');
   const [showRestaurantProfile, setShowRestaurantProfile] = useState<string | null>(null);
+  const [showUserProfile, setShowUserProfile] = useState<string | null>(null);
   const [showSwipeIndicator, setShowSwipeIndicator] = useState(false);
   const device = useDevice();
   const safeArea = useSafeArea();
@@ -27,7 +29,7 @@ function App() {
       setActiveTab(newTab);
       setShowSwipeIndicator(true);
     },
-    disabled: !!showRestaurantProfile,
+    disabled: !!showRestaurantProfile || !!showUserProfile,
   });
 
   const renderActiveTab = () => {
@@ -41,23 +43,39 @@ function App() {
       );
     }
 
+    // Show user profile if requested
+    if (showUserProfile) {
+      return (
+        <UserProfile 
+          userId={showUserProfile}
+          onBack={() => setShowUserProfile(null)}
+        />
+      );
+    }
+
     switch (activeTab) {
       case 'home':
-        return <HomeFeed />;
+        return <HomeFeed onShowUserProfile={(userId) => setShowUserProfile(userId)} />;
       case 'search':
-        return <SearchPage />;
+        return (
+          <SearchPage 
+            onShowUserProfile={(userId) => setShowUserProfile(userId)}
+            onShowRestaurantProfile={(restaurantId) => setShowRestaurantProfile(restaurantId)}
+          />
+        );
       case 'lik':
         return <LikPage />;
       case 'trending':
         return (
           <TrendingPage 
             onShowRestaurantProfile={(restaurantId) => setShowRestaurantProfile(restaurantId)}
+            onShowUserProfile={(userId) => setShowUserProfile(userId)}
           />
         );
       case 'profile':
         return <ProfilePage />;
       default:
-        return <HomeFeed />;
+        return <HomeFeed onShowUserProfile={(userId) => setShowUserProfile(userId)} />;
     }
   };
 
@@ -80,7 +98,7 @@ function App() {
       </div>
 
       {/* Swipe Indicator */}
-      {!showRestaurantProfile && (
+      {!showRestaurantProfile && !showUserProfile && (
         <SwipeIndicator 
           activeTab={activeTab} 
           isVisible={showSwipeIndicator}
@@ -88,7 +106,7 @@ function App() {
       )}
 
       {/* Bottom Navigation - Hide when viewing restaurant profile */}
-      {!showRestaurantProfile && (
+      {!showRestaurantProfile && !showUserProfile && (
         <div 
           className={cn(
             "border-t backdrop-blur-sm",

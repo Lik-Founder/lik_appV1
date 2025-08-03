@@ -8,6 +8,27 @@ export interface User {
   followingCount: number;
   postCount: number;
   isFollowing: boolean;
+  location?: string;
+  level?: number;
+  xp?: number;
+  streakCount?: number;
+  likCoins?: number;
+  likTickets?: number;
+  joinDate?: string;
+  isVerified?: boolean;
+  favoriteAchievement?: {
+    id: string;
+    title: string;
+    description: string;
+    icon: string;
+    rarity: 'common' | 'rare' | 'epic' | 'legendary';
+  };
+  socialLinks?: {
+    instagram?: string;
+    tiktok?: string;
+    youtube?: string;
+    twitter?: string;
+  };
 }
 
 export interface Post {

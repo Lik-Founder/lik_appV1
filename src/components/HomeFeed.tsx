@@ -26,7 +26,11 @@ import {
   ArrowRight
 } from '@phosphor-icons/react';
 
-export function HomeFeed() {
+interface HomeFeedProps {
+  onShowUserProfile?: (userId: string) => void;
+}
+
+export function HomeFeed({ onShowUserProfile }: HomeFeedProps) {
   const [stories, setStories] = useKV<StoryType[]>('stories', generateMockStories());
   const [users, setUsers] = useKV<User[]>('users', generateMockUsers());
   const [currentUser] = useKV<User>('currentUser', getCurrentUser());
@@ -81,6 +85,7 @@ export function HomeFeed() {
   const reviewCards = [
     {
       id: '1',
+      userId: '1', // Add user ID for profile navigation
       image: 'https://images.unsplash.com/photo-1565299624946-b28f40a0ca4b?w=200&h=200&fit=crop',
       reviewer: 'Sarah Wilson',
       verified: true,
@@ -90,6 +95,7 @@ export function HomeFeed() {
     },
     {
       id: '2',
+      userId: '2', // Add user ID for profile navigation
       image: 'https://images.unsplash.com/photo-1571091718767-18b5b1457add?w=200&h=200&fit=crop',
       reviewer: 'John Doe',
       verified: false,
@@ -99,6 +105,7 @@ export function HomeFeed() {
     },
     {
       id: '3',
+      userId: '1', // Sarah Wilson again for example
       image: 'https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?w=200&h=200&fit=crop',
       reviewer: 'Alex Rivera',
       verified: true,
@@ -299,7 +306,12 @@ export function HomeFeed() {
                   />
                   <div className="p-3">
                     <div className="flex items-center gap-2 mb-2">
-                      <span className="font-medium text-sm">{review.reviewer}</span>
+                      <span 
+                        className="font-medium text-sm cursor-pointer hover:underline" 
+                        onClick={() => onShowUserProfile?.(review.userId)}
+                      >
+                        {review.reviewer}
+                      </span>
                       {review.verified && (
                         <Badge variant="secondary" className="text-xs px-1 py-0">✓</Badge>
                       )}

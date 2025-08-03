@@ -197,9 +197,10 @@ const mockContent: (UserPost | RestaurantPost | AdPost)[] = [
 
 interface TrendingPageProps {
   onShowRestaurantProfile?: (restaurantId: string) => void;
+  onShowUserProfile?: (userId: string) => void;
 }
 
-export function TrendingPage({ onShowRestaurantProfile }: TrendingPageProps) {
+export function TrendingPage({ onShowRestaurantProfile, onShowUserProfile }: TrendingPageProps) {
   const [activeTab, setActiveTab] = useState<'following' | 'trending' | 'foryou'>('trending');
   const [currentIndex, setCurrentIndex] = useState(0);
   const [content, setContent] = useKV('trending-content', mockContent);
@@ -318,13 +319,21 @@ export function TrendingPage({ onShowRestaurantProfile }: TrendingPageProps) {
         <div className="space-y-3">
           {/* User profile section */}
           <div className="flex items-center gap-3">
-            <Avatar className="w-10 h-10 story-ring">
+            <Avatar 
+              className="w-10 h-10 story-ring cursor-pointer" 
+              onClick={() => onShowUserProfile?.(post.user.id)}
+            >
               <AvatarImage src={post.user.avatar} />
               <AvatarFallback>{post.user.displayName[0]}</AvatarFallback>
             </Avatar>
             <div className="flex-1">
               <div className="flex items-center gap-2">
-                <span className="text-white font-medium text-sm">{post.user.displayName}</span>
+                <span 
+                  className="text-white font-medium text-sm cursor-pointer hover:underline" 
+                  onClick={() => onShowUserProfile?.(post.user.id)}
+                >
+                  {post.user.displayName}
+                </span>
                 <Badge variant="secondary" className="text-xs">Level {post.user.level}</Badge>
               </div>
               <div className="flex items-center gap-1 text-white/80 text-xs">
@@ -651,7 +660,11 @@ export function TrendingPage({ onShowRestaurantProfile }: TrendingPageProps) {
                 </div>
                 <div className="flex items-center -space-x-2">
                   {post.likedBy.slice(0, 3).map((user, index) => (
-                    <Avatar key={user.id} className="w-6 h-6 border-2 border-black">
+                    <Avatar 
+                      key={user.id} 
+                      className="w-6 h-6 border-2 border-black cursor-pointer hover:scale-110 transition-transform"
+                      onClick={() => onShowUserProfile?.(user.id)}
+                    >
                       <AvatarImage src={user.avatar} />
                       <AvatarFallback className="text-xs">{user.displayName[0]}</AvatarFallback>
                     </Avatar>

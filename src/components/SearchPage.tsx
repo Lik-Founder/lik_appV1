@@ -67,7 +67,12 @@ interface MenuItem {
   customizations?: string[];
 }
 
-export function SearchPage() {
+interface SearchPageProps {
+  onShowUserProfile?: (userId: string) => void;
+  onShowRestaurantProfile?: (restaurantId: string) => void;
+}
+
+export function SearchPage({ onShowUserProfile, onShowRestaurantProfile }: SearchPageProps) {
   const [searchQuery, setSearchQuery] = useState('');
   const [isDeliveryMode, setIsDeliveryMode] = useState(false);
   const [activePreferences, setActivePreferences] = useKV<string[]>('food-preferences', ['Vegan']);
@@ -449,6 +454,7 @@ export function SearchPage() {
                   key={post.id}
                   post={post}
                   onLike={handleLike}
+                  onShowUserProfile={onShowUserProfile}
                   deviceType={device.type}
                 />
               ))}
@@ -521,10 +527,11 @@ export function SearchPage() {
 interface FoodCardProps {
   post: FoodPost;
   onLike: (postId: string) => void;
+  onShowUserProfile?: (userId: string) => void;
   deviceType: 'phone' | 'tablet';
 }
 
-function FoodCard({ post, onLike, deviceType }: FoodCardProps) {
+function FoodCard({ post, onLike, onShowUserProfile, deviceType }: FoodCardProps) {
   const isLarge = Math.random() > 0.5; // Random staggered heights
   
   return (
@@ -567,9 +574,17 @@ function FoodCard({ post, onLike, deviceType }: FoodCardProps) {
         <div className="absolute bottom-0 left-0 right-0 p-3">
           {/* Profile Section */}
           <div className="flex items-center gap-2 mb-2">
-            <div className="w-6 h-6 bg-gradient-to-r from-orange-400 to-pink-600 rounded-full flex-shrink-0" />
+            <div 
+              className="w-6 h-6 bg-gradient-to-r from-orange-400 to-pink-600 rounded-full flex-shrink-0 cursor-pointer hover:scale-110 transition-transform" 
+              onClick={() => post.type === 'user' && onShowUserProfile?.(post.id)}
+            />
             <div className="flex items-center gap-1 flex-1 min-w-0">
-              <span className="text-white text-sm font-medium truncate">{post.displayName}</span>
+              <span 
+                className="text-white text-sm font-medium truncate cursor-pointer hover:underline"
+                onClick={() => post.type === 'user' && onShowUserProfile?.(post.id)}
+              >
+                {post.displayName}
+              </span>
               {post.isVerified && (
                 <div className="w-4 h-4 bg-red-500 rounded-full flex items-center justify-center flex-shrink-0">
                   <div className="w-2 h-2 bg-white rounded-full" />
