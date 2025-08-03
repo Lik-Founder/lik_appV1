@@ -1306,6 +1306,28 @@ input, textarea, select {
   will-change: transform;
 }
 
+/* LikTV Carousel specific styles */
+.liktv-carousel {
+  touch-action: pan-y pinch-zoom;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+}
+
+.liktv-carousel-slide {
+  transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: transform;
+}
+
+.liktv-carousel-slide.dragging {
+  transition: none;
+}
+
+.liktv-carousel:active {
+  cursor: grabbing;
+}
+
 .carousel-nav-button {
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);

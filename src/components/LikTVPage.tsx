@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react';
-import { MagnifyingGlass, Bell, User, Play, ChevronLeft, ChevronRight } from '@phosphor-icons/react';
+import { MagnifyingGlass, Bell, User, Play, ChevronLeft } from '@phosphor-icons/react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import { useCarouselSwipe } from '@/hooks';
 import { cn } from '@/lib/utils';
 
 interface LikTVPageProps {
@@ -100,22 +101,46 @@ const popularSeries: Show[] = [
 export function LikTVPage({ onBack }: LikTVPageProps) {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [searchQuery, setSearchQuery] = useState('');
+  const [isUserInteracting, setIsUserInteracting] = useState(false);
 
-  // Auto-scroll carousel
+  // Set up swipe gestures for carousel
+  const { swipeHandlers, dragOffset, isDragging } = useCarouselSwipe({
+    itemCount: featuredShows.length,
+    currentIndex: currentSlide,
+    onIndexChange: setCurrentSlide,
+    threshold: 50,
+  });
+
+  // Track user interaction to pause auto-scroll
+  const enhancedSwipeHandlers = {
+    ...swipeHandlers,
+    onTouchStart: (e: React.TouchEvent) => {
+      setIsUserInteracting(true);
+      swipeHandlers.onTouchStart(e);
+    },
+    onMouseDown: (e: React.MouseEvent) => {
+      setIsUserInteracting(true);
+      swipeHandlers.onMouseDown(e);
+    },
+    onTouchEnd: (e: React.TouchEvent) => {
+      setIsUserInteracting(false);
+      swipeHandlers.onTouchEnd(e);
+    },
+    onMouseUp: (e: React.MouseEvent) => {
+      setIsUserInteracting(false);
+      swipeHandlers.onMouseUp(e);
+    },
+  };
+
+  // Auto-scroll carousel (paused during user interaction)
   useEffect(() => {
+    if (isUserInteracting || isDragging) return;
+    
     const interval = setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % featuredShows.length);
     }, 6000);
     return () => clearInterval(interval);
-  }, []);
-
-  const nextSlide = () => {
-    setCurrentSlide((prev) => (prev + 1) % featuredShows.length);
-  };
-
-  const prevSlide = () => {
-    setCurrentSlide((prev) => (prev - 1 + featuredShows.length) % featuredShows.length);
-  };
+  }, [isUserInteracting, isDragging]);
 
   return (
     <div className="flex flex-col h-full bg-background">
@@ -161,10 +186,19 @@ export function LikTVPage({ onBack }: LikTVPageProps) {
       {/* Content */}
       <div className="flex-1 overflow-y-auto">
         {/* Hero Carousel Section */}
-        <div className="relative h-[400px] mb-8 overflow-hidden bg-black">
+        <div 
+          className="liktv-carousel relative h-[400px] mb-8 overflow-hidden bg-black cursor-grab active:cursor-grabbing select-none"
+          {...enhancedSwipeHandlers}
+        >
           <div 
-            className="flex transition-transform duration-500 ease-out h-full"
-            style={{ transform: `translateX(-${currentSlide * 100}%)` }}
+            className={cn(
+              "liktv-carousel-slide flex h-full",
+              dragOffset !== 0 && "dragging"
+            )}
+            style={{ 
+              transform: `translateX(-${currentSlide * 100}%) translateX(${dragOffset}px)`,
+              transition: dragOffset !== 0 ? 'none' : 'transform 0.5s cubic-bezier(0.4, 0, 0.2, 1)'
+            }}
           >
             {featuredShows.map((show, index) => (
               <div
@@ -192,23 +226,21 @@ export function LikTVPage({ onBack }: LikTVPageProps) {
             ))}
           </div>
 
-          {/* Navigation Arrows */}
-          <Button
-            variant="ghost"
-            size="sm"
-            className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white p-2"
-            onClick={prevSlide}
-          >
-            <ChevronLeft size={20} />
-          </Button>
-          <Button
-            variant="ghost"
-            size="sm"
-            className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white p-2"
-            onClick={nextSlide}
-          >
-            <ChevronRight size={20} />
-          </Button>
+          {/* Swipe Indicator */}
+          {dragOffset !== 0 && (
+            <div className="absolute inset-0 pointer-events-none flex items-center justify-center">
+              <div 
+                className={cn(
+                  "bg-white/20 backdrop-blur-sm rounded-full p-4 transition-opacity",
+                  Math.abs(dragOffset) > 50 ? "opacity-100" : "opacity-50"
+                )}
+              >
+                <div className="text-white text-sm font-medium">
+                  {dragOffset > 0 ? "← Previous" : "Next →"}
+                </div>
+              </div>
+            </div>
+          )}
 
           {/* Dots Indicator */}
           <div className="absolute bottom-6 right-6 flex space-x-2">
