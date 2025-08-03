@@ -1,6 +1,102 @@
 @import 'tailwindcss';
 @import "tw-animate-css";
 
+@layer base {
+  * {
+    @apply border-border;
+  }
+}
+
+:root {
+  /*
+   * Base colors that define the core visual identity
+   * --background: Main page background
+   * --foreground: Primary text color to use on the background
+   */
+  --background: oklch(0.98 0.01 247);
+  --foreground: oklch(0.15 0.02 247);
+
+  --card: oklch(0.98 0.01 247);
+  --card-foreground: oklch(0.15 0.02 247);
+  --popover: oklch(0.98 0.01 247);
+  --popover-foreground: oklch(0.15 0.02 247);
+
+  /*
+   * Action colors that represent interactive elements
+   * --primary: Main brand/action color for key buttons and focal points
+   * --secondary: Supporting color for less prominent actions
+   * --accent: Highlight color for active states or emphasis
+   * --destructive: Warning color for dangerous actions (typically red)
+   */
+  --primary: oklch(0.6 0.2 270);
+  --primary-foreground: oklch(0.98 0.01 270);
+  --secondary: oklch(0.95 0.02 247);
+  --secondary-foreground: oklch(0.4 0.02 247);
+  --accent: oklch(0.9 0.05 330);
+  --accent-foreground: oklch(0.3 0.02 330);
+  --destructive: oklch(0.65 0.25 25);
+  --destructive-foreground: oklch(0.98 0.01 25);
+
+  /*
+   * Supporting UI colors for various states and elements
+   * --muted: Subdued background for de-emphasized content
+   * --border: Color for borders and dividers
+   * --input: Border color for form inputs
+   * --ring: Focus indicator color
+   */
+  --muted: oklch(0.95 0.02 247);
+  --muted-foreground: oklch(0.5 0.02 247);
+  --border: oklch(0.9 0.02 247);
+  --input: oklch(0.9 0.02 247);
+  --ring: oklch(0.6 0.2 270);
+
+  /*
+   * Border radius applied throughout the UI for consistent shape language
+   * Can be adjusted to make the design feel more rounded or squared
+   */
+  --radius: 0.5rem;
+
+  /* iOS-specific safe area variables */
+  --safe-area-inset-top: env(safe-area-inset-top, 0);
+  --safe-area-inset-bottom: env(safe-area-inset-bottom, 0);
+  --safe-area-inset-left: env(safe-area-inset-left, 0);
+  --safe-area-inset-right: env(safe-area-inset-right, 0);
+}
+
+/*
+ * Map the CSS variables to Tailwind's theme system
+ * This enables using classes like bg-primary, text-foreground, etc.
+ */
+@theme {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  /* Map radius variables to create a consistent rounding system */
+  --radius-sm: calc(var(--radius) * 0.5);
+  --radius-md: var(--radius);
+  --radius-lg: calc(var(--radius) * 1.5);
+  --radius-xl: calc(var(--radius) * 2);
+  --radius-2xl: calc(var(--radius) * 3);
+  --radius-full: 9999px;
+}
+
 /* Mobile-first responsive design */
 html {
   /* Safe area support for iOS devices */
@@ -47,14 +143,6 @@ body {
 .touch-target {
   min-height: 44px;
   min-width: 44px;
-}
-
-/* iOS-specific safe area variables */
-:root {
-  --safe-area-inset-top: env(safe-area-inset-top, 0);
-  --safe-area-inset-bottom: env(safe-area-inset-bottom, 0);
-  --safe-area-inset-left: env(safe-area-inset-left, 0);
-  --safe-area-inset-right: env(safe-area-inset-right, 0);
 }
 
 .instagram-gradient {
@@ -369,6 +457,9 @@ body {
   -webkit-touch-callout: none;
   -webkit-tap-highlight-color: transparent;
 }
+
+/* Enhanced mobile touch feedback */
+@media (hover: none) and (pointer: coarse) {
   .touch-feedback:active {
     transform: scale(0.95);
     opacity: 0.8;
