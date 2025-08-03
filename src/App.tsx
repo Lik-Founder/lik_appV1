@@ -70,6 +70,7 @@ function App() {
           <HomeFeed 
             onShowUserProfile={(userId) => setShowUserProfile(userId)}
             onShowRestaurantProfile={(restaurantId) => setShowRestaurantProfile(restaurantId)}
+            onShowLeaderboard={() => setShowLeaderboard(true)}
           />
         );
       case 'search':

@@ -29,9 +29,10 @@ import {
 interface HomeFeedProps {
   onShowUserProfile?: (userId: string) => void;
   onShowRestaurantProfile?: (restaurantId: string) => void;
+  onShowLeaderboard?: () => void;
 }
 
-export function HomeFeed({ onShowUserProfile, onShowRestaurantProfile }: HomeFeedProps) {
+export function HomeFeed({ onShowUserProfile, onShowRestaurantProfile, onShowLeaderboard }: HomeFeedProps) {
   const [stories, setStories] = useKV<StoryType[]>('stories', generateMockStories());
   const [users, setUsers] = useKV<User[]>('users', generateMockUsers());
   const [currentUser] = useKV<User>('currentUser', getCurrentUser());
@@ -231,7 +232,7 @@ export function HomeFeed({ onShowUserProfile, onShowRestaurantProfile }: HomeFee
             <Button variant="ghost" size="icon" className="w-9 h-9">
               <ChatCircle size={20} />
             </Button>
-            <Button variant="ghost" size="icon" className="w-9 h-9">
+            <Button variant="ghost" size="icon" className="w-9 h-9" onClick={onShowLeaderboard}>
               <Trophy size={20} />
             </Button>
           </div>
