@@ -11,6 +11,7 @@ import { UserProfile } from '@/components/UserProfile';
 import { LeaderboardPage } from '@/components/LeaderboardPage';
 import { LikTVPage } from '@/components/LikTVPage';
 import { GuidePage } from '@/components/GuidePage';
+import { EventsPage } from '@/components/EventsPage';
 import { SwipeIndicator } from '@/components/SwipeIndicator';
 import { useDevice, useSafeArea } from '@/hooks/use-device';
 import { useTabSwipe } from '@/hooks/use-tab-swipe';
@@ -24,6 +25,7 @@ function App() {
   const [showLeaderboard, setShowLeaderboard] = useState(false);
   const [showLikTV, setShowLikTV] = useState(false);
   const [showGuidePage, setShowGuidePage] = useState(false);
+  const [showEventsPage, setShowEventsPage] = useState(false);
   const [showSwipeIndicator, setShowSwipeIndicator] = useState(false);
   const device = useDevice();
   const safeArea = useSafeArea();
@@ -35,10 +37,19 @@ function App() {
       setActiveTab(newTab);
       setShowSwipeIndicator(true);
     },
-    disabled: !!showRestaurantProfile || !!showUserProfile || showLeaderboard || showLikTV || showGuidePage,
+    disabled: !!showRestaurantProfile || !!showUserProfile || showLeaderboard || showLikTV || showGuidePage || showEventsPage,
   });
 
   const renderActiveTab = () => {
+    // Show Events page if requested
+    if (showEventsPage) {
+      return (
+        <EventsPage 
+          onBack={() => setShowEventsPage(false)}
+        />
+      );
+    }
+
     // Show Guide page if requested
     if (showGuidePage) {
       return (
@@ -111,6 +122,7 @@ function App() {
             onShowLeaderboard={() => setShowLeaderboard(true)}
             onShowLikTV={() => setShowLikTV(true)}
             onShowGuidePage={() => setShowGuidePage(true)}
+            onShowEventsPage={() => setShowEventsPage(true)}
           />
         );
       case 'search':
@@ -155,7 +167,7 @@ function App() {
       </div>
 
       {/* Swipe Indicator */}
-      {!showRestaurantProfile && !showUserProfile && !showLeaderboard && !showLikTV && !showGuidePage && (
+      {!showRestaurantProfile && !showUserProfile && !showLeaderboard && !showLikTV && !showGuidePage && !showEventsPage && (
         <SwipeIndicator 
           activeTab={activeTab} 
           isVisible={showSwipeIndicator}
@@ -163,7 +175,7 @@ function App() {
       )}
 
       {/* Bottom Navigation - Hide when viewing restaurant profile */}
-      {!showRestaurantProfile && !showUserProfile && !showLeaderboard && !showLikTV && !showGuidePage && (
+      {!showRestaurantProfile && !showUserProfile && !showLeaderboard && !showLikTV && !showGuidePage && !showEventsPage && (
         <div 
           className={cn(
             "border-t backdrop-blur-sm",

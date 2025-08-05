@@ -32,9 +32,10 @@ interface HomeFeedProps {
   onShowLeaderboard?: () => void;
   onShowLikTV?: () => void;
   onShowGuidePage?: () => void;
+  onShowEventsPage?: () => void;
 }
 
-export function HomeFeed({ onShowUserProfile, onShowRestaurantProfile, onShowLeaderboard, onShowLikTV, onShowGuidePage }: HomeFeedProps) {
+export function HomeFeed({ onShowUserProfile, onShowRestaurantProfile, onShowLeaderboard, onShowLikTV, onShowGuidePage, onShowEventsPage }: HomeFeedProps) {
   const [stories, setStories] = useKV<StoryType[]>('stories', generateMockStories());
   const [users, setUsers] = useKV<User[]>('users', generateMockUsers());
   const [currentUser] = useKV<User>('currentUser', getCurrentUser());
@@ -421,7 +422,7 @@ export function HomeFeed({ onShowUserProfile, onShowRestaurantProfile, onShowLea
         <div className="p-4">
           <div className="flex items-center justify-between mb-4">
             <h2 className="text-xl font-bold">Food Events</h2>
-            <Button variant="ghost" size="icon">
+            <Button variant="ghost" size="icon" onClick={onShowEventsPage}>
               <ArrowRight size={20} />
             </Button>
           </div>

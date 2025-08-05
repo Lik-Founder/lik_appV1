@@ -199,7 +199,7 @@ export function IndividualGuidePage({
   }
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="h-full bg-background overflow-y-auto scrollbar-hide">
       {/* Hero Section */}
       <div ref={heroRef} className="relative h-screen max-h-[600px] overflow-hidden">
         {/* Cover Image Carousel */}
@@ -564,15 +564,7 @@ export function IndividualGuidePage({
         </div>
       </div>
 
-      {/* Sticky CTA Button */}
-      <div className="fixed bottom-20 left-4 right-4 z-10">
-        <Button 
-          className="w-full bg-primary text-primary-foreground shadow-lg"
-          size="lg"
-        >
-          Save Guide Offline
-        </Button>
-      </div>
+
     </div>
   );
 }
