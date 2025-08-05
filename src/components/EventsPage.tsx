@@ -417,7 +417,7 @@ export function EventsPage({ onBack }: EventsPageProps) {
               </Button>
             </div>
           )}
-          </div>
+        </div>
         ) : (
           <div className="px-4">
             <div className="bg-muted rounded-lg h-96 flex items-center justify-center">
