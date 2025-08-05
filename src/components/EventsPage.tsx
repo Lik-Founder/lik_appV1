@@ -161,9 +161,9 @@ export function EventsPage({ onBack }: EventsPageProps) {
   const currentHeroEvent = mockEvents[heroEventIndex];
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="h-full bg-background flex flex-col overflow-hidden">
       {/* Header */}
-      <div className="flex items-center justify-between p-4 bg-background border-b">
+      <div className="flex-shrink-0 flex items-center justify-between p-4 bg-background border-b">
         <Button variant="ghost" size="icon" onClick={onBack}>
           <ArrowLeft className="h-6 w-6" />
         </Button>
@@ -211,7 +211,7 @@ export function EventsPage({ onBack }: EventsPageProps) {
       </div>
 
       {/* Hero Carousel */}
-      <div className="relative h-64 overflow-hidden">
+      <div className="flex-shrink-0 relative h-64 overflow-hidden">
         <div 
           className="flex transition-transform duration-500 ease-out h-full"
           style={{ transform: `translateX(-${heroEventIndex * 100}%)` }}
@@ -292,7 +292,7 @@ export function EventsPage({ onBack }: EventsPageProps) {
       </div>
 
       {/* Search and Filters */}
-      <div className="p-4 space-y-4">
+      <div className="flex-shrink-0 p-4 space-y-4">
         {/* Search Bar */}
         <div className="relative">
           <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
@@ -325,8 +325,9 @@ export function EventsPage({ onBack }: EventsPageProps) {
       </div>
 
       {/* Events List or Map View */}
-      {viewMode === 'list' ? (
-        <div className="px-4 pb-6 space-y-4">
+      <div className="flex-1 overflow-y-auto">
+        {viewMode === 'list' ? (
+          <div className="px-4 pb-6 space-y-4">
           {filteredEvents.length > 0 ? (
             filteredEvents.map((event) => (
               <Card key={event.id} className="overflow-hidden hover:shadow-md transition-shadow">
@@ -416,16 +417,17 @@ export function EventsPage({ onBack }: EventsPageProps) {
             </div>
           )}
         </div>
-      ) : (
-        <div className="px-4 pb-6">
-          <div className="bg-muted rounded-lg h-96 flex items-center justify-center">
-            <div className="text-center">
-              <Map className="h-12 w-12 mx-auto mb-2 text-muted-foreground" />
-              <p className="text-muted-foreground">Map view coming soon</p>
+        ) : (
+          <div className="px-4 pb-6">
+            <div className="bg-muted rounded-lg h-96 flex items-center justify-center">
+              <div className="text-center">
+                <Map className="h-12 w-12 mx-auto mb-2 text-muted-foreground" />
+                <p className="text-muted-foreground">Map view coming soon</p>
+              </div>
             </div>
           </div>
-        </div>
-      )}
+        )}
+      </div>
     </div>
   );
 }
