@@ -420,8 +420,8 @@ export function EventsPage({ onBack }: EventsPageProps) {
               </div>
             )}
           </div>
-          ) : (
-            <div className="px-4">
+        ) : (
+          <div className="px-4">
               <div className="bg-muted rounded-lg h-96 flex items-center justify-center">
                 <div className="text-center">
                   <Map className="h-12 w-12 mx-auto mb-2 text-muted-foreground" />
