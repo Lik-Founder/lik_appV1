@@ -161,9 +161,9 @@ export function EventsPage({ onBack }: EventsPageProps) {
   const currentHeroEvent = mockEvents[heroEventIndex];
 
   return (
-    <div className="h-full bg-background overflow-y-auto scrollbar-hide">
+    <div className="h-full bg-background flex flex-col">
       {/* Header */}
-      <div className="sticky top-0 z-50 bg-background/95 backdrop-blur-sm border-b">
+      <div className="sticky top-0 z-50 bg-background/95 backdrop-blur-sm border-b flex-shrink-0">
         <div className="flex items-center justify-between p-4">
         <Button variant="ghost" size="icon" onClick={onBack}>
           <ArrowLeft className="h-6 w-6" />
@@ -211,8 +211,10 @@ export function EventsPage({ onBack }: EventsPageProps) {
         </div>
       </div>
 
-      {/* Hero Carousel */}
-      <div className="relative h-64 overflow-hidden">
+      {/* Scrollable Content */}
+      <div className="flex-1 overflow-y-auto scrollbar-hide">
+        {/* Hero Carousel */}
+        <div className="relative h-64 overflow-hidden flex-shrink-0">
         <div 
           className="flex transition-transform duration-500 ease-out h-full"
           style={{ transform: `translateX(-${heroEventIndex * 100}%)` }}
@@ -292,142 +294,143 @@ export function EventsPage({ onBack }: EventsPageProps) {
         </button>
       </div>
 
-      {/* Search and Filters */}
-      <div className="p-4 space-y-4">
-        {/* Search Bar */}
-        <div className="relative">
-          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-          <Input
-            placeholder="Search for Event"
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            className="pl-10"
-          />
-        </div>
+        {/* Search and Filters */}
+        <div className="p-4 space-y-4">
+          {/* Search Bar */}
+          <div className="relative">
+            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+            <Input
+              placeholder="Search for Event"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="pl-10"
+            />
+          </div>
 
-        {/* Filter Chips */}
-        <div className="flex gap-2 overflow-x-auto scrollbar-hide pb-2">
-          {filterChips.map((filter) => (
-            <Badge
-              key={filter}
-              variant={activeFilters.includes(filter) ? "default" : "secondary"}
-              className={cn(
-                "cursor-pointer whitespace-nowrap transition-all",
-                activeFilters.includes(filter) 
-                  ? "bg-primary text-primary-foreground" 
-                  : "hover:bg-muted"
-              )}
-              onClick={() => toggleFilter(filter)}
-            >
-              {filter}
-            </Badge>
-          ))}
-        </div>
-      </div>
-
-      {/* Events List or Map View */}
-      <div className="pb-6">
-        {viewMode === 'list' ? (
-          <div className="px-4 space-y-4">
-            {filteredEvents.length > 0 ? (
-              filteredEvents.map((event) => (
-              <Card key={event.id} className="overflow-hidden hover:shadow-md transition-shadow">
-                <div className="relative h-48">
-                  <img 
-                    src={event.image} 
-                    alt={event.title}
-                    className="w-full h-full object-cover"
-                  />
-                  <div className="absolute top-3 left-3">
-                    <Badge variant="secondary" className="bg-background/90 text-foreground">
-                      {event.price}
-                    </Badge>
-                  </div>
-                </div>
-                
-                <CardContent className="p-4">
-                  <div className="space-y-3">
-                    <div>
-                      <h3 className="font-semibold text-lg line-clamp-1">{event.title}</h3>
-                      <div className="flex items-center gap-4 text-sm text-muted-foreground mt-1">
-                        <div className="flex items-center gap-1">
-                          <Calendar className="h-4 w-4" />
-                          <span>{event.date}</span>
-                        </div>
-                        <div className="flex items-center gap-1">
-                          <Clock className="h-4 w-4" />
-                          <span>{event.time}</span>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div className="flex flex-wrap gap-1">
-                      {event.tags.slice(0, 3).map((tag) => (
-                        <Badge key={tag} variant="outline" className="text-xs">
-                          {tag}
-                        </Badge>
-                      ))}
-                      {event.tags.length > 3 && (
-                        <Badge variant="outline" className="text-xs">
-                          +{event.tags.length - 3}
-                        </Badge>
-                      )}
-                    </div>
-
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center gap-1 text-sm text-muted-foreground">
-                        <Flame className="h-4 w-4 text-orange-500" />
-                        <span>{formatInterested(event.interested)} Interested</span>
-                      </div>
-                      
-                      <div className="flex gap-2">
-                        <Button size="sm" variant="outline">
-                          <Users className="h-4 w-4 mr-1" />
-                          RSVP
-                        </Button>
-                        <Button size="sm" variant="ghost">
-                          <Share className="h-4 w-4" />
-                        </Button>
-                        <Button size="sm" variant="ghost">
-                          <Bookmark className="h-4 w-4" />
-                        </Button>
-                      </div>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-            ))
-          ) : (
-            <div className="text-center py-12">
-              <div className="w-24 h-24 mx-auto mb-4 bg-muted rounded-full flex items-center justify-center">
-                <Calendar className="h-12 w-12 text-muted-foreground" />
-              </div>
-              <h3 className="text-lg font-semibold mb-2">No Events Found</h3>
-              <p className="text-muted-foreground mb-4">
-                Try adjusting your filters or search for different events in {selectedCity}
-              </p>
-              <Button 
-                variant="outline" 
-                onClick={() => {
-                  setActiveFilters([]);
-                  setSearchQuery('');
-                }}
+          {/* Filter Chips */}
+          <div className="flex gap-2 overflow-x-auto scrollbar-hide pb-2">
+            {filterChips.map((filter) => (
+              <Badge
+                key={filter}
+                variant={activeFilters.includes(filter) ? "default" : "secondary"}
+                className={cn(
+                  "cursor-pointer whitespace-nowrap transition-all",
+                  activeFilters.includes(filter) 
+                    ? "bg-primary text-primary-foreground" 
+                    : "hover:bg-muted"
+                )}
+                onClick={() => toggleFilter(filter)}
               >
-                Clear Filters
-              </Button>
+                {filter}
+              </Badge>
+            ))}
+          </div>
+        </div>
+
+        {/* Events List or Map View */}
+        <div className="pb-6">
+          {viewMode === 'list' ? (
+            <div className="px-4 space-y-4">
+              {filteredEvents.length > 0 ? (
+                filteredEvents.map((event) => (
+                <Card key={event.id} className="overflow-hidden hover:shadow-md transition-shadow">
+                  <div className="relative h-48">
+                    <img 
+                      src={event.image} 
+                      alt={event.title}
+                      className="w-full h-full object-cover"
+                    />
+                    <div className="absolute top-3 left-3">
+                      <Badge variant="secondary" className="bg-background/90 text-foreground">
+                        {event.price}
+                      </Badge>
+                    </div>
+                  </div>
+                  
+                  <CardContent className="p-4">
+                    <div className="space-y-3">
+                      <div>
+                        <h3 className="font-semibold text-lg line-clamp-1">{event.title}</h3>
+                        <div className="flex items-center gap-4 text-sm text-muted-foreground mt-1">
+                          <div className="flex items-center gap-1">
+                            <Calendar className="h-4 w-4" />
+                            <span>{event.date}</span>
+                          </div>
+                          <div className="flex items-center gap-1">
+                            <Clock className="h-4 w-4" />
+                            <span>{event.time}</span>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div className="flex flex-wrap gap-1">
+                        {event.tags.slice(0, 3).map((tag) => (
+                          <Badge key={tag} variant="outline" className="text-xs">
+                            {tag}
+                          </Badge>
+                        ))}
+                        {event.tags.length > 3 && (
+                          <Badge variant="outline" className="text-xs">
+                            +{event.tags.length - 3}
+                          </Badge>
+                        )}
+                      </div>
+
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-1 text-sm text-muted-foreground">
+                          <Flame className="h-4 w-4 text-orange-500" />
+                          <span>{formatInterested(event.interested)} Interested</span>
+                        </div>
+                        
+                        <div className="flex gap-2">
+                          <Button size="sm" variant="outline">
+                            <Users className="h-4 w-4 mr-1" />
+                            RSVP
+                          </Button>
+                          <Button size="sm" variant="ghost">
+                            <Share className="h-4 w-4" />
+                          </Button>
+                          <Button size="sm" variant="ghost">
+                            <Bookmark className="h-4 w-4" />
+                          </Button>
+                        </div>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              ))
+            ) : (
+              <div className="text-center py-12">
+                <div className="w-24 h-24 mx-auto mb-4 bg-muted rounded-full flex items-center justify-center">
+                  <Calendar className="h-12 w-12 text-muted-foreground" />
+                </div>
+                <h3 className="text-lg font-semibold mb-2">No Events Found</h3>
+                <p className="text-muted-foreground mb-4">
+                  Try adjusting your filters or search for different events in {selectedCity}
+                </p>
+                <Button 
+                  variant="outline" 
+                  onClick={() => {
+                    setActiveFilters([]);
+                    setSearchQuery('');
+                  }}
+                >
+                  Clear Filters
+                </Button>
+              </div>
+            )}
+          </div>
+          ) : (
+            <div className="px-4">
+              <div className="bg-muted rounded-lg h-96 flex items-center justify-center">
+                <div className="text-center">
+                  <Map className="h-12 w-12 mx-auto mb-2 text-muted-foreground" />
+                  <p className="text-muted-foreground">Map view coming soon</p>
+                </div>
+              </div>
             </div>
           )}
         </div>
-        ) : (
-          <div className="px-4">
-            <div className="bg-muted rounded-lg h-96 flex items-center justify-center">
-              <div className="text-center">
-                <Map className="h-12 w-12 mx-auto mb-2 text-muted-foreground" />
-                <p className="text-muted-foreground">Map view coming soon</p>
-              </div>
-            </div>
-          </div>
-        )}
       </div>
     </div>
   );
