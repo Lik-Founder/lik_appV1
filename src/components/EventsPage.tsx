@@ -329,8 +329,8 @@ export function EventsPage({ onBack }: EventsPageProps) {
       <div className="pb-6">
         {viewMode === 'list' ? (
           <div className="px-4 space-y-4">
-          {filteredEvents.length > 0 ? (
-            filteredEvents.map((event) => (
+            {filteredEvents.length > 0 ? (
+              filteredEvents.map((event) => (
               <Card key={event.id} className="overflow-hidden hover:shadow-md transition-shadow">
                 <div className="relative h-48">
                   <img 
@@ -417,6 +417,7 @@ export function EventsPage({ onBack }: EventsPageProps) {
               </Button>
             </div>
           )}
+          </div>
         ) : (
           <div className="px-4">
             <div className="bg-muted rounded-lg h-96 flex items-center justify-center">
