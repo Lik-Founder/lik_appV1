@@ -22,6 +22,9 @@ import { cn } from '@/lib/utils';
 
 interface EventsPageProps {
   onBack: () => void;
+  onShowEventDetails?: (eventId: string) => void;
+  onShowRestaurantProfile?: (restaurantId: string) => void;
+  onShowUserProfile?: (userId: string) => void;
 }
 
 interface Event {
@@ -105,7 +108,7 @@ const cities = [
   'Los Angeles', 'San Francisco', 'New York', 'Chicago', 'Miami', 'Austin'
 ];
 
-export function EventsPage({ onBack }: EventsPageProps) {
+export function EventsPage({ onBack, onShowEventDetails, onShowRestaurantProfile, onShowUserProfile }: EventsPageProps) {
   const [searchQuery, setSearchQuery] = useState('');
   const [activeFilters, setActiveFilters] = useState<string[]>([]);
   const [viewMode, setViewMode] = useState<'list' | 'map'>('list');
@@ -334,7 +337,11 @@ export function EventsPage({ onBack }: EventsPageProps) {
             <div className="px-4 space-y-4">
               {filteredEvents.length > 0 ? (
                 filteredEvents.map((event) => (
-                <Card key={event.id} className="overflow-hidden hover:shadow-md transition-shadow">
+                <Card 
+                  key={event.id} 
+                  className="overflow-hidden hover:shadow-md transition-shadow cursor-pointer"
+                  onClick={() => onShowEventDetails?.(event.id)}
+                >
                   <div className="relative h-48">
                     <img 
                       src={event.image} 

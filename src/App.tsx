@@ -11,6 +11,7 @@ import { UserProfile } from '@/components/UserProfile';
 import { LeaderboardPage } from '@/components/LeaderboardPage';
 import { LikTVPage } from '@/components/LikTVPage';
 import { GuidePage } from '@/components/GuidePage';
+import { FoodEventPage } from '@/components/FoodEventPage';
 import { EventsPage } from '@/components/EventsPage';
 import { SwipeIndicator } from '@/components/SwipeIndicator';
 import { useDevice, useSafeArea } from '@/hooks/use-device';
@@ -26,6 +27,7 @@ function App() {
   const [showLikTV, setShowLikTV] = useState(false);
   const [showGuidePage, setShowGuidePage] = useState(false);
   const [showEventsPage, setShowEventsPage] = useState(false);
+  const [showEventDetails, setShowEventDetails] = useState<string | null>(null);
   const [showSwipeIndicator, setShowSwipeIndicator] = useState(false);
   const device = useDevice();
   const safeArea = useSafeArea();
@@ -37,15 +39,45 @@ function App() {
       setActiveTab(newTab);
       setShowSwipeIndicator(true);
     },
-    disabled: !!showRestaurantProfile || !!showUserProfile || showLeaderboard || showLikTV || showGuidePage || showEventsPage,
+    disabled: !!showRestaurantProfile || !!showUserProfile || showLeaderboard || showLikTV || showGuidePage || showEventsPage || !!showEventDetails,
   });
 
   const renderActiveTab = () => {
+    // Show Event Details if requested
+    if (showEventDetails) {
+      return (
+        <FoodEventPage 
+          eventId={showEventDetails}
+          onBack={() => setShowEventDetails(null)}
+          onShowRestaurantProfile={(restaurantId) => {
+            setShowEventDetails(null);
+            setShowRestaurantProfile(restaurantId);
+          }}
+          onShowUserProfile={(userId) => {
+            setShowEventDetails(null);
+            setShowUserProfile(userId);
+          }}
+        />
+      );
+    }
+
     // Show Events page if requested
     if (showEventsPage) {
       return (
         <EventsPage 
           onBack={() => setShowEventsPage(false)}
+          onShowEventDetails={(eventId) => {
+            setShowEventsPage(false);
+            setShowEventDetails(eventId);
+          }}
+          onShowRestaurantProfile={(restaurantId) => {
+            setShowEventsPage(false);
+            setShowRestaurantProfile(restaurantId);
+          }}
+          onShowUserProfile={(userId) => {
+            setShowEventsPage(false);
+            setShowUserProfile(userId);
+          }}
         />
       );
     }
@@ -167,7 +199,7 @@ function App() {
       </div>
 
       {/* Swipe Indicator */}
-      {!showRestaurantProfile && !showUserProfile && !showLeaderboard && !showLikTV && !showGuidePage && !showEventsPage && (
+      {!showRestaurantProfile && !showUserProfile && !showLeaderboard && !showLikTV && !showGuidePage && !showEventsPage && !showEventDetails && (
         <SwipeIndicator 
           activeTab={activeTab} 
           isVisible={showSwipeIndicator}
@@ -175,7 +207,7 @@ function App() {
       )}
 
       {/* Bottom Navigation - Hide when viewing restaurant profile */}
-      {!showRestaurantProfile && !showUserProfile && !showLeaderboard && !showLikTV && !showGuidePage && !showEventsPage && (
+      {!showRestaurantProfile && !showUserProfile && !showLeaderboard && !showLikTV && !showGuidePage && !showEventsPage && !showEventDetails && (
         <div 
           className={cn(
             "border-t backdrop-blur-sm",
