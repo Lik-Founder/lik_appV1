@@ -127,9 +127,9 @@ export function FoodEventPage({ eventId, onBack, onShowRestaurantProfile, onShow
   };
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="h-full flex flex-col bg-background">
       {/* Header */}
-      <div className="sticky top-0 z-50 bg-background/95 backdrop-blur-sm border-b">
+      <div className="sticky top-0 z-50 bg-background/95 backdrop-blur-sm border-b flex-shrink-0">
         <div className="flex items-center justify-between p-4">
           <Button variant="ghost" size="sm" onClick={onBack} className="rounded-full">
             <ArrowLeft size={20} />
@@ -139,7 +139,7 @@ export function FoodEventPage({ eventId, onBack, onShowRestaurantProfile, onShow
         </div>
       </div>
 
-      <div className="pb-safe">
+      <div className="flex-1 overflow-y-auto pb-safe">
         {/* Hero Section */}
         <div className="relative">
           <img
