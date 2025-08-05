@@ -5,6 +5,7 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Input } from '@/components/ui/input';
 import { HorizontalCarousel } from '@/components/HorizontalCarousel';
+import { IndividualGuidePage } from '@/components/IndividualGuidePage';
 import { 
   ArrowLeft, 
   BookmarkSimple, 
@@ -67,6 +68,7 @@ export function GuidePage({ onBack, onShowUserProfile, onShowRestaurantProfile }
   const [sortBy, setSortBy] = useState('Newest');
   const [showFilters, setShowFilters] = useState(false);
   const [location, setLocation] = useState('Los Angeles');
+  const [selectedGuideId, setSelectedGuideId] = useState<string | null>(null);
 
   // Mock data for guides
   const featuredGuides: Guide[] = [
@@ -245,6 +247,18 @@ export function GuidePage({ onBack, onShowUserProfile, onShowRestaurantProfile }
     return matchesSearch;
   });
 
+  // Show individual guide page if a guide is selected
+  if (selectedGuideId) {
+    return (
+      <IndividualGuidePage
+        guideId={selectedGuideId}
+        onBack={() => setSelectedGuideId(null)}
+        onShowRestaurantProfile={onShowRestaurantProfile}
+        onShowUserProfile={onShowUserProfile}
+      />
+    );
+  }
+
   return (
     <div className="h-full bg-background overflow-y-auto scrollbar-hide">
       {/* Top Bar */}
@@ -275,7 +289,11 @@ export function GuidePage({ onBack, onShowUserProfile, onShowRestaurantProfile }
           showDots={true}
         >
           {featuredGuides.map((guide) => (
-            <div key={guide.id} className="relative rounded-2xl overflow-hidden bg-black">
+            <div 
+              key={guide.id} 
+              className="relative rounded-2xl overflow-hidden bg-black cursor-pointer"
+              onClick={() => setSelectedGuideId(guide.id)}
+            >
               <img 
                 src={guide.coverImage}
                 alt={guide.title}
@@ -419,7 +437,11 @@ export function GuidePage({ onBack, onShowUserProfile, onShowRestaurantProfile }
         <h3 className="font-semibold mb-4">Guides You'll Lik</h3>
         <div className="grid grid-cols-2 gap-3">
           {guidesYoullLik.map((guide) => (
-            <Card key={guide.id} className="cursor-pointer hover:shadow-md transition-shadow">
+            <Card 
+              key={guide.id} 
+              className="cursor-pointer hover:shadow-md transition-shadow"
+              onClick={() => setSelectedGuideId(guide.id)}
+            >
               <CardContent className="p-0">
                 <div className="relative">
                   <img 
@@ -472,7 +494,11 @@ export function GuidePage({ onBack, onShowUserProfile, onShowRestaurantProfile }
         <h3 className="font-semibold mb-4">Latest</h3>
         <div className="space-y-3">
           {latestGuides.map((guide) => (
-            <Card key={guide.id} className="cursor-pointer hover:shadow-md transition-shadow">
+            <Card 
+              key={guide.id} 
+              className="cursor-pointer hover:shadow-md transition-shadow"
+              onClick={() => setSelectedGuideId(guide.id)}
+            >
               <CardContent className="p-3">
                 <div className="flex gap-3">
                   <img 
