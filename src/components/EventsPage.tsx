@@ -161,7 +161,7 @@ export function EventsPage({ onBack }: EventsPageProps) {
   const currentHeroEvent = mockEvents[heroEventIndex];
 
   return (
-    <div className="h-full bg-background flex flex-col overflow-hidden">
+    <div className="h-full bg-background flex flex-col">
       {/* Header */}
       <div className="flex-shrink-0 flex items-center justify-between p-4 bg-background border-b">
         <Button variant="ghost" size="icon" onClick={onBack}>
