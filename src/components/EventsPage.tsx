@@ -210,9 +210,10 @@ export function EventsPage({ onBack }: EventsPageProps) {
           </Button>
         </div>
       </div>
+      </div>
 
       {/* Scrollable Content */}
-      <div className="flex-1 overflow-y-auto scrollbar-hide">
+      <div className="flex-1 overflow-y-auto scrollbar-hide" style={{ height: 0 }}>
         {/* Hero Carousel */}
         <div className="relative h-64 overflow-hidden flex-shrink-0">
         <div 
