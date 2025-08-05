@@ -431,7 +431,6 @@ export function EventsPage({ onBack }: EventsPageProps) {
           </div>
         )}
       </div>
-      </div>
     </div>
   );
 }
