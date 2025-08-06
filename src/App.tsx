@@ -14,6 +14,7 @@ import { GuidePage } from '@/components/GuidePage';
 import { FoodEventPage } from '@/components/FoodEventPage';
 import { EventsPage } from '@/components/EventsPage';
 import { MessagesPage } from '@/components/MessagesPage';
+import { MessageThread } from '@/components/MessageThread';
 import { SwipeIndicator } from '@/components/SwipeIndicator';
 import { useDevice, useSafeArea } from '@/hooks/use-device';
 import { useTabSwipe } from '@/hooks/use-tab-swipe';
@@ -30,6 +31,7 @@ function App() {
   const [showEventsPage, setShowEventsPage] = useState(false);
   const [showEventDetails, setShowEventDetails] = useState<string | null>(null);
   const [showMessagesPage, setShowMessagesPage] = useState(false);
+  const [showMessageThread, setShowMessageThread] = useState<string | null>(null);
   const [showSwipeIndicator, setShowSwipeIndicator] = useState(false);
   const device = useDevice();
   const safeArea = useSafeArea();
@@ -41,15 +43,37 @@ function App() {
       setActiveTab(newTab);
       setShowSwipeIndicator(true);
     },
-    disabled: !!showRestaurantProfile || !!showUserProfile || showLeaderboard || showLikTV || showGuidePage || showEventsPage || !!showEventDetails || showMessagesPage,
+    disabled: !!showRestaurantProfile || !!showUserProfile || showLeaderboard || showLikTV || showGuidePage || showEventsPage || !!showEventDetails || showMessagesPage || !!showMessageThread,
   });
 
   const renderActiveTab = () => {
+    // Show Message Thread if requested
+    if (showMessageThread) {
+      return (
+        <MessageThread 
+          chatId={showMessageThread}
+          onBack={() => setShowMessageThread(null)}
+          onShowRestaurantProfile={(restaurantId) => {
+            setShowMessageThread(null);
+            setShowRestaurantProfile(restaurantId);
+          }}
+          onShowUserProfile={(userId) => {
+            setShowMessageThread(null);
+            setShowUserProfile(userId);
+          }}
+        />
+      );
+    }
+
     // Show Messages page if requested
     if (showMessagesPage) {
       return (
         <MessagesPage 
           onBack={() => setShowMessagesPage(false)}
+          onOpenChat={(chatId) => {
+            setShowMessagesPage(false);
+            setShowMessageThread(chatId);
+          }}
           onShowRestaurantProfile={(restaurantId) => {
             setShowMessagesPage(false);
             setShowRestaurantProfile(restaurantId);
@@ -219,7 +243,7 @@ function App() {
       </div>
 
       {/* Swipe Indicator */}
-      {!showRestaurantProfile && !showUserProfile && !showLeaderboard && !showLikTV && !showGuidePage && !showEventsPage && !showEventDetails && !showMessagesPage && (
+      {!showRestaurantProfile && !showUserProfile && !showLeaderboard && !showLikTV && !showGuidePage && !showEventsPage && !showEventDetails && !showMessagesPage && !showMessageThread && (
         <SwipeIndicator 
           activeTab={activeTab} 
           isVisible={showSwipeIndicator}
@@ -227,7 +251,7 @@ function App() {
       )}
 
       {/* Bottom Navigation - Hide when viewing restaurant profile */}
-      {!showRestaurantProfile && !showUserProfile && !showLeaderboard && !showLikTV && !showGuidePage && !showEventsPage && !showEventDetails && !showMessagesPage && (
+      {!showRestaurantProfile && !showUserProfile && !showLeaderboard && !showLikTV && !showGuidePage && !showEventsPage && !showEventDetails && !showMessagesPage && !showMessageThread && (
         <div 
           className={cn(
             "border-t backdrop-blur-sm",
