@@ -13,6 +13,7 @@ import { LikTVPage } from '@/components/LikTVPage';
 import { GuidePage } from '@/components/GuidePage';
 import { FoodEventPage } from '@/components/FoodEventPage';
 import { EventsPage } from '@/components/EventsPage';
+import { MessagesPage } from '@/components/MessagesPage';
 import { SwipeIndicator } from '@/components/SwipeIndicator';
 import { useDevice, useSafeArea } from '@/hooks/use-device';
 import { useTabSwipe } from '@/hooks/use-tab-swipe';
@@ -28,6 +29,7 @@ function App() {
   const [showGuidePage, setShowGuidePage] = useState(false);
   const [showEventsPage, setShowEventsPage] = useState(false);
   const [showEventDetails, setShowEventDetails] = useState<string | null>(null);
+  const [showMessagesPage, setShowMessagesPage] = useState(false);
   const [showSwipeIndicator, setShowSwipeIndicator] = useState(false);
   const device = useDevice();
   const safeArea = useSafeArea();
@@ -39,10 +41,27 @@ function App() {
       setActiveTab(newTab);
       setShowSwipeIndicator(true);
     },
-    disabled: !!showRestaurantProfile || !!showUserProfile || showLeaderboard || showLikTV || showGuidePage || showEventsPage || !!showEventDetails,
+    disabled: !!showRestaurantProfile || !!showUserProfile || showLeaderboard || showLikTV || showGuidePage || showEventsPage || !!showEventDetails || showMessagesPage,
   });
 
   const renderActiveTab = () => {
+    // Show Messages page if requested
+    if (showMessagesPage) {
+      return (
+        <MessagesPage 
+          onBack={() => setShowMessagesPage(false)}
+          onShowRestaurantProfile={(restaurantId) => {
+            setShowMessagesPage(false);
+            setShowRestaurantProfile(restaurantId);
+          }}
+          onShowUserProfile={(userId) => {
+            setShowMessagesPage(false);
+            setShowUserProfile(userId);
+          }}
+        />
+      );
+    }
+
     // Show Event Details if requested
     if (showEventDetails) {
       return (
@@ -155,6 +174,7 @@ function App() {
             onShowLikTV={() => setShowLikTV(true)}
             onShowGuidePage={() => setShowGuidePage(true)}
             onShowEventsPage={() => setShowEventsPage(true)}
+            onShowMessagesPage={() => setShowMessagesPage(true)}
           />
         );
       case 'search':
@@ -199,7 +219,7 @@ function App() {
       </div>
 
       {/* Swipe Indicator */}
-      {!showRestaurantProfile && !showUserProfile && !showLeaderboard && !showLikTV && !showGuidePage && !showEventsPage && !showEventDetails && (
+      {!showRestaurantProfile && !showUserProfile && !showLeaderboard && !showLikTV && !showGuidePage && !showEventsPage && !showEventDetails && !showMessagesPage && (
         <SwipeIndicator 
           activeTab={activeTab} 
           isVisible={showSwipeIndicator}
@@ -207,7 +227,7 @@ function App() {
       )}
 
       {/* Bottom Navigation - Hide when viewing restaurant profile */}
-      {!showRestaurantProfile && !showUserProfile && !showLeaderboard && !showLikTV && !showGuidePage && !showEventsPage && !showEventDetails && (
+      {!showRestaurantProfile && !showUserProfile && !showLeaderboard && !showLikTV && !showGuidePage && !showEventsPage && !showEventDetails && !showMessagesPage && (
         <div 
           className={cn(
             "border-t backdrop-blur-sm",

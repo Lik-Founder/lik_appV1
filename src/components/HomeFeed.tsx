@@ -33,9 +33,10 @@ interface HomeFeedProps {
   onShowLikTV?: () => void;
   onShowGuidePage?: () => void;
   onShowEventsPage?: () => void;
+  onShowMessagesPage?: () => void;
 }
 
-export function HomeFeed({ onShowUserProfile, onShowRestaurantProfile, onShowLeaderboard, onShowLikTV, onShowGuidePage, onShowEventsPage }: HomeFeedProps) {
+export function HomeFeed({ onShowUserProfile, onShowRestaurantProfile, onShowLeaderboard, onShowLikTV, onShowGuidePage, onShowEventsPage, onShowMessagesPage }: HomeFeedProps) {
   const [stories, setStories] = useKV<StoryType[]>('stories', generateMockStories());
   const [users, setUsers] = useKV<User[]>('users', generateMockUsers());
   const [currentUser] = useKV<User>('currentUser', getCurrentUser());
@@ -232,7 +233,7 @@ export function HomeFeed({ onShowUserProfile, onShowRestaurantProfile, onShowLea
             <Button variant="ghost" size="icon" className="w-9 h-9" onClick={onShowLikTV}>
               <Play size={20} />
             </Button>
-            <Button variant="ghost" size="icon" className="w-9 h-9">
+            <Button variant="ghost" size="icon" className="w-9 h-9" onClick={onShowMessagesPage}>
               <ChatCircle size={20} />
             </Button>
             <Button variant="ghost" size="icon" className="w-9 h-9" onClick={onShowLeaderboard}>
