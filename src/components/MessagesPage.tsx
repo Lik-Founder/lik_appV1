@@ -193,6 +193,9 @@ export function MessagesPage({ onBack, onOpenChat, onShowUserProfile, onShowRest
   const handleChatClick = (chat: Chat) => {
     if (chat.isRestaurant && onShowRestaurantProfile) {
       onShowRestaurantProfile(chat.id);
+    } else if (chat.name === 'Alex Chen' && onOpenChat) {
+      // Alex Chen should open a chat thread, not a profile
+      onOpenChat(chat.id);
     } else if (!chat.isRestaurant && !chat.isGroup && onShowUserProfile) {
       onShowUserProfile(chat.id);
     } else if (onOpenChat) {
