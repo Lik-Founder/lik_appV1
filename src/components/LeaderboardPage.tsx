@@ -440,7 +440,7 @@ export function LeaderboardPage({ onBack, onShowRestaurantProfile, onShowUserPro
           <ArrowLeft size={24} />
         </Button>
         
-        <h1 className="text-xl font-semibold text-center flex-1 mr-10">
+        <h1 className="text-xl font-semibold text-center flex-1 mr-10 nav-rum-raisin">
           Leaderboard
         </h1>
       </div>

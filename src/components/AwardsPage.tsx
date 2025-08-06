@@ -157,7 +157,7 @@ export function AwardsPage({ restaurantId, onBack }: AwardsPageProps) {
         <div className="absolute top-16 left-0 right-0 flex flex-col justify-center items-center text-center text-white px-4 pt-4 pb-48">
           <div className="flex items-center gap-3 mb-4">
             <Trophy size={32} className="text-yellow-400" />
-            <h1 className="text-3xl font-bold">Awards & Recognition</h1>
+            <h1 className="text-3xl font-bold nav-rum-raisin">Awards & Recognition</h1>
           </div>
           <p className="text-lg opacity-90">Celebrating Excellence in Culinary Arts</p>
         </div>
@@ -188,7 +188,7 @@ export function AwardsPage({ restaurantId, onBack }: AwardsPageProps) {
       <div className="flex-1 overflow-y-auto scrollbar-hide">
         {/* Award Badges Carousel */}
         <div className={cn("border-b border-border", padding, "pb-6")}>
-          <h2 className="text-xl font-bold mb-4 flex items-center gap-2">
+          <h2 className="text-xl font-bold mb-4 flex items-center gap-2 nav-rum-raisin">
             <Medal size={20} className="text-yellow-500" />
             Award Collection
           </h2>
@@ -218,7 +218,7 @@ export function AwardsPage({ restaurantId, onBack }: AwardsPageProps) {
 
         {/* Leaderboard Highlights */}
         <div className={cn("border-b border-border", padding, "pb-6")}>
-          <h2 className="text-xl font-bold mb-4 flex items-center gap-2">
+          <h2 className="text-xl font-bold mb-4 flex items-center gap-2 nav-rum-raisin">
             <Trophy size={20} className="text-orange-500" />
             Leaderboard Performance
           </h2>
@@ -259,7 +259,7 @@ export function AwardsPage({ restaurantId, onBack }: AwardsPageProps) {
 
         {/* Awards Timeline */}
         <div className={cn("border-b border-border", padding, "pb-6")}>
-          <h2 className="text-xl font-bold mb-4 flex items-center gap-2">
+          <h2 className="text-xl font-bold mb-4 flex items-center gap-2 nav-rum-raisin">
             <Calendar size={20} className="text-blue-500" />
             Achievement Timeline
           </h2>
@@ -299,7 +299,7 @@ export function AwardsPage({ restaurantId, onBack }: AwardsPageProps) {
 
         {/* User & Critic Recognition */}
         <div className={cn("border-b border-border", padding, "pb-6")}>
-          <h2 className="text-xl font-bold mb-4 flex items-center gap-2">
+          <h2 className="text-xl font-bold mb-4 flex items-center gap-2 nav-rum-raisin">
             <Star size={20} className="text-purple-500" />
             Critic & Professional Recognition
           </h2>
@@ -345,7 +345,7 @@ export function AwardsPage({ restaurantId, onBack }: AwardsPageProps) {
           <Card className="bg-gradient-to-r from-orange-500/10 to-red-500/10 border-orange-500/20">
             <CardContent className="p-6 text-center">
               <Trophy size={32} className="mx-auto text-orange-500 mb-3" />
-              <h2 className="text-xl font-bold mb-2">Nominate for Next Lik Award</h2>
+              <h2 className="text-xl font-bold mb-2 nav-rum-raisin">Nominate for Next Lik Award</h2>
               <p className="text-muted-foreground mb-4">
                 Think Bella Italia deserves recognition? Nominate them for upcoming awards!
               </p>

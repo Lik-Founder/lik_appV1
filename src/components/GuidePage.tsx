@@ -339,7 +339,7 @@ export function GuidePage({ onBack, onShowUserProfile, onShowRestaurantProfile }
 
         {/* Browse By Section */}
         <div className="mb-4">
-          <h3 className="font-semibold mb-3">Browse By</h3>
+          <h3 className="font-semibold mb-3 nav-rum-raisin">Browse By</h3>
           
           {/* Cuisine Filters */}
           <div className="flex gap-2 mb-3 overflow-x-auto scrollbar-hide pb-2">
@@ -395,7 +395,7 @@ export function GuidePage({ onBack, onShowUserProfile, onShowRestaurantProfile }
 
       {/* Category Carousel */}
       <div className="px-4 mb-6">
-        <h3 className="font-semibold mb-3">Categories</h3>
+        <h3 className="font-semibold mb-3 nav-rum-raisin">Categories</h3>
         <HorizontalCarousel 
           autoScroll={false}
           itemClassName="min-w-[100px]"
@@ -434,7 +434,7 @@ export function GuidePage({ onBack, onShowUserProfile, onShowRestaurantProfile }
 
       {/* Guides You'll Lik */}
       <div className="px-4 mb-6">
-        <h3 className="font-semibold mb-4">Guides You'll Lik</h3>
+        <h3 className="font-semibold mb-4 nav-rum-raisin">Guides You'll Lik</h3>
         <div className="grid grid-cols-2 gap-3">
           {guidesYoullLik.map((guide) => (
             <Card 
@@ -491,7 +491,7 @@ export function GuidePage({ onBack, onShowUserProfile, onShowRestaurantProfile }
 
       {/* Latest Guides */}
       <div className="px-4 mb-6">
-        <h3 className="font-semibold mb-4">Latest</h3>
+        <h3 className="font-semibold mb-4 nav-rum-raisin">Latest</h3>
         <div className="space-y-3">
           {latestGuides.map((guide) => (
             <Card 
@@ -534,7 +534,7 @@ export function GuidePage({ onBack, onShowUserProfile, onShowRestaurantProfile }
 
       {/* Popular Food Cities */}
       <div className="px-4 pb-8">
-        <h3 className="font-semibold mb-4">Popular Food Cities</h3>
+        <h3 className="font-semibold mb-4 nav-rum-raisin">Popular Food Cities</h3>
         <HorizontalCarousel 
           autoScroll={false}
           itemClassName="min-w-[160px]"

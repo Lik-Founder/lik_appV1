@@ -552,9 +552,9 @@ export function TrendingPage({ onShowRestaurantProfile, onShowUserProfile }: Tre
     <div className="h-full bg-black relative overflow-hidden">
       {/* Fixed top navigation */}
       <div className="absolute top-0 left-0 right-0 z-20 bg-gradient-to-b from-black/60 to-transparent">
-        <div className="flex items-center justify-between p-4">
+        <div className="flex items-center justify-between p-2 sm:p-4">
           {/* Tab selector */}
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-1 sm:gap-4">
             {['following', 'trending', 'foryou'].map((tab) => (
               <Button
                 key={tab}
@@ -562,7 +562,7 @@ export function TrendingPage({ onShowRestaurantProfile, onShowUserProfile }: Tre
                 size="sm"
                 onClick={() => setActiveTab(tab as any)}
                 className={cn(
-                  "text-white",
+                  "text-white text-xs sm:text-sm px-2 sm:px-4",
                   activeTab === tab && "font-bold border-b-2 border-white rounded-none"
                 )}
               >
@@ -572,15 +572,15 @@ export function TrendingPage({ onShowRestaurantProfile, onShowUserProfile }: Tre
           </div>
           
           {/* Right icons */}
-          <div className="flex items-center gap-3">
-            <Button variant="ghost" size="sm" className="text-white">
-              <MapPin size={20} />
+          <div className="flex items-center gap-1 sm:gap-3">
+            <Button variant="ghost" size="sm" className="text-white p-1 sm:p-2">
+              <MapPin size={16} className="sm:w-5 sm:h-5" />
             </Button>
-            <Button variant="ghost" size="sm" className="text-white">
-              <Television size={20} />
+            <Button variant="ghost" size="sm" className="text-white p-1 sm:p-2">
+              <Television size={16} className="sm:w-5 sm:h-5" />
             </Button>
-            <Button variant="ghost" size="sm" className="text-white">
-              <MagnifyingGlass size={20} />
+            <Button variant="ghost" size="sm" className="text-white p-1 sm:p-2">
+              <MagnifyingGlass size={16} className="sm:w-5 sm:h-5" />
             </Button>
           </div>
         </div>

@@ -260,7 +260,7 @@ export function LikTVPage({ onBack }: LikTVPageProps) {
         <div className="px-4 space-y-8">
           {/* For You Section */}
           <div>
-            <h3 className="text-lg font-semibold mb-4 flex items-center">
+            <h3 className="text-lg font-semibold mb-4 flex items-center nav-rum-raisin">
               <span className="text-primary mr-2">✨</span>
               For You
             </h3>
@@ -290,7 +290,7 @@ export function LikTVPage({ onBack }: LikTVPageProps) {
 
           {/* Popular Food Series Section */}
           <div className="pb-8">
-            <h3 className="text-lg font-semibold mb-4">Popular Food Series</h3>
+            <h3 className="text-lg font-semibold mb-4 nav-rum-raisin">Popular Food Series</h3>
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
               {popularSeries.map((show) => (
                 <div

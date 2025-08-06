@@ -21,10 +21,9 @@ import {
   SlidersHorizontal,
   Export,
   Medal,
-  Trophy,
   Certificate,
   DotsThree,
-  Share
+  Gift
 } from '@phosphor-icons/react';
 import { CreatePostModal } from '@/components/CreatePostModal';
 import { CreateStoryModal } from '@/components/CreateStoryModal';
@@ -81,6 +80,10 @@ export function ProfilePage({ onShowLeaderboard }: ProfilePageProps = {}) {
     toast.info('Lik Passport coming soon!');
   };
 
+  const handleRewards = () => {
+    toast.info('Rewards coming soon!');
+  };
+
   const handleLeaderboard = () => {
     if (onShowLeaderboard) {
       onShowLeaderboard();
@@ -113,18 +116,18 @@ export function ProfilePage({ onShowLeaderboard }: ProfilePageProps = {}) {
           </div>
 
           {/* Right Icons */}
-          <div className="flex items-center gap-1">
-            <Button variant="ghost" size="sm" onClick={handlePassport} className="px-2 py-2 h-9 touch-target">
-              <Certificate size={16} />
+          <div className="flex items-center gap-0.5">
+            <Button variant="ghost" size="sm" onClick={handlePassport} className="px-1.5 py-2 h-8 w-8 touch-target">
+              <Certificate size={14} />
             </Button>
-            <Button variant="ghost" size="sm" onClick={handleNotifications} className="px-2 py-2 h-9 touch-target">
-              <Bell size={16} />
+            <Button variant="ghost" size="sm" onClick={handleRewards} className="px-1.5 py-2 h-8 w-8 touch-target">
+              <Gift size={14} />
             </Button>
-            <Button variant="ghost" size="sm" onClick={handleLeaderboard} className="px-2 py-2 h-9 touch-target">
-              <Trophy size={16} />
+            <Button variant="ghost" size="sm" onClick={handleNotifications} className="px-1.5 py-2 h-8 w-8 touch-target">
+              <Bell size={14} />
             </Button>
-            <Button variant="ghost" size="sm" onClick={handleSettings} className="px-2 py-2 h-9 touch-target">
-              <DotsThree size={16} />
+            <Button variant="ghost" size="sm" onClick={handleSettings} className="px-1.5 py-2 h-8 w-8 touch-target">
+              <DotsThree size={14} />
             </Button>
           </div>
         </div>
@@ -171,7 +174,7 @@ export function ProfilePage({ onShowLeaderboard }: ProfilePageProps = {}) {
             {/* Main Profile View (Index 0) */}
             <div className="w-full min-w-full flex-shrink-0">
               {/* Profile Header */}
-              <div className="flex flex-col items-center px-4 py-6">
+              <div className="flex flex-col items-center px-4 py-4 max-w-md mx-auto w-full">
                 {/* Profile Image with XP Ring */}
                 <div className="relative mb-4">
                   <div className="relative w-24 h-24">
@@ -229,27 +232,27 @@ export function ProfilePage({ onShowLeaderboard }: ProfilePageProps = {}) {
                 </div>
 
                 {/* Display Name & Username */}
-                <div className="text-center mb-4 w-full">
+                <div className="text-center mb-4 w-full max-w-sm mx-auto px-2">
                   <div className="flex items-center justify-center gap-2 mb-1">
-                    <h1 className="text-xl font-bold">DisplayName</h1>
+                    <h1 className="text-xl font-bold truncate">DisplayName</h1>
                     <CheckCircle size={20} className="text-blue-500 flex-shrink-0" weight="fill" />
                   </div>
-                  <p className="text-base text-muted-foreground">@username</p>
+                  <p className="text-base text-muted-foreground truncate">@username</p>
                 </div>
 
                 {/* Account Stats */}
-                <div className="flex justify-center w-full mb-4 max-w-xs">
-                  <div className="text-center flex-1 px-2">
+                <div className="flex justify-center w-full mb-4 max-w-sm mx-auto">
+                  <div className="text-center flex-1 px-1">
                     <p className="text-lg font-bold">{mockFollowing}</p>
-                    <p className="text-sm text-muted-foreground">Following</p>
+                    <p className="text-xs text-muted-foreground">Following</p>
                   </div>
-                  <div className="text-center flex-1 px-2">
+                  <div className="text-center flex-1 px-1">
                     <p className="text-lg font-bold">{mockFollowers}</p>
-                    <p className="text-sm text-muted-foreground">Followers</p>
+                    <p className="text-xs text-muted-foreground">Followers</p>
                   </div>
-                  <div className="text-center flex-1 px-2">
+                  <div className="text-center flex-1 px-1">
                     <p className="text-lg font-bold">{mockLikes}</p>
-                    <p className="text-sm text-muted-foreground">Likes</p>
+                    <p className="text-xs text-muted-foreground">Likes</p>
                   </div>
                 </div>
 
@@ -260,17 +263,17 @@ export function ProfilePage({ onShowLeaderboard }: ProfilePageProps = {}) {
                 </div>
 
                 {/* Action Buttons */}
-                <div className="flex gap-3 w-full max-w-xs px-4">
+                <div className="flex gap-2 w-full max-w-sm justify-center px-4">
                   <Button 
                     variant="secondary" 
-                    className="flex-1 h-10 text-sm font-medium rounded-lg"
+                    className="flex-1 h-10 text-sm font-medium rounded-lg min-w-0 whitespace-nowrap"
                     onClick={handleEditProfile}
                   >
                     Edit Profile
                   </Button>
                   <Button 
                     variant="secondary" 
-                    className="flex-1 h-10 text-sm font-medium rounded-lg"
+                    className="flex-1 h-10 text-sm font-medium rounded-lg min-w-0 whitespace-nowrap"
                     onClick={handleShareProfile}
                   >
                     Share Profile
@@ -307,7 +310,7 @@ export function ProfilePage({ onShowLeaderboard }: ProfilePageProps = {}) {
               {/* Tab Bar */}
               <div className="sticky top-[57px] z-10 bg-background/95 backdrop-blur-sm border-b border-border">
                 <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-                  <TabsList className="grid w-full grid-cols-5 bg-transparent border-0 h-12 px-4">
+                  <TabsList className="grid w-full grid-cols-4 bg-transparent border-0 h-12 px-4">
                     <TabsTrigger value="posts" className="flex flex-col items-center gap-1 h-full data-[state=active]:bg-transparent p-2 touch-target">
                       <ForkKnife size={18} />
                     </TabsTrigger>
@@ -316,9 +319,6 @@ export function ProfilePage({ onShowLeaderboard }: ProfilePageProps = {}) {
                     </TabsTrigger>
                     <TabsTrigger value="favorites" className="flex flex-col items-center gap-1 h-full data-[state=active]:bg-transparent p-2 touch-target">
                       <BookBookmark size={18} />
-                    </TabsTrigger>
-                    <TabsTrigger value="reposts" className="flex flex-col items-center gap-1 h-full data-[state=active]:bg-transparent p-2 touch-target">
-                      <Share size={18} />
                     </TabsTrigger>
                     <TabsTrigger value="guides" className="flex flex-col items-center gap-1 h-full data-[state=active]:bg-transparent p-2 touch-target">
                       <Export size={18} />
@@ -393,14 +393,6 @@ export function ProfilePage({ onShowLeaderboard }: ProfilePageProps = {}) {
                       </div>
                     </TabsContent>
 
-                    <TabsContent value="reposts" className="mt-0">
-                      <div className="p-8 text-center">
-                        <Share size={48} className="mx-auto mb-4 text-muted-foreground" />
-                        <h3 className="text-lg font-semibold mb-3">No reposts</h3>
-                        <p className="text-sm text-muted-foreground">Content you share will appear here</p>
-                      </div>
-                    </TabsContent>
-
                     <TabsContent value="guides" className="mt-0">
                       <div className="p-8 text-center">
                         <Export size={48} className="mx-auto mb-4 text-muted-foreground" />
@@ -426,7 +418,7 @@ export function ProfilePage({ onShowLeaderboard }: ProfilePageProps = {}) {
                 </div>
 
                 <div className="text-center mb-6">
-                  <h2 className="text-xl font-bold">Bio</h2>
+                  <h2 className="text-xl font-bold nav-rum-raisin">Bio</h2>
                 </div>
                 
                 {/* Bio Questions */}
@@ -485,8 +477,8 @@ export function ProfilePage({ onShowLeaderboard }: ProfilePageProps = {}) {
 
       {/* Floating Action Button */}
       <div className="fixed bottom-0 right-0 p-4 z-20" style={{ 
-        bottom: device.hasNotch ? 'calc(env(safe-area-inset-bottom) + 70px)' : '70px',
-        right: '16px'
+        bottom: device.hasNotch ? 'calc(env(safe-area-inset-bottom) + 120px)' : '120px',
+        right: '56px'
       }}>
         <Button
           size="lg"
@@ -496,7 +488,6 @@ export function ProfilePage({ onShowLeaderboard }: ProfilePageProps = {}) {
           )}
           onClick={() => setIsCreatePostOpen(true)}
         >
-          <Plus size={24} weight="bold" />
         </Button>
       </div>
 

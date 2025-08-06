@@ -422,7 +422,7 @@ export function IndividualGuidePage({
 
         {/* Featured Restaurants */}
         <div className="p-6">
-          <h2 className="text-xl font-bold mb-4">Featured Restaurants</h2>
+          <h2 className="text-xl font-bold mb-4 nav-rum-raisin">Featured Restaurants</h2>
           
           <div className="space-y-6">
             {guide.restaurants.map((restaurant) => (
@@ -539,7 +539,7 @@ export function IndividualGuidePage({
 
         {/* Similar Guides Section */}
         <div className="p-6 border-t bg-muted/30">
-          <h2 className="text-xl font-bold mb-4">Similar Guides</h2>
+          <h2 className="text-xl font-bold mb-4 nav-rum-raisin">Similar Guides</h2>
           <div className="grid grid-cols-2 gap-4">
             {[1, 2].map((item) => (
               <Card key={item} className="overflow-hidden">

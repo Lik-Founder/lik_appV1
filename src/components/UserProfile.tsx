@@ -189,7 +189,7 @@ const mockUsers: Record<string, User> = {
 
 export function UserProfile({ userId, onBack }: UserProfileProps) {
   const [posts] = useKV<PostType[]>('posts', generateMockPosts());
-  const [activeTab, setActiveTab] = useState<'posts' | 'likes' | 'favorites' | 'reposts' | 'guides'>('posts');
+  const [activeTab, setActiveTab] = useState<'posts' | 'likes' | 'favorites' | 'guides'>('posts');
   const [searchQuery, setSearchQuery] = useState('');
   const [showBio, setShowBio] = useState(false);
   const device = useDevice();
@@ -454,7 +454,7 @@ export function UserProfile({ userId, onBack }: UserProfileProps) {
 
           {/* Tabs */}
           <Tabs value={activeTab} onValueChange={(value) => setActiveTab(value as any)} className="w-full">
-            <TabsList className="grid w-full grid-cols-5 mb-4">
+            <TabsList className="grid w-full grid-cols-4 mb-4">
               <TabsTrigger value="posts" className="text-xs">
                 <Grid3X3 className="w-4 h-4" />
               </TabsTrigger>
@@ -463,9 +463,6 @@ export function UserProfile({ userId, onBack }: UserProfileProps) {
               </TabsTrigger>
               <TabsTrigger value="favorites" className="text-xs">
                 <BookBookmark className="w-4 h-4" />
-              </TabsTrigger>
-              <TabsTrigger value="reposts" className="text-xs">
-                <ShareNetwork className="w-4 h-4" />
               </TabsTrigger>
               <TabsTrigger value="guides" className="text-xs">
                 <Medal className="w-4 h-4" />
@@ -534,13 +531,6 @@ export function UserProfile({ userId, onBack }: UserProfileProps) {
               <EmptyState 
                 icon={<BookBookmark className="w-12 h-12" />}
                 text="No saved favorites"
-              />
-            </TabsContent>
-
-            <TabsContent value="reposts" className="mt-0">
-              <EmptyState 
-                icon={<ShareNetwork className="w-12 h-12" />}
-                text="No reposts"
               />
             </TabsContent>
 

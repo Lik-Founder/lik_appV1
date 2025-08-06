@@ -355,7 +355,7 @@ export function HomeFeed({ onShowUserProfile, onShowRestaurantProfile, onShowLea
 
         {/* Lik's Picks */}
         <div className="p-4">
-          <h2 className="text-xl font-bold mb-4">Lik's Picks</h2>
+          <h2 className="text-xl font-bold mb-4 nav-rum-raisin">Lik's Picks</h2>
           <HorizontalCarousel 
             autoScroll={true}
             autoScrollInterval={7000}
@@ -404,7 +404,7 @@ export function HomeFeed({ onShowUserProfile, onShowRestaurantProfile, onShowLea
 
         {/* Global Stories */}
         <div className="p-4">
-          <h2 className="text-xl font-bold mb-4">Global Stories</h2>
+          <h2 className="text-xl font-bold mb-4 nav-rum-raisin">Global Stories</h2>
           <div className="grid grid-cols-3 gap-3">
             {globalStoriesCategories.map((category) => (
               <Button
@@ -422,7 +422,7 @@ export function HomeFeed({ onShowUserProfile, onShowRestaurantProfile, onShowLea
         {/* Food Events */}
         <div className="p-4">
           <div className="flex items-center justify-between mb-4">
-            <h2 className="text-xl font-bold">Food Events</h2>
+            <h2 className="text-xl font-bold nav-rum-raisin">Food Events</h2>
             <Button variant="ghost" size="icon" onClick={onShowEventsPage}>
               <ArrowRight size={20} />
             </Button>
@@ -470,7 +470,7 @@ export function HomeFeed({ onShowUserProfile, onShowRestaurantProfile, onShowLea
         {/* Guides */}
         <div className="p-4 pb-8">
           <div className="flex items-center justify-between mb-4">
-            <h2 className="text-xl font-bold">Guides</h2>
+            <h2 className="text-xl font-bold nav-rum-raisin">Guides</h2>
             <Button variant="ghost" size="icon" onClick={onShowGuidePage}>
               <ArrowRight size={20} />
             </Button>

@@ -1497,7 +1497,7 @@ function RestaurantDeliveryPage({ restaurantId, restaurant, onBack }: Restaurant
           {/* Popular Items */}
           {selectedCategory === 'all' && (
             <div className="mb-6">
-              <h2 className="text-lg font-semibold mb-3">Popular Items</h2>
+              <h2 className="text-lg font-semibold mb-3 nav-rum-raisin">Popular Items</h2>
               <div className="space-y-3">
                 {deliveryItems.filter(item => item.isPopular).slice(0, 3).map((item) => (
                   <DeliveryItemCard 
@@ -1519,7 +1519,7 @@ function RestaurantDeliveryPage({ restaurantId, restaurant, onBack }: Restaurant
 
             return (
               <div key={category} className="mb-6">
-                <h2 className="text-lg font-semibold mb-3 capitalize">{category}</h2>
+                <h2 className="text-lg font-semibold mb-3 capitalize nav-rum-raisin">{category}</h2>
                 <div className="space-y-3">
                   {categoryItems.map((item) => (
                     <DeliveryItemCard 

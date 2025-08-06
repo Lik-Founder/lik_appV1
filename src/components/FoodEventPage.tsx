@@ -231,7 +231,7 @@ export function FoodEventPage({ eventId, onBack, onShowRestaurantProfile, onShow
         <div className="px-6 pb-6 space-y-6">
           <Card>
             <CardContent className="p-6">
-              <h3 className="text-lg font-semibold mb-3">About This Event</h3>
+              <h3 className="text-lg font-semibold mb-3 nav-rum-raisin">About This Event</h3>
               <p className="text-muted-foreground mb-4 leading-relaxed">
                 {mockEvent.description}
               </p>
@@ -244,7 +244,7 @@ export function FoodEventPage({ eventId, onBack, onShowRestaurantProfile, onShow
           {/* Vendors */}
           <Card>
             <CardContent className="p-6">
-              <h3 className="text-lg font-semibold mb-4">Featured Vendors</h3>
+              <h3 className="text-lg font-semibold mb-4 nav-rum-raisin">Featured Vendors</h3>
               <div className="flex flex-wrap gap-2">
                 {mockEvent.vendors.map((vendor, index) => (
                   <Badge key={index} variant="secondary" className="rounded-full px-3 py-1">
@@ -257,7 +257,7 @@ export function FoodEventPage({ eventId, onBack, onShowRestaurantProfile, onShow
 
           {/* Tags */}
           <div>
-            <h3 className="text-lg font-semibold mb-4">What to Expect</h3>
+            <h3 className="text-lg font-semibold mb-4 nav-rum-raisin">What to Expect</h3>
             <div className="flex gap-2 overflow-x-auto scrollbar-hide pb-2">
               {mockEvent.tags.map((tag, index) => (
                 <Badge
@@ -276,7 +276,7 @@ export function FoodEventPage({ eventId, onBack, onShowRestaurantProfile, onShow
         {/* Media Carousel */}
         <div className="px-6 pb-6">
           <div className="flex items-center justify-between mb-4">
-            <h3 className="text-lg font-semibold">Event Photos</h3>
+            <h3 className="text-lg font-semibold nav-rum-raisin">Event Photos</h3>
             <Button variant="ghost" size="sm" className="rounded-full text-primary">
               <Camera size={16} className="mr-2" />
               Upload Photos
@@ -304,7 +304,7 @@ export function FoodEventPage({ eventId, onBack, onShowRestaurantProfile, onShow
           {/* Reviews */}
           <Card>
             <CardContent className="p-6">
-              <h3 className="text-lg font-semibold mb-4">What People Are Saying</h3>
+              <h3 className="text-lg font-semibold mb-4 nav-rum-raisin">What People Are Saying</h3>
               <div className="space-y-4">
                 {mockEvent.reviews.map((review) => (
                   <div key={review.id} className="space-y-3">
@@ -344,7 +344,7 @@ export function FoodEventPage({ eventId, onBack, onShowRestaurantProfile, onShow
           {/* Who's Going */}
           <Card>
             <CardContent className="p-6">
-              <h3 className="text-lg font-semibold mb-4">Who's Going</h3>
+              <h3 className="text-lg font-semibold mb-4 nav-rum-raisin">Who's Going</h3>
               <div className="flex gap-3 overflow-x-auto scrollbar-hide pb-2">
                 {mockEvent.attendingUsers.map((user) => (
                   <div
@@ -376,7 +376,7 @@ export function FoodEventPage({ eventId, onBack, onShowRestaurantProfile, onShow
             <CardContent className="p-6">
               <div className="flex items-center justify-between mb-4">
                 <div>
-                  <h3 className="text-lg font-semibold">Check-in Rewards</h3>
+                  <h3 className="text-lg font-semibold nav-rum-raisin">Check-in Rewards</h3>
                   <p className="text-sm text-muted-foreground">
                     Earn Lik Points by attending this event
                   </p>
@@ -396,7 +396,7 @@ export function FoodEventPage({ eventId, onBack, onShowRestaurantProfile, onShow
 
         {/* Nearby Suggestions */}
         <div className="px-6 pb-8">
-          <h3 className="text-lg font-semibold mb-4">Explore Nearby</h3>
+          <h3 className="text-lg font-semibold mb-4 nav-rum-raisin">Explore Nearby</h3>
           <div className="space-y-3">
             {mockEvent.nearbyRestaurants.map((restaurant) => (
               <Card

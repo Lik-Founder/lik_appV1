@@ -735,7 +735,7 @@ function DeliveryView({
       <div className={cn("pb-20", padding, "pt-2")}>
         {/* Promoted Restaurants */}
         <div className="mb-6">
-          <h2 className="text-lg font-semibold mb-3">Featured Restaurants</h2>
+          <h2 className="text-lg font-semibold mb-3 nav-rum-raisin">Featured Restaurants</h2>
           <div className="flex gap-3 overflow-x-auto scrollbar-hide pb-2">
             {restaurants.slice(0, 5).map((restaurant) => (
               <FeaturedRestaurantCard
@@ -751,7 +751,7 @@ function DeliveryView({
 
         {/* Restaurant List */}
         <div className="space-y-3">
-          <h2 className="text-lg font-semibold">All Restaurants</h2>
+          <h2 className="text-lg font-semibold nav-rum-raisin">All Restaurants</h2>
           {filteredRestaurants.map((restaurant) => (
             <RestaurantCard
               key={restaurant.id}
@@ -993,7 +993,7 @@ function RestaurantMenu({
 
       {/* Menu Items */}
       <div className={cn("pb-20", padding, "pt-4")}>
-        <h2 className="text-lg font-semibold mb-4">Menu</h2>
+        <h2 className="text-lg font-semibold mb-4 nav-rum-raisin">Menu</h2>
         <div className="space-y-3">
           {menuItems.map((item) => (
             <MenuItem

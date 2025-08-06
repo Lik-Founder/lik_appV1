@@ -260,7 +260,7 @@ export function MessagesPage({ onBack, onOpenChat, onShowUserProfile, onShowRest
           >
             <ArrowLeft className="w-5 h-5" />
           </Button>
-          <h1 className="text-xl font-bold">Messages</h1>
+          <h1 className="text-xl font-bold nav-rum-raisin">Messages</h1>
         </div>
         
         <div className="flex items-center gap-2">
