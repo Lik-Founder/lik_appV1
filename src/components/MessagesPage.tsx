@@ -53,33 +53,18 @@ export function MessagesPage({ onBack, onOpenChat, onShowUserProfile, onShowRest
   const mockChats: Chat[] = [
     {
       id: '1',
-      name: 'Bella Italia',
+      name: 'Alex Chen',
       avatar: '/api/placeholder/48/48',
-      level: 25,
-      lastMessage: '🎯 New quest available: Try our Truffle Pasta!',
-      timestamp: '2m ago',
+      level: 18,
+      lastMessage: 'Hey! Have you tried that new ramen place downtown? The broth is incredible!',
+      timestamp: '5m ago',
       unread: true,
-      isRestaurant: true,
-      isVerified: true,
-      hasQuest: true,
-      questType: 'bounty',
-      messageType: 'quest',
+      messageType: 'text',
+      streakDays: 5,
       unreadCount: 2
     },
     {
       id: '2',
-      name: 'Alex Chen',
-      avatar: '/api/placeholder/48/48',
-      level: 18,
-      lastMessage: '📍 Check out this amazing ramen spot!',
-      timestamp: '1h ago',
-      unread: true,
-      messageType: 'location',
-      streakDays: 5,
-      unreadCount: 1
-    },
-    {
-      id: '3',
       name: 'Food Explorers',
       avatar: '/api/placeholder/48/48',
       level: 0,
@@ -93,7 +78,7 @@ export function MessagesPage({ onBack, onOpenChat, onShowUserProfile, onShowRest
       isAdmin: true
     },
     {
-      id: '4',
+      id: '3',
       name: 'Marcus Rivera',
       avatar: '/api/placeholder/48/48',
       level: 22,
@@ -107,7 +92,7 @@ export function MessagesPage({ onBack, onOpenChat, onShowUserProfile, onShowRest
       unreadCount: 3
     },
     {
-      id: '5',
+      id: '4',
       name: 'Chef Gordon',
       avatar: '/api/placeholder/48/48',
       level: 35,
@@ -118,7 +103,7 @@ export function MessagesPage({ onBack, onOpenChat, onShowUserProfile, onShowRest
       messageType: 'text'
     },
     {
-      id: '6',
+      id: '5',
       name: 'Taco Tuesday Gang',
       avatar: '/api/placeholder/48/48',
       level: 0,
@@ -132,7 +117,7 @@ export function MessagesPage({ onBack, onOpenChat, onShowUserProfile, onShowRest
       isAdmin: false
     },
     {
-      id: '7',
+      id: '6',
       name: 'SF Foodies United',
       avatar: '/api/placeholder/48/48',
       level: 0,

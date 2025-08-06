@@ -87,7 +87,7 @@ export function MessageThread({ chatId, onBack, onShowRestaurantProfile, onShowU
 
   // Mock chat user data
   const chatUser: ChatUser = {
-    id: '2',
+    id: '1',
     name: 'Alex Chen',
     avatar: '/api/placeholder/48/48',
     level: 18,
@@ -100,9 +100,9 @@ export function MessageThread({ chatId, onBack, onShowRestaurantProfile, onShowU
     const mockMessages: ChatMessage[] = [
       {
         id: '1',
-        senderId: '2',
+        senderId: '1',
         type: 'text',
-        content: 'Hey! Want to check out that new ramen place downtown?',
+        content: 'Hey! Have you tried that new ramen place downtown? The broth is incredible!',
         timestamp: Date.now() - 3600000,
         isRead: true,
         reactions: [
@@ -114,13 +114,13 @@ export function MessageThread({ chatId, onBack, onShowRestaurantProfile, onShowU
         id: '2',
         senderId: 'current-user',
         type: 'text',
-        content: 'Absolutely! I\'ve been wanting to try it',
+        content: 'No way! Which one are you talking about?',
         timestamp: Date.now() - 3500000,
         isRead: true
       },
       {
         id: '3',
-        senderId: '2',
+        senderId: '1',
         type: 'restaurant',
         content: 'Found it! Look at this place',
         timestamp: Date.now() - 3400000,
@@ -137,58 +137,17 @@ export function MessageThread({ chatId, onBack, onShowRestaurantProfile, onShowU
       {
         id: '4',
         senderId: 'current-user',
-        type: 'quest',
-        content: 'Want to turn this into a challenge?',
+        type: 'text',
+        content: 'That looks amazing! Want to go together?',
         timestamp: Date.now() - 3200000,
-        isRead: true,
-        questData: {
-          id: 'quest1',
-          title: 'Ramen Master Challenge',
-          restaurant: 'Ichiran Ramen',
-          reward: 250,
-          timeLeft: '2 days',
-          type: 'duel',
-          accepted: false
-        }
+        isRead: true
       },
       {
         id: '5',
-        senderId: '2',
+        senderId: '1',
         type: 'text',
-        content: 'You\'re on! 🍜',
-        timestamp: Date.now() - 3100000,
-        isRead: true,
-        reactions: [
-          { emoji: '🔥', users: ['current-user'] }
-        ]
-      },
-      {
-        id: '6',
-        senderId: 'current-user',
-        type: 'coin_transfer',
-        content: 'Sending you some coins for good luck!',
-        timestamp: Date.now() - 3000000,
-        isRead: true,
-        coinData: {
-          amount: 15,
-          message: 'Good luck with the challenge!'
-        }
-      },
-      {
-        id: '7',
-        senderId: '2',
-        type: 'image',
-        content: 'Just arrived! This place looks amazing 📸',
-        timestamp: Date.now() - 1800000,
-        isRead: true,
-        imageUrl: '/api/placeholder/300/400'
-      },
-      {
-        id: '8',
-        senderId: '2',
-        type: 'text',
-        content: 'The ramen here is incredible! You have to try it',
-        timestamp: Date.now() - 1200000,
+        content: 'Definitely! How about tomorrow evening?',
+        timestamp: Date.now() - 600000,
         isRead: false
       }
     ];
