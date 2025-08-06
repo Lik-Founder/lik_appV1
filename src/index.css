@@ -580,30 +580,32 @@ body {
   
   /* Profile specific mobile optimizations */
   .profile-header-mobile {
-    padding: 1.5rem 1rem;
-    max-width: 20rem;
+    padding: 2rem 1rem;
+    max-width: 22rem;
     margin: 0 auto;
   }
   
   .profile-stats-mobile {
-    gap: 1.5rem;
-    justify-content: center;
+    gap: 2rem;
+    justify-content: space-between;
     width: 100%;
+    max-width: 20rem;
+    margin: 0 auto;
   }
   
   .profile-buttons-mobile {
-    gap: 0.5rem;
-    max-width: 18rem;
+    gap: 0.75rem;
+    max-width: 20rem;
     margin: 0 auto;
     width: 100%;
   }
   
   .profile-tab-content-mobile {
-    padding: 1rem;
+    padding: 1.5rem;
   }
   
   .profile-empty-state-mobile {
-    padding: 2rem 1rem;
+    padding: 3rem 1.5rem;
   }
   
   /* Ensure buttons don't get cut off */
@@ -613,49 +615,60 @@ body {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    min-height: 44px; /* Ensure touch target size */
   }
   
   /* Profile image sizing for mobile */
   .profile-avatar-mobile {
-    width: 7rem;
-    height: 7rem;
+    width: 8rem;
+    height: 8rem;
   }
   
   /* Level badge mobile styling */
   .profile-level-badge-mobile {
-    min-width: 3rem;
-    height: 1.5rem;
-    font-size: 0.875rem;
+    min-width: 3.5rem;
+    height: 2rem;
+    font-size: 1rem;
   }
   
   /* Stats text sizing */
   .profile-stats-text {
-    font-size: 1rem;
-    line-height: 1.25rem;
+    font-size: 1.125rem;
+    line-height: 1.375rem;
+    font-weight: 700;
   }
   
   /* Bio view mobile optimizations */
   .profile-bio-mobile {
-    max-width: 18rem;
+    max-width: 20rem;
     margin: 0 auto;
-    padding: 1.5rem 1rem;
+    padding: 2rem 1rem;
   }
   
   .profile-achievement-card-mobile {
-    padding: 1rem;
+    padding: 1.5rem;
     border-radius: 1rem;
   }
   
   /* Social links mobile sizing */
   .profile-social-links-mobile {
-    gap: 0.75rem;
+    gap: 1rem;
     justify-content: center;
   }
   
   .profile-social-button-mobile {
-    width: 2.5rem;
-    height: 2.5rem;
-    padding: 0.5rem;
+    width: 3rem;
+    height: 3rem;
+    padding: 0.75rem;
+    min-height: 44px; /* Ensure touch target size */
+    min-width: 44px;
+  }
+  
+  /* Mobile specific scroll area fixes */
+  .profile-scroll-mobile {
+    height: calc(100vh - 60px); /* Account for nav bar */
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
   }
 }
 
