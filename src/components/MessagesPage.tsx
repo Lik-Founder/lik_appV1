@@ -1,8 +1,13 @@
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { ArrowLeft, Search, SlidersHorizontal, Plus, Crown, Trophy, MapPin, MessageCircle } from '@phosphor-icons/react';
+import { ArrowLeft, Search, SlidersHorizontal, Plus, Crown, Trophy, MapPin, MessageCircle, Users, Gear } from '@phosphor-icons/react';
 import { cn } from '@/lib/utils';
+import { CreateGroupChatModal } from '@/components/CreateGroupChatModal';
+import { AddMembersModal } from '@/components/AddMembersModal';
+import { GroupManagementModal } from '@/components/GroupManagementModal';
+import { GroupChatIntroModal } from '@/components/GroupChatIntroModal';
+import { useKV } from '@github/spark/hooks';
 
 interface Chat {
   id: string;
@@ -14,11 +19,15 @@ interface Chat {
   unread: boolean;
   isVerified?: boolean;
   isRestaurant?: boolean;
+  isGroup?: boolean;
   hasQuest?: boolean;
   questType?: 'bounty' | 'duel' | 'challenge';
   messageType?: 'text' | 'location' | 'quest';
   streakDays?: number;
   unreadCount?: number;
+  memberCount?: number;
+  groupCategory?: string;
+  isAdmin?: boolean;
 }
 
 interface MessagesPageProps {
@@ -32,6 +41,13 @@ export function MessagesPage({ onBack, onOpenChat, onShowUserProfile, onShowRest
   const [activeTab, setActiveTab] = useState<'all' | 'unread' | 'quests' | 'groups' | 'verified'>('all');
   const [searchQuery, setSearchQuery] = useState('');
   const [showFilter, setShowFilter] = useState(false);
+  const [showCreateGroup, setShowCreateGroup] = useState(false);
+  const [showAddMembers, setShowAddMembers] = useState<string | null>(null);
+  const [showGroupManagement, setShowGroupManagement] = useState<string | null>(null);
+  const [showGroupIntro, setShowGroupIntro] = useState(false);
+  
+  // Track if user has seen group chat intro
+  const [hasSeenGroupIntro, setHasSeenGroupIntro] = useKV('has-seen-group-intro', false);
 
   // Mock chat data
   const mockChats: Chat[] = [
@@ -70,7 +86,11 @@ export function MessagesPage({ onBack, onOpenChat, onShowUserProfile, onShowRest
       lastMessage: 'Sarah: Who wants to try the new burger place?',
       timestamp: '3h ago',
       unread: false,
-      messageType: 'text'
+      messageType: 'text',
+      isGroup: true,
+      memberCount: 8,
+      groupCategory: 'Local Dining',
+      isAdmin: true
     },
     {
       id: '4',
@@ -105,7 +125,26 @@ export function MessagesPage({ onBack, onOpenChat, onShowUserProfile, onShowRest
       lastMessage: 'Maria: See you all at 7pm! 🌮',
       timestamp: '2d ago',
       unread: false,
-      messageType: 'text'
+      messageType: 'text',
+      isGroup: true,
+      memberCount: 12,
+      groupCategory: 'Events',
+      isAdmin: false
+    },
+    {
+      id: '7',
+      name: 'SF Foodies United',
+      avatar: '/api/placeholder/48/48',
+      level: 0,
+      lastMessage: 'David: Found an amazing new sushi place!',
+      timestamp: '1w ago',
+      unread: true,
+      messageType: 'text',
+      isGroup: true,
+      memberCount: 24,
+      groupCategory: 'General Food Talk',
+      isAdmin: true,
+      unreadCount: 5
     }
   ];
 
@@ -113,7 +152,7 @@ export function MessagesPage({ onBack, onOpenChat, onShowUserProfile, onShowRest
     { key: 'all', label: 'All', count: mockChats.length },
     { key: 'unread', label: 'Unread', count: mockChats.filter(c => c.unread).length },
     { key: 'quests', label: 'With Quests', count: mockChats.filter(c => c.hasQuest).length },
-    { key: 'groups', label: 'Groups', count: mockChats.filter(c => c.name.includes('Gang') || c.name.includes('Explorers')).length },
+    { key: 'groups', label: 'Groups', count: mockChats.filter(c => c.isGroup).length },
     { key: 'verified', label: 'Verified Creators', count: mockChats.filter(c => c.isVerified).length }
   ] as const;
 
@@ -127,7 +166,7 @@ export function MessagesPage({ onBack, onOpenChat, onShowUserProfile, onShowRest
       case 'quests':
         return chat.hasQuest && matchesSearch;
       case 'groups':
-        return (chat.name.includes('Gang') || chat.name.includes('Explorers')) && matchesSearch;
+        return chat.isGroup && matchesSearch;
       case 'verified':
         return chat.isVerified && matchesSearch;
       default:
@@ -169,11 +208,55 @@ export function MessagesPage({ onBack, onOpenChat, onShowUserProfile, onShowRest
   const handleChatClick = (chat: Chat) => {
     if (chat.isRestaurant && onShowRestaurantProfile) {
       onShowRestaurantProfile(chat.id);
-    } else if (!chat.isRestaurant && onShowUserProfile) {
+    } else if (!chat.isRestaurant && !chat.isGroup && onShowUserProfile) {
       onShowUserProfile(chat.id);
     } else if (onOpenChat) {
       onOpenChat(chat.id);
     }
+  };
+
+  const handleChatLongPress = (chat: Chat) => {
+    if (chat.isGroup) {
+      setShowGroupManagement(chat.id);
+    }
+  };
+
+  const handleCreateGroup = (groupData: any) => {
+    console.log('Creating group:', groupData);
+    // Here you would typically call an API to create the group
+    // For now, we'll just close the modal
+  };
+
+  const handleAddMembers = (groupId: string, memberIds: string[]) => {
+    console.log('Adding members to group:', groupId, memberIds);
+    // Here you would typically call an API to add members
+    setShowAddMembers(null);
+  };
+
+  const handleStartGroupCreation = () => {
+    if (!hasSeenGroupIntro) {
+      setShowGroupIntro(true);
+    } else {
+      setShowCreateGroup(true);
+    }
+  };
+
+  const handleGroupIntroComplete = () => {
+    setHasSeenGroupIntro(true);
+    setShowGroupIntro(false);
+    setShowCreateGroup(true);
+  };
+
+  const mockGroupData = {
+    name: 'Food Explorers',
+    description: 'A group for adventurous food lovers exploring new cuisines together',
+    memberCount: 8,
+    category: 'Local Dining',
+    privacy: 'private' as const,
+    created: '2024-01-15',
+    allowQuestSharing: true,
+    allowLocationSharing: true,
+    moderationLevel: 'moderated' as const
   };
 
   return (
@@ -211,6 +294,7 @@ export function MessagesPage({ onBack, onOpenChat, onShowUserProfile, onShowRest
           <Button
             variant="ghost"
             size="sm"
+            onClick={handleStartGroupCreation}
             className="p-2 hover:bg-muted rounded-full"
           >
             <Plus className="w-5 h-5" />
@@ -271,7 +355,7 @@ export function MessagesPage({ onBack, onOpenChat, onShowUserProfile, onShowRest
             <p className="text-muted-foreground mb-6">
               {searchQuery ? "Try adjusting your search" : "Start a conversation with fellow foodies!"}
             </p>
-            <Button className="rounded-full">
+            <Button className="rounded-full" onClick={handleStartGroupCreation}>
               <Plus className="w-4 h-4 mr-2" />
               Start New Chat
             </Button>
@@ -282,23 +366,42 @@ export function MessagesPage({ onBack, onOpenChat, onShowUserProfile, onShowRest
               <div
                 key={chat.id}
                 onClick={() => handleChatClick(chat)}
-                className="flex items-center gap-3 p-4 rounded-2xl bg-card hover:bg-muted/50 transition-all duration-200 cursor-pointer touch-feedback"
+                onContextMenu={(e) => {
+                  e.preventDefault();
+                  handleChatLongPress(chat);
+                }}
+                className="flex items-center gap-3 p-4 rounded-2xl bg-card hover:bg-muted/50 transition-all duration-200 cursor-pointer touch-feedback relative group"
               >
                 {/* Profile Picture with Level Ring */}
                 <div className="relative flex-shrink-0">
                   <div className={cn(
-                    "w-12 h-12 rounded-full p-0.5 bg-gradient-to-br",
-                    chat.level > 0 ? getLevelColor(chat.level) : "bg-muted"
+                    "w-12 h-12 rounded-full p-0.5",
+                    chat.isGroup ? "bg-gradient-to-br from-purple-500 to-pink-500" :
+                    chat.level > 0 ? `bg-gradient-to-br ${getLevelColor(chat.level)}` : "bg-muted"
                   )}>
-                    <img
-                      src={chat.avatar}
-                      alt={chat.name}
-                      className="w-full h-full rounded-full object-cover bg-background"
-                    />
+                    <div className="w-full h-full rounded-full bg-background p-0.5">
+                      {chat.isGroup ? (
+                        <div className="w-full h-full rounded-full bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center">
+                          <Users className="w-6 h-6 text-white" />
+                        </div>
+                      ) : (
+                        <img
+                          src={chat.avatar}
+                          alt={chat.name}
+                          className="w-full h-full rounded-full object-cover"
+                        />
+                      )}
+                    </div>
                   </div>
                   
-                  {/* Level Badge */}
-                  {chat.level > 0 && (
+                  {/* Level Badge or Member Count */}
+                  {chat.isGroup ? (
+                    <div className="absolute -bottom-1 -right-1 bg-background border-2 border-background rounded-full px-1.5 py-0.5">
+                      <span className="text-xs font-bold text-primary">
+                        {chat.memberCount}
+                      </span>
+                    </div>
+                  ) : chat.level > 0 && (
                     <div className="absolute -bottom-1 -right-1 bg-background border-2 border-background rounded-full px-1.5 py-0.5">
                       <span className="text-xs font-bold text-primary">
                         {chat.level}
@@ -320,7 +423,12 @@ export function MessagesPage({ onBack, onOpenChat, onShowUserProfile, onShowRest
                     <h3 className="font-semibold text-foreground truncate">
                       {chat.name}
                     </h3>
-                    {chat.level > 0 && (
+                    {chat.isGroup && (
+                      <span className="text-xs text-muted-foreground bg-muted px-2 py-0.5 rounded-full">
+                        Group
+                      </span>
+                    )}
+                    {!chat.isGroup && chat.level > 0 && (
                       <span className="text-xs text-muted-foreground bg-muted px-2 py-0.5 rounded-full">
                         Lv. {chat.level}
                       </span>
@@ -346,13 +454,37 @@ export function MessagesPage({ onBack, onOpenChat, onShowUserProfile, onShowRest
                       {chat.lastMessage}
                     </p>
                   </div>
+                  
+                  {/* Group Category */}
+                  {chat.isGroup && chat.groupCategory && (
+                    <p className="text-xs text-muted-foreground mt-1">
+                      {chat.groupCategory}
+                    </p>
+                  )}
                 </div>
 
                 {/* Right Side */}
                 <div className="flex flex-col items-end gap-2 flex-shrink-0">
-                  <span className="text-xs text-muted-foreground">
-                    {chat.timestamp}
-                  </span>
+                  <div className="flex items-center gap-2">
+                    <span className="text-xs text-muted-foreground">
+                      {chat.timestamp}
+                    </span>
+                    
+                    {/* Group Management Button */}
+                    {chat.isGroup && (
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          setShowGroupManagement(chat.id);
+                        }}
+                        className="opacity-0 group-hover:opacity-100 transition-opacity p-1 h-auto"
+                      >
+                        <Gear className="w-4 h-4" />
+                      </Button>
+                    )}
+                  </div>
                   
                   <div className="flex items-center gap-2">
                     {chat.hasQuest && (
@@ -382,11 +514,55 @@ export function MessagesPage({ onBack, onOpenChat, onShowUserProfile, onShowRest
       <div className="fixed bottom-20 right-4 z-20">
         <Button
           size="lg"
+          onClick={handleStartGroupCreation}
           className="fab w-14 h-14 rounded-full shadow-lg"
         >
           <Plus className="w-6 h-6" />
         </Button>
       </div>
+
+      {/* Modals */}
+      <GroupChatIntroModal
+        isOpen={showGroupIntro}
+        onClose={() => setShowGroupIntro(false)}
+        onStartCreating={handleGroupIntroComplete}
+      />
+
+      <CreateGroupChatModal
+        isOpen={showCreateGroup}
+        onClose={() => setShowCreateGroup(false)}
+        onCreateGroup={handleCreateGroup}
+      />
+
+      {showAddMembers && (
+        <AddMembersModal
+          isOpen={!!showAddMembers}
+          onClose={() => setShowAddMembers(null)}
+          groupId={showAddMembers}
+          groupName="Food Explorers"
+          currentMembers={['1', '2', '3']}
+          onAddMembers={(memberIds) => handleAddMembers(showAddMembers, memberIds)}
+        />
+      )}
+
+      {showGroupManagement && (
+        <GroupManagementModal
+          isOpen={!!showGroupManagement}
+          onClose={() => setShowGroupManagement(null)}
+          groupId={showGroupManagement}
+          groupData={mockGroupData}
+          isAdmin={true}
+          onUpdateGroup={(updates) => console.log('Update group:', updates)}
+          onLeaveGroup={() => {
+            console.log('Leave group');
+            setShowGroupManagement(null);
+          }}
+          onDeleteGroup={() => {
+            console.log('Delete group');
+            setShowGroupManagement(null);
+          }}
+        />
+      )}
     </div>
   );
 }
