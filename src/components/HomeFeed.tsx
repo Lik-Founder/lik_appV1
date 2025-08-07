@@ -289,7 +289,7 @@ export function HomeFeed({ onShowUserProfile, onShowRestaurantProfile, onShowLea
 
         {/* Review Section */}
         <div className="p-4">
-          <div className="flex gap-2 mb-4">
+          <div className="flex gap-2 mb-4 justify-center">
             {reviewTabs.map((tab) => (
               <Button
                 key={tab}
