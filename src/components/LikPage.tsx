@@ -188,7 +188,9 @@ export function LikPage({ onShowRestaurantProfile }: LikPageProps) {
                 variant={activeView === 'bounties' ? 'default' : 'ghost'}
                 size="sm"
                 onClick={() => setActiveView('bounties')}
-                className="font-medium"
+                className={`nav-rum-raisin ${
+                  activeView === 'bounties' ? 'font-semibold' : 'font-light'
+                }`}
               >
                 Bounties
               </Button>
@@ -196,7 +198,9 @@ export function LikPage({ onShowRestaurantProfile }: LikPageProps) {
                 variant={activeView === 'quests' ? 'default' : 'ghost'}
                 size="sm"
                 onClick={() => setActiveView('quests')}
-                className="font-medium"
+                className={`nav-rum-raisin ${
+                  activeView === 'quests' ? 'font-semibold' : 'font-light'
+                }`}
               >
                 Quests
               </Button>
@@ -226,7 +230,9 @@ export function LikPage({ onShowRestaurantProfile }: LikPageProps) {
                     variant={selectedFilter === filter ? 'default' : 'outline'}
                     size="sm"
                     onClick={() => setSelectedFilter(filter)}
-                    className="rounded-full"
+                    className={`rounded-full nav-rum-raisin ${
+                      selectedFilter === filter ? 'font-semibold' : 'font-light'
+                    }`}
                   >
                     {filter === 'nearby' && 'Nearby'}
                     {filter === 'most-wanted' && 'Most Wanted'}

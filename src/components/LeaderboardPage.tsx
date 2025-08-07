@@ -459,10 +459,10 @@ export function LeaderboardPage({ onBack, onShowRestaurantProfile, onShowUserPro
               variant={activeTab === tab.key ? 'default' : 'secondary'}
               onClick={() => setActiveTab(tab.key)}
               className={cn(
-                "flex-1 rounded-full font-medium transition-all duration-200",
+                "flex-1 rounded-full font-medium transition-all duration-200 nav-rum-raisin",
                 activeTab === tab.key 
-                  ? "bg-foreground text-background shadow-lg transform scale-105" 
-                  : "bg-muted hover:bg-muted/80 text-muted-foreground hover:scale-102"
+                  ? "bg-foreground text-background shadow-lg transform scale-105 font-semibold" 
+                  : "bg-muted hover:bg-muted/80 text-muted-foreground hover:scale-102 font-light"
               )}
             >
               {tab.label}
@@ -490,7 +490,7 @@ export function LeaderboardPage({ onBack, onShowRestaurantProfile, onShowUserPro
             {/* Scope Selector */}
             <Button
               variant="outline"
-              className="shrink-0 rounded-full px-4 gap-2"
+              className="shrink-0 rounded-full px-4 gap-2 nav-rum-raisin font-light"
               onClick={() => {
                 const scopes: ScopeType[] = ['global', 'national', 'city'];
                 const currentIndex = scopes.indexOf(scope);
@@ -513,10 +513,10 @@ export function LeaderboardPage({ onBack, onShowRestaurantProfile, onShowUserPro
                   size="sm"
                   onClick={() => setSortPeriod(period)}
                   className={cn(
-                    "capitalize rounded-full px-4 font-medium transition-all",
+                    "capitalize rounded-full px-4 font-medium transition-all nav-rum-raisin",
                     sortPeriod === period 
-                      ? "bg-background text-foreground shadow-sm" 
-                      : "hover:bg-background/50"
+                      ? "bg-background text-foreground shadow-sm font-semibold" 
+                      : "hover:bg-background/50 font-light"
                   )}
                 >
                   {period}

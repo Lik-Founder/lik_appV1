@@ -562,8 +562,10 @@ export function TrendingPage({ onShowRestaurantProfile, onShowUserProfile }: Tre
                 size="sm"
                 onClick={() => setActiveTab(tab as any)}
                 className={cn(
-                  "text-white text-xs sm:text-sm px-2 sm:px-4",
-                  activeTab === tab && "font-bold border-b-2 border-white rounded-none"
+                  "text-white text-xs sm:text-sm px-2 sm:px-4 nav-rum-raisin",
+                  activeTab === tab 
+                    ? "font-bold border-b-2 border-white rounded-none font-semibold" 
+                    : "font-light"
                 )}
               >
                 {tab === 'foryou' ? 'For You' : tab.charAt(0).toUpperCase() + tab.slice(1)}

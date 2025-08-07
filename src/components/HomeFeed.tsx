@@ -296,7 +296,9 @@ export function HomeFeed({ onShowUserProfile, onShowRestaurantProfile, onShowLea
                 variant={activeReviewTab === tab ? "default" : "ghost"}
                 size="sm"
                 onClick={() => setActiveReviewTab(tab)}
-                className="rounded-full"
+                className={`rounded-full nav-rum-raisin ${
+                  activeReviewTab === tab ? 'font-semibold' : 'font-light'
+                }`}
               >
                 {tab}
               </Button>
@@ -410,7 +412,7 @@ export function HomeFeed({ onShowUserProfile, onShowRestaurantProfile, onShowLea
               <Button
                 key={category.id}
                 variant="outline"
-                className="flex flex-col items-center p-4 h-auto gap-2"
+                className="flex flex-col items-center p-4 h-auto gap-2 nav-rum-raisin"
               >
                 <span className="text-2xl">{category.emoji}</span>
                 <span className="text-xs font-medium">{category.name}</span>
@@ -453,10 +455,10 @@ export function HomeFeed({ onShowUserProfile, onShowRestaurantProfile, onShowLea
                       <span className="text-sm text-muted-foreground">{event.location}</span>
                     </div>
                     <div className="flex gap-2">
-                      <Button size="sm" variant="outline" className="flex-1">
+                      <Button size="sm" variant="outline" className="flex-1 nav-rum-raisin font-light">
                         Interested ({event.interested})
                       </Button>
-                      <Button size="sm" className="flex-1">
+                      <Button size="sm" className="flex-1 nav-rum-raisin font-semibold">
                         Going ({event.going})
                       </Button>
                     </div>

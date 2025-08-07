@@ -311,8 +311,8 @@ export function SearchPage({ onShowUserProfile, onShowRestaurantProfile }: Searc
             size="sm"
             onClick={() => setIsDeliveryMode(!isDeliveryMode)}
             className={cn(
-              "rounded-full flex-shrink-0 h-8 px-3",
-              isDeliveryMode ? "bg-primary text-primary-foreground" : "bg-muted"
+              "rounded-full flex-shrink-0 h-8 px-3 nav-rum-raisin",
+              isDeliveryMode ? "bg-primary text-primary-foreground font-semibold" : "bg-muted font-light"
             )}
           >
             <div className="w-4 h-2 bg-current rounded-full relative">
@@ -418,11 +418,11 @@ export function SearchPage({ onShowUserProfile, onShowRestaurantProfile }: Searc
                 variant={activePreferences.includes(pref) ? "default" : "secondary"}
                 onClick={() => togglePreference(pref)}
                 className={cn(
-                  "cursor-pointer whitespace-nowrap rounded-full px-3 py-1 text-xs font-medium",
+                  "cursor-pointer whitespace-nowrap rounded-full px-3 py-1 text-xs font-medium nav-rum-raisin",
                   "touch-target transition-all duration-200",
                   activePreferences.includes(pref) 
-                    ? "bg-foreground text-background" 
-                    : "bg-muted text-muted-foreground hover:bg-muted/80"
+                    ? "bg-foreground text-background font-semibold" 
+                    : "bg-muted text-muted-foreground hover:bg-muted/80 font-light"
                 )}
               >
                 {pref}

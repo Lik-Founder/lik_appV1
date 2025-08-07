@@ -266,14 +266,14 @@ export function ProfilePage({ onShowLeaderboard }: ProfilePageProps = {}) {
                 <div className="flex gap-2 w-full max-w-sm justify-center px-4">
                   <Button 
                     variant="secondary" 
-                    className="flex-1 h-10 text-sm font-medium rounded-lg min-w-0 whitespace-nowrap"
+                    className="flex-1 h-10 text-sm font-medium rounded-lg min-w-0 whitespace-nowrap nav-rum-raisin font-light"
                     onClick={handleEditProfile}
                   >
                     Edit Profile
                   </Button>
                   <Button 
                     variant="secondary" 
-                    className="flex-1 h-10 text-sm font-medium rounded-lg min-w-0 whitespace-nowrap"
+                    className="flex-1 h-10 text-sm font-medium rounded-lg min-w-0 whitespace-nowrap nav-rum-raisin font-light"
                     onClick={handleShareProfile}
                   >
                     Share Profile
@@ -311,16 +311,16 @@ export function ProfilePage({ onShowLeaderboard }: ProfilePageProps = {}) {
               <div className="sticky top-[57px] z-10 bg-background/95 backdrop-blur-sm border-b border-border">
                 <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
                   <TabsList className="grid w-full grid-cols-4 bg-transparent border-0 h-12 px-4">
-                    <TabsTrigger value="posts" className="flex flex-col items-center gap-1 h-full data-[state=active]:bg-transparent p-2 touch-target">
+                    <TabsTrigger value="posts" className="flex flex-col items-center gap-1 h-full data-[state=active]:bg-transparent p-2 touch-target nav-rum-raisin">
                       <ForkKnife size={18} />
                     </TabsTrigger>
-                    <TabsTrigger value="likes" className="flex flex-col items-center gap-1 h-full data-[state=active]:bg-transparent p-2 touch-target">
+                    <TabsTrigger value="likes" className="flex flex-col items-center gap-1 h-full data-[state=active]:bg-transparent p-2 touch-target nav-rum-raisin">
                       <Heart size={18} />
                     </TabsTrigger>
-                    <TabsTrigger value="favorites" className="flex flex-col items-center gap-1 h-full data-[state=active]:bg-transparent p-2 touch-target">
+                    <TabsTrigger value="favorites" className="flex flex-col items-center gap-1 h-full data-[state=active]:bg-transparent p-2 touch-target nav-rum-raisin">
                       <BookBookmark size={18} />
                     </TabsTrigger>
-                    <TabsTrigger value="guides" className="flex flex-col items-center gap-1 h-full data-[state=active]:bg-transparent p-2 touch-target">
+                    <TabsTrigger value="guides" className="flex flex-col items-center gap-1 h-full data-[state=active]:bg-transparent p-2 touch-target nav-rum-raisin">
                       <Export size={18} />
                     </TabsTrigger>
                   </TabsList>
@@ -337,7 +337,7 @@ export function ProfilePage({ onShowLeaderboard }: ProfilePageProps = {}) {
                           className="pl-10 bg-muted border-0 h-10 text-sm rounded-lg touch-target"
                         />
                       </div>
-                      <Button variant="outline" size="sm" className="h-10 px-3 rounded-lg flex-shrink-0 touch-target">
+                      <Button variant="outline" size="sm" className="h-10 px-3 rounded-lg flex-shrink-0 touch-target nav-rum-raisin font-light">
                         <SlidersHorizontal size={16} />
                       </Button>
                     </div>
