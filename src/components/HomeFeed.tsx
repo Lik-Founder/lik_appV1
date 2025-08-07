@@ -296,10 +296,10 @@ export function HomeFeed({ onShowUserProfile, onShowRestaurantProfile, onShowLea
                 variant="ghost"
                 size="sm"
                 onClick={() => setActiveReviewTab(tab)}
-                className={`rounded-full nav-rum-raisin transition-all duration-300 ${
+                className={`rounded-full nav-rum-raisin transition-all duration-300 px-6 py-2 border ${
                   activeReviewTab === tab 
-                    ? 'text-white font-semibold bg-gradient-to-br from-red-400/60 to-red-600/40 backdrop-blur-lg border border-white/20 shadow-[inset_0_1px_0_rgba(255,255,255,0.3),inset_0_-1px_0_rgba(0,0,0,0.1),0_4px_12px_rgba(239,68,68,0.4)] before:absolute before:inset-0 before:rounded-full before:bg-gradient-to-t before:from-transparent before:to-white/10'
-                    : 'text-black font-light hover:bg-gray-100/50'
+                    ? 'glossy-red-pill text-white font-semibold shadow-lg transform-gpu'
+                    : 'text-black font-light hover:bg-gray-100/50 border-transparent'
                 } relative overflow-hidden`}
               >
                 {tab}
