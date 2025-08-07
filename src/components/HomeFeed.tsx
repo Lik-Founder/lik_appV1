@@ -390,7 +390,7 @@ export function HomeFeed({ onShowUserProfile, onShowRestaurantProfile, onShowLea
                       <span className="text-sm text-muted-foreground">{pick.calories}</span>
                     </div>
                     <div className="flex items-center gap-2">
-                      <span className="text-sm text-muted-foreground">Liked by</span>
+                      <span className="text-sm text-muted-foreground nav-rum-raisin">Liked by</span>
                       <div className="flex -space-x-2">
                         {pick.likedBy.map((_, index) => (
                           <div key={index} className="w-6 h-6 rounded-full bg-muted border-2 border-background" />
