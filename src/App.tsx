@@ -18,6 +18,7 @@ import { EventsPage } from '@/components/EventsPage';
 import { MessagesPage } from '@/components/MessagesPage';
 import { MessageThread } from '@/components/MessageThread';
 import { SwipeIndicator } from '@/components/SwipeIndicator';
+import { SwipeDiscoveryPage } from '@/components/SwipeDiscoveryPage';
 import { useDevice, useSafeArea } from '@/hooks/use-device';
 import { useTabSwipe } from '@/hooks/use-tab-swipe';
 import { Toaster } from '@/components/ui/sonner';
@@ -37,6 +38,7 @@ function App() {
   const [showMessageThread, setShowMessageThread] = useState<string | null>(null);
   const [showSwipeIndicator, setShowSwipeIndicator] = useState(false);
   const [showTrendingSearch, setShowTrendingSearch] = useState(false);
+  const [showSwipeDiscovery, setShowSwipeDiscovery] = useState(false);
   const device = useDevice();
   const safeArea = useSafeArea();
 
@@ -47,10 +49,23 @@ function App() {
       setActiveTab(newTab);
       setShowSwipeIndicator(true);
     },
-    disabled: !!showRestaurantProfile || !!showUserProfile || showLeaderboard || showLikTV || showLikPassport || showGuidePage || showEventsPage || !!showEventDetails || showMessagesPage || !!showMessageThread || showTrendingSearch,
+    disabled: !!showRestaurantProfile || !!showUserProfile || showLeaderboard || showLikTV || showLikPassport || showGuidePage || showEventsPage || !!showEventDetails || showMessagesPage || !!showMessageThread || showTrendingSearch || showSwipeDiscovery,
   });
 
   const renderActiveTab = () => {
+    // Show Swipe Discovery if requested
+    if (showSwipeDiscovery) {
+      return (
+        <SwipeDiscoveryPage 
+          onBack={() => setShowSwipeDiscovery(false)}
+          onShowRestaurantProfile={(restaurantId) => {
+            setShowSwipeDiscovery(false);
+            setShowRestaurantProfile(restaurantId);
+          }}
+        />
+      );
+    }
+
     // Show Trending Search if requested
     if (showTrendingSearch) {
       return (
@@ -240,6 +255,7 @@ function App() {
           <SearchPage 
             onShowUserProfile={(userId) => setShowUserProfile(userId)}
             onShowRestaurantProfile={(restaurantId) => setShowRestaurantProfile(restaurantId)}
+            onShowSwipeDiscovery={() => setShowSwipeDiscovery(true)}
           />
         );
       case 'lik':
@@ -278,7 +294,7 @@ function App() {
       </div>
 
       {/* Swipe Indicator */}
-      {!showRestaurantProfile && !showUserProfile && !showLeaderboard && !showLikTV && !showLikPassport && !showGuidePage && !showEventsPage && !showEventDetails && !showMessagesPage && !showMessageThread && !showTrendingSearch && (
+      {!showRestaurantProfile && !showUserProfile && !showLeaderboard && !showLikTV && !showLikPassport && !showGuidePage && !showEventsPage && !showEventDetails && !showMessagesPage && !showMessageThread && !showTrendingSearch && !showSwipeDiscovery && (
         <SwipeIndicator 
           activeTab={activeTab} 
           isVisible={showSwipeIndicator}
@@ -286,7 +302,7 @@ function App() {
       )}
 
       {/* Bottom Navigation - Hide when viewing restaurant profile */}
-      {!showRestaurantProfile && !showUserProfile && !showLeaderboard && !showLikTV && !showLikPassport && !showGuidePage && !showEventsPage && !showEventDetails && !showMessagesPage && !showMessageThread && !showTrendingSearch && (
+      {!showRestaurantProfile && !showUserProfile && !showLeaderboard && !showLikTV && !showLikPassport && !showGuidePage && !showEventsPage && !showEventDetails && !showMessagesPage && !showMessageThread && !showTrendingSearch && !showSwipeDiscovery && (
         <div 
           className={cn(
             "border-t backdrop-blur-sm",

@@ -70,9 +70,10 @@ interface MenuItem {
 interface SearchPageProps {
   onShowUserProfile?: (userId: string) => void;
   onShowRestaurantProfile?: (restaurantId: string) => void;
+  onShowSwipeDiscovery?: () => void;
 }
 
-export function SearchPage({ onShowUserProfile, onShowRestaurantProfile }: SearchPageProps) {
+export function SearchPage({ onShowUserProfile, onShowRestaurantProfile, onShowSwipeDiscovery }: SearchPageProps) {
   const [searchQuery, setSearchQuery] = useState('');
   const [isDeliveryMode, setIsDeliveryMode] = useState(false);
   const [activePreferences, setActivePreferences] = useKV<string[]>('food-preferences', ['Vegan']);
@@ -208,7 +209,7 @@ export function SearchPage({ onShowUserProfile, onShowRestaurantProfile }: Searc
   };
 
   const openSwipeMode = () => {
-    toast.info('Swipe discovery mode coming soon!');
+    onShowSwipeDiscovery?.();
   };
 
   const openFavorites = () => {
