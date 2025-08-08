@@ -25,7 +25,7 @@ import {
   Clock,
   ArrowRight
 } from '@phosphor-icons/react';
-import likLogo from '@/assets/images/lik-logo.png';
+import likLogo from '@/assets/images/lik.png';
 
 interface HomeFeedProps {
   onShowUserProfile?: (userId: string) => void;
