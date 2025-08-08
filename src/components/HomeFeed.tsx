@@ -206,9 +206,9 @@ export function HomeFeed({ onShowUserProfile, onShowRestaurantProfile, onShowLea
     <div className="h-full bg-background">
       {/* Top Navigation Bar */}
       <div className="fixed top-0 left-0 right-0 z-40 bg-background/95 backdrop-blur-sm border-b border-border">
-        <div className="flex items-center justify-between p-4">
+        <div className="flex items-center justify-between px-4 py-3">
           {/* Left - User Icon */}
-          <div className="flex items-center">
+          <div className="flex items-center min-w-[60px]">
             <div className="relative">
               <img 
                 src={currentUser.avatar} 
@@ -222,16 +222,16 @@ export function HomeFeed({ onShowUserProfile, onShowRestaurantProfile, onShowLea
           </div>
 
           {/* Center - Lik Logo */}
-          <div className="flex items-center justify-center">
+          <div className="flex items-center justify-center px-4 flex-1">
             <img 
               src={likLogo} 
               alt="Lik" 
-              className="h-8 w-auto object-contain"
+              className="h-12 w-auto object-contain max-w-[140px]"
             />
           </div>
 
           {/* Right - Icons */}
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2 min-w-[160px] justify-end">
             <Button variant="ghost" size="icon" className="w-9 h-9">
               <GameController size={20} />
             </Button>
@@ -250,7 +250,7 @@ export function HomeFeed({ onShowUserProfile, onShowRestaurantProfile, onShowLea
 
       {/* Main Content */}
       <div className={cn(
-        "h-full overflow-y-auto scrollbar-hide pt-[76px]",
+        "h-full overflow-y-auto scrollbar-hide pt-[84px]",
         "mx-auto",
         device.type === 'tablet' ? "max-w-2xl" : "w-full"
       )}>
