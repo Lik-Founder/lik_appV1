@@ -214,7 +214,7 @@ export function LikPassportPage({ onBack }: LikPassportPageProps) {
   };
 
   return (
-    <div className="h-full bg-background overflow-hidden">
+    <div className="h-full bg-background overflow-y-auto">
       {/* Header with rank and stats */}
       <div className={cn(
         "relative px-6 py-8 bg-gradient-to-br",
@@ -326,7 +326,7 @@ export function LikPassportPage({ onBack }: LikPassportPageProps) {
       </div>
 
       {/* Content area */}
-      <div className="flex-1 overflow-y-auto">
+      <div className="pb-6">
         {activeTab === 'map' && (
           <div className="p-6">
             {/* Map filters */}
