@@ -5,6 +5,7 @@ import { HomeFeed } from '@/components/HomeFeed';
 import { SearchPage } from '@/components/SearchPage';
 import { LikPage } from '@/components/LikPage';
 import { TrendingPage } from '@/components/TrendingPage';
+import { TrendingSearchPage } from '@/components/TrendingSearchPage';
 import { ProfilePage } from '@/components/ProfilePage';
 import { RestaurantProfile } from '@/components/RestaurantProfile';
 import { UserProfile } from '@/components/UserProfile';
@@ -33,6 +34,7 @@ function App() {
   const [showMessagesPage, setShowMessagesPage] = useState(false);
   const [showMessageThread, setShowMessageThread] = useState<string | null>(null);
   const [showSwipeIndicator, setShowSwipeIndicator] = useState(false);
+  const [showTrendingSearch, setShowTrendingSearch] = useState(false);
   const device = useDevice();
   const safeArea = useSafeArea();
 
@@ -43,10 +45,31 @@ function App() {
       setActiveTab(newTab);
       setShowSwipeIndicator(true);
     },
-    disabled: !!showRestaurantProfile || !!showUserProfile || showLeaderboard || showLikTV || showGuidePage || showEventsPage || !!showEventDetails || showMessagesPage || !!showMessageThread,
+    disabled: !!showRestaurantProfile || !!showUserProfile || showLeaderboard || showLikTV || showGuidePage || showEventsPage || !!showEventDetails || showMessagesPage || !!showMessageThread || showTrendingSearch,
   });
 
   const renderActiveTab = () => {
+    // Show Trending Search if requested
+    if (showTrendingSearch) {
+      return (
+        <TrendingSearchPage 
+          onBack={() => setShowTrendingSearch(false)}
+          onShowUserProfile={(userId) => {
+            setShowTrendingSearch(false);
+            setShowUserProfile(userId);
+          }}
+          onShowRestaurantProfile={(restaurantId) => {
+            setShowTrendingSearch(false);
+            setShowRestaurantProfile(restaurantId);
+          }}
+          onShowVideoDetails={(videoId) => {
+            setShowTrendingSearch(false);
+            // Could add video details page navigation here
+          }}
+        />
+      );
+    }
+
     // Show Message Thread if requested
     if (showMessageThread) {
       return (
@@ -215,6 +238,7 @@ function App() {
           <TrendingPage 
             onShowRestaurantProfile={(restaurantId) => setShowRestaurantProfile(restaurantId)}
             onShowUserProfile={(userId) => setShowUserProfile(userId)}
+            onShowSearch={() => setShowTrendingSearch(true)}
           />
         );
       case 'profile':
@@ -243,7 +267,7 @@ function App() {
       </div>
 
       {/* Swipe Indicator */}
-      {!showRestaurantProfile && !showUserProfile && !showLeaderboard && !showLikTV && !showGuidePage && !showEventsPage && !showEventDetails && !showMessagesPage && !showMessageThread && (
+      {!showRestaurantProfile && !showUserProfile && !showLeaderboard && !showLikTV && !showGuidePage && !showEventsPage && !showEventDetails && !showMessagesPage && !showMessageThread && !showTrendingSearch && (
         <SwipeIndicator 
           activeTab={activeTab} 
           isVisible={showSwipeIndicator}
@@ -251,7 +275,7 @@ function App() {
       )}
 
       {/* Bottom Navigation - Hide when viewing restaurant profile */}
-      {!showRestaurantProfile && !showUserProfile && !showLeaderboard && !showLikTV && !showGuidePage && !showEventsPage && !showEventDetails && !showMessagesPage && !showMessageThread && (
+      {!showRestaurantProfile && !showUserProfile && !showLeaderboard && !showLikTV && !showGuidePage && !showEventsPage && !showEventDetails && !showMessagesPage && !showMessageThread && !showTrendingSearch && (
         <div 
           className={cn(
             "border-t backdrop-blur-sm",

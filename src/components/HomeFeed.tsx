@@ -397,7 +397,10 @@ export function HomeFeed({ onShowUserProfile, onShowRestaurantProfile, onShowLea
                       <span className="text-sm text-muted-foreground">{pick.calories}</span>
                     </div>
                     <div className="flex items-center gap-2">
-                      <span className="text-sm text-muted-foreground nav-rum-raisin">Liked by</span>
+                      <div className="flex items-center gap-1">
+                        <img src="/src/assets/images/Lik_Logo_Heart_1.0.png" alt="Lik" className="w-3 h-3" />
+                        <span className="text-sm text-muted-foreground nav-rum-raisin">Liked by</span>
+                      </div>
                       <div className="flex -space-x-2">
                         {pick.likedBy.map((_, index) => (
                           <div key={index} className="w-6 h-6 rounded-full bg-muted border-2 border-background" />

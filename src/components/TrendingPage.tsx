@@ -199,9 +199,10 @@ const mockContent: (UserPost | RestaurantPost | AdPost)[] = [
 interface TrendingPageProps {
   onShowRestaurantProfile?: (restaurantId: string) => void;
   onShowUserProfile?: (userId: string) => void;
+  onShowSearch?: () => void;
 }
 
-export function TrendingPage({ onShowRestaurantProfile, onShowUserProfile }: TrendingPageProps) {
+export function TrendingPage({ onShowRestaurantProfile, onShowUserProfile, onShowSearch }: TrendingPageProps) {
   const [activeTab, setActiveTab] = useState<'following' | 'trending' | 'foryou'>('trending');
   const [currentIndex, setCurrentIndex] = useState(0);
   const [content, setContent] = useKV('trending-content', mockContent);
@@ -581,7 +582,7 @@ export function TrendingPage({ onShowRestaurantProfile, onShowUserProfile }: Tre
             <Button variant="ghost" size="sm" className="text-white p-1 sm:p-2">
               <Television size={16} className="sm:w-5 sm:h-5" />
             </Button>
-            <Button variant="ghost" size="sm" className="text-white p-1 sm:p-2">
+            <Button variant="ghost" size="sm" className="text-white p-1 sm:p-2" onClick={onShowSearch}>
               <MagnifyingGlass size={16} className="sm:w-5 sm:h-5" />
             </Button>
           </div>
