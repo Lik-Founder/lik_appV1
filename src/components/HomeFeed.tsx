@@ -25,6 +25,7 @@ import {
   Clock,
   ArrowRight
 } from '@phosphor-icons/react';
+import likLogo from '@/assets/images/lik-logo.png';
 
 interface HomeFeedProps {
   onShowUserProfile?: (userId: string) => void;
@@ -221,8 +222,12 @@ export function HomeFeed({ onShowUserProfile, onShowRestaurantProfile, onShowLea
           </div>
 
           {/* Center - Lik Logo */}
-          <div className="font-bold text-xl text-primary nav-rum-raisin">
-            Lik
+          <div className="flex items-center justify-center">
+            <img 
+              src={likLogo} 
+              alt="Lik" 
+              className="h-8 w-auto object-contain"
+            />
           </div>
 
           {/* Right - Icons */}
