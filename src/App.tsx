@@ -11,6 +11,7 @@ import { RestaurantProfile } from '@/components/RestaurantProfile';
 import { UserProfile } from '@/components/UserProfile';
 import { LeaderboardPage } from '@/components/LeaderboardPage';
 import { LikTVPage } from '@/components/LikTVPage';
+import { LikPassportPage } from '@/components/LikPassportPage';
 import { GuidePage } from '@/components/GuidePage';
 import { FoodEventPage } from '@/components/FoodEventPage';
 import { EventsPage } from '@/components/EventsPage';
@@ -28,6 +29,7 @@ function App() {
   const [showUserProfile, setShowUserProfile] = useState<string | null>(null);
   const [showLeaderboard, setShowLeaderboard] = useState(false);
   const [showLikTV, setShowLikTV] = useState(false);
+  const [showLikPassport, setShowLikPassport] = useState(false);
   const [showGuidePage, setShowGuidePage] = useState(false);
   const [showEventsPage, setShowEventsPage] = useState(false);
   const [showEventDetails, setShowEventDetails] = useState<string | null>(null);
@@ -45,7 +47,7 @@ function App() {
       setActiveTab(newTab);
       setShowSwipeIndicator(true);
     },
-    disabled: !!showRestaurantProfile || !!showUserProfile || showLeaderboard || showLikTV || showGuidePage || showEventsPage || !!showEventDetails || showMessagesPage || !!showMessageThread || showTrendingSearch,
+    disabled: !!showRestaurantProfile || !!showUserProfile || showLeaderboard || showLikTV || showLikPassport || showGuidePage || showEventsPage || !!showEventDetails || showMessagesPage || !!showMessageThread || showTrendingSearch,
   });
 
   const renderActiveTab = () => {
@@ -165,6 +167,15 @@ function App() {
       );
     }
 
+    // Show LikPassport if requested
+    if (showLikPassport) {
+      return (
+        <LikPassportPage 
+          onBack={() => setShowLikPassport(false)}
+        />
+      );
+    }
+
     // Show LikTV if requested
     if (showLikTV) {
       return (
@@ -242,7 +253,7 @@ function App() {
           />
         );
       case 'profile':
-        return <ProfilePage onShowLeaderboard={() => setShowLeaderboard(true)} />;
+        return <ProfilePage onShowLeaderboard={() => setShowLeaderboard(true)} onShowLikPassport={() => setShowLikPassport(true)} />;
       default:
         return <HomeFeed onShowUserProfile={(userId) => setShowUserProfile(userId)} />;
     }
@@ -267,7 +278,7 @@ function App() {
       </div>
 
       {/* Swipe Indicator */}
-      {!showRestaurantProfile && !showUserProfile && !showLeaderboard && !showLikTV && !showGuidePage && !showEventsPage && !showEventDetails && !showMessagesPage && !showMessageThread && !showTrendingSearch && (
+      {!showRestaurantProfile && !showUserProfile && !showLeaderboard && !showLikTV && !showLikPassport && !showGuidePage && !showEventsPage && !showEventDetails && !showMessagesPage && !showMessageThread && !showTrendingSearch && (
         <SwipeIndicator 
           activeTab={activeTab} 
           isVisible={showSwipeIndicator}
@@ -275,7 +286,7 @@ function App() {
       )}
 
       {/* Bottom Navigation - Hide when viewing restaurant profile */}
-      {!showRestaurantProfile && !showUserProfile && !showLeaderboard && !showLikTV && !showGuidePage && !showEventsPage && !showEventDetails && !showMessagesPage && !showMessageThread && !showTrendingSearch && (
+      {!showRestaurantProfile && !showUserProfile && !showLeaderboard && !showLikTV && !showLikPassport && !showGuidePage && !showEventsPage && !showEventDetails && !showMessagesPage && !showMessageThread && !showTrendingSearch && (
         <div 
           className={cn(
             "border-t backdrop-blur-sm",

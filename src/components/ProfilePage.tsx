@@ -33,9 +33,10 @@ import { toast } from 'sonner';
 
 interface ProfilePageProps {
   onShowLeaderboard?: () => void;
+  onShowLikPassport?: () => void;
 }
 
-export function ProfilePage({ onShowLeaderboard }: ProfilePageProps = {}) {
+export function ProfilePage({ onShowLeaderboard, onShowLikPassport }: ProfilePageProps = {}) {
   const [currentUser, setCurrentUser] = useKV<User>('currentUser', getCurrentUser());
   const [posts] = useKV<PostType[]>('posts', generateMockPosts());
   const [isCreatePostOpen, setIsCreatePostOpen] = useState(false);
@@ -77,7 +78,11 @@ export function ProfilePage({ onShowLeaderboard }: ProfilePageProps = {}) {
   };
 
   const handlePassport = () => {
-    toast.info('Lik Passport coming soon!');
+    if (onShowLikPassport) {
+      onShowLikPassport();
+    } else {
+      toast.info('Lik Passport coming soon!');
+    }
   };
 
   const handleRewards = () => {
