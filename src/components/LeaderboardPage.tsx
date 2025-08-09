@@ -651,8 +651,6 @@ export function LeaderboardPage({ onBack, onShowRestaurantProfile, onShowUserPro
       }));
       
       setHasNextPage(hasMore);
-      
-      toast.success(`Loaded ${newData.length} more ${activeTab}! 🎉`);
     } catch (error) {
       toast.error('Failed to load more data. Please try again.');
     } finally {
