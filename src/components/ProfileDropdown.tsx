@@ -239,6 +239,11 @@ export const ProfileDropdown: React.FC<ProfileDropdownProps> = ({
                 <span className="text-2xl emoji-bounce" style={{ animationDelay: '0.5s' }}>🎫</span>
                 <span className="text-white text-xl font-bold">{stats.tickets}</span>
               </div>
+              {/* Lik Coins */}
+              <div className="flex items-center gap-1">
+                <span className="text-2xl emoji-bounce" style={{ animationDelay: '1s' }}>🪙</span>
+                <span className="text-white text-xl font-bold">{stats.likCoins}</span>
+              </div>
             </div>
           </div>
         </div>
