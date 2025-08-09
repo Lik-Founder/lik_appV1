@@ -7,6 +7,7 @@ import { LeaderboardSkeleton } from '@/components/ui/skeleton';
 import { cn } from '@/lib/utils';
 import { toast } from 'sonner';
 import { useInfiniteScroll } from '@/hooks/use-infinite-scroll';
+import { useFloatingAppBar } from '@/hooks/use-floating-app-bar';
 import likLogo from '@/assets/images/Lik_Logo_Heart_1.0.png';
 
 interface LeaderboardPageProps {
@@ -603,6 +604,13 @@ export function LeaderboardPage({ onBack, onShowRestaurantProfile, onShowUserPro
   const [dishFilter, setDishFilter] = useState<DishFilter>('all');
   const [showFilters, setShowFilters] = useState(false);
   
+  // Floating app bar behavior
+  const { isVisible: isAppBarVisible, containerRef } = useFloatingAppBar({
+    threshold: 50,
+    hideOnScrollDown: true,
+    showOnScrollUp: true
+  });
+  
   // Infinite scroll state
   const [allData, setAllData] = useState<Record<TabType, LeaderboardItem[]>>(() => ({
     restaurants: initialMockData.restaurants,
@@ -775,208 +783,217 @@ export function LeaderboardPage({ onBack, onShowRestaurantProfile, onShowUserPro
 
   return (
     <div className="h-full flex flex-col bg-gradient-to-br from-pink-50 via-red-50 to-orange-50">
-      {/* Header */}
-      <div className="flex items-center justify-between p-3 sm:p-4 border-b border-pink-200/50 bg-gradient-to-r from-pink-100/80 to-red-100/80 backdrop-blur-sm">
-        <Button
-          variant="ghost"
-          size="icon"
-          onClick={onBack}
-          className="shrink-0 hover:bg-pink-200/50 rounded-full w-10 h-10"
-        >
-          <ArrowLeft size={20} className="text-pink-700" />
-        </Button>
-        
-        <div className="flex items-center gap-2 flex-1 justify-center">
-          <span className="text-2xl sm:text-3xl">🏆</span>
-          <h1 className="text-lg sm:text-xl font-semibold text-center nav-rum-raisin bg-gradient-to-r from-pink-600 to-red-600 bg-clip-text text-transparent">
-            Leaderboard
-          </h1>
-          <span className="text-2xl sm:text-3xl">👑</span>
+      {/* Floating Header */}
+      <div className={cn(
+        "fixed top-0 left-0 right-0 z-50 floating-app-bar",
+        isAppBarVisible ? "visible" : "hidden"
+      )}>
+        <div className="flex items-center justify-between p-3 sm:p-4 border-b border-pink-200/50 bg-gradient-to-r from-pink-100/95 to-red-100/95 backdrop-blur-md floating-app-bar-backdrop">
+          <Button
+            variant="ghost"
+            size="icon"
+            onClick={onBack}
+            className="shrink-0 hover:bg-pink-200/50 rounded-full w-10 h-10"
+          >
+            <ArrowLeft size={20} className="text-pink-700" />
+          </Button>
+          
+          <div className="flex items-center gap-2 flex-1 justify-center">
+            <span className="text-2xl sm:text-3xl">🏆</span>
+            <h1 className="text-lg sm:text-xl font-semibold text-center nav-rum-raisin bg-gradient-to-r from-pink-600 to-red-600 bg-clip-text text-transparent">
+              Leaderboard
+            </h1>
+            <span className="text-2xl sm:text-3xl">👑</span>
+          </div>
         </div>
-      </div>
 
-      {/* Sticky Filters */}
-      <div className="sticky top-0 z-10 bg-gradient-to-r from-pink-100/90 to-red-100/90 backdrop-blur-md border-b border-pink-200/50">
-        {/* Tabs */}
-        <div className="flex p-3 sm:p-4 gap-2 sm:gap-3">
-          {([
-            { key: 'foods', label: 'Dishes', emoji: '🍽️' },
-            { key: 'restaurants', label: 'Restaurants', emoji: '🏪' },
-            { key: 'likers', label: 'Foodies', emoji: '👨‍🍳' }
-          ] as { key: TabType; label: string; emoji: string }[]).map((tab) => (
-            <Button
-              key={tab.key}
-              variant={activeTab === tab.key ? 'default' : 'secondary'}
-              onClick={() => handleTabChange(tab.key)}
-              className={cn(
-                "flex-1 rounded-full font-medium transition-all duration-300 nav-rum-raisin gap-1 sm:gap-2 h-10 sm:h-12 text-sm sm:text-base shadow-lg border-2",
-                activeTab === tab.key 
-                  ? "bg-gradient-to-r from-pink-500 to-red-500 text-white shadow-pink-300/50 border-pink-300 font-bold scale-105 transform" 
-                  : "bg-white/80 hover:bg-white text-pink-700 border-pink-200 hover:border-pink-300 hover:scale-102 shadow-pink-200/30"
+        {/* Sticky Filters */}
+        <div className="bg-gradient-to-r from-pink-100/95 to-red-100/95 backdrop-blur-md border-b border-pink-200/50 floating-app-bar-backdrop">
+          {/* Tabs */}
+          <div className="flex p-3 sm:p-4 gap-2 sm:gap-3">
+            {([
+              { key: 'foods', label: 'Dishes', emoji: '🍽️' },
+              { key: 'restaurants', label: 'Restaurants', emoji: '🏪' },
+              { key: 'likers', label: 'Foodies', emoji: '👨‍🍳' }
+            ] as { key: TabType; label: string; emoji: string }[]).map((tab) => (
+              <Button
+                key={tab.key}
+                variant={activeTab === tab.key ? 'default' : 'secondary'}
+                onClick={() => handleTabChange(tab.key)}
+                className={cn(
+                  "flex-1 rounded-full font-medium transition-all duration-300 nav-rum-raisin gap-1 sm:gap-2 h-10 sm:h-12 text-sm sm:text-base shadow-lg border-2",
+                  activeTab === tab.key 
+                    ? "bg-gradient-to-r from-pink-500 to-red-500 text-white shadow-pink-300/50 border-pink-300 font-bold scale-105 transform" 
+                    : "bg-white/80 hover:bg-white text-pink-700 border-pink-200 hover:border-pink-300 hover:scale-102 shadow-pink-200/30"
+                )}
+              >
+                <span className="text-base sm:text-lg">{tab.emoji}</span>
+                <span className="hidden sm:inline">{tab.label}</span>
+                <span className="sm:hidden text-xs">{tab.label.slice(0,6)}</span>
+              </Button>
+            ))}
+          </div>
+
+          {/* Search and Filters */}
+          <div className="px-3 sm:px-4 pb-3 sm:pb-4">
+            <div className="flex items-center gap-2 sm:gap-3">
+              {/* Search */}
+              <div className="relative flex-1">
+                <MagnifyingGlass 
+                  size={18} 
+                  className="absolute left-3 top-1/2 transform -translate-y-1/2 text-pink-500" 
+                />
+                <Input
+                  placeholder={`Search ${activeTab === 'restaurants' ? 'restaurants' : activeTab === 'foods' ? 'dishes' : 'foodies'}... 🔍`}
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  className="pl-10 sm:pl-12 rounded-full border-2 border-pink-200 bg-white/90 shadow-lg focus:border-pink-400 h-10 sm:h-12 text-sm sm:text-base placeholder:text-pink-400"
+                />
+              </div>
+
+              {/* Category Filter Button (only for restaurants and foods) */}
+              {(activeTab === 'restaurants' || activeTab === 'foods') && (
+                <Button
+                  variant="outline"
+                  className="shrink-0 rounded-full px-3 sm:px-6 h-10 sm:h-12 gap-1 sm:gap-2 nav-rum-raisin font-medium bg-white/80 border-2 border-pink-200 text-pink-700 hover:bg-pink-50 hover:border-pink-300 shadow-lg"
+                  onClick={() => setShowFilters(!showFilters)}
+                >
+                  <Funnel size={16} />
+                  <span className="hidden sm:inline">Filter</span>
+                  <CaretDown 
+                    size={14} 
+                    className={cn(
+                      "transition-transform duration-300",
+                      showFilters && "rotate-180"
+                    )}
+                  />
+                </Button>
               )}
-            >
-              <span className="text-base sm:text-lg">{tab.emoji}</span>
-              <span className="hidden sm:inline">{tab.label}</span>
-              <span className="sm:hidden text-xs">{tab.label.slice(0,6)}</span>
-            </Button>
-          ))}
-        </div>
 
-        {/* Search and Filters */}
-        <div className="px-3 sm:px-4 pb-3 sm:pb-4">
-          <div className="flex items-center gap-2 sm:gap-3">
-            {/* Search */}
-            <div className="relative flex-1">
-              <MagnifyingGlass 
-                size={18} 
-                className="absolute left-3 top-1/2 transform -translate-y-1/2 text-pink-500" 
-              />
-              <Input
-                placeholder={`Search ${activeTab === 'restaurants' ? 'restaurants' : activeTab === 'foods' ? 'dishes' : 'foodies'}... 🔍`}
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                className="pl-10 sm:pl-12 rounded-full border-2 border-pink-200 bg-white/90 shadow-lg focus:border-pink-400 h-10 sm:h-12 text-sm sm:text-base placeholder:text-pink-400"
-              />
-            </div>
-
-            {/* Category Filter Button (only for restaurants and foods) */}
-            {(activeTab === 'restaurants' || activeTab === 'foods') && (
+              {/* Scope Selector */}
               <Button
                 variant="outline"
                 className="shrink-0 rounded-full px-3 sm:px-6 h-10 sm:h-12 gap-1 sm:gap-2 nav-rum-raisin font-medium bg-white/80 border-2 border-pink-200 text-pink-700 hover:bg-pink-50 hover:border-pink-300 shadow-lg"
-                onClick={() => setShowFilters(!showFilters)}
+                onClick={() => {
+                  const scopes: ScopeType[] = ['global', 'national', 'city'];
+                  const currentIndex = scopes.indexOf(scope);
+                  const nextScope = scopes[(currentIndex + 1) % scopes.length];
+                  setScope(nextScope);
+                }}
               >
-                <Funnel size={16} />
-                <span className="hidden sm:inline">Filter</span>
-                <CaretDown 
-                  size={14} 
-                  className={cn(
-                    "transition-transform duration-300",
-                    showFilters && "rotate-180"
-                  )}
-                />
+                <Globe size={16} />
+                <span className="hidden sm:inline">{getScopeText()}</span>
+                <span className="sm:hidden text-xs">
+                  {scope === 'global' ? '🌍' : scope === 'national' ? '🇺🇸' : '🏙️'}
+                </span>
               </Button>
-            )}
+            </div>
 
-            {/* Scope Selector */}
-            <Button
-              variant="outline"
-              className="shrink-0 rounded-full px-3 sm:px-6 h-10 sm:h-12 gap-1 sm:gap-2 nav-rum-raisin font-medium bg-white/80 border-2 border-pink-200 text-pink-700 hover:bg-pink-50 hover:border-pink-300 shadow-lg"
-              onClick={() => {
-                const scopes: ScopeType[] = ['global', 'national', 'city'];
-                const currentIndex = scopes.indexOf(scope);
-                const nextScope = scopes[(currentIndex + 1) % scopes.length];
-                setScope(nextScope);
-              }}
-            >
-              <Globe size={16} />
-              <span className="hidden sm:inline">{getScopeText()}</span>
-              <span className="sm:hidden text-xs">
-                {scope === 'global' ? '🌍' : scope === 'national' ? '🇺🇸' : '🏙️'}
-              </span>
-            </Button>
-          </div>
-
-          {/* Category Filters (expandable) */}
-          {showFilters && (activeTab === 'restaurants' || activeTab === 'foods') && (
-            <div className="mt-3 sm:mt-4 animate-in slide-in-from-top-2 duration-300">
-              <div className="bg-gradient-to-br from-white/90 to-pink-50/90 rounded-2xl sm:rounded-3xl p-4 sm:p-6 shadow-xl border-2 border-pink-200/50 backdrop-blur-sm">
-                <h3 className="text-base sm:text-lg font-bold text-pink-700 mb-3 sm:mb-4 nav-rum-raisin flex items-center gap-2">
-                  <span className="text-xl sm:text-2xl">
-                    {activeTab === 'restaurants' ? '🍽️' : '🥘'}
-                  </span>
-                  <span className="text-sm sm:text-base">
-                    {activeTab === 'restaurants' ? 'Filter by Cuisine' : 'Filter by Category'}
-                  </span>
-                </h3>
-                <div className="flex flex-wrap gap-2 sm:gap-3">
-                  {(activeTab === 'restaurants' ? cuisineFilters : dishFilters).map((filter) => (
-                    <Button
-                      key={filter.key}
-                      variant={(activeTab === 'restaurants' ? cuisineFilter : dishFilter) === filter.key ? 'default' : 'secondary'}
-                      size="sm"
-                      onClick={() => {
-                        if (activeTab === 'restaurants') {
-                          setCuisineFilter(filter.key as CuisineFilter);
-                        } else {
-                          setDishFilter(filter.key as DishFilter);
-                        }
-                        toast.success(`Filtering by ${filter.label} ${filter.emoji}`);
-                      }}
-                      className={cn(
-                        "rounded-full gap-1 sm:gap-2 text-xs sm:text-sm font-medium transition-all nav-rum-raisin h-8 sm:h-10 px-3 sm:px-4 shadow-md border-2",
-                        (activeTab === 'restaurants' ? cuisineFilter : dishFilter) === filter.key 
-                          ? "bg-gradient-to-r from-pink-500 to-red-500 text-white border-pink-300 shadow-pink-300/50 font-bold scale-105 transform" 
-                          : "bg-white/90 hover:bg-pink-50 text-pink-700 border-pink-200 hover:border-pink-300 hover:scale-102"
-                      )}
-                    >
-                      <span className="text-sm sm:text-base">{filter.emoji}</span>
-                      <span className="hidden sm:inline">{filter.label}</span>
-                      <span className="sm:hidden text-xs">{filter.label.slice(0,8)}</span>
-                    </Button>
-                  ))}
-                </div>
-                
-                {/* Filter Stats */}
-                <div className="flex items-center justify-between mt-4 sm:mt-6 pt-3 sm:pt-4 border-t border-pink-200/50">
-                  <div className="flex items-center gap-2">
-                    <span className="text-lg sm:text-2xl">📊</span>
-                    <span className="text-xs sm:text-sm font-medium text-pink-700 nav-rum-raisin">
-                      {filteredData.length} {activeTab === 'restaurants' ? 'restaurants' : activeTab === 'foods' ? 'dishes' : 'results'} found
+            {/* Category Filters (expandable) */}
+            {showFilters && (activeTab === 'restaurants' || activeTab === 'foods') && (
+              <div className="mt-3 sm:mt-4 animate-in slide-in-from-top-2 duration-300">
+                <div className="bg-gradient-to-br from-white/90 to-pink-50/90 rounded-2xl sm:rounded-3xl p-4 sm:p-6 shadow-xl border-2 border-pink-200/50 backdrop-blur-sm">
+                  <h3 className="text-base sm:text-lg font-bold text-pink-700 mb-3 sm:mb-4 nav-rum-raisin flex items-center gap-2">
+                    <span className="text-xl sm:text-2xl">
+                      {activeTab === 'restaurants' ? '🍽️' : '🥘'}
                     </span>
+                    <span className="text-sm sm:text-base">
+                      {activeTab === 'restaurants' ? 'Filter by Cuisine' : 'Filter by Category'}
+                    </span>
+                  </h3>
+                  <div className="flex flex-wrap gap-2 sm:gap-3">
+                    {(activeTab === 'restaurants' ? cuisineFilters : dishFilters).map((filter) => (
+                      <Button
+                        key={filter.key}
+                        variant={(activeTab === 'restaurants' ? cuisineFilter : dishFilter) === filter.key ? 'default' : 'secondary'}
+                        size="sm"
+                        onClick={() => {
+                          if (activeTab === 'restaurants') {
+                            setCuisineFilter(filter.key as CuisineFilter);
+                          } else {
+                            setDishFilter(filter.key as DishFilter);
+                          }
+                          toast.success(`Filtering by ${filter.label} ${filter.emoji}`);
+                        }}
+                        className={cn(
+                          "rounded-full gap-1 sm:gap-2 text-xs sm:text-sm font-medium transition-all nav-rum-raisin h-8 sm:h-10 px-3 sm:px-4 shadow-md border-2",
+                          (activeTab === 'restaurants' ? cuisineFilter : dishFilter) === filter.key 
+                            ? "bg-gradient-to-r from-pink-500 to-red-500 text-white border-pink-300 shadow-pink-300/50 font-bold scale-105 transform" 
+                            : "bg-white/90 hover:bg-pink-50 text-pink-700 border-pink-200 hover:border-pink-300 hover:scale-102"
+                        )}
+                      >
+                        <span className="text-sm sm:text-base">{filter.emoji}</span>
+                        <span className="hidden sm:inline">{filter.label}</span>
+                        <span className="sm:hidden text-xs">{filter.label.slice(0,8)}</span>
+                      </Button>
+                    ))}
                   </div>
-                  {((activeTab === 'restaurants' && cuisineFilter !== 'all') || 
-                    (activeTab === 'foods' && dishFilter !== 'all')) && (
-                    <Button
-                      variant="ghost"
-                      size="sm"
-                      onClick={() => {
-                        if (activeTab === 'restaurants') {
-                          setCuisineFilter('all');
-                        } else {
-                          setDishFilter('all');
-                        }
-                        toast.success('Filters cleared! ✨');
-                      }}
-                      className="text-xs sm:text-sm h-6 sm:h-8 px-2 sm:px-4 rounded-full nav-rum-raisin text-pink-600 hover:bg-pink-100 border border-pink-200 hover:border-pink-300"
-                    >
-                      🧹 Clear
-                    </Button>
-                  )}
+                  
+                  {/* Filter Stats */}
+                  <div className="flex items-center justify-between mt-4 sm:mt-6 pt-3 sm:pt-4 border-t border-pink-200/50">
+                    <div className="flex items-center gap-2">
+                      <span className="text-lg sm:text-2xl">📊</span>
+                      <span className="text-xs sm:text-sm font-medium text-pink-700 nav-rum-raisin">
+                        {filteredData.length} {activeTab === 'restaurants' ? 'restaurants' : activeTab === 'foods' ? 'dishes' : 'results'} found
+                      </span>
+                    </div>
+                    {((activeTab === 'restaurants' && cuisineFilter !== 'all') || 
+                      (activeTab === 'foods' && dishFilter !== 'all')) && (
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        onClick={() => {
+                          if (activeTab === 'restaurants') {
+                            setCuisineFilter('all');
+                          } else {
+                            setDishFilter('all');
+                          }
+                          toast.success('Filters cleared! ✨');
+                        }}
+                        className="text-xs sm:text-sm h-6 sm:h-8 px-2 sm:px-4 rounded-full nav-rum-raisin text-pink-600 hover:bg-pink-100 border border-pink-200 hover:border-pink-300"
+                      >
+                        🧹 Clear
+                      </Button>
+                    )}
+                  </div>
                 </div>
               </div>
-            </div>
-          )}
+            )}
 
-          {/* Period Selector */}
-          <div className="flex justify-center mt-3 sm:mt-4">
-            <div className="flex bg-white/80 rounded-full p-1 sm:p-2 shadow-lg border-2 border-pink-200">
-              {(['week', 'month', 'year'] as SortPeriod[]).map((period) => (
-                <Button
-                  key={period}
-                  variant={sortPeriod === period ? 'default' : 'ghost'}
-                  size="sm"
-                  onClick={() => setSortPeriod(period)}
-                  className={cn(
-                    "capitalize rounded-full px-3 sm:px-6 h-8 sm:h-10 font-medium transition-all nav-rum-raisin text-xs sm:text-sm",
-                    sortPeriod === period 
-                      ? "bg-gradient-to-r from-pink-500 to-red-500 text-white shadow-md font-bold" 
-                      : "hover:bg-pink-50 text-pink-700 font-medium"
-                  )}
-                >
-                  {period === 'week' && '📅 '}
-                  {period === 'month' && '🗓️ '}
-                  {period === 'year' && '📆 '}
-                  {period}
-                </Button>
-              ))}
+            {/* Period Selector */}
+            <div className="flex justify-center mt-3 sm:mt-4">
+              <div className="flex bg-white/80 rounded-full p-1 sm:p-2 shadow-lg border-2 border-pink-200">
+                {(['week', 'month', 'year'] as SortPeriod[]).map((period) => (
+                  <Button
+                    key={period}
+                    variant={sortPeriod === period ? 'default' : 'ghost'}
+                    size="sm"
+                    onClick={() => setSortPeriod(period)}
+                    className={cn(
+                      "capitalize rounded-full px-3 sm:px-6 h-8 sm:h-10 font-medium transition-all nav-rum-raisin text-xs sm:text-sm",
+                      sortPeriod === period 
+                        ? "bg-gradient-to-r from-pink-500 to-red-500 text-white shadow-md font-bold" 
+                        : "hover:bg-pink-50 text-pink-700 font-medium"
+                    )}
+                  >
+                    {period === 'week' && '📅 '}
+                    {period === 'month' && '🗓️ '}
+                    {period === 'year' && '📆 '}
+                    {period}
+                  </Button>
+                ))}
+              </div>
             </div>
           </div>
         </div>
       </div>
 
-      {/* Content */}
-      <div className="flex-1 overflow-auto leaderboard-scroll-container">
+      {/* Content with top padding to account for floating header */}
+      <div 
+        ref={containerRef}
+        className="flex-1 overflow-auto smooth-scroll-container" 
+        style={{ paddingTop: '200px' }}
+      >
         {/* Title */}
         <div className="px-3 sm:px-4 py-4 sm:py-8 text-center bg-gradient-to-br from-pink-50 to-red-50">
           <div className="flex items-center justify-center gap-2 sm:gap-3 mb-3 sm:mb-4">
