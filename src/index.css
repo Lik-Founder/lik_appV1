@@ -1587,12 +1587,164 @@ input, textarea, select {
   }
 }
 
-/* High performance GPU acceleration for carousels */
-.carousel-gpu-accelerated {
-  transform: translateZ(0);
-  will-change: transform;
-  backface-visibility: hidden;
-  perspective: 1000px;
+/* Infinite scroll loading animations */
+.loading-shimmer {
+  background: linear-gradient(90deg, 
+    rgba(255, 182, 193, 0.1) 0%, 
+    rgba(255, 182, 193, 0.3) 50%, 
+    rgba(255, 182, 193, 0.1) 100%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+/* Loading spinner improvements */
+.leaderboard-loading-spinner {
+  animation: spin 1s linear infinite;
+}
+
+/* Smooth scroll container for leaderboard */
+.leaderboard-scroll-container {
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
+}
+
+/* Enhanced fade-in animation for new items */
+@keyframes leaderboardItemFadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(20px) scale(0.95);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.leaderboard-item-enter {
+  animation: leaderboardItemFadeIn 0.4s ease-out;
+}
+
+/* Infinite scroll indicator animations */
+.infinite-scroll-indicator {
+  transition: all 0.3s ease;
+  will-change: transform, opacity;
+}
+
+.infinite-scroll-indicator.loading {
+  transform: translateY(-5px);
+}
+
+/* End of results celebration animation */
+@keyframes celebrationBounce {
+  0%, 20%, 50%, 80%, 100% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-10px);
+  }
+  60% {
+    transform: translateY(-5px);
+  }
+}
+
+.celebration-bounce {
+  animation: celebrationBounce 1s ease-in-out;
+}
+
+/* Smooth state transitions for filters */
+.filter-transition {
+  transition: all 0.2s ease;
+}
+
+/* Performance optimizations for large lists */
+.leaderboard-virtualized {
+  contain: layout style paint;
+  will-change: scroll-position;
+}
+
+/* Loading state overlay */
+.loading-overlay {
+  background: linear-gradient(135deg, 
+    rgba(252, 231, 243, 0.9) 0%, 
+    rgba(254, 242, 242, 0.9) 100%);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
+
+/* Skeleton loading placeholders */
+.skeleton-item {
+  background: linear-gradient(90deg, 
+    rgba(255, 182, 193, 0.1) 0%, 
+    rgba(255, 182, 193, 0.2) 50%, 
+    rgba(255, 182, 193, 0.1) 100%);
+  background-size: 200% 100%;
+  animation: skeletonPulse 1.5s ease-in-out infinite;
+}
+
+@keyframes skeletonPulse {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+/* Improved mobile touch feedback for leaderboard */
+@media (max-width: 480px) {
+  .leaderboard-card-mobile {
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+  }
+  
+  .leaderboard-card-mobile:active {
+    transform: scale(0.98);
+    transition: transform 0.1s ease;
+  }
+}
+
+/* High contrast support for loading states */
+@media (prefers-contrast: high) {
+  .loading-shimmer {
+    background: linear-gradient(90deg, 
+      rgba(0, 0, 0, 0.1) 0%, 
+      rgba(0, 0, 0, 0.3) 50%, 
+      rgba(0, 0, 0, 0.1) 100%);
+  }
+  
+  .skeleton-item {
+    background: linear-gradient(90deg, 
+      rgba(0, 0, 0, 0.1) 0%, 
+      rgba(0, 0, 0, 0.2) 50%, 
+      rgba(0, 0, 0, 0.1) 100%);
+  }
+}
+
+/* Reduced motion support for infinite scroll */
+@media (prefers-reduced-motion: reduce) {
+  .loading-shimmer,
+  .skeleton-item {
+    animation: none;
+    background: rgba(255, 182, 193, 0.2);
+  }
+  
+  .leaderboard-item-enter {
+    animation: none;
+  }
+  
+  .celebration-bounce {
+    animation: none;
+  }
 }
 
 /* Emoji picker animations */

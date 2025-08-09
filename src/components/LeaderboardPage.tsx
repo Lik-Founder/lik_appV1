@@ -1,10 +1,12 @@
-import { useState } from 'react';
-import { ArrowLeft, MagnifyingGlass, Globe, CaretDown, Star, Heart, TrendUp, CaretRight, Funnel } from '@phosphor-icons/react';
+import { useState, useEffect, useMemo } from 'react';
+import { ArrowLeft, MagnifyingGlass, Globe, CaretDown, Star, Heart, TrendUp, CaretRight, Funnel, CircleNotch } from '@phosphor-icons/react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { ConsistentAvatar } from '@/components/ui/consistent-avatar';
+import { LeaderboardSkeleton } from '@/components/ui/skeleton';
 import { cn } from '@/lib/utils';
 import { toast } from 'sonner';
+import { useInfiniteScroll } from '@/hooks/use-infinite-scroll';
 import likLogo from '@/assets/images/Lik_Logo_Heart_1.0.png';
 
 interface LeaderboardPageProps {
@@ -34,8 +36,57 @@ interface LeaderboardItem {
   category?: string;
 }
 
-// Mock data for demonstration
-const mockData = {
+// Mock data generator for infinite scroll simulation
+const generateMockData = (tab: TabType, page: number, itemsPerPage: number = 10): LeaderboardItem[] => {
+  const startRank = (page - 1) * itemsPerPage + 1;
+  const data: LeaderboardItem[] = [];
+
+  for (let i = 0; i < itemsPerPage; i++) {
+    const rank = startRank + i;
+    
+    if (tab === 'restaurants') {
+      data.push({
+        id: `restaurant-${rank}`,
+        rank,
+        name: `Restaurant ${rank}`,
+        subtitle: `Cuisine • Location ${rank}`,
+        imageUrl: `https://images.unsplash.com/photo-${1400000000000 + rank}?w=120&h=120&fit=crop&crop=center`,
+        rating: Math.round((4.0 + Math.random() * 1) * 10) / 10,
+        likes: Math.floor(Math.random() * 50000) + 10000,
+        reviews: Math.floor(Math.random() * 500) + 100,
+        cuisine: ['italian', 'american', 'japanese', 'mexican', 'french'][Math.floor(Math.random() * 5)] as any
+      });
+    } else if (tab === 'foods') {
+      data.push({
+        id: `food-${rank}`,
+        rank,
+        name: `Dish ${rank}`,
+        subtitle: `Cuisine • Category`,
+        imageUrl: `https://images.unsplash.com/photo-${1500000000000 + rank}?w=120&h=120&fit=crop&crop=center`,
+        rating: Math.round((4.0 + Math.random() * 1) * 10) / 10,
+        likes: Math.floor(Math.random() * 30000) + 5000,
+        reviews: Math.floor(Math.random() * 300) + 50,
+        category: ['mains', 'appetizers', 'desserts', 'drinks'][Math.floor(Math.random() * 4)] as any
+      });
+    } else {
+      data.push({
+        id: `user-${rank}`,
+        rank,
+        name: `Foodie${rank}`,
+        subtitle: `@foodie${rank} • Level ${Math.floor(Math.random() * 50) + 10}`,
+        imageUrl: `https://images.unsplash.com/photo-${1600000000000 + rank}?w=120&h=120&fit=crop&crop=face`,
+        rating: Math.round((4.0 + Math.random() * 1) * 10) / 10,
+        likes: Math.floor(Math.random() * 20000) + 2000,
+        reviews: Math.floor(Math.random() * 800) + 100
+      });
+    }
+  }
+
+  return data;
+};
+
+// Initial mock data (first page)
+const initialMockData = {
   restaurants: [
     {
       id: 'bella-italia', // Use the same ID as the restaurant profile
@@ -551,23 +602,124 @@ export function LeaderboardPage({ onBack, onShowRestaurantProfile, onShowUserPro
   const [cuisineFilter, setCuisineFilter] = useState<CuisineFilter>('all');
   const [dishFilter, setDishFilter] = useState<DishFilter>('all');
   const [showFilters, setShowFilters] = useState(false);
-
-  const currentData = mockData[activeTab] || [];
-  const filteredData = currentData.filter(item => {
-    // Text search filter
-    const matchesSearch = item.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      item.subtitle.toLowerCase().includes(searchQuery.toLowerCase());
-    
-    // Category/cuisine filter
-    let matchesCategory = true;
-    if (activeTab === 'restaurants' && cuisineFilter !== 'all') {
-      matchesCategory = item.cuisine === cuisineFilter;
-    } else if (activeTab === 'foods' && dishFilter !== 'all') {
-      matchesCategory = item.category === dishFilter;
-    }
-    
-    return matchesSearch && matchesCategory;
+  
+  // Infinite scroll state
+  const [allData, setAllData] = useState<Record<TabType, LeaderboardItem[]>>(() => ({
+    restaurants: initialMockData.restaurants,
+    foods: initialMockData.foods,
+    likers: initialMockData.likers
+  }));
+  const [currentPage, setCurrentPage] = useState<Record<TabType, number>>({
+    restaurants: 1,
+    foods: 1,
+    likers: 1
   });
+  const [isLoading, setIsLoading] = useState(false);
+  const [hasNextPage, setHasNextPage] = useState(true);
+  const [isInitialLoading, setIsInitialLoading] = useState(false);
+
+  // Simulate API call for loading more data
+  const loadMoreData = async (tab: TabType, page: number) => {
+    // Simulate network delay
+    await new Promise(resolve => setTimeout(resolve, 800));
+    
+    // Generate new data
+    const newData = generateMockData(tab, page, 10);
+    
+    // Simulate reaching end of data after 20 pages (200 items)
+    const hasMore = page < 20;
+    
+    return { data: newData, hasMore };
+  };
+
+  const fetchNextPage = async () => {
+    if (isLoading || !hasNextPage) return;
+
+    setIsLoading(true);
+    try {
+      const nextPage = currentPage[activeTab] + 1;
+      const { data: newData, hasMore } = await loadMoreData(activeTab, nextPage);
+
+      setAllData(prev => ({
+        ...prev,
+        [activeTab]: [...prev[activeTab], ...newData]
+      }));
+      
+      setCurrentPage(prev => ({
+        ...prev,
+        [activeTab]: nextPage
+      }));
+      
+      setHasNextPage(hasMore);
+      
+      toast.success(`Loaded ${newData.length} more ${activeTab}! 🎉`);
+    } catch (error) {
+      toast.error('Failed to load more data. Please try again.');
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  // Reset infinite scroll state when tab changes
+  useEffect(() => {
+    setHasNextPage(currentPage[activeTab] < 20); // Reset hasNextPage based on current tab
+  }, [activeTab, currentPage]);
+
+  // Reset data and pagination when filters change significantly
+  useEffect(() => {
+    // In a real app, you would refetch data with new filters
+    // For now, we'll just reset to simulate filtered results
+    if (searchQuery || cuisineFilter !== 'all' || dishFilter !== 'all') {
+      setHasNextPage(false); // Disable infinite scroll when filtering
+    } else {
+      setHasNextPage(currentPage[activeTab] < 20);
+    }
+  }, [searchQuery, cuisineFilter, dishFilter, activeTab, currentPage]);
+
+  // Set up infinite scroll observer
+  const observerRef = useInfiniteScroll({
+    hasNextPage: hasNextPage && !searchQuery && cuisineFilter === 'all' && dishFilter === 'all',
+    isLoading,
+    fetchNextPage
+  });
+
+  // Get current data with filters applied
+  const currentData = allData[activeTab] || [];
+  const filteredData = useMemo(() => {
+    return currentData.filter(item => {
+      // Text search filter
+      const matchesSearch = item.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        item.subtitle.toLowerCase().includes(searchQuery.toLowerCase());
+      
+      // Category/cuisine filter
+      let matchesCategory = true;
+      if (activeTab === 'restaurants' && cuisineFilter !== 'all') {
+        matchesCategory = item.cuisine === cuisineFilter;
+      } else if (activeTab === 'foods' && dishFilter !== 'all') {
+        matchesCategory = item.category === dishFilter;
+      }
+      
+      return matchesSearch && matchesCategory;
+    });
+  }, [currentData, searchQuery, activeTab, cuisineFilter, dishFilter]);
+
+  // Handle tab change
+  const handleTabChange = (tab: TabType) => {
+    if (tab === activeTab) return;
+    
+    setIsInitialLoading(true);
+    setActiveTab(tab);
+    // Reset filters when switching tabs
+    setCuisineFilter('all');
+    setDishFilter('all');
+    setShowFilters(false);
+    setSearchQuery('');
+    
+    // Simulate loading delay for tab switch
+    setTimeout(() => {
+      setIsInitialLoading(false);
+    }, 300);
+  };
 
   const getTabTitle = () => {
     const periodText = sortPeriod === 'week' ? 'This Week' : 
@@ -657,14 +809,7 @@ export function LeaderboardPage({ onBack, onShowRestaurantProfile, onShowUserPro
             <Button
               key={tab.key}
               variant={activeTab === tab.key ? 'default' : 'secondary'}
-              onClick={() => {
-                setActiveTab(tab.key);
-                // Reset filters when switching tabs
-                setCuisineFilter('all');
-                setDishFilter('all');
-                setShowFilters(false);
-                setSearchQuery('');
-              }}
+              onClick={() => handleTabChange(tab.key)}
               className={cn(
                 "flex-1 rounded-full font-medium transition-all duration-300 nav-rum-raisin gap-1 sm:gap-2 h-10 sm:h-12 text-sm sm:text-base shadow-lg border-2",
                 activeTab === tab.key 
@@ -833,7 +978,7 @@ export function LeaderboardPage({ onBack, onShowRestaurantProfile, onShowUserPro
       </div>
 
       {/* Content */}
-      <div className="flex-1 overflow-auto">
+      <div className="flex-1 overflow-auto leaderboard-scroll-container">
         {/* Title */}
         <div className="px-3 sm:px-4 py-4 sm:py-8 text-center bg-gradient-to-br from-pink-50 to-red-50">
           <div className="flex items-center justify-center gap-2 sm:gap-3 mb-3 sm:mb-4">
@@ -850,38 +995,128 @@ export function LeaderboardPage({ onBack, onShowRestaurantProfile, onShowUserPro
           </div>
         </div>
 
-        {/* Leaderboard List */}
-        <div className="px-2 sm:px-4 pb-6 sm:pb-8 space-y-3 sm:space-y-4">
-          {filteredData.length > 0 ? (
-            filteredData.map((item, index) => (
-              <div
-                key={item.id}
-                className="animate-in slide-in-from-bottom-4 duration-300"
-                style={{
-                  animationDelay: `${index * 50}ms`
-                }}
-              >
-                <LeaderboardCard 
-                  item={item} 
-                  isFirst={index === 0}
-                  activeTab={activeTab}
-                  onShowRestaurantProfile={onShowRestaurantProfile}
-                  onShowUserProfile={onShowUserProfile}
-                />
+        {/* Loading state for tab switch */}
+        {isInitialLoading ? (
+          <div className="animate-in fade-in-50 duration-300">
+            <LeaderboardSkeleton />
+          </div>
+        ) : (
+          /* Leaderboard List */
+          <div className="px-2 sm:px-4 pb-6 sm:pb-8 space-y-3 sm:space-y-4">
+            {filteredData.length > 0 ? (
+              <>
+                {filteredData.map((item, index) => (
+                  <div
+                    key={item.id}
+                    className="leaderboard-item-enter"
+                    style={{
+                      animationDelay: `${index * 50}ms`
+                    }}
+                  >
+                    <LeaderboardCard 
+                      item={item} 
+                      isFirst={index === 0}
+                      activeTab={activeTab}
+                      onShowRestaurantProfile={onShowRestaurantProfile}
+                      onShowUserProfile={onShowUserProfile}
+                    />
+                  </div>
+                ))}
+
+                {/* Infinite Scroll Trigger */}
+                {hasNextPage && !searchQuery && cuisineFilter === 'all' && dishFilter === 'all' && (
+                  <div ref={observerRef} className="flex justify-center py-6">
+                    {isLoading ? (
+                      <div className="infinite-scroll-indicator loading flex items-center gap-3 bg-gradient-to-r from-pink-50 to-red-50 rounded-2xl px-6 py-4 shadow-lg border-2 border-pink-200 backdrop-blur-sm">
+                        <CircleNotch size={20} className="leaderboard-loading-spinner text-pink-500" />
+                        <span className="text-pink-700 font-medium nav-rum-raisin">
+                          Loading more amazing {activeTab}...
+                        </span>
+                        <span className="text-lg">✨</span>
+                      </div>
+                    ) : (
+                      <div className="infinite-scroll-indicator text-center bg-gradient-to-r from-white/80 to-pink-50/80 rounded-2xl px-6 py-4 shadow-lg border-2 border-pink-200 backdrop-blur-sm">
+                        <div className="flex items-center gap-2 justify-center">
+                          <span className="text-pink-600 text-sm font-medium nav-rum-raisin">
+                            Scroll for more
+                          </span>
+                          <span className="text-lg">🏆</span>
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                )}
+
+                {/* Loading More Items Skeleton */}
+                {isLoading && (
+                  <div className="animate-in fade-in-50 duration-300">
+                    <div className="space-y-3 sm:space-y-4">
+                      {Array.from({ length: 3 }).map((_, i) => (
+                        <div
+                          key={`loading-${i}`}
+                          className="p-3 sm:p-4 rounded-2xl border-2 border-pink-200/30 bg-white/40 backdrop-blur-sm loading-shimmer"
+                        >
+                          <div className="flex items-center gap-3 sm:gap-4">
+                            <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-full skeleton-item shrink-0" />
+                            <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-xl skeleton-item shrink-0" />
+                            <div className="flex-1 space-y-2">
+                              <div className="h-5 skeleton-item rounded-lg w-3/4" />
+                              <div className="h-4 skeleton-item rounded-lg w-1/2" />
+                              <div className="flex gap-2 mt-2">
+                                <div className="h-6 w-16 skeleton-item rounded-full" />
+                                <div className="h-6 w-16 skeleton-item rounded-full" />
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {/* End of Results Indicator */}
+                {!hasNextPage && !searchQuery && cuisineFilter === 'all' && dishFilter === 'all' && filteredData.length > 8 && (
+                  <div className="text-center py-6">
+                    <div className="celebration-bounce bg-gradient-to-r from-pink-100 to-red-100 rounded-2xl p-6 shadow-lg border-2 border-pink-200 max-w-sm mx-auto">
+                      <span className="text-3xl mb-3 block">🏁</span>
+                      <p className="text-pink-700 text-lg font-semibold nav-rum-raisin mb-2">
+                        You've reached the end!
+                      </p>
+                      <p className="text-pink-600 text-sm">
+                        You've seen all the top {activeTab} in our leaderboard! 🎉
+                      </p>
+                      <div className="mt-3 text-xs text-pink-500 font-medium">
+                        {filteredData.length} items loaded
+                      </div>
+                    </div>
+                  </div>
+                )}
+
+                {/* Filtered Results Info */}
+                {(searchQuery || cuisineFilter !== 'all' || dishFilter !== 'all') && (
+                  <div className="text-center py-4">
+                    <div className="bg-blue-50 rounded-2xl p-4 shadow-lg border-2 border-blue-200 max-w-sm mx-auto">
+                      <span className="text-2xl mb-2 block">🔍</span>
+                      <p className="text-blue-700 text-sm font-medium nav-rum-raisin">
+                        Showing filtered results • Clear filters to load more
+                      </p>
+                    </div>
+                  </div>
+                )}
+              </>
+            ) : (
+              <div className="text-center py-12 sm:py-16">
+                <div className="bg-white/80 rounded-2xl sm:rounded-3xl p-6 sm:p-8 shadow-lg border-2 border-pink-200 max-w-xs sm:max-w-sm mx-auto">
+                  <span className="text-4xl sm:text-6xl mb-3 sm:mb-4 block">😔</span>
+                  <p className="text-pink-700 text-base sm:text-lg font-semibold nav-rum-raisin mb-2">No results found</p>
+                  <p className="text-pink-600 text-sm">
+                    Try adjusting your search or filters! 🔍✨
+                  </p>
+                </div>
               </div>
-            ))
-          ) : (
-            <div className="text-center py-12 sm:py-16">
-              <div className="bg-white/80 rounded-2xl sm:rounded-3xl p-6 sm:p-8 shadow-lg border-2 border-pink-200 max-w-xs sm:max-w-sm mx-auto">
-                <span className="text-4xl sm:text-6xl mb-3 sm:mb-4 block">😔</span>
-                <p className="text-pink-700 text-base sm:text-lg font-semibold nav-rum-raisin mb-2">No results found</p>
-                <p className="text-pink-600 text-sm">
-                  Try adjusting your search or filters! 🔍✨
-                </p>
-              </div>
-            </div>
-          )}
-        </div>
+            )}
+          </div>
+        )}
       </div>
     </div>
   );
