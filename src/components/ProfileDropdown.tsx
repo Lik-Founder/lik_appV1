@@ -275,9 +275,9 @@ export const ProfileDropdown: React.FC<ProfileDropdownProps> = ({
             onClick={() => onNavigate('favorites')}
           />
           <MenuButton
-            icon="👤"
-            label="Recent Activity"
-            onClick={() => onNavigate('activity')}
+            icon="🔔"
+            label="Notifications"
+            onClick={() => onNavigate('notifications')}
           />
         </div>
 
