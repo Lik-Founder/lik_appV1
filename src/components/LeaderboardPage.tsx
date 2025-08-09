@@ -297,6 +297,8 @@ const dishFilters: { key: DishFilter; label: string; emoji: string }[] = [
   { key: 'pizza', label: 'Pizza', emoji: '🍕' },
   { key: 'seafood', label: 'Seafood', emoji: '🦞' }
 ];
+
+function getRankIcon(rank: number) {
   switch (rank) {
     case 1:
       return '🥇';
