@@ -158,7 +158,9 @@ export function CommentItem({
           alt={user.username}
           fallback={user.username[0]?.toUpperCase()}
           size={isNested ? 'xs' : deviceType === 'tablet' ? 'sm' : 'xs'}
-          variant="default"
+          variant="xp-ring"
+          level={user.level}
+          xpProgress={0.6} // Mock XP progress for comments
         />
       </button>
       

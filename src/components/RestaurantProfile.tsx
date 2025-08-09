@@ -4,6 +4,7 @@ import { useDevice } from '@/hooks/use-device';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
+import { ConsistentAvatar } from '@/components/ui/consistent-avatar';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { AwardsPage } from '@/components/AwardsPage';
 import { 
@@ -330,10 +331,13 @@ export function RestaurantProfile({ restaurantId, onBack }: RestaurantProfilePro
       {/* Restaurant Summary Panel */}
       <div className={cn("bg-background border-b border-border", padding)}>
         <div className="flex items-start gap-4">
-          <Avatar className="w-16 h-16 border-2 border-border">
-            <AvatarImage src={restaurant.avatar} />
-            <AvatarFallback>{restaurant.name[0]}</AvatarFallback>
-          </Avatar>
+          <ConsistentAvatar
+            src={restaurant.avatar}
+            alt={restaurant.name}
+            fallback={restaurant.name[0]}
+            size="xl"
+            variant="default"
+          />
           
           <div className="flex-1 min-w-0">
             <h1 className="text-2xl font-bold truncate">{restaurant.name}</h1>
@@ -549,10 +553,15 @@ function ReviewsSection({ reviews, onLikeReview, padding }: ReviewsSectionProps)
           <div className="p-4">
             {/* User Info */}
             <div className="flex items-center gap-3 mb-3">
-              <Avatar className="w-10 h-10">
-                <AvatarImage src={review.userAvatar} />
-                <AvatarFallback>{review.userName[0]}</AvatarFallback>
-              </Avatar>
+              <ConsistentAvatar
+                src={review.userAvatar}
+                alt={review.userName}
+                fallback={review.userName[0]}
+                size="md"
+                variant="xp-ring"
+                level={Math.floor(Math.random() * 40) + 10} // Mock levels for reviewers
+                xpProgress={Math.random() * 0.8 + 0.2}
+              />
               <div className="flex-1">
                 <div className="flex items-center gap-2">
                   <span className="font-semibold">{review.userName}</span>
@@ -600,10 +609,15 @@ function ReviewsSection({ reviews, onLikeReview, padding }: ReviewsSectionProps)
                 <div className="flex items-center gap-1">
                   <div className="flex -space-x-1">
                     {review.likedBy.slice(0, 3).map((user, i) => (
-                      <Avatar key={user.id} className="w-6 h-6 border-2 border-background">
-                        <AvatarImage src={user.avatar} />
-                        <AvatarFallback className="text-xs">{user.name[0]}</AvatarFallback>
-                      </Avatar>
+                      <ConsistentAvatar
+                        key={user.id}
+                        src={user.avatar}
+                        alt={user.name}
+                        fallback={user.name[0]}
+                        size="xs"
+                        variant="default"
+                        className="border-2 border-background"
+                      />
                     ))}
                   </div>
                   <span className="text-sm text-muted-foreground ml-2">Liked By</span>
@@ -1454,10 +1468,13 @@ function RestaurantDeliveryPage({ restaurantId, restaurant, onBack }: Restaurant
 
         {/* Restaurant Info Bar */}
         <div className="flex items-center gap-4 px-4 pb-4">
-          <Avatar className="w-12 h-12">
-            <AvatarImage src={restaurant.avatar} />
-            <AvatarFallback>{restaurant.name[0]}</AvatarFallback>
-          </Avatar>
+          <ConsistentAvatar
+            src={restaurant.avatar}
+            alt={restaurant.name}
+            fallback={restaurant.name[0]}
+            size="lg"
+            variant="default"
+          />
           <div className="flex-1">
             <div className="flex items-center gap-2">
               <div className="flex items-center gap-1">

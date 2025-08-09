@@ -125,7 +125,9 @@ export function Post({ post, user, onLike, onComment, onUserClick, deviceType, o
               alt={user.username}
               fallback={user.username[0]?.toUpperCase()}
               size={deviceType === 'tablet' ? 'md' : 'sm'}
-              variant="default"
+              variant="xp-ring"
+              level={user.level}
+              xpProgress={0.65} // Mock XP progress for posts
             />
           </button>
           <div className="flex-1">

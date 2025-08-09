@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import { ConsistentAvatar } from '@/components/ui/consistent-avatar';
 import { 
   ArrowLeft, 
   MapPin, 
@@ -247,21 +248,16 @@ export function MessageThread({ chatId, onBack, onShowRestaurantProfile, onShowU
       >
         {/* Profile Picture */}
         {!isOwnMessage && !showProfile && (
-          <div className="relative flex-shrink-0">
-            <div className={cn(
-              'w-8 h-8 rounded-full p-0.5',
-              `bg-gradient-to-br ${getLevelColor(chatUser.level)}`
-            )}>
-              <div className="w-full h-full rounded-full bg-background p-0.5">
-                <img
-                  src={chatUser.avatar}
-                  alt={chatUser.name}
-                  className="w-full h-full rounded-full object-cover cursor-pointer"
-                  onClick={() => onShowUserProfile?.(chatUser.id)}
-                />
-              </div>
-            </div>
-          </div>
+          <ConsistentAvatar
+            src={chatUser.avatar}
+            alt={chatUser.name}
+            fallback={chatUser.name[0]?.toUpperCase()}
+            size="sm"
+            variant="xp-ring"
+            level={chatUser.level}
+            xpProgress={0.7} // Mock XP progress
+            onClick={() => onShowUserProfile?.(chatUser.id)}
+          />
         )}
 
         {/* Message Content */}
@@ -523,23 +519,16 @@ export function MessageThread({ chatId, onBack, onShowRestaurantProfile, onShowU
               className="flex items-center gap-3 cursor-pointer"
               onClick={() => onShowUserProfile?.(chatUser.id)}
             >
-              <div className="relative">
-                <div className={cn(
-                  'w-10 h-10 rounded-full p-0.5',
-                  `bg-gradient-to-br ${getLevelColor(chatUser.level)}`
-                )}>
-                  <div className="w-full h-full rounded-full bg-background p-0.5">
-                    <img
-                      src={chatUser.avatar}
-                      alt={chatUser.name}
-                      className="w-full h-full rounded-full object-cover"
-                    />
-                  </div>
-                </div>
-                {chatUser.isOnline && (
-                  <div className="absolute -bottom-0.5 -right-0.5 w-3 h-3 bg-green-500 border-2 border-background rounded-full" />
-                )}
-              </div>
+              <ConsistentAvatar
+                src={chatUser.avatar}
+                alt={chatUser.name}
+                fallback={chatUser.name[0]?.toUpperCase()}
+                size="md"
+                variant="xp-ring"
+                level={chatUser.level}
+                xpProgress={0.8} // Mock XP progress
+                isOnline={chatUser.isOnline}
+              />
               
               <div>
                 <h2 className="font-bold text-foreground">{chatUser.name}</h2>

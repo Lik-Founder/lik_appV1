@@ -326,7 +326,9 @@ export function TrendingPage({ onShowRestaurantProfile, onShowUserProfile, onSho
               alt={post.user.displayName}
               fallback={post.user.displayName[0]}
               size="md"
-              variant="default"
+              variant="xp-ring"
+              level={post.user.level}
+              xpProgress={0.75} // Mock XP progress
               onClick={() => onShowUserProfile?.(post.user.id)}
             />
             <div className="flex-1">
@@ -337,7 +339,6 @@ export function TrendingPage({ onShowRestaurantProfile, onShowUserProfile, onSho
                 >
                   {post.user.displayName}
                 </span>
-                <Badge variant="secondary" className="text-xs">Level {post.user.level}</Badge>
               </div>
               <div className="flex items-center gap-1 text-white/80 text-xs">
                 <span 

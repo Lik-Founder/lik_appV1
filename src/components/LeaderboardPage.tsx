@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { ArrowLeft, MagnifyingGlass, Globe, CaretDown, Star, Heart, TrendUp, CaretRight } from '@phosphor-icons/react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import { ConsistentAvatar } from '@/components/ui/consistent-avatar';
 import { cn } from '@/lib/utils';
 import { toast } from 'sonner';
 
@@ -305,18 +306,30 @@ function LeaderboardCard({
           }
         </div>
 
-        {/* Image */}
-        <div className="w-16 h-16 rounded-xl overflow-hidden shrink-0 bg-muted">
-          <img
+        {/* Avatar/Image */}
+        {activeTab === 'likers' ? (
+          <ConsistentAvatar
             src={item.imageUrl}
             alt={item.name}
-            className="w-full h-full object-cover"
-            onError={(e) => {
-              const target = e.target as HTMLImageElement;
-              target.src = `https://api.dicebear.com/7.x/shapes/svg?seed=${item.name}`;
-            }}
+            fallback={item.name[0]?.toUpperCase()}
+            size="xl"
+            variant="xp-ring"
+            level={item.rank <= 10 ? 50 + (10 - item.rank) * 5 : Math.floor(Math.random() * 30) + 20} // Mock levels based on rank
+            xpProgress={Math.random() * 0.8 + 0.2} // Mock XP progress
           />
-        </div>
+        ) : (
+          <div className="w-16 h-16 rounded-xl overflow-hidden shrink-0 bg-muted">
+            <img
+              src={item.imageUrl}
+              alt={item.name}
+              className="w-full h-full object-cover"
+              onError={(e) => {
+                const target = e.target as HTMLImageElement;
+                target.src = `https://api.dicebear.com/7.x/shapes/svg?seed=${item.name}`;
+              }}
+            />
+          </div>
+        )}
 
         {/* Content */}
         <div className="flex-1 min-w-0">

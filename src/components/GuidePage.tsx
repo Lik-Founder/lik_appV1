@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Input } from '@/components/ui/input';
+import { ConsistentAvatar } from '@/components/ui/consistent-avatar';
 import { HorizontalCarousel } from '@/components/HorizontalCarousel';
 import { IndividualGuidePage } from '@/components/IndividualGuidePage';
 import { 
@@ -302,10 +303,14 @@ export function GuidePage({ onBack, onShowUserProfile, onShowRestaurantProfile }
               <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
               <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
                 <div className="flex items-center gap-2 mb-2">
-                  <img 
+                  <ConsistentAvatar
                     src={guide.authorAvatar}
                     alt={guide.author}
-                    className="w-6 h-6 rounded-full"
+                    fallback={guide.author[0]?.toUpperCase()}
+                    size="xs"
+                    variant="xp-ring"
+                    level={Math.floor(Math.random() * 30) + 10} // Mock levels for guide authors
+                    xpProgress={Math.random() * 0.8 + 0.2}
                   />
                   <span className="text-sm font-medium">{guide.author}</span>
                   {guide.isVerified && (
@@ -464,10 +469,14 @@ export function GuidePage({ onBack, onShowUserProfile, onShowRestaurantProfile }
                 </div>
                 <div className="p-3">
                   <div className="flex items-center gap-2 mb-2">
-                    <img 
+                    <ConsistentAvatar
                       src={guide.authorAvatar}
                       alt={guide.author}
-                      className="w-5 h-5 rounded-full"
+                      fallback={guide.author[0]?.toUpperCase()}
+                      size="xs"
+                      variant="xp-ring"
+                      level={Math.floor(Math.random() * 25) + 15} // Mock levels
+                      xpProgress={Math.random() * 0.8 + 0.2}
                     />
                     <span className="text-xs font-medium text-muted-foreground">{guide.author}</span>
                   </div>
@@ -516,10 +525,14 @@ export function GuidePage({ onBack, onShowUserProfile, onShowRestaurantProfile }
                     </div>
                     <h4 className="font-medium text-sm mb-1 line-clamp-1">{guide.title}</h4>
                     <div className="flex items-center gap-2 mb-2">
-                      <img 
+                      <ConsistentAvatar
                         src={guide.authorAvatar}
                         alt={guide.author}
-                        className="w-4 h-4 rounded-full"
+                        fallback={guide.author[0]?.toUpperCase()}
+                        size="xs"
+                        variant="xp-ring"
+                        level={Math.floor(Math.random() * 20) + 10} // Mock levels
+                        xpProgress={Math.random() * 0.8 + 0.2}
                       />
                       <span className="text-xs text-muted-foreground">{guide.author}</span>
                       <span className="text-xs text-muted-foreground">• {guide.restaurantCount} Restaurants</span>
