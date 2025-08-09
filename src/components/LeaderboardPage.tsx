@@ -368,8 +368,8 @@ function LeaderboardCard({
   return (
     <div
       className={cn(
-        "group relative p-6 rounded-3xl border-2 transition-all duration-300 touch-feedback shadow-lg backdrop-blur-sm",
-        isClickable && "cursor-pointer hover:shadow-xl hover:scale-[1.02]",
+        "group relative p-3 sm:p-4 rounded-2xl border-2 transition-all duration-300 touch-feedback shadow-lg backdrop-blur-sm mx-auto max-w-full",
+        isClickable && "cursor-pointer hover:shadow-xl hover:scale-[1.01]",
         !isClickable && "cursor-default",
         isPressed && isClickable && "scale-[0.98] shadow-md",
         isFirst && item.rank === 1 
@@ -390,11 +390,11 @@ function LeaderboardCard({
       onMouseUp={handleTouchEnd}
       onMouseLeave={handleTouchEnd}
     >
-      <div className="flex items-center gap-6">
+      <div className="flex items-center gap-3 sm:gap-4">
         {/* Rank */}
         <div
           className={cn(
-            "flex items-center justify-center w-16 h-16 rounded-full font-bold text-xl shrink-0 relative",
+            "flex items-center justify-center w-12 h-12 sm:w-14 sm:h-14 rounded-full font-bold text-lg sm:text-xl shrink-0 relative",
             getRankStyle(item.rank),
             isTopThree ? "text-white" : "text-pink-700"
           )}
@@ -405,33 +405,33 @@ function LeaderboardCard({
           )}
           {typeof getRankIcon(item.rank) === 'string' && getRankIcon(item.rank).length > 1 
             ? getRankIcon(item.rank) 
-            : <span className="text-xl font-black">{getRankIcon(item.rank)}</span>
+            : <span className="text-lg sm:text-xl font-black">{getRankIcon(item.rank)}</span>
           }
           {/* Crown for #1 */}
           {item.rank === 1 && (
-            <div className="absolute -top-3 text-2xl">👑</div>
+            <div className="absolute -top-2 sm:-top-3 text-xl sm:text-2xl">👑</div>
           )}
         </div>
 
         {/* Avatar/Image */}
         {activeTab === 'likers' ? (
-          <div className="relative">
+          <div className="relative shrink-0">
             <ConsistentAvatar
               src={item.imageUrl}
               alt={item.name}
               fallback={item.name[0]?.toUpperCase()}
-              size="xl"
+              size="lg"
               variant="xp-ring"
               level={item.rank <= 10 ? 50 + (10 - item.rank) * 5 : Math.floor(Math.random() * 30) + 20} // Mock levels based on rank
               xpProgress={Math.random() * 0.8 + 0.2} // Mock XP progress
             />
             {/* Chef hat for top foodies */}
             {item.rank <= 3 && (
-              <div className="absolute -top-2 -right-1 text-lg">👨‍🍳</div>
+              <div className="absolute -top-1 -right-1 text-sm sm:text-base">👨‍🍳</div>
             )}
           </div>
         ) : (
-          <div className="w-20 h-20 rounded-2xl overflow-hidden shrink-0 bg-pink-100 border-2 border-pink-200 shadow-md relative">
+          <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-xl overflow-hidden shrink-0 bg-pink-100 border-2 border-pink-200 shadow-md relative">
             <img
               src={item.imageUrl}
               alt={item.name}
@@ -443,99 +443,99 @@ function LeaderboardCard({
             />
             {/* Special badges for top restaurants/foods */}
             {item.rank <= 3 && (
-              <div className="absolute -top-1 -right-1 text-lg">
+              <div className="absolute -top-1 -right-1 text-sm sm:text-base">
                 {activeTab === 'restaurants' ? '🏪' : '🍽️'}
               </div>
             )}
           </div>
         )}
 
-        {/* Content */}
+        {/* Content - Now stacked vertically on mobile */}
         <div className="flex-1 min-w-0">
-          <div className="flex items-start justify-between gap-4">
+          {/* Title and subtitle */}
+          <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2 sm:gap-4 mb-2">
             <div className="flex-1 min-w-0">
-              <h3 className="font-bold text-xl text-pink-800 line-clamp-1 nav-rum-raisin">
+              <h3 className="font-bold text-base sm:text-lg text-pink-800 line-clamp-1 nav-rum-raisin">
                 {item.name}
               </h3>
-              <p className="text-base text-pink-600 line-clamp-1 font-medium">
+              <p className="text-sm sm:text-base text-pink-600 line-clamp-1 font-medium">
                 {item.subtitle}
               </p>
               {item.badge && (
-                <span className="inline-flex items-center gap-1 mt-2 px-3 py-1 bg-gradient-to-r from-pink-500 to-red-500 text-white text-sm rounded-full font-medium shadow-md">
+                <span className="inline-flex items-center gap-1 mt-1 px-2 py-1 bg-gradient-to-r from-pink-500 to-red-500 text-white text-xs rounded-full font-medium shadow-md">
                   <span>🎉</span>
                   {item.badge}
                 </span>
               )}
             </div>
+          </div>
 
-            {/* Stats */}
-            <div className="text-right shrink-0 flex items-center gap-4">
-              <div>
-                {activeTab === 'likers' ? (
-                  <>
-                    {/* Rank placeholder for likers */}
-                    <div className="text-sm text-pink-600 font-bold mb-3 bg-pink-100 px-3 py-1 rounded-full">
-                      🥈 Silver
-                    </div>
-                    {/* Lik logo count */}
-                    <div className="flex items-center gap-2 bg-white/80 px-3 py-2 rounded-full shadow-md border border-pink-200">
-                      <img 
-                        src={likLogo} 
-                        alt="Lik" 
-                        className="w-5 h-5" 
-                      />
-                      <span className="text-base font-bold text-pink-700">
-                        {item.likes >= 1000 
-                          ? `${(item.likes / 1000).toFixed(item.likes >= 100000 ? 0 : 1)}K`
-                          : item.likes
-                        }
-                      </span>
-                    </div>
-                  </>
-                ) : (
-                  <div className="space-y-2">
-                    <div className="flex items-center gap-2 text-yellow-500 font-bold text-xl bg-white/80 px-3 py-1 rounded-full shadow-md">
-                      <Star size={20} className="fill-current" />
-                      {item.rating}
-                    </div>
-                    <div className="flex items-center gap-2 text-red-500 text-base font-semibold bg-white/80 px-3 py-1 rounded-full shadow-md">
-                      <Heart size={16} className="fill-current" />
+          {/* Stats row - horizontal on all screens */}
+          <div className="flex items-center justify-between gap-2">
+            <div className="flex items-center gap-2 flex-1">
+              {activeTab === 'likers' ? (
+                <>
+                  {/* Rank placeholder for likers */}
+                  <div className="text-xs sm:text-sm text-pink-600 font-bold bg-pink-100 px-2 py-1 rounded-full">
+                    🥈 Silver
+                  </div>
+                  {/* Lik logo count */}
+                  <div className="flex items-center gap-1 bg-white/80 px-2 py-1 rounded-full shadow-md border border-pink-200">
+                    <img 
+                      src={likLogo} 
+                      alt="Lik" 
+                      className="w-4 h-4" 
+                    />
+                    <span className="text-sm font-bold text-pink-700">
                       {item.likes >= 1000 
                         ? `${(item.likes / 1000).toFixed(item.likes >= 100000 ? 0 : 1)}K`
                         : item.likes
                       }
+                    </span>
+                  </div>
+                </>
+              ) : (
+                <div className="flex items-center gap-2">
+                  <div className="flex items-center gap-1 text-yellow-500 font-bold text-sm sm:text-base bg-white/80 px-2 py-1 rounded-full shadow-md">
+                    <Star size={16} className="fill-current" />
+                    {item.rating}
+                  </div>
+                  <div className="flex items-center gap-1 text-red-500 text-sm font-semibold bg-white/80 px-2 py-1 rounded-full shadow-md">
+                    <Heart size={14} className="fill-current" />
+                    {item.likes >= 1000 
+                      ? `${(item.likes / 1000).toFixed(item.likes >= 100000 ? 0 : 1)}K`
+                      : item.likes
+                    }
+                  </div>
+                  {item.reviews && (
+                    <div className="hidden sm:flex items-center gap-1 text-pink-600 text-xs font-medium bg-white/80 px-2 py-1 rounded-full shadow-sm">
+                      <TrendUp size={12} />
+                      {item.reviews >= 1000 
+                        ? `${(item.reviews / 1000).toFixed(1)}K`
+                        : item.reviews
+                      }
                     </div>
-                    {item.reviews && (
-                      <div className="flex items-center gap-2 text-pink-600 text-sm font-medium bg-white/80 px-3 py-1 rounded-full shadow-sm">
-                        <TrendUp size={14} />
-                        {item.reviews >= 1000 
-                          ? `${(item.reviews / 1000).toFixed(1)}K`
-                          : item.reviews
-                        } reviews
-                      </div>
-                    )}
-                  </div>
-                )}
-              </div>
-              
-              {/* Navigation Arrow or Info */}
-              {isClickable ? (
-                <div className="flex items-center bg-gradient-to-r from-pink-500 to-red-500 text-white px-4 py-3 rounded-full shadow-md">
-                  <div className="text-sm font-medium mr-2 nav-rum-raisin">
-                    Tap to view
-                  </div>
-                  <CaretRight 
-                    size={18} 
-                    className="transition-all duration-300 group-hover:translate-x-1" 
-                  />
+                  )}
                 </div>
-              ) : activeTab === 'foods' ? (
-                <div className="text-center bg-pink-100 px-4 py-3 rounded-full border border-pink-200">
-                  <div className="text-sm text-pink-600 font-medium">View only</div>
-                  <div className="text-xs mt-1 text-pink-500">Coming soon! 🚀</div>
-                </div>
-              ) : null}
+              )}
             </div>
+            
+            {/* Navigation Arrow or Info */}
+            {isClickable ? (
+              <div className="flex items-center bg-gradient-to-r from-pink-500 to-red-500 text-white px-3 py-2 rounded-full shadow-md">
+                <div className="text-xs sm:text-sm font-medium mr-1 nav-rum-raisin hidden sm:block">
+                  Tap
+                </div>
+                <CaretRight 
+                  size={16} 
+                  className="transition-all duration-300 group-hover:translate-x-1" 
+                />
+              </div>
+            ) : activeTab === 'foods' ? (
+              <div className="text-center bg-pink-100 px-2 py-1 rounded-full border border-pink-200">
+                <div className="text-xs text-pink-600 font-medium">View only</div>
+              </div>
+            ) : null}
           </div>
         </div>
       </div>
@@ -626,29 +626,29 @@ export function LeaderboardPage({ onBack, onShowRestaurantProfile, onShowUserPro
   return (
     <div className="h-full flex flex-col bg-gradient-to-br from-pink-50 via-red-50 to-orange-50">
       {/* Header */}
-      <div className="flex items-center justify-between p-4 border-b border-pink-200/50 bg-gradient-to-r from-pink-100/80 to-red-100/80 backdrop-blur-sm">
+      <div className="flex items-center justify-between p-3 sm:p-4 border-b border-pink-200/50 bg-gradient-to-r from-pink-100/80 to-red-100/80 backdrop-blur-sm">
         <Button
           variant="ghost"
           size="icon"
           onClick={onBack}
-          className="shrink-0 hover:bg-pink-200/50 rounded-full"
+          className="shrink-0 hover:bg-pink-200/50 rounded-full w-10 h-10"
         >
-          <ArrowLeft size={24} className="text-pink-700" />
+          <ArrowLeft size={20} className="text-pink-700" />
         </Button>
         
-        <div className="flex items-center gap-3 flex-1 mr-10 justify-center">
-          <span className="text-3xl">🏆</span>
-          <h1 className="text-xl font-semibold text-center nav-rum-raisin bg-gradient-to-r from-pink-600 to-red-600 bg-clip-text text-transparent">
+        <div className="flex items-center gap-2 flex-1 justify-center">
+          <span className="text-2xl sm:text-3xl">🏆</span>
+          <h1 className="text-lg sm:text-xl font-semibold text-center nav-rum-raisin bg-gradient-to-r from-pink-600 to-red-600 bg-clip-text text-transparent">
             Leaderboard
           </h1>
-          <span className="text-3xl">👑</span>
+          <span className="text-2xl sm:text-3xl">👑</span>
         </div>
       </div>
 
       {/* Sticky Filters */}
       <div className="sticky top-0 z-10 bg-gradient-to-r from-pink-100/90 to-red-100/90 backdrop-blur-md border-b border-pink-200/50">
         {/* Tabs */}
-        <div className="flex p-4 gap-3">
+        <div className="flex p-3 sm:p-4 gap-2 sm:gap-3">
           {([
             { key: 'foods', label: 'Dishes', emoji: '🍽️' },
             { key: 'restaurants', label: 'Restaurants', emoji: '🏪' },
@@ -666,32 +666,33 @@ export function LeaderboardPage({ onBack, onShowRestaurantProfile, onShowUserPro
                 setSearchQuery('');
               }}
               className={cn(
-                "flex-1 rounded-full font-medium transition-all duration-300 nav-rum-raisin gap-2 h-12 text-base shadow-lg border-2",
+                "flex-1 rounded-full font-medium transition-all duration-300 nav-rum-raisin gap-1 sm:gap-2 h-10 sm:h-12 text-sm sm:text-base shadow-lg border-2",
                 activeTab === tab.key 
                   ? "bg-gradient-to-r from-pink-500 to-red-500 text-white shadow-pink-300/50 border-pink-300 font-bold scale-105 transform" 
                   : "bg-white/80 hover:bg-white text-pink-700 border-pink-200 hover:border-pink-300 hover:scale-102 shadow-pink-200/30"
               )}
             >
-              <span className="text-lg">{tab.emoji}</span>
-              {tab.label}
+              <span className="text-base sm:text-lg">{tab.emoji}</span>
+              <span className="hidden sm:inline">{tab.label}</span>
+              <span className="sm:hidden text-xs">{tab.label.slice(0,6)}</span>
             </Button>
           ))}
         </div>
 
         {/* Search and Filters */}
-        <div className="px-4 pb-4">
-          <div className="flex items-center gap-3">
+        <div className="px-3 sm:px-4 pb-3 sm:pb-4">
+          <div className="flex items-center gap-2 sm:gap-3">
             {/* Search */}
             <div className="relative flex-1">
               <MagnifyingGlass 
-                size={20} 
-                className="absolute left-4 top-1/2 transform -translate-y-1/2 text-pink-500" 
+                size={18} 
+                className="absolute left-3 top-1/2 transform -translate-y-1/2 text-pink-500" 
               />
               <Input
                 placeholder={`Search ${activeTab === 'restaurants' ? 'restaurants' : activeTab === 'foods' ? 'dishes' : 'foodies'}... 🔍`}
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="pl-12 rounded-full border-2 border-pink-200 bg-white/90 shadow-lg focus:border-pink-400 h-12 text-base placeholder:text-pink-400"
+                className="pl-10 sm:pl-12 rounded-full border-2 border-pink-200 bg-white/90 shadow-lg focus:border-pink-400 h-10 sm:h-12 text-sm sm:text-base placeholder:text-pink-400"
               />
             </div>
 
@@ -699,13 +700,13 @@ export function LeaderboardPage({ onBack, onShowRestaurantProfile, onShowUserPro
             {(activeTab === 'restaurants' || activeTab === 'foods') && (
               <Button
                 variant="outline"
-                className="shrink-0 rounded-full px-6 h-12 gap-2 nav-rum-raisin font-medium bg-white/80 border-2 border-pink-200 text-pink-700 hover:bg-pink-50 hover:border-pink-300 shadow-lg"
+                className="shrink-0 rounded-full px-3 sm:px-6 h-10 sm:h-12 gap-1 sm:gap-2 nav-rum-raisin font-medium bg-white/80 border-2 border-pink-200 text-pink-700 hover:bg-pink-50 hover:border-pink-300 shadow-lg"
                 onClick={() => setShowFilters(!showFilters)}
               >
-                <Funnel size={18} />
-                Filter
+                <Funnel size={16} />
+                <span className="hidden sm:inline">Filter</span>
                 <CaretDown 
-                  size={16} 
+                  size={14} 
                   className={cn(
                     "transition-transform duration-300",
                     showFilters && "rotate-180"
@@ -717,7 +718,7 @@ export function LeaderboardPage({ onBack, onShowRestaurantProfile, onShowUserPro
             {/* Scope Selector */}
             <Button
               variant="outline"
-              className="shrink-0 rounded-full px-6 h-12 gap-2 nav-rum-raisin font-medium bg-white/80 border-2 border-pink-200 text-pink-700 hover:bg-pink-50 hover:border-pink-300 shadow-lg"
+              className="shrink-0 rounded-full px-3 sm:px-6 h-10 sm:h-12 gap-1 sm:gap-2 nav-rum-raisin font-medium bg-white/80 border-2 border-pink-200 text-pink-700 hover:bg-pink-50 hover:border-pink-300 shadow-lg"
               onClick={() => {
                 const scopes: ScopeType[] = ['global', 'national', 'city'];
                 const currentIndex = scopes.indexOf(scope);
@@ -725,22 +726,27 @@ export function LeaderboardPage({ onBack, onShowRestaurantProfile, onShowUserPro
                 setScope(nextScope);
               }}
             >
-              <Globe size={18} />
-              {getScopeText()}
+              <Globe size={16} />
+              <span className="hidden sm:inline">{getScopeText()}</span>
+              <span className="sm:hidden text-xs">
+                {scope === 'global' ? '🌍' : scope === 'national' ? '🇺🇸' : '🏙️'}
+              </span>
             </Button>
           </div>
 
           {/* Category Filters (expandable) */}
           {showFilters && (activeTab === 'restaurants' || activeTab === 'foods') && (
-            <div className="mt-4 animate-in slide-in-from-top-2 duration-300">
-              <div className="bg-gradient-to-br from-white/90 to-pink-50/90 rounded-3xl p-6 shadow-xl border-2 border-pink-200/50 backdrop-blur-sm">
-                <h3 className="text-lg font-bold text-pink-700 mb-4 nav-rum-raisin flex items-center gap-2">
-                  <span className="text-2xl">
+            <div className="mt-3 sm:mt-4 animate-in slide-in-from-top-2 duration-300">
+              <div className="bg-gradient-to-br from-white/90 to-pink-50/90 rounded-2xl sm:rounded-3xl p-4 sm:p-6 shadow-xl border-2 border-pink-200/50 backdrop-blur-sm">
+                <h3 className="text-base sm:text-lg font-bold text-pink-700 mb-3 sm:mb-4 nav-rum-raisin flex items-center gap-2">
+                  <span className="text-xl sm:text-2xl">
                     {activeTab === 'restaurants' ? '🍽️' : '🥘'}
                   </span>
-                  {activeTab === 'restaurants' ? 'Filter by Cuisine' : 'Filter by Category'}
+                  <span className="text-sm sm:text-base">
+                    {activeTab === 'restaurants' ? 'Filter by Cuisine' : 'Filter by Category'}
+                  </span>
                 </h3>
-                <div className="flex flex-wrap gap-3">
+                <div className="flex flex-wrap gap-2 sm:gap-3">
                   {(activeTab === 'restaurants' ? cuisineFilters : dishFilters).map((filter) => (
                     <Button
                       key={filter.key}
@@ -755,23 +761,24 @@ export function LeaderboardPage({ onBack, onShowRestaurantProfile, onShowUserPro
                         toast.success(`Filtering by ${filter.label} ${filter.emoji}`);
                       }}
                       className={cn(
-                        "rounded-full gap-2 text-sm font-medium transition-all nav-rum-raisin h-10 px-4 shadow-md border-2",
+                        "rounded-full gap-1 sm:gap-2 text-xs sm:text-sm font-medium transition-all nav-rum-raisin h-8 sm:h-10 px-3 sm:px-4 shadow-md border-2",
                         (activeTab === 'restaurants' ? cuisineFilter : dishFilter) === filter.key 
                           ? "bg-gradient-to-r from-pink-500 to-red-500 text-white border-pink-300 shadow-pink-300/50 font-bold scale-105 transform" 
                           : "bg-white/90 hover:bg-pink-50 text-pink-700 border-pink-200 hover:border-pink-300 hover:scale-102"
                       )}
                     >
-                      <span className="text-base">{filter.emoji}</span>
-                      {filter.label}
+                      <span className="text-sm sm:text-base">{filter.emoji}</span>
+                      <span className="hidden sm:inline">{filter.label}</span>
+                      <span className="sm:hidden text-xs">{filter.label.slice(0,8)}</span>
                     </Button>
                   ))}
                 </div>
                 
                 {/* Filter Stats */}
-                <div className="flex items-center justify-between mt-6 pt-4 border-t border-pink-200/50">
+                <div className="flex items-center justify-between mt-4 sm:mt-6 pt-3 sm:pt-4 border-t border-pink-200/50">
                   <div className="flex items-center gap-2">
-                    <span className="text-2xl">📊</span>
-                    <span className="text-sm font-medium text-pink-700 nav-rum-raisin">
+                    <span className="text-lg sm:text-2xl">📊</span>
+                    <span className="text-xs sm:text-sm font-medium text-pink-700 nav-rum-raisin">
                       {filteredData.length} {activeTab === 'restaurants' ? 'restaurants' : activeTab === 'foods' ? 'dishes' : 'results'} found
                     </span>
                   </div>
@@ -788,9 +795,9 @@ export function LeaderboardPage({ onBack, onShowRestaurantProfile, onShowUserPro
                         }
                         toast.success('Filters cleared! ✨');
                       }}
-                      className="text-sm h-8 px-4 rounded-full nav-rum-raisin text-pink-600 hover:bg-pink-100 border border-pink-200 hover:border-pink-300"
+                      className="text-xs sm:text-sm h-6 sm:h-8 px-2 sm:px-4 rounded-full nav-rum-raisin text-pink-600 hover:bg-pink-100 border border-pink-200 hover:border-pink-300"
                     >
-                      🧹 Clear filters
+                      🧹 Clear
                     </Button>
                   )}
                 </div>
@@ -799,8 +806,8 @@ export function LeaderboardPage({ onBack, onShowRestaurantProfile, onShowUserPro
           )}
 
           {/* Period Selector */}
-          <div className="flex justify-center mt-4">
-            <div className="flex bg-white/80 rounded-full p-2 shadow-lg border-2 border-pink-200">
+          <div className="flex justify-center mt-3 sm:mt-4">
+            <div className="flex bg-white/80 rounded-full p-1 sm:p-2 shadow-lg border-2 border-pink-200">
               {(['week', 'month', 'year'] as SortPeriod[]).map((period) => (
                 <Button
                   key={period}
@@ -808,7 +815,7 @@ export function LeaderboardPage({ onBack, onShowRestaurantProfile, onShowUserPro
                   size="sm"
                   onClick={() => setSortPeriod(period)}
                   className={cn(
-                    "capitalize rounded-full px-6 h-10 font-medium transition-all nav-rum-raisin",
+                    "capitalize rounded-full px-3 sm:px-6 h-8 sm:h-10 font-medium transition-all nav-rum-raisin text-xs sm:text-sm",
                     sortPeriod === period 
                       ? "bg-gradient-to-r from-pink-500 to-red-500 text-white shadow-md font-bold" 
                       : "hover:bg-pink-50 text-pink-700 font-medium"
@@ -828,23 +835,23 @@ export function LeaderboardPage({ onBack, onShowRestaurantProfile, onShowUserPro
       {/* Content */}
       <div className="flex-1 overflow-auto">
         {/* Title */}
-        <div className="px-4 py-8 text-center bg-gradient-to-br from-pink-50 to-red-50">
-          <div className="flex items-center justify-center gap-3 mb-4">
-            <span className="text-4xl">✨</span>
-            <h2 className="text-3xl font-bold text-transparent bg-gradient-to-r from-pink-600 to-red-600 bg-clip-text nav-rum-raisin">
+        <div className="px-3 sm:px-4 py-4 sm:py-8 text-center bg-gradient-to-br from-pink-50 to-red-50">
+          <div className="flex items-center justify-center gap-2 sm:gap-3 mb-3 sm:mb-4">
+            <span className="text-2xl sm:text-4xl">✨</span>
+            <h2 className="text-xl sm:text-3xl font-bold text-transparent bg-gradient-to-r from-pink-600 to-red-600 bg-clip-text nav-rum-raisin">
               {getTabTitle()}
             </h2>
-            <span className="text-4xl">✨</span>
+            <span className="text-2xl sm:text-4xl">✨</span>
           </div>
-          <div className="max-w-sm mx-auto bg-white/70 rounded-full px-6 py-3 shadow-lg border border-pink-200">
-            <p className="text-sm text-pink-700 leading-relaxed font-medium">
+          <div className="max-w-xs sm:max-w-sm mx-auto bg-white/70 rounded-full px-4 sm:px-6 py-2 sm:py-3 shadow-lg border border-pink-200">
+            <p className="text-xs sm:text-sm text-pink-700 leading-relaxed font-medium">
               {getTabDescription()}
             </p>
           </div>
         </div>
 
         {/* Leaderboard List */}
-        <div className="px-4 pb-8 space-y-4">
+        <div className="px-2 sm:px-4 pb-6 sm:pb-8 space-y-3 sm:space-y-4">
           {filteredData.length > 0 ? (
             filteredData.map((item, index) => (
               <div
@@ -864,10 +871,10 @@ export function LeaderboardPage({ onBack, onShowRestaurantProfile, onShowUserPro
               </div>
             ))
           ) : (
-            <div className="text-center py-16">
-              <div className="bg-white/80 rounded-3xl p-8 shadow-lg border-2 border-pink-200 max-w-sm mx-auto">
-                <span className="text-6xl mb-4 block">😔</span>
-                <p className="text-pink-700 text-lg font-semibold nav-rum-raisin mb-2">No results found</p>
+            <div className="text-center py-12 sm:py-16">
+              <div className="bg-white/80 rounded-2xl sm:rounded-3xl p-6 sm:p-8 shadow-lg border-2 border-pink-200 max-w-xs sm:max-w-sm mx-auto">
+                <span className="text-4xl sm:text-6xl mb-3 sm:mb-4 block">😔</span>
+                <p className="text-pink-700 text-base sm:text-lg font-semibold nav-rum-raisin mb-2">No results found</p>
                 <p className="text-pink-600 text-sm">
                   Try adjusting your search or filters! 🔍✨
                 </p>
