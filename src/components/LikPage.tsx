@@ -1,9 +1,10 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { useKV } from '@github/spark/hooks';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { ProfileDropdown } from '@/components/ProfileDropdown';
 import { 
   Flame, 
   Ticket, 
@@ -85,17 +86,79 @@ const mockQuests: Quest[] = [
 
 interface LikPageProps {
   onShowRestaurantProfile?: (restaurantId: string) => void;
+  onShowLikPassport?: () => void;
+  onShowMessagesPage?: () => void;
 }
 
-export function LikPage({ onShowRestaurantProfile }: LikPageProps) {
+export function LikPage({ onShowRestaurantProfile, onShowLikPassport, onShowMessagesPage }: LikPageProps) {
   const [userProgress] = useKV('user-progress', mockUserProgress);
   const [bounties] = useKV('bounties', mockBounties);
   const [quests] = useKV('quests', mockQuests);
   const [activeView, setActiveView] = useState<'bounties' | 'quests'>('bounties');
   const [selectedFilter, setSelectedFilter] = useState<'nearby' | 'most-wanted' | 'for-you'>('nearby');
   const [searchQuery, setSearchQuery] = useState('');
+  
+  // Profile dropdown state
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [dropdownAnchorRect, setDropdownAnchorRect] = useState<DOMRect | null>(null);
+  const avatarRef = useRef<HTMLDivElement>(null);
 
   const xpProgress = (userProgress.xp / userProgress.xpToNextLevel) * 100;
+
+  // Handle avatar click for dropdown
+  const handleAvatarClick = () => {
+    if (avatarRef.current) {
+      const rect = avatarRef.current.getBoundingClientRect();
+      setDropdownAnchorRect(rect);
+      setIsDropdownOpen(!isDropdownOpen);
+    }
+  };
+
+  // Handle dropdown navigation
+  const handleDropdownNavigate = (destination: string) => {
+    setIsDropdownOpen(false);
+    
+    switch (destination) {
+      case 'passport':
+        onShowLikPassport?.();
+        break;
+      case 'messages':
+        onShowMessagesPage?.();
+        break;
+      default:
+        console.log('Navigate to:', destination);
+    }
+  };
+
+  // Mock user data for dropdown
+  const mockUser = {
+    avatar: '/src/assets/images/user-avatar.jpg',
+    displayName: 'John Doe',
+    username: '@johndoe',
+    tasteTitle: 'Grand Master',
+    level: userProgress.level,
+    xp: userProgress.xp,
+    maxXp: userProgress.xpToNextLevel,
+    badges: [
+      { id: '1', icon: '🏆', label: 'Top Reviewer', verified: true },
+      { id: '2', icon: '🍕', label: 'Pizza Expert' }
+    ]
+  };
+
+  const mockStats = {
+    streak: userProgress.streakCount,
+    tickets: userProgress.likTickets,
+    likCoins: userProgress.likCoins > 999 ? `${(userProgress.likCoins / 1000).toFixed(1)}k` : userProgress.likCoins.toString(),
+    hearts: '3.2k'
+  };
+
+  const mockDailyProgress = {
+    currentTime: '00:00',
+    targetTime: '02:00',
+    bonusReward: '+2 LP',
+    streakDays: 7,
+    currentStreak: userProgress.streakCount
+  };
 
   return (
     <div className="h-full flex flex-col bg-background overflow-hidden relative">
@@ -104,7 +167,11 @@ export function LikPage({ onShowRestaurantProfile }: LikPageProps) {
         {/* Top Section - User Progress */}
         <div className="px-4 py-3 flex items-center justify-between">
           {/* Profile with XP Ring */}
-          <div className="relative">
+          <div 
+            ref={avatarRef}
+            className="relative cursor-pointer"
+            onClick={handleAvatarClick}
+          >
             <div className="w-16 h-16 relative">
               {/* XP Progress Ring */}
               <svg className="w-16 h-16 transform -rotate-90" viewBox="0 0 64 64">
@@ -278,6 +345,17 @@ export function LikPage({ onShowRestaurantProfile }: LikPageProps) {
           Map
         </Button>
       </div>
+
+      {/* Profile Dropdown */}
+      <ProfileDropdown
+        isOpen={isDropdownOpen}
+        onClose={() => setIsDropdownOpen(false)}
+        anchorRect={dropdownAnchorRect}
+        user={mockUser}
+        stats={mockStats}
+        dailyProgress={mockDailyProgress}
+        onNavigate={handleDropdownNavigate}
+      />
     </div>
   );
 }

@@ -264,7 +264,13 @@ function App() {
           />
         );
       case 'lik':
-        return <LikPage onShowRestaurantProfile={(restaurantId) => setShowRestaurantProfile(restaurantId)} />;
+        return (
+          <LikPage 
+            onShowRestaurantProfile={(restaurantId) => setShowRestaurantProfile(restaurantId)}
+            onShowLikPassport={() => setShowLikPassport(true)}
+            onShowMessagesPage={() => setShowMessagesPage(true)}
+          />
+        );
       case 'trending':
         return (
           <TrendingPage 
