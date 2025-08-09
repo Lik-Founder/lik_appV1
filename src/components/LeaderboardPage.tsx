@@ -5,6 +5,7 @@ import { Input } from '@/components/ui/input';
 import { ConsistentAvatar } from '@/components/ui/consistent-avatar';
 import { cn } from '@/lib/utils';
 import { toast } from 'sonner';
+import likLogo from '@/assets/images/Lik_Logo_Heart_1.0.png';
 
 interface LeaderboardPageProps {
   onBack: () => void;
@@ -448,25 +449,50 @@ function LeaderboardCard({
             {/* Stats */}
             <div className="text-right shrink-0 flex items-center gap-3">
               <div>
-                <div className="flex items-center gap-1 text-yellow-500 font-semibold text-lg">
-                  <Star size={18} className="fill-current" />
-                  {item.rating}
-                </div>
-                <div className="flex items-center gap-1 text-red-500 text-sm mt-1">
-                  <Heart size={14} className="fill-current" />
-                  {item.likes >= 1000 
-                    ? `${(item.likes / 1000).toFixed(item.likes >= 100000 ? 0 : 1)}K`
-                    : item.likes
-                  }
-                </div>
-                {item.reviews && (
-                  <div className="flex items-center gap-1 text-muted-foreground text-xs mt-1">
-                    <TrendUp size={12} />
-                    {item.reviews >= 1000 
-                      ? `${(item.reviews / 1000).toFixed(1)}K`
-                      : item.reviews
-                    }
-                  </div>
+                {activeTab === 'likers' ? (
+                  <>
+                    {/* Rank placeholder for likers */}
+                    <div className="text-xs text-muted-foreground font-medium mb-2">
+                      Silver
+                    </div>
+                    {/* Lik logo count */}
+                    <div className="flex items-center gap-1">
+                      <img 
+                        src={likLogo} 
+                        alt="Lik" 
+                        className="w-4 h-4" 
+                      />
+                      <span className="text-sm font-semibold text-foreground">
+                        {item.likes >= 1000 
+                          ? `${(item.likes / 1000).toFixed(item.likes >= 100000 ? 0 : 1)}K`
+                          : item.likes
+                        }
+                      </span>
+                    </div>
+                  </>
+                ) : (
+                  <>
+                    <div className="flex items-center gap-1 text-yellow-500 font-semibold text-lg">
+                      <Star size={18} className="fill-current" />
+                      {item.rating}
+                    </div>
+                    <div className="flex items-center gap-1 text-red-500 text-sm mt-1">
+                      <Heart size={14} className="fill-current" />
+                      {item.likes >= 1000 
+                        ? `${(item.likes / 1000).toFixed(item.likes >= 100000 ? 0 : 1)}K`
+                        : item.likes
+                      }
+                    </div>
+                    {item.reviews && (
+                      <div className="flex items-center gap-1 text-muted-foreground text-xs mt-1">
+                        <TrendUp size={12} />
+                        {item.reviews >= 1000 
+                          ? `${(item.reviews / 1000).toFixed(1)}K`
+                          : item.reviews
+                        }
+                      </div>
+                    )}
+                  </>
                 )}
               </div>
               
