@@ -17,7 +17,15 @@ import {
   Star,
   Users,
   ForkKnife,
-  Timer
+  Timer,
+  Lightning,
+  Trophy,
+  Crown,
+  Confetti,
+  Target,
+  Sword,
+  Shield,
+  Sparkle
 } from '@phosphor-icons/react';
 import { cn } from '@/lib/utils';
 import { UserProgress, Bounty, Quest } from '@/lib/types';
@@ -161,189 +169,281 @@ export function LikPage({ onShowRestaurantProfile, onShowLikPassport, onShowMess
   };
 
   return (
-    <div className="h-full flex flex-col bg-background overflow-hidden relative">
+    <div className="h-full flex flex-col bg-gradient-to-br from-purple-50 via-blue-50 to-indigo-50 overflow-hidden relative">
+      {/* Magical Background Effects */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute top-10 left-10 w-20 h-20 bg-yellow-200 rounded-full opacity-20 animate-pulse"></div>
+        <div className="absolute top-32 right-16 w-16 h-16 bg-pink-200 rounded-full opacity-25 animate-bounce"></div>
+        <div className="absolute bottom-20 left-1/4 w-12 h-12 bg-green-200 rounded-full opacity-30 animate-pulse" style={{ animationDelay: '1s' }}></div>
+        <div className="absolute top-1/2 right-8 w-8 h-8 bg-orange-200 rounded-full opacity-20 animate-bounce" style={{ animationDelay: '0.5s' }}></div>
+      </div>
+
       {/* Fixed Header */}
-      <div className="bg-background border-b border-border">
+      <div className="bg-gradient-to-r from-purple-100/90 via-blue-100/90 to-indigo-100/90 backdrop-blur-lg border-b border-white/50 shadow-lg">
         {/* Top Section - User Progress */}
-        <div className="px-4 py-3 flex items-center justify-between">
-          {/* Profile with XP Ring */}
+        <div className="px-4 py-4 flex items-center justify-between">
+          {/* Profile with Magical XP Ring */}
           <div 
             ref={avatarRef}
-            className="relative cursor-pointer"
+            className="relative cursor-pointer group"
             onClick={handleAvatarClick}
           >
-            <div className="w-16 h-16 relative">
-              {/* XP Progress Ring */}
-              <svg className="w-16 h-16 transform -rotate-90" viewBox="0 0 64 64">
-                <circle
-                  cx="32"
-                  cy="32"
-                  r="28"
-                  fill="none"
-                  stroke="oklch(0.9 0 0)"
-                  strokeWidth="3"
-                />
-                <circle
-                  cx="32"
-                  cy="32"
-                  r="28"
-                  fill="none"
-                  stroke="url(#xpGradient)"
-                  strokeWidth="3"
-                  strokeLinecap="round"
-                  strokeDasharray={`${2 * Math.PI * 28}`}
-                  strokeDashoffset={`${2 * Math.PI * 28 * (1 - xpProgress / 100)}`}
-                  className="transition-all duration-300"
-                />
-                <defs>
-                  <linearGradient id="xpGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-                    <stop offset="0%" stopColor="#f09433" />
-                    <stop offset="25%" stopColor="#e6683c" />
-                    <stop offset="50%" stopColor="#dc2743" />
-                    <stop offset="75%" stopColor="#cc2366" />
-                    <stop offset="100%" stopColor="#bc1888" />
-                  </linearGradient>
-                </defs>
-              </svg>
+            <div className="w-20 h-20 relative transform transition-transform duration-300 group-hover:scale-105">
+              {/* Magical XP Progress Ring with Sparkles */}
+              <div className="absolute inset-0 animate-spin-slow">
+                <svg className="w-20 h-20 transform -rotate-90" viewBox="0 0 80 80">
+                  <circle
+                    cx="40"
+                    cy="40"
+                    r="35"
+                    fill="none"
+                    stroke="rgba(255, 255, 255, 0.3)"
+                    strokeWidth="3"
+                  />
+                  <circle
+                    cx="40"
+                    cy="40"
+                    r="35"
+                    fill="none"
+                    stroke="url(#magicalXpGradient)"
+                    strokeWidth="4"
+                    strokeLinecap="round"
+                    strokeDasharray={`${2 * Math.PI * 35}`}
+                    strokeDashoffset={`${2 * Math.PI * 35 * (1 - xpProgress / 100)}`}
+                    className="transition-all duration-500 filter drop-shadow-lg"
+                  />
+                  <defs>
+                    <linearGradient id="magicalXpGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                      <stop offset="0%" stopColor="#8b5cf6" />
+                      <stop offset="25%" stopColor="#a855f7" />
+                      <stop offset="50%" stopColor="#c084fc" />
+                      <stop offset="75%" stopColor="#d8b4fe" />
+                      <stop offset="100%" stopColor="#e9d5ff" />
+                    </linearGradient>
+                  </defs>
+                </svg>
+              </div>
+              
+              {/* Sparkle Effects */}
+              <div className="absolute -top-1 -right-1 w-4 h-4 animate-pulse">
+                <Sparkle size={16} className="text-yellow-400 animate-spin" />
+              </div>
+              <div className="absolute -bottom-1 -left-1 w-3 h-3 animate-pulse" style={{ animationDelay: '0.5s' }}>
+                <Sparkle size={12} className="text-pink-400 animate-spin" />
+              </div>
               
               {/* Profile Picture */}
-              <div className="absolute inset-2">
-                <Avatar className="w-full h-full">
+              <div className="absolute inset-3">
+                <Avatar className="w-full h-full border-2 border-white shadow-lg">
                   <AvatarImage src="/src/assets/images/user-avatar.jpg" alt="User" />
-                  <AvatarFallback className="text-lg font-bold">
+                  <AvatarFallback className="text-lg font-bold bg-gradient-to-br from-purple-400 to-pink-400 text-white">
                     U
                   </AvatarFallback>
                 </Avatar>
               </div>
               
-              {/* Level Badge */}
-              <div className="absolute -bottom-1 left-1/2 transform -translate-x-1/2 bg-foreground text-background text-xs font-bold px-2 py-0.5 rounded-full">
+              {/* Glowing Level Badge */}
+              <div className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 bg-gradient-to-r from-yellow-400 to-orange-500 text-white text-sm font-bold px-3 py-1 rounded-full shadow-lg border-2 border-white animate-pulse">
+                <Crown size={12} className="inline mr-1" />
                 {userProgress.level}
               </div>
             </div>
           </div>
 
-          {/* Stats Row */}
-          <div className="flex items-center gap-4">
-            {/* Streak */}
-            <div className="flex items-center gap-1">
-              <Flame size={20} weight="fill" className="text-orange-500" />
-              <span className="font-semibold">{userProgress.streakCount}</span>
+          {/* Animated Stats Row */}
+          <div className="flex items-center gap-6">
+            {/* Streak with Fire Animation */}
+            <div className="flex flex-col items-center transform transition-transform duration-300 hover:scale-110">
+              <div className="flex items-center gap-1 bg-gradient-to-r from-orange-400 to-red-500 text-white px-3 py-2 rounded-full shadow-lg">
+                <Flame size={18} weight="fill" className="animate-pulse" />
+                <span className="font-bold text-sm">{userProgress.streakCount}</span>
+              </div>
+              <span className="text-xs text-gray-600 mt-1 font-medium">Streak</span>
             </div>
 
-            {/* Tickets */}
-            <div className="flex items-center gap-1">
-              <Ticket size={20} weight="fill" className="text-yellow-500" />
-              <span className="font-semibold">{userProgress.likTickets}</span>
+            {/* Tickets with Sparkle */}
+            <div className="flex flex-col items-center transform transition-transform duration-300 hover:scale-110">
+              <div className="flex items-center gap-1 bg-gradient-to-r from-yellow-400 to-amber-500 text-white px-3 py-2 rounded-full shadow-lg">
+                <Ticket size={18} weight="fill" className="animate-bounce" />
+                <span className="font-bold text-sm">{userProgress.likTickets}</span>
+              </div>
+              <span className="text-xs text-gray-600 mt-1 font-medium">Tickets</span>
             </div>
 
-            {/* Coins */}
-            <div className="flex items-center gap-1">
-              <Coins size={20} weight="fill" className="text-amber-500" />
-              <span className="font-semibold">{userProgress.likCoins > 999 ? `${(userProgress.likCoins / 1000).toFixed(1)}k` : userProgress.likCoins}</span>
+            {/* Coins with Glow */}
+            <div className="flex flex-col items-center transform transition-transform duration-300 hover:scale-110">
+              <div className="flex items-center gap-1 bg-gradient-to-r from-amber-400 to-yellow-500 text-white px-3 py-2 rounded-full shadow-lg">
+                <Coins size={18} weight="fill" className="animate-spin" style={{ animationDuration: '3s' }} />
+                <span className="font-bold text-sm">{userProgress.likCoins > 999 ? `${(userProgress.likCoins / 1000).toFixed(1)}k` : userProgress.likCoins}</span>
+              </div>
+              <span className="text-xs text-gray-600 mt-1 font-medium">Coins</span>
             </div>
           </div>
         </div>
 
-        {/* Secondary Navigation */}
-        <div className="px-4 py-2 flex items-center justify-center">
-          <div className="flex items-center gap-4">
-            {/* Leaderboard */}
-            <Button variant="ghost" size="sm" className="p-2">
-              <ChartBar size={20} />
+        {/* Magical Secondary Navigation */}
+        <div className="px-4 py-3 flex items-center justify-center">
+          <div className="flex items-center gap-6">
+            {/* Leaderboard with Trophy */}
+            <Button 
+              variant="ghost" 
+              size="sm" 
+              className="group relative bg-white/60 hover:bg-white/80 backdrop-blur-sm rounded-full p-3 shadow-lg transition-all duration-300 hover:scale-110"
+            >
+              <Trophy size={20} className="text-yellow-600 group-hover:animate-bounce" />
+              <div className="absolute -top-1 -right-1 w-3 h-3 bg-red-500 rounded-full animate-pulse"></div>
             </Button>
 
-            {/* Tab Selector */}
-            <div className="bg-muted rounded-lg p-1 flex">
+            {/* Enchanted Tab Selector */}
+            <div className="bg-white/70 backdrop-blur-md rounded-2xl p-1.5 flex shadow-xl border border-white/50">
               <Button
-                variant={activeView === 'bounties' ? 'default' : 'ghost'}
+                variant="ghost"
                 size="sm"
                 onClick={() => setActiveView('bounties')}
-                className={`nav-rum-raisin ${
-                  activeView === 'bounties' ? 'font-semibold' : 'font-light'
-                }`}
+                className={cn(
+                  "nav-rum-raisin rounded-xl px-6 py-3 transition-all duration-300 relative overflow-hidden",
+                  activeView === 'bounties' 
+                    ? "bg-gradient-to-r from-purple-500 to-pink-500 text-white font-bold shadow-lg transform scale-105" 
+                    : "text-gray-600 font-medium hover:bg-white/50"
+                )}
               >
+                {activeView === 'bounties' && (
+                  <div className="absolute inset-0 bg-gradient-to-r from-purple-400 to-pink-400 opacity-20 animate-pulse"></div>
+                )}
+                <Target size={16} className="mr-2" />
                 Bounties
+                {activeView === 'bounties' && (
+                  <Sparkle size={12} className="ml-2 animate-spin" />
+                )}
               </Button>
               <Button
-                variant={activeView === 'quests' ? 'default' : 'ghost'}
+                variant="ghost"
                 size="sm"
                 onClick={() => setActiveView('quests')}
-                className={`nav-rum-raisin ${
-                  activeView === 'quests' ? 'font-semibold' : 'font-light'
-                }`}
+                className={cn(
+                  "nav-rum-raisin rounded-xl px-6 py-3 transition-all duration-300 relative overflow-hidden",
+                  activeView === 'quests' 
+                    ? "bg-gradient-to-r from-blue-500 to-indigo-500 text-white font-bold shadow-lg transform scale-105" 
+                    : "text-gray-600 font-medium hover:bg-white/50"
+                )}
               >
+                {activeView === 'quests' && (
+                  <div className="absolute inset-0 bg-gradient-to-r from-blue-400 to-indigo-400 opacity-20 animate-pulse"></div>
+                )}
+                <Sword size={16} className="mr-2" />
                 Quests
+                {activeView === 'quests' && (
+                  <Shield size={12} className="ml-2 animate-bounce" />
+                )}
               </Button>
             </div>
 
-            {/* Rewards */}
-            <Button variant="ghost" size="sm" className="p-2">
-              <Gift size={20} />
+            {/* Magical Rewards */}
+            <Button 
+              variant="ghost" 
+              size="sm" 
+              className="group relative bg-white/60 hover:bg-white/80 backdrop-blur-sm rounded-full p-3 shadow-lg transition-all duration-300 hover:scale-110"
+            >
+              <Gift size={20} className="text-purple-600 group-hover:animate-pulse" />
+              <div className="absolute -top-1 -right-1">
+                <Confetti size={12} className="text-yellow-400 animate-bounce" />
+              </div>
             </Button>
           </div>
         </div>
-
-
       </div>
 
       {/* Scrollable Content */}
-      <div className="flex-1 overflow-y-auto scrollbar-hide pb-16">
+      <div className="flex-1 overflow-y-auto scrollbar-hide pb-20">
         {/* Show filter tabs and search only for bounties */}
         {activeView === 'bounties' && (
           <>
-            {/* Filter Tabs */}
-            <div className="px-4 py-4 flex justify-center">
-              <div className="flex gap-2">
+            {/* Magical Filter Tabs */}
+            <div className="px-4 py-6 flex justify-center">
+              <div className="flex gap-3">
                 {(['nearby', 'most-wanted', 'for-you'] as const).map((filter) => (
                   <Button
                     key={filter}
-                    variant={selectedFilter === filter ? 'default' : 'outline'}
+                    variant="ghost"
                     size="sm"
                     onClick={() => setSelectedFilter(filter)}
-                    className={`rounded-full nav-rum-raisin ${
-                      selectedFilter === filter ? 'font-semibold' : 'font-light'
-                    }`}
+                    className={cn(
+                      "rounded-full nav-rum-raisin px-4 py-2 transition-all duration-300 relative overflow-hidden",
+                      selectedFilter === filter 
+                        ? "bg-gradient-to-r from-emerald-400 to-teal-500 text-white font-bold shadow-lg transform scale-105" 
+                        : "bg-white/60 backdrop-blur-sm text-gray-600 font-medium hover:bg-white/80 shadow-md"
+                    )}
                   >
-                    {filter === 'nearby' && 'Nearby'}
-                    {filter === 'most-wanted' && 'Most Wanted'}
-                    {filter === 'for-you' && 'For You'}
+                    {selectedFilter === filter && (
+                      <div className="absolute inset-0 bg-gradient-to-r from-emerald-300 to-teal-400 opacity-30 animate-pulse"></div>
+                    )}
+                    {filter === 'nearby' && (
+                      <>
+                        <MapPin size={14} className="mr-1.5" />
+                        Nearby
+                      </>
+                    )}
+                    {filter === 'most-wanted' && (
+                      <>
+                        <Lightning size={14} className="mr-1.5" />
+                        Most Wanted
+                      </>
+                    )}
+                    {filter === 'for-you' && (
+                      <>
+                        <Star size={14} className="mr-1.5" />
+                        For You
+                      </>
+                    )}
+                    {selectedFilter === filter && (
+                      <Sparkle size={10} className="ml-1.5 animate-spin" />
+                    )}
                   </Button>
                 ))}
               </div>
             </div>
 
-            {/* Search Bar */}
-            <div className="px-4 pb-4">
+            {/* Enchanted Search Bar */}
+            <div className="px-4 pb-6">
               <div className="relative">
-                <MagnifyingGlass className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground" size={16} />
-                <Input
-                  placeholder="Search For Bounty"
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  className="pl-10"
-                />
+                <div className="absolute inset-0 bg-gradient-to-r from-purple-200 to-pink-200 rounded-2xl blur-sm opacity-50"></div>
+                <div className="relative bg-white/80 backdrop-blur-md rounded-2xl border border-white/50 shadow-lg">
+                  <MagnifyingGlass className="absolute left-4 top-1/2 transform -translate-y-1/2 text-purple-500 animate-pulse" size={18} />
+                  <Input
+                    placeholder="🔍 Search for magical bounties..."
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    className="pl-12 pr-4 py-3 bg-transparent border-none text-gray-700 placeholder-gray-500 font-medium"
+                  />
+                  <div className="absolute right-4 top-1/2 transform -translate-y-1/2">
+                    <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+                  </div>
+                </div>
               </div>
             </div>
           </>
         )}
 
         {activeView === 'bounties' ? (
-          <BountiesView bounties={bounties} />
+          <BountiesView bounties={bounties} onShowRestaurantProfile={onShowRestaurantProfile} />
         ) : (
           <QuestsView quests={quests} />
         )}
       </div>
 
-      {/* Floating Map Button */}
-      <div className="fixed bottom-20 left-1/2 transform -translate-x-1/2 z-10">
-        <Button 
-          size="sm" 
-          className="bg-foreground text-background hover:bg-foreground/90 px-4 py-2 rounded-full shadow-lg border border-border/20"
-        >
-          <MapPin size={14} className="mr-1.5" />
-          Map
-        </Button>
+      {/* Floating Magical Map Button */}
+      <div className="fixed bottom-24 left-1/2 transform -translate-x-1/2 z-10">
+        <div className="relative">
+          <div className="absolute inset-0 bg-gradient-to-r from-blue-400 to-purple-500 rounded-full blur-lg opacity-50 animate-pulse"></div>
+          <Button 
+            size="sm" 
+            className="relative bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white px-6 py-3 rounded-full shadow-2xl border-2 border-white/30 transform transition-all duration-300 hover:scale-110 hover:rotate-3"
+          >
+            <MapPin size={16} className="mr-2 animate-bounce" />
+            <span className="font-bold">Explore Map</span>
+            <Sparkle size={12} className="ml-2 animate-spin" />
+          </Button>
+        </div>
       </div>
 
       {/* Profile Dropdown */}
@@ -360,88 +460,169 @@ export function LikPage({ onShowRestaurantProfile, onShowLikPassport, onShowMess
   );
 }
 
-function BountiesView({ bounties }: { bounties: Bounty[] }) {
+function BountiesView({ bounties, onShowRestaurantProfile }: { bounties: Bounty[], onShowRestaurantProfile?: (restaurantId: string) => void }) {
   return (
-    <div className="px-4 space-y-4">
-      {/* Promoted Bounties Carousel */}
-      <div className="space-y-3">
-        <div className="text-center">
-          <h3 className="font-semibold text-sm text-muted-foreground uppercase tracking-wide">Featured</h3>
+    <div className="px-4 space-y-6">
+      {/* Magical Promoted Bounties Carousel */}
+      <div className="space-y-4">
+        <div className="text-center relative">
+          <div className="absolute inset-0 flex items-center justify-center">
+            <div className="w-32 h-1 bg-gradient-to-r from-transparent via-purple-300 to-transparent"></div>
+          </div>
+          <h3 className="relative bg-gradient-to-br from-purple-50 via-blue-50 to-indigo-50 px-4 font-bold text-lg text-transparent bg-clip-text">
+            ✨ LEGENDARY BOUNTIES ✨
+          </h3>
         </div>
-        <div className="flex gap-3 overflow-x-auto scrollbar-hide justify-center">
-          {bounties.slice(0, 2).map((bounty) => (
-            <Card key={bounty.id} className="min-w-[280px] overflow-hidden">
-              <div className="relative">
-                <div className="aspect-[4/3] bg-muted flex items-center justify-center">
-                  <ForkKnife size={32} className="text-muted-foreground" />
+        <div className="flex gap-4 overflow-x-auto scrollbar-hide justify-center pb-2">
+          {bounties.slice(0, 2).map((bounty, index) => (
+            <div key={bounty.id} className="relative group">
+              {/* Magical Glow Effect */}
+              <div className="absolute -inset-1 bg-gradient-to-r from-purple-400 via-pink-400 to-red-400 rounded-3xl blur-lg opacity-30 group-hover:opacity-60 transition-opacity duration-300 animate-pulse"></div>
+              
+              <Card className="relative min-w-[300px] overflow-hidden bg-white/90 backdrop-blur-md border border-white/50 shadow-xl rounded-3xl transform transition-all duration-300 group-hover:scale-105 group-hover:-rotate-1">
+                {/* Bounty Difficulty Badge */}
+                <div className="absolute top-3 left-3 z-10">
+                  <div className={cn(
+                    "px-3 py-1 rounded-full text-xs font-bold text-white shadow-lg border border-white/30",
+                    bounty.difficulty === 'Easy' && "bg-gradient-to-r from-green-400 to-emerald-500",
+                    bounty.difficulty === 'Medium' && "bg-gradient-to-r from-yellow-400 to-orange-500",
+                    bounty.difficulty === 'Hard' && "bg-gradient-to-r from-red-400 to-pink-500"
+                  )}>
+                    <Lightning size={10} className="inline mr-1" />
+                    {bounty.difficulty}
+                  </div>
                 </div>
-                <div className="absolute bottom-2 left-2 right-2">
-                  <div className="bg-black/60 backdrop-blur-sm rounded-lg p-3 text-white">
-                    <div className="flex items-center justify-between mb-2">
-                      <div>
-                        <h4 className="font-semibold text-lg">{bounty.dishName}</h4>
-                        <p 
-                          className="text-sm opacity-90 cursor-pointer hover:underline"
-                          onClick={() => onShowRestaurantProfile?.(bounty.restaurantId)}
-                        >
-                          {bounty.restaurantName}
-                        </p>
-                      </div>
-                      <div className="text-right">
-                        <div className="flex items-center gap-1 mb-1">
-                          <Timer size={14} />
-                          <span className="text-sm">{bounty.timeRemaining}</span>
-                        </div>
-                        <div className="flex items-center gap-1">
-                          <Star size={14} weight="fill" className="text-yellow-400" />
-                          <span className="text-sm">{bounty.rating}</span>
-                        </div>
-                      </div>
+
+                {/* Timer Badge */}
+                <div className="absolute top-3 right-3 z-10 bg-black/60 backdrop-blur-sm rounded-full px-3 py-1 text-white text-xs font-bold border border-white/20">
+                  <Timer size={12} className="inline mr-1 animate-pulse" />
+                  {bounty.timeRemaining}
+                </div>
+
+                <div className="relative">
+                  <div className="aspect-[4/3] bg-gradient-to-br from-yellow-100 via-orange-100 to-red-100 flex items-center justify-center relative overflow-hidden">
+                    {/* Animated Background Pattern */}
+                    <div className="absolute inset-0 opacity-20">
+                      <div className="absolute top-4 left-4 w-8 h-8 bg-yellow-300 rounded-full animate-bounce"></div>
+                      <div className="absolute bottom-6 right-6 w-6 h-6 bg-pink-300 rounded-full animate-bounce" style={{ animationDelay: '0.5s' }}></div>
+                      <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-12 h-12 bg-orange-300 rounded-full animate-pulse"></div>
                     </div>
-                    <div className="flex items-center justify-between">
-                      <span className="text-xs opacity-75">Reward</span>
-                      <div className="flex items-center gap-1">
-                        <span className="font-bold">+{bounty.reward}</span>
-                        <Coins size={14} weight="fill" className="text-yellow-400" />
+                    
+                    <div className="relative z-10 bg-white/80 backdrop-blur-sm rounded-full p-6 shadow-lg">
+                      <ForkKnife size={40} className="text-orange-600" />
+                    </div>
+                  </div>
+                  
+                  {/* Magical Info Overlay */}
+                  <div className="absolute bottom-3 left-3 right-3">
+                    <div className="bg-gradient-to-r from-black/80 to-gray-800/80 backdrop-blur-lg rounded-2xl p-4 text-white border border-white/20 shadow-2xl">
+                      <div className="flex items-center justify-between mb-3">
+                        <div>
+                          <h4 className="font-bold text-lg flex items-center">
+                            <Crown size={16} className="text-yellow-400 mr-2" />
+                            {bounty.dishName}
+                          </h4>
+                          <p 
+                            className="text-sm opacity-90 cursor-pointer hover:underline flex items-center group"
+                            onClick={() => onShowRestaurantProfile?.(bounty.restaurantId)}
+                          >
+                            <MapPin size={12} className="mr-1 group-hover:animate-bounce" />
+                            {bounty.restaurantName}
+                          </p>
+                        </div>
+                        <div className="text-right">
+                          <div className="flex items-center gap-1 mb-1 bg-white/20 rounded-full px-2 py-1">
+                            <Star size={14} weight="fill" className="text-yellow-400 animate-pulse" />
+                            <span className="text-sm font-bold">{bounty.rating}</span>
+                          </div>
+                        </div>
+                      </div>
+                      
+                      {/* Reward Section */}
+                      <div className="flex items-center justify-between bg-gradient-to-r from-yellow-500/20 to-orange-500/20 rounded-lg p-2 border border-yellow-400/30">
+                        <span className="text-xs opacity-75 flex items-center">
+                          <Trophy size={12} className="mr-1" />
+                          Epic Reward
+                        </span>
+                        <div className="flex items-center gap-1">
+                          <span className="font-bold text-lg text-yellow-400">+{bounty.reward}</span>
+                          <Coins size={16} weight="fill" className="text-yellow-400 animate-spin" style={{ animationDuration: '3s' }} />
+                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
-              </div>
-            </Card>
+              </Card>
+            </div>
           ))}
         </div>
       </div>
 
-      {/* Local Bounties */}
-      <div className="space-y-3">
-        <h3 className="font-semibold text-sm text-muted-foreground uppercase tracking-wide">Near You</h3>
-        <div className="grid grid-cols-2 gap-3">
-          {bounties.map((bounty) => (
-            <Card key={`local-${bounty.id}`} className="overflow-hidden">
-              <div className="aspect-square bg-muted flex items-center justify-center">
-                <ForkKnife size={24} className="text-muted-foreground" />
-              </div>
-              <div className="p-3">
-                <h4 className="font-semibold text-sm mb-1">{bounty.dishName}</h4>
-                <p 
-                  className="text-xs text-muted-foreground mb-2 cursor-pointer hover:underline"
-                  onClick={() => onShowRestaurantProfile?.(bounty.restaurantId)}
-                >
-                  {bounty.restaurantName}
-                </p>
-                <div className="flex items-center justify-between text-xs">
-                  <div className="flex items-center gap-1">
-                    <Timer size={12} />
-                    <span>{bounty.timeRemaining}</span>
+      {/* Local Bounties Grid */}
+      <div className="space-y-4">
+        <div className="text-center relative">
+          <div className="absolute inset-0 flex items-center justify-center">
+            <div className="w-32 h-1 bg-gradient-to-r from-transparent via-emerald-300 to-transparent"></div>
+          </div>
+          <h3 className="relative bg-gradient-to-br from-purple-50 via-blue-50 to-indigo-50 px-4 font-bold text-lg text-transparent bg-clip-text">
+            🎯 NEARBY ADVENTURES
+          </h3>
+        </div>
+        
+        <div className="grid grid-cols-2 gap-4">
+          {bounties.map((bounty, index) => (
+            <div key={`local-${bounty.id}`} className="relative group">
+              {/* Mini Glow Effect */}
+              <div className="absolute -inset-0.5 bg-gradient-to-r from-emerald-400 to-teal-400 rounded-2xl blur opacity-20 group-hover:opacity-40 transition-opacity duration-300"></div>
+              
+              <Card className="relative overflow-hidden bg-white/90 backdrop-blur-sm border border-white/50 shadow-lg rounded-2xl transform transition-all duration-300 group-hover:scale-105 group-hover:rotate-1">
+                {/* Mini Difficulty Badge */}
+                <div className="absolute top-2 left-2 z-10">
+                  <div className={cn(
+                    "w-3 h-3 rounded-full",
+                    bounty.difficulty === 'Easy' && "bg-green-400",
+                    bounty.difficulty === 'Medium' && "bg-yellow-400",
+                    bounty.difficulty === 'Hard' && "bg-red-400"
+                  )}></div>
+                </div>
+
+                <div className="aspect-square bg-gradient-to-br from-emerald-100 via-teal-100 to-blue-100 flex items-center justify-center relative overflow-hidden">
+                  {/* Mini Background Animation */}
+                  <div className="absolute inset-0 opacity-30">
+                    <div className="absolute top-2 right-2 w-4 h-4 bg-emerald-300 rounded-full animate-pulse"></div>
+                    <div className="absolute bottom-3 left-3 w-3 h-3 bg-teal-300 rounded-full animate-bounce"></div>
                   </div>
-                  <div className="flex items-center gap-1">
-                    <span className="font-semibold">+{bounty.reward}</span>
-                    <Coins size={12} weight="fill" className="text-yellow-500" />
+                  
+                  <div className="relative bg-white/70 backdrop-blur-sm rounded-full p-4 shadow-md">
+                    <ForkKnife size={24} className="text-teal-600" />
                   </div>
                 </div>
-              </div>
-            </Card>
+                
+                <div className="p-3">
+                  <h4 className="font-bold text-sm mb-1 flex items-center">
+                    <Target size={12} className="text-emerald-500 mr-1" />
+                    {bounty.dishName}
+                  </h4>
+                  <p 
+                    className="text-xs text-gray-600 mb-2 cursor-pointer hover:underline flex items-center group"
+                    onClick={() => onShowRestaurantProfile?.(bounty.restaurantId)}
+                  >
+                    <MapPin size={10} className="mr-1 group-hover:animate-bounce" />
+                    {bounty.restaurantName}
+                  </p>
+                  <div className="flex items-center justify-between text-xs">
+                    <div className="flex items-center gap-1 bg-orange-100 text-orange-700 px-2 py-1 rounded-full">
+                      <Timer size={10} className="animate-pulse" />
+                      <span className="font-medium">{bounty.timeRemaining}</span>
+                    </div>
+                    <div className="flex items-center gap-1 bg-yellow-100 text-yellow-700 px-2 py-1 rounded-full">
+                      <span className="font-bold">+{bounty.reward}</span>
+                      <Coins size={10} weight="fill" className="animate-bounce" />
+                    </div>
+                  </div>
+                </div>
+              </Card>
+            </div>
           ))}
         </div>
       </div>
@@ -451,60 +632,117 @@ function BountiesView({ bounties }: { bounties: Bounty[] }) {
 
 function QuestsView({ quests }: { quests: Quest[] }) {
   return (
-    <div className="px-4 space-y-4">
-      {/* Promoted Quests */}
-      <div className="space-y-3">
-        <div className="text-center pt-2.5">
-          <h3 className="font-semibold text-sm text-muted-foreground uppercase tracking-wide">Epic Quests</h3>
+    <div className="px-4 space-y-6">
+      {/* Magical Epic Quests */}
+      <div className="space-y-4">
+        <div className="text-center relative pt-2">
+          <div className="absolute inset-0 flex items-center justify-center">
+            <div className="w-40 h-1 bg-gradient-to-r from-transparent via-blue-400 to-transparent"></div>
+          </div>
+          <h3 className="relative bg-gradient-to-br from-purple-50 via-blue-50 to-indigo-50 px-4 font-bold text-lg text-transparent bg-clip-text">
+            ⚔️ LEGENDARY QUESTS ⚔️
+          </h3>
         </div>
-        <div className="space-y-3">
-          {quests.map((quest) => (
-            <Card key={quest.id} className="overflow-hidden">
-              <div className="p-4">
-                <div className="flex items-start justify-between mb-3">
-                  <div className="flex-1">
-                    <h4 className="font-semibold text-lg mb-1">{quest.name}</h4>
-                    <p className="text-sm text-muted-foreground">{quest.description}</p>
-                  </div>
-                  <div className="ml-3">
+        
+        <div className="space-y-4">
+          {quests.map((quest, index) => (
+            <div key={quest.id} className="relative group">
+              {/* Epic Glow Effect */}
+              <div className="absolute -inset-1 bg-gradient-to-r from-blue-400 via-purple-400 to-indigo-400 rounded-3xl blur-lg opacity-30 group-hover:opacity-50 transition-opacity duration-300 animate-pulse"></div>
+              
+              <Card className="relative overflow-hidden bg-white/90 backdrop-blur-md border border-white/50 shadow-xl rounded-3xl transform transition-all duration-300 group-hover:scale-[1.02] group-hover:-rotate-1">
+                {/* Quest Type Badge */}
+                <div className="absolute top-4 right-4 z-10">
+                  <div className={cn(
+                    "px-3 py-2 rounded-full text-white shadow-lg border border-white/30 flex items-center gap-2",
+                    quest.type === 'team' 
+                      ? "bg-gradient-to-r from-purple-500 to-indigo-600" 
+                      : "bg-gradient-to-r from-blue-500 to-cyan-600"
+                  )}>
                     {quest.type === 'team' ? (
-                      <Users size={20} className="text-primary" />
+                      <>
+                        <Users size={16} className="animate-bounce" />
+                        <span className="text-xs font-bold">TEAM</span>
+                      </>
                     ) : (
-                      <div className="w-5 h-5 rounded-full bg-primary flex items-center justify-center">
-                        <div className="w-2 h-2 bg-white rounded-full"></div>
-                      </div>
+                      <>
+                        <Shield size={16} className="animate-pulse" />
+                        <span className="text-xs font-bold">SOLO</span>
+                      </>
                     )}
                   </div>
                 </div>
 
-                <div className="flex items-center justify-between mb-3">
-                  <div className="flex items-center gap-1">
-                    <Coins size={16} weight="fill" className="text-yellow-500" />
-                    <span className="font-semibold">+{quest.reward} LKC</span>
-                  </div>
-                  <span className={cn(
-                    "text-xs px-2 py-1 rounded-full",
-                    quest.difficulty === 'Easy' && "bg-green-100 text-green-700",
-                    quest.difficulty === 'Medium' && "bg-yellow-100 text-yellow-700",
-                    quest.difficulty === 'Hard' && "bg-orange-100 text-orange-700",
-                    quest.difficulty === 'Extreme' && "bg-red-100 text-red-700"
+                {/* Difficulty Badge */}
+                <div className="absolute top-4 left-4 z-10">
+                  <div className={cn(
+                    "px-3 py-1 rounded-full text-xs font-bold text-white shadow-lg border border-white/30",
+                    quest.difficulty === 'Easy' && "bg-gradient-to-r from-green-400 to-emerald-500",
+                    quest.difficulty === 'Medium' && "bg-gradient-to-r from-yellow-400 to-orange-500",
+                    quest.difficulty === 'Hard' && "bg-gradient-to-r from-red-400 to-pink-500",
+                    quest.difficulty === 'Extreme' && "bg-gradient-to-r from-purple-500 to-pink-600"
                   )}>
+                    <Sword size={10} className="inline mr-1" />
                     {quest.difficulty}
-                  </span>
+                  </div>
                 </div>
 
-                <div className="flex items-center justify-between text-sm text-muted-foreground">
-                  <div className="flex items-center gap-1">
-                    <MapPin size={14} />
-                    <span>{quest.locationCount} Locations</span>
+                <div className="p-6">
+                  {/* Quest Header */}
+                  <div className="mb-4">
+                    <h4 className="font-bold text-xl mb-2 flex items-center">
+                      <Trophy size={20} className="text-yellow-500 mr-2 animate-bounce" />
+                      {quest.name}
+                    </h4>
+                    <p className="text-gray-600 leading-relaxed bg-gray-50/50 rounded-lg p-3 border border-gray-200/50">
+                      {quest.description}
+                    </p>
                   </div>
-                  <div className="flex items-center gap-1">
-                    <Clock size={14} />
-                    <span>{quest.timeLimit}</span>
+
+                  {/* Quest Stats */}
+                  <div className="grid grid-cols-2 gap-4 mb-4">
+                    {/* Reward */}
+                    <div className="bg-gradient-to-r from-yellow-100 to-orange-100 rounded-xl p-3 border border-yellow-200/50">
+                      <div className="flex items-center gap-2 mb-1">
+                        <Coins size={18} weight="fill" className="text-yellow-600 animate-spin" style={{ animationDuration: '3s' }} />
+                        <span className="font-bold text-yellow-800">Epic Reward</span>
+                      </div>
+                      <div className="text-xl font-black text-yellow-700">+{quest.reward} LKC</div>
+                    </div>
+
+                    {/* Locations */}
+                    <div className="bg-gradient-to-r from-blue-100 to-purple-100 rounded-xl p-3 border border-blue-200/50">
+                      <div className="flex items-center gap-2 mb-1">
+                        <MapPin size={18} className="text-blue-600 animate-pulse" />
+                        <span className="font-bold text-blue-800">Journey</span>
+                      </div>
+                      <div className="text-xl font-black text-blue-700">{quest.locationCount} Places</div>
+                    </div>
+                  </div>
+
+                  {/* Quest Footer */}
+                  <div className="flex items-center justify-between bg-gradient-to-r from-gray-50 to-gray-100 rounded-xl p-3 border border-gray-200/50">
+                    <div className="flex items-center gap-2">
+                      <Clock size={16} className="text-gray-600 animate-pulse" />
+                      <span className="text-sm font-medium text-gray-700">Time Limit</span>
+                    </div>
+                    <div className="flex items-center gap-2 bg-white rounded-lg px-3 py-1 shadow-sm">
+                      <Timer size={14} className="text-orange-500" />
+                      <span className="font-bold text-gray-800">{quest.timeLimit}</span>
+                    </div>
+                  </div>
+
+                  {/* Action Button */}
+                  <div className="mt-4 flex justify-center">
+                    <Button className="bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white font-bold px-8 py-3 rounded-xl shadow-lg border border-white/30 transform transition-all duration-300 hover:scale-105 hover:-rotate-1">
+                      <Lightning size={16} className="mr-2 animate-bounce" />
+                      Accept Quest
+                      <Sparkle size={14} className="ml-2 animate-spin" />
+                    </Button>
                   </div>
                 </div>
-              </div>
-            </Card>
+              </Card>
+            </div>
           ))}
         </div>
       </div>
