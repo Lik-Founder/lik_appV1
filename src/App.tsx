@@ -266,6 +266,7 @@ function App() {
             onShowRestaurantProfile={(restaurantId) => setShowRestaurantProfile(restaurantId)}
             onShowUserProfile={(userId) => setShowUserProfile(userId)}
             onShowSearch={() => setShowTrendingSearch(true)}
+            onShowLeaderboard={() => setShowLeaderboard(true)}
           />
         );
       case 'profile':

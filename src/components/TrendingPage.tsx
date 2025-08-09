@@ -4,7 +4,6 @@ import { Badge } from '@/components/ui/badge';
 import { ConsistentAvatar } from '@/components/ui/consistent-avatar';
 import { CommentModal } from '@/components/CommentModal';
 import { 
-  Heart, 
   ChatCircle, 
   MapPin,
   MagnifyingGlass,
@@ -24,6 +23,7 @@ import LikLogoHeart from '@/assets/images/Lik_Logo_Heart_1.0.png';
 import BookmarkIcon from '@/assets/images/bookmark_icon.svg';
 import CommentIcon from '@/assets/images/comment_icon.svg';
 import ShareIcon from '@/assets/images/share_icon1.svg';
+import HeartIcon from '@/assets/images/heart_icon.svg';
 // Removed react-swipeable import - using native touch events instead
 
 // Mock data for trending content
@@ -202,9 +202,10 @@ interface TrendingPageProps {
   onShowRestaurantProfile?: (restaurantId: string) => void;
   onShowUserProfile?: (userId: string) => void;
   onShowSearch?: () => void;
+  onShowLeaderboard?: () => void;
 }
 
-export function TrendingPage({ onShowRestaurantProfile, onShowUserProfile, onShowSearch }: TrendingPageProps) {
+export function TrendingPage({ onShowRestaurantProfile, onShowUserProfile, onShowSearch, onShowLeaderboard }: TrendingPageProps) {
   const [activeTab, setActiveTab] = useState<'following' | 'trending' | 'foryou'>('trending');
   const [currentIndex, setCurrentIndex] = useState(0);
   const [content, setContent] = useKV('trending-content', mockContent);
@@ -620,15 +621,16 @@ export function TrendingPage({ onShowRestaurantProfile, onShowUserProfile, onSho
                   <Button 
                     variant="ghost" 
                     size="sm" 
-                    onClick={() => handleLike(post.id)}
-                    className={cn(
-                      "w-12 h-12 rounded-full touch-feedback",
-                      post.isLiked ? "text-red-500" : "text-white"
-                    )}
+                    onClick={() => onShowLeaderboard?.()}
+                    className="w-12 h-12 rounded-full touch-feedback text-white"
                   >
-                    <Heart size={24} weight={post.isLiked ? "fill" : "regular"} />
+                    <img 
+                      src={HeartIcon} 
+                      alt="Heart" 
+                      className="w-6 h-6"
+                    />
                   </Button>
-                  <span className="text-white text-xs">{post.likes}</span>
+                  <span className="text-white text-xs">Rank</span>
                 </div>
                 
                 <div className="flex flex-col items-center gap-1">
