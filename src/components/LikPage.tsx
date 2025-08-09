@@ -3,6 +3,7 @@ import { useKV } from '@github/spark/hooks';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { 
   Flame, 
   Ticket, 
@@ -139,10 +140,13 @@ export function LikPage({ onShowRestaurantProfile }: LikPageProps) {
               </svg>
               
               {/* Profile Picture */}
-              <div className="absolute inset-1 rounded-full bg-muted flex items-center justify-center overflow-hidden">
-                <div className="w-full h-full bg-gradient-to-br from-primary/20 to-accent/20 flex items-center justify-center">
-                  <span className="text-lg font-bold text-primary">U</span>
-                </div>
+              <div className="absolute inset-2">
+                <Avatar className="w-full h-full">
+                  <AvatarImage src="/src/assets/images/user-avatar.jpg" alt="User" />
+                  <AvatarFallback className="text-lg font-bold">
+                    U
+                  </AvatarFallback>
+                </Avatar>
               </div>
               
               {/* Level Badge */}
