@@ -23,6 +23,7 @@ import { useKV } from '@github/spark/hooks';
 import { UserPost, RestaurantPost, AdPost, User, Comment } from '@/lib/types';
 import LikLogoHeart from '@/assets/images/Lik_Logo_Heart_1.0.png';
 import BookmarkIcon from '@/assets/images/bookmark_icon.svg';
+import CommentIcon from '@/assets/images/comment_icon.svg';
 // Removed react-swipeable import - using native touch events instead
 
 // Mock data for trending content
@@ -637,7 +638,11 @@ export function TrendingPage({ onShowRestaurantProfile, onShowUserProfile, onSho
                     onClick={() => handleComment(post.id)}
                     className="w-12 h-12 rounded-full text-white touch-feedback"
                   >
-                    <ChatCircle size={24} />
+                    <img 
+                      src={CommentIcon} 
+                      alt="Comment" 
+                      className="w-6 h-6"
+                    />
                   </Button>
                   <span className="text-white text-xs">{post.comments}</span>
                 </div>
