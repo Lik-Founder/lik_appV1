@@ -34,9 +34,10 @@ import { toast } from 'sonner';
 interface ProfilePageProps {
   onShowLeaderboard?: () => void;
   onShowLikPassport?: () => void;
+  onShowNotifications?: () => void;
 }
 
-export function ProfilePage({ onShowLeaderboard, onShowLikPassport }: ProfilePageProps = {}) {
+export function ProfilePage({ onShowLeaderboard, onShowLikPassport, onShowNotifications }: ProfilePageProps = {}) {
   const [currentUser, setCurrentUser] = useKV<User>('currentUser', getCurrentUser());
   const [posts] = useKV<PostType[]>('posts', generateMockPosts());
   const [isCreatePostOpen, setIsCreatePostOpen] = useState(false);
@@ -74,7 +75,11 @@ export function ProfilePage({ onShowLeaderboard, onShowLikPassport }: ProfilePag
   };
 
   const handleNotifications = () => {
-    toast.info('Notifications coming soon!');
+    if (onShowNotifications) {
+      onShowNotifications();
+    } else {
+      toast.info('Notifications coming soon!');
+    }
   };
 
   const handlePassport = () => {
@@ -83,10 +88,6 @@ export function ProfilePage({ onShowLeaderboard, onShowLikPassport }: ProfilePag
     } else {
       toast.info('Lik Passport coming soon!');
     }
-  };
-
-  const handleRewards = () => {
-    toast.info('Rewards coming soon!');
   };
 
   const handleLeaderboard = () => {
@@ -124,9 +125,6 @@ export function ProfilePage({ onShowLeaderboard, onShowLikPassport }: ProfilePag
           <div className="flex items-center gap-0.5">
             <Button variant="ghost" size="sm" onClick={handlePassport} className="px-1.5 py-2 h-8 w-8 touch-target">
               <Certificate size={14} />
-            </Button>
-            <Button variant="ghost" size="sm" onClick={handleRewards} className="px-1.5 py-2 h-8 w-8 touch-target">
-              <Gift size={14} />
             </Button>
             <Button variant="ghost" size="sm" onClick={handleNotifications} className="px-1.5 py-2 h-8 w-8 touch-target">
               <Bell size={14} />

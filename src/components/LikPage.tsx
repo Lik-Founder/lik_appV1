@@ -96,9 +96,10 @@ interface LikPageProps {
   onShowRestaurantProfile?: (restaurantId: string) => void;
   onShowLikPassport?: () => void;
   onShowMessagesPage?: () => void;
+  onShowNotifications?: () => void;
 }
 
-export function LikPage({ onShowRestaurantProfile, onShowLikPassport, onShowMessagesPage }: LikPageProps) {
+export function LikPage({ onShowRestaurantProfile, onShowLikPassport, onShowMessagesPage, onShowNotifications }: LikPageProps) {
   const [userProgress] = useKV('user-progress', mockUserProgress);
   const [bounties] = useKV('bounties', mockBounties);
   const [quests] = useKV('quests', mockQuests);
@@ -132,6 +133,9 @@ export function LikPage({ onShowRestaurantProfile, onShowLikPassport, onShowMess
         break;
       case 'messages':
         onShowMessagesPage?.();
+        break;
+      case 'notifications':
+        onShowNotifications?.();
         break;
       default:
         console.log('Navigate to:', destination);

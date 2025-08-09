@@ -19,6 +19,7 @@ import { MessagesPage } from '@/components/MessagesPage';
 import { MessageThread } from '@/components/MessageThread';
 import { SwipeIndicator } from '@/components/SwipeIndicator';
 import { SwipeDiscoveryPage } from '@/components/SwipeDiscoveryPage';
+import { NotificationsPage } from '@/components/NotificationsPage';
 import { useDevice, useSafeArea } from '@/hooks/use-device';
 import { useTabSwipe } from '@/hooks/use-tab-swipe';
 import { Toaster } from '@/components/ui/sonner';
@@ -39,6 +40,7 @@ function App() {
   const [showSwipeIndicator, setShowSwipeIndicator] = useState(false);
   const [showTrendingSearch, setShowTrendingSearch] = useState(false);
   const [showSwipeDiscovery, setShowSwipeDiscovery] = useState(false);
+  const [showNotifications, setShowNotifications] = useState(false);
   const device = useDevice();
   const safeArea = useSafeArea();
 
@@ -49,10 +51,19 @@ function App() {
       setActiveTab(newTab);
       setShowSwipeIndicator(true);
     },
-    disabled: !!showRestaurantProfile || !!showUserProfile || showLeaderboard || showLikTV || showLikPassport || showGuidePage || showEventsPage || !!showEventDetails || showMessagesPage || !!showMessageThread || showTrendingSearch || showSwipeDiscovery,
+    disabled: !!showRestaurantProfile || !!showUserProfile || showLeaderboard || showLikTV || showLikPassport || showGuidePage || showEventsPage || !!showEventDetails || showMessagesPage || !!showMessageThread || showTrendingSearch || showSwipeDiscovery || showNotifications,
   });
 
   const renderActiveTab = () => {
+    // Show Notifications if requested
+    if (showNotifications) {
+      return (
+        <NotificationsPage 
+          onBack={() => setShowNotifications(false)}
+        />
+      );
+    }
+
     // Show Swipe Discovery if requested
     if (showSwipeDiscovery) {
       return (
@@ -249,6 +260,7 @@ function App() {
             onShowEventsPage={() => setShowEventsPage(true)}
             onShowMessagesPage={() => setShowMessagesPage(true)}
             onShowLikPassport={() => setShowLikPassport(true)}
+            onShowNotifications={() => setShowNotifications(true)}
           />
         );
       case 'search':
@@ -269,6 +281,7 @@ function App() {
             onShowRestaurantProfile={(restaurantId) => setShowRestaurantProfile(restaurantId)}
             onShowLikPassport={() => setShowLikPassport(true)}
             onShowMessagesPage={() => setShowMessagesPage(true)}
+            onShowNotifications={() => setShowNotifications(true)}
           />
         );
       case 'trending':
@@ -281,7 +294,7 @@ function App() {
           />
         );
       case 'profile':
-        return <ProfilePage onShowLeaderboard={() => setShowLeaderboard(true)} onShowLikPassport={() => setShowLikPassport(true)} />;
+        return <ProfilePage onShowLeaderboard={() => setShowLeaderboard(true)} onShowLikPassport={() => setShowLikPassport(true)} onShowNotifications={() => setShowNotifications(true)} />;
       default:
         return <HomeFeed onShowUserProfile={(userId) => setShowUserProfile(userId)} />;
     }
@@ -306,7 +319,7 @@ function App() {
       </div>
 
       {/* Swipe Indicator */}
-      {!showRestaurantProfile && !showUserProfile && !showLeaderboard && !showLikTV && !showLikPassport && !showGuidePage && !showEventsPage && !showEventDetails && !showMessagesPage && !showMessageThread && !showTrendingSearch && !showSwipeDiscovery && (
+      {!showRestaurantProfile && !showUserProfile && !showLeaderboard && !showLikTV && !showLikPassport && !showGuidePage && !showEventsPage && !showEventDetails && !showMessagesPage && !showMessageThread && !showTrendingSearch && !showSwipeDiscovery && !showNotifications && (
         <SwipeIndicator 
           activeTab={activeTab} 
           isVisible={showSwipeIndicator}
@@ -314,7 +327,7 @@ function App() {
       )}
 
       {/* Bottom Navigation - Hide when viewing restaurant profile */}
-      {!showRestaurantProfile && !showUserProfile && !showLeaderboard && !showLikTV && !showLikPassport && !showGuidePage && !showEventsPage && !showEventDetails && !showMessagesPage && !showMessageThread && !showTrendingSearch && !showSwipeDiscovery && (
+      {!showRestaurantProfile && !showUserProfile && !showLeaderboard && !showLikTV && !showLikPassport && !showGuidePage && !showEventsPage && !showEventDetails && !showMessagesPage && !showMessageThread && !showTrendingSearch && !showSwipeDiscovery && !showNotifications && (
         <div 
           className={cn(
             "border-t backdrop-blur-sm",

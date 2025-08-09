@@ -38,9 +38,10 @@ interface HomeFeedProps {
   onShowEventsPage?: () => void;
   onShowMessagesPage?: () => void;
   onShowLikPassport?: () => void;
+  onShowNotifications?: () => void;
 }
 
-export function HomeFeed({ onShowUserProfile, onShowRestaurantProfile, onShowLeaderboard, onShowLikTV, onShowGuidePage, onShowEventsPage, onShowMessagesPage, onShowLikPassport }: HomeFeedProps) {
+export function HomeFeed({ onShowUserProfile, onShowRestaurantProfile, onShowLeaderboard, onShowLikTV, onShowGuidePage, onShowEventsPage, onShowMessagesPage, onShowLikPassport, onShowNotifications }: HomeFeedProps) {
   const [stories, setStories] = useKV<StoryType[]>('stories', generateMockStories());
   const [users, setUsers] = useKV<User[]>('users', generateMockUsers());
   const [currentUser] = useKV<User>('currentUser', getCurrentUser());
@@ -83,6 +84,9 @@ export function HomeFeed({ onShowUserProfile, onShowRestaurantProfile, onShowLea
         break;
       case 'liktv':
         onShowLikTV?.();
+        break;
+      case 'notifications':
+        onShowNotifications?.();
         break;
       default:
         console.log(`Navigate to: ${destination}`);
