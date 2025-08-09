@@ -203,9 +203,10 @@ interface TrendingPageProps {
   onShowUserProfile?: (userId: string) => void;
   onShowSearch?: () => void;
   onShowLeaderboard?: () => void;
+  onShowLikTV?: () => void;
 }
 
-export function TrendingPage({ onShowRestaurantProfile, onShowUserProfile, onShowSearch, onShowLeaderboard }: TrendingPageProps) {
+export function TrendingPage({ onShowRestaurantProfile, onShowUserProfile, onShowSearch, onShowLeaderboard, onShowLikTV }: TrendingPageProps) {
   const [activeTab, setActiveTab] = useState<'following' | 'trending' | 'foryou'>('trending');
   const [currentIndex, setCurrentIndex] = useState(0);
   const [content, setContent] = useKV('trending-content', mockContent);
@@ -592,7 +593,7 @@ export function TrendingPage({ onShowRestaurantProfile, onShowUserProfile, onSho
             <Button variant="ghost" size="sm" className="text-white p-1 sm:p-2">
               <MapPin size={16} className="sm:w-5 sm:h-5" />
             </Button>
-            <Button variant="ghost" size="sm" className="text-white p-1 sm:p-2">
+            <Button variant="ghost" size="sm" className="text-white p-1 sm:p-2" onClick={onShowLikTV}>
               <Television size={16} className="sm:w-5 sm:h-5" />
             </Button>
             <Button variant="ghost" size="sm" className="text-white p-1 sm:p-2" onClick={onShowSearch}>

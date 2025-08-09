@@ -1,5 +1,5 @@
 import { useKV } from '@github/spark/hooks';
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { Story as StoryType, User } from '@/lib/types';
 import { generateMockStories, generateMockUsers, getCurrentUser } from '@/lib/mockData';
 import { StoriesBar } from '@/components/StoriesBar';
@@ -53,6 +53,11 @@ export function HomeFeed({ onShowUserProfile, onShowRestaurantProfile, onShowLea
   const [isProfileDropdownOpen, setIsProfileDropdownOpen] = useState(false);
   const [avatarRect, setAvatarRect] = useState<DOMRect | null>(null);
   const avatarRef = useRef<HTMLDivElement>(null);
+  
+  // Floating app bar state
+  const [showAppBar, setShowAppBar] = useState(true);
+  const [lastScrollY, setLastScrollY] = useState(0);
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
   
   const device = useDevice();
 
@@ -278,10 +283,61 @@ export function HomeFeed({ onShowUserProfile, onShowRestaurantProfile, onShowLea
     }
   ];
 
+  // Scroll detection effect for floating app bar
+  useEffect(() => {
+    const handleScroll = () => {
+      if (!scrollContainerRef.current) return;
+      
+      const currentScrollY = scrollContainerRef.current.scrollTop;
+      const scrollDifference = currentScrollY - lastScrollY;
+      
+      // Always show app bar at the top
+      if (currentScrollY <= 50) {
+        setShowAppBar(true);
+        setLastScrollY(currentScrollY);
+        return;
+      }
+      
+      // Only hide/show app bar if scroll difference is significant (8px threshold)
+      if (Math.abs(scrollDifference) > 8) {
+        if (scrollDifference > 0 && currentScrollY > 100) {
+          // Scrolling down - hide app bar
+          setShowAppBar(false);
+        } else if (scrollDifference < 0) {
+          // Scrolling up - show app bar
+          setShowAppBar(true);
+        }
+        
+        setLastScrollY(currentScrollY);
+      }
+    };
+
+    // Throttle scroll events for better performance
+    let ticking = false;
+    const throttledScroll = () => {
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          handleScroll();
+          ticking = false;
+        });
+        ticking = true;
+      }
+    };
+
+    const scrollContainer = scrollContainerRef.current;
+    if (scrollContainer) {
+      scrollContainer.addEventListener('scroll', throttledScroll, { passive: true });
+      return () => scrollContainer.removeEventListener('scroll', throttledScroll);
+    }
+  }, [lastScrollY]);
+
   return (
     <div className="h-full bg-background">
       {/* Top Navigation Bar */}
-      <div className="fixed top-0 left-0 right-0 z-40 bg-background/95 backdrop-blur-sm border-b border-border">
+      <div className={cn(
+        "fixed top-0 left-0 right-0 z-40 bg-background/95 backdrop-blur-sm border-b border-border floating-app-bar floating-app-bar-backdrop",
+        showAppBar ? "visible" : "hidden"
+      )}>
         <div className="flex items-center justify-between px-4 py-3">
           {/* Left - User Icon */}
           <div className="flex items-center min-w-[60px]">
@@ -330,11 +386,14 @@ export function HomeFeed({ onShowUserProfile, onShowRestaurantProfile, onShowLea
       </div>
 
       {/* Main Content */}
-      <div className={cn(
-        "h-full overflow-y-auto scrollbar-hide pt-[84px]",
-        "mx-auto",
-        device.type === 'tablet' ? "max-w-2xl" : "w-full"
-      )}>
+      <div 
+        ref={scrollContainerRef}
+        className={cn(
+          "h-full overflow-y-auto scrollbar-hide pt-[84px] smooth-scroll-container",
+          "mx-auto",
+          device.type === 'tablet' ? "max-w-2xl" : "w-full"
+        )}
+      >
         
         {/* Hero Carousel */}
         <div className="p-4">

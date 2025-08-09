@@ -291,6 +291,7 @@ function App() {
             onShowUserProfile={(userId) => setShowUserProfile(userId)}
             onShowSearch={() => setShowTrendingSearch(true)}
             onShowLeaderboard={() => setShowLeaderboard(true)}
+            onShowLikTV={() => setShowLikTV(true)}
           />
         );
       case 'profile':

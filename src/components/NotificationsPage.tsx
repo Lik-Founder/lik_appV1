@@ -1,21 +1,21 @@
 import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
 import { cn } from '@/lib/utils';
 import { 
-}
+  ArrowLeft,
   Check, 
-  type: '
+  Heart,
   MessageCircle, 
-  isRead:
+  Users,
   Zap, 
   MapPin, 
   Trophy, 
-  const 
   Crown, 
-      ty
+  Gift,
+  Star,
   Clock 
 } from '@phosphor-icons/react';
-import { cn } from '@/lib/utils';
 
 interface NotificationsPageProps {
   onBack: () => void;
@@ -30,15 +30,14 @@ interface Notification {
   isRead: boolean;
   avatar?: string;
   icon?: React.ReactNode;
-    },
   reward?: string;
- 
+}
 
 export const NotificationsPage: React.FC<NotificationsPageProps> = ({ onBack }) => {
   const [activeTab, setActiveTab] = useState<'all' | 'unread' | 'quests' | 'social'>('all');
   const [notifications, setNotifications] = useState<Notification[]>([
     {
-      timestam
+      id: '1',
       type: 'achievement',
       title: '🏆 New Achievement Unlocked!',
       message: 'Congratulations! You\'ve earned the "Taco Tuesday Titan" badge for visiting 5 Mexican restaurants this week!',
@@ -48,7 +47,7 @@ export const NotificationsPage: React.FC<NotificationsPageProps> = ({ onBack }) 
       reward: '+250 XP, +500 Lik Coins'
     },
     {
-      isRead: 
+      id: '2',
       type: 'quest',
       title: '⚡ Quest Complete!',
       message: 'Amazing work completing the "Pizza Paradise" quest! Your taste buds are legendary.',
@@ -56,14 +55,14 @@ export const NotificationsPage: React.FC<NotificationsPageProps> = ({ onBack }) 
       isRead: false,
       icon: <Zap className="w-5 h-5 text-purple-500" />,
       reward: '+1000 XP, +750 Lik Coins'
-      
+    },
     {
-    }
+      id: '3',
       type: 'like',
       title: '❤️ Your post is trending!',
       message: 'Sarah Chen and 47 others liked your review of "The Perfect Ramen Bowl" at Noodle Nirvana.',
       timestamp: '1 hour ago',
-
+      isRead: true,
       avatar: '/api/placeholder/32/32'
     },
     {
@@ -74,27 +73,27 @@ export const NotificationsPage: React.FC<NotificationsPageProps> = ({ onBack }) 
       timestamp: '2 hours ago',
       isRead: false,
       icon: <Crown className="w-5 h-5 text-gradient-to-r from-yellow-400 to-orange-500" />,
-    
+      reward: '+500 XP'
     },
-     
+    {
       id: '5',
       type: 'bounty',
       title: '🎯 New Bounty Available!',
       message: 'A legendary "Midnight Munchies" bounty appeared at Late Night Bites! Complete before dawn for bonus XP.',
       timestamp: '4 hours ago',
-  const unreadCount
+      isRead: true,
       icon: <MapPin className="w-5 h-5 text-blue-500" />,
-      {/* Header */}
+      reward: '+350 Lik Coins'
     },
-     
+    {
       id: '6',
       type: 'follow',
       title: '👤 New Follower',
       message: 'Chef Marcus Rodriguez (Verified) started following you! They loved your pasta review.',
       timestamp: '6 hours ago',
-              <p cl
+      isRead: true,
       avatar: '/api/placeholder/32/32'
-      
+    },
     {
       id: '7',
       type: 'coin',
@@ -104,31 +103,31 @@ export const NotificationsPage: React.FC<NotificationsPageProps> = ({ onBack }) 
       isRead: true,
       icon: <Gift className="w-5 h-5 text-green-500" />,
       reward: '+200 Lik Coins'
-      
+    },
     {
-          ].ma
+      id: '8',
       type: 'comment',
       title: '💬 New Comment',
       message: 'Alex Kim replied to your comment: "That dessert does look absolutely divine! Adding to my bucket list 🤤"',
-                activeTab === ta
+      timestamp: '1 day ago',
       isRead: true,
-            >
+      avatar: '/api/placeholder/32/32'
     }
-     
+  ]);
 
   const markAsRead = (id: string) => {
     setNotifications(prev => 
       prev.map(notif => 
         notif.id === id ? { ...notif, isRead: true } : notif
-      <
+      )
     );
-    
+  };
 
-              {activeTab === 'u
+  const markAllAsRead = () => {
     setNotifications(prev => 
       prev.map(notif => ({ ...notif, isRead: true }))
     );
-    
+  };
 
   const getFilteredNotifications = () => {
     switch (activeTab) {
@@ -138,9 +137,9 @@ export const NotificationsPage: React.FC<NotificationsPageProps> = ({ onBack }) 
         return notifications.filter(n => ['quest', 'bounty', 'achievement', 'level'].includes(n.type));
       case 'social':
         return notifications.filter(n => ['like', 'comment', 'follow'].includes(n.type));
-              
+      default:
         return notifications;
-     
+    }
   };
 
   const getNotificationIcon = (notification: Notification) => {
@@ -148,7 +147,7 @@ export const NotificationsPage: React.FC<NotificationsPageProps> = ({ onBack }) 
     
     switch (notification.type) {
       case 'like': return <Heart className="w-5 h-5 text-red-500" />;
-                      {!notification.isRead && (
+      case 'comment': return <MessageCircle className="w-5 h-5 text-blue-500" />;
       case 'follow': return <Users className="w-5 h-5 text-green-500" />;
       case 'quest': return <Zap className="w-5 h-5 text-purple-500" />;
       case 'bounty': return <MapPin className="w-5 h-5 text-blue-500" />;
@@ -158,7 +157,7 @@ export const NotificationsPage: React.FC<NotificationsPageProps> = ({ onBack }) 
       case 'restaurant': return <Star className="w-5 h-5 text-orange-500" />;
       case 'event': return <Clock className="w-5 h-5 text-pink-500" />;
       default: return <Star className="w-5 h-5 text-gray-500" />;
-     
+    }
   };
 
   const unreadCount = notifications.filter(n => !n.isRead).length;
@@ -168,9 +167,8 @@ export const NotificationsPage: React.FC<NotificationsPageProps> = ({ onBack }) 
       {/* Header */}
       <div className="flex items-center justify-between p-4 bg-white/80 backdrop-blur-sm border-b border-purple-100">
         <div className="flex items-center gap-3">
-            <p cl
+          <Button
             variant="ghost"
-        </div>
             onClick={onBack}
             className="p-2 hover:bg-purple-100 transition-colors"
           >
@@ -182,29 +180,29 @@ export const NotificationsPage: React.FC<NotificationsPageProps> = ({ onBack }) 
             </h1>
             {unreadCount > 0 && (
               <p className="text-sm text-purple-600">
-
+                {unreadCount} new notification{unreadCount !== 1 ? 's' : ''}
               </p>
-
+            )}
           </div>
+        </div>
 
-        
-
+        {unreadCount > 0 && (
           <Button
             variant="outline"
             size="sm"
             onClick={markAllAsRead}
             className="text-purple-600 border-purple-200 hover:bg-purple-50"
-
+          >
             <Check className="w-4 h-4 mr-1" />
             Mark all read
           </Button>
-
+        )}
       </div>
 
       {/* Tab Navigation */}
       <div className="px-4 py-3 bg-white/60 backdrop-blur-sm border-b border-purple-100">
         <div className="flex gap-2 overflow-x-auto scrollbar-hide">
-
+          {[
             { key: 'all', label: '🌟 All', count: notifications.length },
             { key: 'unread', label: '🔥 Unread', count: unreadCount },
             { key: 'quests', label: '⚡ Quests & Rewards', count: notifications.filter(n => ['quest', 'bounty', 'achievement', 'level'].includes(n.type)).length },
@@ -220,9 +218,9 @@ export const NotificationsPage: React.FC<NotificationsPageProps> = ({ onBack }) 
                 activeTab === tab.key 
                   ? "glossy-red-pill" 
                   : "text-purple-700 hover:bg-purple-100"
-
+              )}
             >
-
+              {tab.label}
               {tab.count > 0 && (
                 <Badge 
                   variant="secondary" 
@@ -234,13 +232,13 @@ export const NotificationsPage: React.FC<NotificationsPageProps> = ({ onBack }) 
             </Button>
           ))}
         </div>
-
+      </div>
 
       {/* Notifications List */}
       <div className="flex-1 overflow-y-auto p-4 space-y-3">
         {getFilteredNotifications().length === 0 ? (
           <div className="text-center py-12">
-            <div className="text-6xl mb-4 animate-bounce">🎉</div>
+            <div className="text-6xl mb-4">🎉</div>
             <h3 className="text-xl font-bold text-purple-900 nav-rum-raisin mb-2">
               All caught up!
             </h3>
@@ -250,9 +248,9 @@ export const NotificationsPage: React.FC<NotificationsPageProps> = ({ onBack }) 
                 : "No notifications in this category yet."}
             </p>
           </div>
-
+        ) : (
           getFilteredNotifications().map((notification) => (
-
+            <div
               key={notification.id}
               onClick={() => markAsRead(notification.id)}
               className={cn(
@@ -262,13 +260,13 @@ export const NotificationsPage: React.FC<NotificationsPageProps> = ({ onBack }) 
                   : "border-purple-200 hover:border-purple-300 bg-white/90 shadow-sm"
               )}
             >
-
+              <div className="flex gap-3">
                 {/* Icon/Avatar */}
-                <div className="flex-shrink-0">
+                <div className="flex-shrink-0 relative">
                   {notification.avatar ? (
                     <img 
                       src={notification.avatar} 
-
+                      alt="Avatar"
                       className="w-10 h-10 rounded-full object-cover ring-2 ring-purple-200"
                     />
                   ) : (
@@ -276,8 +274,8 @@ export const NotificationsPage: React.FC<NotificationsPageProps> = ({ onBack }) 
                       {getNotificationIcon(notification)}
                     </div>
                   )}
-
-                    <div className="w-3 h-3 bg-purple-500 rounded-full -mt-2 ml-8 animate-pulse" />
+                  {!notification.isRead && (
+                    <div className="w-3 h-3 bg-purple-500 rounded-full absolute -top-1 -right-1" />
                   )}
                 </div>
 
@@ -288,7 +286,7 @@ export const NotificationsPage: React.FC<NotificationsPageProps> = ({ onBack }) 
                       "font-semibold nav-rum-raisin",
                       notification.isRead ? "text-purple-700" : "text-purple-900"
                     )}>
-
+                      {notification.title}
                     </h3>
                     <span className="text-xs text-purple-500 flex-shrink-0">
                       {notification.timestamp}
@@ -296,23 +294,24 @@ export const NotificationsPage: React.FC<NotificationsPageProps> = ({ onBack }) 
                   </div>
 
                   <p className={cn(
-
+                    "text-sm mt-1",
                     notification.isRead ? "text-purple-600" : "text-purple-800"
-
+                  )}>
                     {notification.message}
+                  </p>
 
-
-
+                  {notification.reward && (
                     <div className="mt-2 inline-flex items-center gap-1 bg-gradient-to-r from-yellow-100 to-orange-100 text-orange-700 text-xs font-medium px-2 py-1 rounded-full border border-orange-200">
-
+                      <Gift className="w-3 h-3" />
                       {notification.reward}
-
+                    </div>
                   )}
-
+                </div>
               </div>
-
+            </div>
           ))
-
+        )}
       </div>
-
+    </div>
   );
+};

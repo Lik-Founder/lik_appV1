@@ -126,6 +126,9 @@ export function ProfilePage({ onShowLeaderboard, onShowLikPassport, onShowNotifi
             <Button variant="ghost" size="sm" onClick={handlePassport} className="px-1.5 py-2 h-8 w-8 touch-target">
               <Certificate size={14} />
             </Button>
+            <Button variant="ghost" size="sm" className="px-1.5 py-2 h-8 w-8 touch-target">
+              <Gift size={14} />
+            </Button>
             <Button variant="ghost" size="sm" onClick={handleNotifications} className="px-1.5 py-2 h-8 w-8 touch-target">
               <Bell size={14} />
             </Button>
