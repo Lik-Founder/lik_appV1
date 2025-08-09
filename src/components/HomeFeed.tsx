@@ -209,25 +209,45 @@ export function HomeFeed({ onShowUserProfile, onShowRestaurantProfile, onShowLea
   const liksPicks = [
     {
       id: '1',
-      image: 'https://images.unsplash.com/photo-1571091718767-18b5b1457add?w=300&h=200&fit=crop',
-      restaurant: 'Burger Barn',
+      image: 'https://images.unsplash.com/photo-1586190848861-99aa4a171e90?w=400&h=400&fit=crop',
+      restaurant: 'BurgerFast',
       restaurantId: 'rest4',
-      rating: 4.8,
-      dish: 'Big Ranch Burger Set',
+      rating: 3.8,
+      foodScore: '1.5',
+      dish: 'Bacon Ranch Fry Platter',
+      description: 'Fry Platter with bacon cheese and ranch for you to share with friends.',
       price: '$16.00',
       calories: '900 cal',
-      likedBy: ['user1', 'user2', 'user3']
+      dietaryInfo: ['🥓', '🧀', '🌿'],
+      likedBy: ['user1', 'user2', 'user3', 'user4', 'user5']
     },
     {
       id: '2',
-      image: 'https://images.unsplash.com/photo-1565299624946-b28f40a0ca4b?w=300&h=200&fit=crop',
+      image: 'https://images.unsplash.com/photo-1565299624946-b28f40a0ca4b?w=400&h=400&fit=crop',
       restaurant: 'Pizza Corner',
       restaurantId: 'rest5',
       rating: 4.6,
+      foodScore: '8.8',
       dish: 'Margherita Supreme',
+      description: 'Fresh mozzarella, basil, and tomato sauce on crispy thin crust.',
       price: '$18.50',
       calories: '750 cal',
-      likedBy: ['user4', 'user5']
+      dietaryInfo: ['🧀', '🌿', '🍅'],
+      likedBy: ['user4', 'user5', 'user6']
+    },
+    {
+      id: '3',
+      image: 'https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?w=400&h=400&fit=crop',
+      restaurant: 'Taco Fiesta',
+      restaurantId: 'rest6',
+      rating: 4.2,
+      foodScore: '9.1',
+      dish: 'Carne Asada Bowl',
+      description: 'Grilled steak with fresh cilantro, onions, and lime.',
+      price: '$14.75',
+      calories: '620 cal',
+      dietaryInfo: ['🥩', '🌶️', '🌿'],
+      likedBy: ['user1', 'user3', 'user7', 'user8']
     }
   ];
 
@@ -508,43 +528,101 @@ export function HomeFeed({ onShowUserProfile, onShowRestaurantProfile, onShowLea
           <HorizontalCarousel 
             autoScroll={true}
             autoScrollInterval={7000}
-            itemClassName="min-w-[280px]"
+            itemClassName="min-w-[320px]"
           >
             {liksPicks.map((pick) => (
-              <Card key={pick.id}>
-                <CardContent className="p-0">
-                  <img 
-                    src={pick.image} 
-                    alt={pick.dish}
-                    className="w-full h-40 object-cover rounded-t-lg"
-                  />
-                  <div className="p-4">
-                    <div className="flex items-center justify-between mb-2">
-                      <h3 
-                        className="font-bold text-lg cursor-pointer hover:underline"
-                        onClick={() => onShowRestaurantProfile?.(pick.restaurantId)}
-                      >
-                        {pick.restaurant}
-                      </h3>
-                      <div className="flex items-center gap-1">
-                        <Star size={16} className="fill-yellow-400 text-yellow-400" />
-                        <span className="font-medium">{pick.rating}</span>
+              <Card key={pick.id} className="overflow-hidden">
+                <CardContent className="p-0 relative">
+                  {/* Background Image */}
+                  <div className="relative h-80">
+                    <img 
+                      src={pick.image} 
+                      alt={pick.dish}
+                      className="w-full h-full object-cover"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-black/10" />
+                    
+                    {/* Top Section - Restaurant Rating & Name + Food Score */}
+                    <div className="absolute top-3 left-3 right-3 flex items-start justify-between">
+                      <div className="flex items-center gap-2">
+                        <div className="flex items-center gap-1 bg-black/50 backdrop-blur-sm rounded-full px-2 py-1">
+                          <Star size={14} className="fill-red-500 text-red-500" />
+                          <span className="text-white font-semibold text-sm">{pick.rating}</span>
+                        </div>
+                        <h3 
+                          className="text-white font-bold text-lg cursor-pointer hover:underline text-shadow-lg"
+                          onClick={() => onShowRestaurantProfile?.(pick.restaurantId)}
+                        >
+                          {pick.restaurant}
+                        </h3>
+                      </div>
+                      <div className="bg-black/50 backdrop-blur-sm rounded-full px-3 py-1">
+                        <span className="text-white font-bold text-lg">{pick.foodScore || '8.5'}/10</span>
                       </div>
                     </div>
-                    <p className="text-muted-foreground mb-2">{pick.dish}</p>
-                    <div className="flex items-center justify-between mb-3">
-                      <span className="font-bold text-primary">{pick.price}</span>
-                      <span className="text-sm text-muted-foreground">{pick.calories}</span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <div className="flex items-center gap-1">
-                        <img src="/src/assets/images/Lik_Logo_Heart_1.0.png" alt="Lik" className="w-3 h-3" />
-                        <span className="text-sm text-muted-foreground nav-rum-raisin">Liked by</span>
+
+                    {/* Bottom Section - Dish Info & Interactions */}
+                    <div className="absolute bottom-0 left-0 right-0 p-4">
+                      {/* Dish Name and Price */}
+                      <div className="flex items-end justify-between mb-2">
+                        <div>
+                          <h4 className="text-white font-bold text-xl text-shadow-lg mb-1">{pick.dish}</h4>
+                          <p className="text-white/90 text-sm text-shadow-lg leading-relaxed max-w-[250px]">
+                            {pick.description || "Delicious dish prepared with fresh ingredients and authentic flavors."}
+                          </p>
+                        </div>
+                        <div className="bg-red-500 text-white px-3 py-1 rounded-full font-bold text-lg">
+                          {pick.price}
+                        </div>
                       </div>
-                      <div className="flex -space-x-2">
-                        {pick.likedBy.map((_, index) => (
-                          <div key={index} className="w-6 h-6 rounded-full bg-muted border-2 border-background" />
-                        ))}
+
+                      {/* Bottom Row - Dietary Icons & Liked By */}
+                      <div className="flex items-center justify-between">
+                        {/* Dietary/Allergy Icons */}
+                        <div className="flex items-center gap-1">
+                          {pick.dietaryInfo?.map((info, index) => (
+                            <div key={index} className="w-8 h-8 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center">
+                              <span className="text-white text-xs font-semibold">{info}</span>
+                            </div>
+                          ))}
+                          {!pick.dietaryInfo && (
+                            <>
+                              <div className="w-8 h-8 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center">
+                                <span className="text-white text-xs font-semibold">🌿</span>
+                              </div>
+                              <div className="w-8 h-8 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center">
+                                <span className="text-white text-xs font-semibold">🥜</span>
+                              </div>
+                              <div className="w-8 h-8 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center">
+                                <span className="text-white text-xs font-semibold">🧀</span>
+                              </div>
+                            </>
+                          )}
+                        </div>
+
+                        {/* Liked By */}
+                        <div className="flex items-center gap-2">
+                          <div className="flex items-center gap-1">
+                            <img src="/src/assets/images/Lik_Logo_Heart_1.0.png" alt="Lik" className="w-4 h-4" />
+                            <span className="text-white text-sm nav-rum-raisin font-semibold text-shadow-lg">Liked By</span>
+                          </div>
+                          <div className="flex -space-x-2">
+                            {pick.likedBy.slice(0, 3).map((_, index) => (
+                              <div 
+                                key={index} 
+                                className="w-7 h-7 rounded-full border-2 border-white"
+                                style={{
+                                  backgroundColor: ['#3b82f6', '#ef4444', '#10b981', '#f59e0b'][index % 4]
+                                }}
+                              />
+                            ))}
+                            {pick.likedBy.length > 3 && (
+                              <div className="w-7 h-7 rounded-full bg-white/20 backdrop-blur-sm border-2 border-white flex items-center justify-center">
+                                <span className="text-white text-xs font-bold">+{pick.likedBy.length - 3}</span>
+                              </div>
+                            )}
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </div>
