@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { ArrowLeft, MagnifyingGlass, Globe, CaretDown, Star, Heart, TrendUp, CaretRight } from '@phosphor-icons/react';
+import { ArrowLeft, MagnifyingGlass, Globe, CaretDown, Star, Heart, TrendUp, CaretRight, Funnel } from '@phosphor-icons/react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { ConsistentAvatar } from '@/components/ui/consistent-avatar';
@@ -15,6 +15,8 @@ interface LeaderboardPageProps {
 type TabType = 'foods' | 'restaurants' | 'likers';
 type SortPeriod = 'week' | 'month' | 'year';
 type ScopeType = 'global' | 'national' | 'city';
+type CuisineFilter = 'all' | 'italian' | 'american' | 'japanese' | 'mexican' | 'french' | 'indian' | 'chinese' | 'thai' | 'mediterranean';
+type DishFilter = 'all' | 'appetizers' | 'mains' | 'desserts' | 'drinks' | 'sushi' | 'pasta' | 'burgers' | 'pizza' | 'seafood';
 
 interface LeaderboardItem {
   id: string;
@@ -27,6 +29,8 @@ interface LeaderboardItem {
   reviews?: number;
   badge?: string;
   isSpecial?: boolean;
+  cuisine?: string;
+  category?: string;
 }
 
 // Mock data for demonstration
@@ -42,7 +46,8 @@ const mockData = {
       likes: 200000,
       reviews: 1500,
       badge: 'Debut',
-      isSpecial: true
+      isSpecial: true,
+      cuisine: 'italian'
     },
     {
       id: '2',
@@ -52,7 +57,8 @@ const mockData = {
       imageUrl: `https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=120&h=120&fit=crop&crop=center`,
       rating: 4.4,
       likes: 180000,
-      reviews: 1200
+      reviews: 1200,
+      cuisine: 'american'
     },
     {
       id: '3',
@@ -62,7 +68,8 @@ const mockData = {
       imageUrl: `https://images.unsplash.com/photo-1579952363873-27d3bfad9c0d?w=120&h=120&fit=crop&crop=center`,
       rating: 4.3,
       likes: 160000,
-      reviews: 900
+      reviews: 900,
+      cuisine: 'japanese'
     },
     {
       id: '4',
@@ -72,7 +79,8 @@ const mockData = {
       imageUrl: `https://images.unsplash.com/photo-1565299624946-b28f40a0ca4b?w=120&h=120&fit=crop&crop=center`,
       rating: 4.4,
       likes: 230000,
-      reviews: 800
+      reviews: 800,
+      cuisine: 'mexican'
     },
     {
       id: '5',
@@ -82,7 +90,8 @@ const mockData = {
       imageUrl: `https://images.unsplash.com/photo-1424847651672-bf20a4b0982b?w=120&h=120&fit=crop&crop=center`,
       rating: 4.5,
       likes: 100000,
-      reviews: 600
+      reviews: 600,
+      cuisine: 'french'
     },
     {
       id: '6',
@@ -92,7 +101,30 @@ const mockData = {
       imageUrl: `https://images.unsplash.com/photo-1571091718767-18b5b1457add?w=120&h=120&fit=crop&crop=center`,
       rating: 4.6,
       likes: 100000,
-      reviews: 750
+      reviews: 750,
+      cuisine: 'indian'
+    },
+    {
+      id: '7',
+      rank: 7,
+      name: 'Dragon Palace',
+      subtitle: 'Chinese • Chinatown',
+      imageUrl: `https://images.unsplash.com/photo-1552566626-52f8b828add9?w=120&h=120&fit=crop&crop=center`,
+      rating: 4.2,
+      likes: 95000,
+      reviews: 680,
+      cuisine: 'chinese'
+    },
+    {
+      id: '8',
+      rank: 8,
+      name: 'Thai Garden',
+      subtitle: 'Thai • Queens',
+      imageUrl: `https://images.unsplash.com/photo-1559181567-c3190ca9959b?w=120&h=120&fit=crop&crop=center`,
+      rating: 4.3,
+      likes: 88000,
+      reviews: 520,
+      cuisine: 'thai'
     }
   ],
   foods: [
@@ -104,7 +136,8 @@ const mockData = {
       imageUrl: `https://images.unsplash.com/photo-1516685018646-549198525c1b?w=120&h=120&fit=crop&crop=center`,
       rating: 4.9,
       likes: 85000,
-      reviews: 420
+      reviews: 420,
+      category: 'mains'
     },
     {
       id: '2',
@@ -114,7 +147,8 @@ const mockData = {
       imageUrl: `https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=120&h=120&fit=crop&crop=center`,
       rating: 4.7,
       likes: 92000,
-      reviews: 380
+      reviews: 380,
+      category: 'burgers'
     },
     {
       id: '3',
@@ -124,7 +158,8 @@ const mockData = {
       imageUrl: `https://images.unsplash.com/photo-1579584425555-c3ce17fd4351?w=120&h=120&fit=crop&crop=center`,
       rating: 4.6,
       likes: 78000,
-      reviews: 290
+      reviews: 290,
+      category: 'sushi'
     },
     {
       id: '4',
@@ -134,7 +169,8 @@ const mockData = {
       imageUrl: `https://images.unsplash.com/photo-1559737558-2f5a35db6c04?w=120&h=120&fit=crop&crop=center`,
       rating: 4.8,
       likes: 65000,
-      reviews: 210
+      reviews: 210,
+      category: 'seafood'
     },
     {
       id: '5',
@@ -144,7 +180,41 @@ const mockData = {
       imageUrl: `https://images.unsplash.com/photo-1551024506-0bccd828d307?w=120&h=120&fit=crop&crop=center`,
       rating: 4.7,
       likes: 55000,
-      reviews: 189
+      reviews: 189,
+      category: 'desserts'
+    },
+    {
+      id: '6',
+      rank: 6,
+      name: 'Margherita Pizza',
+      subtitle: 'Italian • Traditional',
+      imageUrl: `https://images.unsplash.com/photo-1513104890138-7c749659a591?w=120&h=120&fit=crop&crop=center`,
+      rating: 4.5,
+      likes: 72000,
+      reviews: 340,
+      category: 'pizza'
+    },
+    {
+      id: '7',
+      rank: 7,
+      name: 'Caesar Salad',
+      subtitle: 'American • Appetizer',
+      imageUrl: `https://images.unsplash.com/photo-1546793665-c74683f339c1?w=120&h=120&fit=crop&crop=center`,
+      rating: 4.4,
+      likes: 48000,
+      reviews: 280,
+      category: 'appetizers'
+    },
+    {
+      id: '8',
+      rank: 8,
+      name: 'Carbonara Pasta',
+      subtitle: 'Italian • Classic',
+      imageUrl: `https://images.unsplash.com/photo-1621996346565-e3dbc353d2e5?w=120&h=120&fit=crop&crop=center`,
+      rating: 4.6,
+      likes: 58000,
+      reviews: 195,
+      category: 'pasta'
     }
   ],
   likers: [
@@ -201,7 +271,32 @@ const mockData = {
   ]
 };
 
-function getRankIcon(rank: number) {
+// Filter options
+const cuisineFilters: { key: CuisineFilter; label: string; emoji: string }[] = [
+  { key: 'all', label: 'All Cuisines', emoji: '🌍' },
+  { key: 'italian', label: 'Italian', emoji: '🍝' },
+  { key: 'american', label: 'American', emoji: '🍔' },
+  { key: 'japanese', label: 'Japanese', emoji: '🍣' },
+  { key: 'mexican', label: 'Mexican', emoji: '🌮' },
+  { key: 'french', label: 'French', emoji: '🥐' },
+  { key: 'indian', label: 'Indian', emoji: '🍛' },
+  { key: 'chinese', label: 'Chinese', emoji: '🥢' },
+  { key: 'thai', label: 'Thai', emoji: '🍜' },
+  { key: 'mediterranean', label: 'Mediterranean', emoji: '🫒' }
+];
+
+const dishFilters: { key: DishFilter; label: string; emoji: string }[] = [
+  { key: 'all', label: 'All Dishes', emoji: '🍽️' },
+  { key: 'appetizers', label: 'Appetizers', emoji: '🥗' },
+  { key: 'mains', label: 'Main Courses', emoji: '🍖' },
+  { key: 'desserts', label: 'Desserts', emoji: '🍰' },
+  { key: 'drinks', label: 'Drinks', emoji: '🍹' },
+  { key: 'sushi', label: 'Sushi', emoji: '🍣' },
+  { key: 'pasta', label: 'Pasta', emoji: '🍝' },
+  { key: 'burgers', label: 'Burgers', emoji: '🍔' },
+  { key: 'pizza', label: 'Pizza', emoji: '🍕' },
+  { key: 'seafood', label: 'Seafood', emoji: '🦞' }
+];
   switch (rank) {
     case 1:
       return '🥇';
@@ -403,32 +498,70 @@ export function LeaderboardPage({ onBack, onShowRestaurantProfile, onShowUserPro
   const [searchQuery, setSearchQuery] = useState('');
   const [sortPeriod, setSortPeriod] = useState<SortPeriod>('week');
   const [scope, setScope] = useState<ScopeType>('global');
+  const [cuisineFilter, setCuisineFilter] = useState<CuisineFilter>('all');
+  const [dishFilter, setDishFilter] = useState<DishFilter>('all');
+  const [showFilters, setShowFilters] = useState(false);
 
   const currentData = mockData[activeTab] || [];
-  const filteredData = currentData.filter(item =>
-    item.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    item.subtitle.toLowerCase().includes(searchQuery.toLowerCase())
-  );
+  const filteredData = currentData.filter(item => {
+    // Text search filter
+    const matchesSearch = item.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      item.subtitle.toLowerCase().includes(searchQuery.toLowerCase());
+    
+    // Category/cuisine filter
+    let matchesCategory = true;
+    if (activeTab === 'restaurants' && cuisineFilter !== 'all') {
+      matchesCategory = item.cuisine === cuisineFilter;
+    } else if (activeTab === 'foods' && dishFilter !== 'all') {
+      matchesCategory = item.category === dishFilter;
+    }
+    
+    return matchesSearch && matchesCategory;
+  });
 
   const getTabTitle = () => {
     const periodText = sortPeriod === 'week' ? 'This Week' : 
                      sortPeriod === 'month' ? 'This Month' : 'This Year';
     const tabText = activeTab === 'restaurants' ? 'Restaurants' :
                    activeTab === 'foods' ? 'Dishes' : 'Food Lovers';
-    return `Top ${tabText} ${periodText}`;
+    
+    // Add filter context
+    let filterText = '';
+    if (activeTab === 'restaurants' && cuisineFilter !== 'all') {
+      const filter = cuisineFilters.find(f => f.key === cuisineFilter);
+      filterText = ` • ${filter?.label}`;
+    } else if (activeTab === 'foods' && dishFilter !== 'all') {
+      const filter = dishFilters.find(f => f.key === dishFilter);
+      filterText = ` • ${filter?.label}`;
+    }
+    
+    return `Top ${tabText} ${periodText}${filterText}`;
   };
 
   const getTabDescription = () => {
+    let baseDescription = '';
     switch (activeTab) {
       case 'restaurants':
-        return 'Most popular restaurants ranked by community ratings and reviews';
+        baseDescription = 'Most popular restaurants ranked by community ratings and reviews';
+        break;
       case 'foods':
-        return 'Highest rated dishes across all restaurants and cuisines';
+        baseDescription = 'Highest rated dishes across all restaurants and cuisines';
+        break;
       case 'likers':
-        return 'Top food reviewers and content creators in the community';
-      default:
-        return '';
+        baseDescription = 'Top food reviewers and content creators in the community';
+        break;
     }
+    
+    // Add filter context
+    if (activeTab === 'restaurants' && cuisineFilter !== 'all') {
+      const filter = cuisineFilters.find(f => f.key === cuisineFilter);
+      baseDescription += ` • Filtered by ${filter?.label} cuisine`;
+    } else if (activeTab === 'foods' && dishFilter !== 'all') {
+      const filter = dishFilters.find(f => f.key === dishFilter);
+      baseDescription += ` • Showing ${filter?.label} only`;
+    }
+    
+    return baseDescription;
   };
 
   const getScopeText = () => {
@@ -470,7 +603,14 @@ export function LeaderboardPage({ onBack, onShowRestaurantProfile, onShowUserPro
             <Button
               key={tab.key}
               variant={activeTab === tab.key ? 'default' : 'secondary'}
-              onClick={() => setActiveTab(tab.key)}
+              onClick={() => {
+                setActiveTab(tab.key);
+                // Reset filters when switching tabs
+                setCuisineFilter('all');
+                setDishFilter('all');
+                setShowFilters(false);
+                setSearchQuery('');
+              }}
               className={cn(
                 "flex-1 rounded-full font-medium transition-all duration-200 nav-rum-raisin",
                 activeTab === tab.key 
@@ -500,6 +640,25 @@ export function LeaderboardPage({ onBack, onShowRestaurantProfile, onShowUserPro
               />
             </div>
 
+            {/* Category Filter Button (only for restaurants and foods) */}
+            {(activeTab === 'restaurants' || activeTab === 'foods') && (
+              <Button
+                variant="outline"
+                className="shrink-0 rounded-full px-4 gap-2 nav-rum-raisin font-light"
+                onClick={() => setShowFilters(!showFilters)}
+              >
+                <Funnel size={16} />
+                Filter
+                <CaretDown 
+                  size={14} 
+                  className={cn(
+                    "transition-transform duration-200",
+                    showFilters && "rotate-180"
+                  )}
+                />
+              </Button>
+            )}
+
             {/* Scope Selector */}
             <Button
               variant="outline"
@@ -515,6 +674,68 @@ export function LeaderboardPage({ onBack, onShowRestaurantProfile, onShowUserPro
               {getScopeText()}
             </Button>
           </div>
+
+          {/* Category Filters (expandable) */}
+          {showFilters && (activeTab === 'restaurants' || activeTab === 'foods') && (
+            <div className="mt-4 animate-in slide-in-from-top-2 duration-200">
+              <div className="bg-muted/50 rounded-2xl p-4">
+                <h3 className="text-sm font-medium text-foreground mb-3 nav-rum-raisin">
+                  {activeTab === 'restaurants' ? '🍽️ Filter by Cuisine' : '🥘 Filter by Category'}
+                </h3>
+                <div className="flex flex-wrap gap-2">
+                  {(activeTab === 'restaurants' ? cuisineFilters : dishFilters).map((filter) => (
+                    <Button
+                      key={filter.key}
+                      variant={(activeTab === 'restaurants' ? cuisineFilter : dishFilter) === filter.key ? 'default' : 'secondary'}
+                      size="sm"
+                      onClick={() => {
+                        if (activeTab === 'restaurants') {
+                          setCuisineFilter(filter.key as CuisineFilter);
+                        } else {
+                          setDishFilter(filter.key as DishFilter);
+                        }
+                        toast.success(`Filtering by ${filter.label}`);
+                      }}
+                      className={cn(
+                        "rounded-full gap-2 text-xs font-medium transition-all nav-rum-raisin",
+                        (activeTab === 'restaurants' ? cuisineFilter : dishFilter) === filter.key 
+                          ? "bg-foreground text-background shadow-md scale-105 font-semibold" 
+                          : "bg-background hover:bg-background/80 text-muted-foreground hover:text-foreground font-light"
+                      )}
+                    >
+                      <span className="text-sm">{filter.emoji}</span>
+                      {filter.label}
+                    </Button>
+                  ))}
+                </div>
+                
+                {/* Filter Stats */}
+                <div className="flex items-center justify-between mt-3 pt-3 border-t border-border/50">
+                  <span className="text-xs text-muted-foreground">
+                    {filteredData.length} {activeTab === 'restaurants' ? 'restaurants' : activeTab === 'foods' ? 'dishes' : 'results'} found
+                  </span>
+                  {((activeTab === 'restaurants' && cuisineFilter !== 'all') || 
+                    (activeTab === 'foods' && dishFilter !== 'all')) && (
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      onClick={() => {
+                        if (activeTab === 'restaurants') {
+                          setCuisineFilter('all');
+                        } else {
+                          setDishFilter('all');
+                        }
+                        toast.success('Filters cleared');
+                      }}
+                      className="text-xs h-6 px-2 rounded-full nav-rum-raisin"
+                    >
+                      Clear filters
+                    </Button>
+                  )}
+                </div>
+              </div>
+            </div>
+          )}
 
           {/* Period Selector */}
           <div className="flex justify-center mt-3">
