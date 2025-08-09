@@ -143,7 +143,7 @@ export function SearchPage({ onShowUserProfile, onShowRestaurantProfile, onShowS
     displayName: currentUser.username,
     username: currentUser.username,
     tasteTitle: "Food Explorer",
-    level: 24,
+    level: 34,
     xp: 18000,
     maxXp: 20000,
     badges: [
@@ -160,9 +160,9 @@ export function SearchPage({ onShowUserProfile, onShowRestaurantProfile, onShowS
   };
 
   const profileDropdownDailyProgress = {
-    currentTime: "01:30",
+    currentTime: "00:00",
     targetTime: "02:00", 
-    bonusReward: "+2 LP",
+    bonusReward: "+600 LP",
     streakDays: 7,
     currentStreak: 4
   };

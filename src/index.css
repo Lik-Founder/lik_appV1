@@ -1940,33 +1940,135 @@ input, textarea, select {
     0 3px 8px rgba(239, 68, 68, 0.4);
 }
 
-/* Profile Dropdown Animations */
-@keyframes fadeIn {
-  from { 
-    opacity: 0; 
+/* Profile Dropdown Whimsical Animations */
+@keyframes bobFloat {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-4px); }
+}
+
+@keyframes pulseGlow {
+  0%, 100% { 
+    box-shadow: 0 0 5px rgba(249, 115, 22, 0.3);
   }
-  to { 
-    opacity: 1; 
+  50% { 
+    box-shadow: 0 0 20px rgba(249, 115, 22, 0.8), 0 0 30px rgba(249, 115, 22, 0.4);
   }
 }
 
-@keyframes slideInFromTop {
-  0% {
+@keyframes sparkle {
+  0%, 100% { 
     opacity: 0;
-    transform: translateY(-10px) scale(0.95);
+    transform: scale(0) rotate(0deg);
   }
-  100% {
+  50% { 
     opacity: 1;
-    transform: translateY(0) scale(1);
+    transform: scale(1) rotate(180deg);
   }
 }
 
-.profile-dropdown-enter {
-  animation: slideInFromTop 200ms ease-out;
+@keyframes menuButtonHover {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(8px); }
 }
 
-.profile-dropdown-backdrop {
-  animation: fadeIn 200ms ease-out;
+.profile-dropdown-whimsical {
+  background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+  border: 1px solid rgba(148, 163, 184, 0.1);
+}
+
+.menu-button-whimsical {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.menu-button-whimsical::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.05), transparent);
+  transition: left 0.5s ease;
+}
+
+.menu-button-whimsical:hover::before {
+  left: 100%;
+}
+
+.menu-button-whimsical:hover {
+  animation: menuButtonHover 0.3s ease-out forwards;
+  background: rgba(51, 65, 85, 0.7);
+  border-color: rgba(148, 163, 184, 0.3);
+}
+
+.xp-ring-animated {
+  animation: bobFloat 3s ease-in-out infinite;
+}
+
+.flame-glow {
+  animation: pulseGlow 2s ease-in-out infinite;
+}
+
+.level-badge-sparkle::after {
+  content: '✨';
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  animation: sparkle 2s ease-in-out infinite;
+  animation-delay: 1s;
+}
+
+/* Daily Challenge Widget Animations */
+.daily-challenge-widget {
+  background: linear-gradient(135deg, rgba(30, 41, 59, 0.8) 0%, rgba(15, 23, 42, 0.9) 100%);
+  border: 1px solid rgba(100, 116, 139, 0.2);
+  backdrop-filter: blur(10px);
+}
+
+.timer-circle-glow {
+  filter: drop-shadow(0 0 8px rgba(249, 115, 22, 0.4));
+}
+
+.progress-bar-animated {
+  background: linear-gradient(90deg, #3b82f6, #06b6d4, #3b82f6);
+  background-size: 200% 100%;
+  animation: progressShimmer 2s ease-in-out infinite;
+}
+
+@keyframes progressShimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+.emoji-bounce {
+  animation: emojiBounce 2s ease-in-out infinite;
+}
+
+@keyframes emojiBounce {
+  0%, 100% { transform: scale(1) rotate(0deg); }
+  25% { transform: scale(1.1) rotate(-5deg); }
+  75% { transform: scale(1.05) rotate(5deg); }
+}
+
+/* Social buttons hover effects */
+.social-button-whimsical {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+}
+
+.social-button-whimsical:hover {
+  transform: translateY(-2px);
+  color: #ffffff;
+}
+
+.social-button-whimsical:hover::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at center, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+  border-radius: inherit;
 }
 
 /* Profile dropdown stat chip hover effects */

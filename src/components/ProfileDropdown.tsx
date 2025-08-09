@@ -1,8 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { X, Trophy, Target, Heart, TrendingUp, Bell, MessageCircle, Users, Play, Timer } from '@phosphor-icons/react';
+import { ChevronRight, Users, Mail, Timer, Play } from '@phosphor-icons/react';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Badge } from '@/components/ui/badge';
 import { cn } from '@/lib/utils';
 
 interface ProfileDropdownProps {
@@ -35,48 +34,30 @@ interface ProfileDropdownProps {
   onNavigate: (destination: string) => void;
 }
 
-const StatChip: React.FC<{
-  icon: React.ReactNode;
-  label: string;
-  value: string | number;
-  onClick?: () => void;
-}> = ({ icon, label, value, onClick }) => (
-  <div 
-    className={cn(
-      "flex items-center gap-1.5 bg-muted/50 rounded-xl px-3 py-2 min-w-0",
-      "transition-all duration-150 hover:bg-muted/70 active:scale-95",
-      onClick && "cursor-pointer"
-    )}
-    onClick={onClick}
-    role={onClick ? "button" : undefined}
-    tabIndex={onClick ? 0 : undefined}
-    aria-label={`${label}: ${value}`}
-  >
-    <span className="text-muted-foreground text-sm">{icon}</span>
-    <span className="font-semibold text-sm text-foreground truncate">{value}</span>
-  </div>
-);
-
-const QuickActionButton: React.FC<{
+const MenuButton: React.FC<{
   icon: React.ReactNode;
   label: string;
   onClick: () => void;
   className?: string;
 }> = ({ icon, label, onClick, className }) => (
-  <Button
-    variant="ghost"
-    size="sm"
+  <button
     onClick={onClick}
     className={cn(
-      "flex flex-col items-center gap-1.5 h-auto py-3 px-2",
-      "rounded-xl hover:bg-muted/70 transition-all duration-150",
-      "active:scale-95 touch-feedback",
+      "flex items-center gap-3 w-full px-4 py-3 rounded-2xl",
+      "menu-button-whimsical transition-all duration-200",
+      "border border-slate-700/30 group",
       className
     )}
   >
-    <span className="text-muted-foreground">{icon}</span>
-    <span className="text-xs font-medium text-foreground">{label}</span>
-  </Button>
+    <span className="text-2xl emoji-bounce">{icon}</span>
+    <span className="flex-1 text-left text-white font-medium text-lg nav-rum-raisin">
+      {label}
+    </span>
+    <ChevronRight 
+      size={20} 
+      className="text-slate-400 group-hover:text-white transition-colors" 
+    />
+  </button>
 );
 
 export const ProfileDropdown: React.FC<ProfileDropdownProps> = ({
@@ -132,8 +113,8 @@ export const ProfileDropdown: React.FC<ProfileDropdownProps> = ({
   const getDropdownStyle = () => {
     if (!anchorRect) return {};
 
-    const dropdownWidth = 320;
-    const dropdownHeight = 480;
+    const dropdownWidth = 360;
+    const dropdownHeight = 600;
     const padding = 16;
 
     let left = anchorRect.left + anchorRect.width / 2 - dropdownWidth / 2;
@@ -165,7 +146,7 @@ export const ProfileDropdown: React.FC<ProfileDropdownProps> = ({
     <>
       {/* Backdrop with blur */}
       <div 
-        className="fixed inset-0 bg-black/20 backdrop-blur-sm z-40"
+        className="fixed inset-0 bg-black/40 backdrop-blur-sm z-40"
         style={{ animation: isAnimating ? 'fadeIn 200ms ease-out' : undefined }}
       />
 
@@ -174,230 +155,193 @@ export const ProfileDropdown: React.FC<ProfileDropdownProps> = ({
         ref={dropdownRef}
         style={getDropdownStyle()}
         className={cn(
-          "p-4 shadow-2xl border-border/50 bg-background/95 backdrop-blur-xl",
-          "transform-gpu will-change-transform",
+          "p-6 shadow-2xl profile-dropdown-whimsical backdrop-blur-xl",
+          "transform-gpu will-change-transform rounded-3xl",
           isAnimating && "animate-in slide-in-from-top-2 zoom-in-95 duration-200"
         )}
       >
-        {/* Header / Identity */}
-        <div className="flex items-start gap-3 mb-4">
-          {/* Avatar with XP ring */}
-          <div className="relative">
-            <div className="relative w-12 h-12">
-              {/* XP Progress Ring */}
-              <svg className="w-12 h-12 transform -rotate-90" viewBox="0 0 48 48">
+        {/* Header with XP Ring and Stats */}
+        <div className="flex items-center justify-between mb-6">
+          {/* XP Ring with Level */}
+          <div className="relative xp-ring-animated">
+            <div className="w-20 h-20 relative">
+              {/* Outer Progress Ring */}
+              <svg className="w-20 h-20 transform -rotate-90" viewBox="0 0 80 80">
                 <circle
-                  cx="24"
-                  cy="24"
-                  r="20"
-                  stroke="currentColor"
-                  strokeWidth="2"
+                  cx="40"
+                  cy="40"
+                  r="35"
+                  stroke="rgb(51 65 85)"
+                  strokeWidth="3"
                   fill="none"
-                  className="text-muted/30"
                 />
+                {/* Orange/Pink gradient progress */}
                 <circle
-                  cx="24"
-                  cy="24"
-                  r="20"
-                  stroke="url(#xpGradient)"
+                  cx="40"
+                  cy="40"
+                  r="35"
+                  stroke="url(#orangePinkGradient)"
+                  strokeWidth="3"
+                  fill="none"
+                  strokeDasharray={`${2 * Math.PI * 35}`}
+                  strokeDashoffset={`${2 * Math.PI * 35 * (1 - xpPercentage / 100)}`}
+                  className="transition-all duration-500"
+                  strokeLinecap="round"
+                />
+                {/* Purple progress overlay */}
+                <circle
+                  cx="40"
+                  cy="40"
+                  r="30"
+                  stroke="url(#purpleGradient)"
                   strokeWidth="2"
                   fill="none"
-                  strokeDasharray={`${2 * Math.PI * 20}`}
-                  strokeDashoffset={`${2 * Math.PI * 20 * (1 - xpPercentage / 100)}`}
+                  strokeDasharray={`${2 * Math.PI * 30}`}
+                  strokeDashoffset={`${2 * Math.PI * 30 * (1 - (xpPercentage * 0.8) / 100)}`}
                   className="transition-all duration-500"
                   strokeLinecap="round"
                 />
                 <defs>
-                  <linearGradient id="xpGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-                    <stop offset="0%" stopColor="#f09433" />
-                    <stop offset="25%" stopColor="#e6683c" />
-                    <stop offset="50%" stopColor="#dc2743" />
-                    <stop offset="75%" stopColor="#cc2366" />
-                    <stop offset="100%" stopColor="#bc1888" />
+                  <linearGradient id="orangePinkGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                    <stop offset="0%" stopColor="#f97316" />
+                    <stop offset="100%" stopColor="#ec4899" />
+                  </linearGradient>
+                  <linearGradient id="purpleGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                    <stop offset="0%" stopColor="#a855f7" />
+                    <stop offset="100%" stopColor="#ec4899" />
                   </linearGradient>
                 </defs>
               </svg>
               
-              {/* Avatar */}
-              <img
-                src={user.avatar}
-                alt={user.displayName}
-                className="absolute inset-1 w-10 h-10 rounded-full object-cover"
-              />
+              {/* Level Number */}
+              <div className="absolute inset-0 flex items-center justify-center">
+                <span className="text-white font-bold text-2xl nav-rum-raisin">{user.level}</span>
+              </div>
             </div>
-          </div>
-
-          {/* User Info */}
-          <div className="flex-1 min-w-0">
-            <div className="flex items-center gap-2">
-              <h3 className="font-semibold text-sm text-foreground truncate nav-rum-raisin">
-                {user.displayName}
-              </h3>
-              {user.badges.map((badge) => (
-                <Badge key={badge.id} variant="secondary" className="text-xs px-1.5 py-0.5">
-                  {badge.icon}
-                </Badge>
-              ))}
-            </div>
-            <p className="text-xs text-muted-foreground truncate">
-              {user.tasteTitle}
-            </p>
             
-            {/* Level and XP */}
-            <div className="flex items-center gap-2 mt-1">
-              <Badge variant="outline" className="text-xs px-2 py-0.5">
-                Lv {user.level}
-              </Badge>
-              <span className="text-xs text-muted-foreground">
-                {user.xp.toLocaleString()} / {user.maxXp.toLocaleString()}
-              </span>
+            {/* Level badge at bottom */}
+            <div className="absolute -bottom-1 left-1/2 transform -translate-x-1/2 bg-slate-800 rounded-full px-2 py-0.5 border border-slate-600 level-badge-sparkle">
+              <span className="text-white text-sm font-medium">{user.level}</span>
             </div>
           </div>
 
-          {/* Close button */}
-          <Button
-            variant="ghost"
-            size="sm"
-            onClick={onClose}
-            className="h-8 w-8 p-0 rounded-full"
-          >
-            <X size={16} />
-          </Button>
+          {/* Title and Stats */}
+          <div className="flex-1 ml-4">
+            <h2 className="text-white text-2xl font-bold nav-rum-raisin mb-1">Grand Master</h2>
+            <div className="flex items-center gap-4">
+              {/* Streak */}
+              <div className="flex items-center gap-1">
+                <span className="text-2xl emoji-bounce">🔥</span>
+                <span className="text-white text-xl font-bold">{stats.streak}</span>
+              </div>
+              {/* Tickets */}
+              <div className="flex items-center gap-1">
+                <span className="text-2xl emoji-bounce" style={{ animationDelay: '0.5s' }}>🎫</span>
+                <span className="text-white text-xl font-bold">{stats.tickets}</span>
+              </div>
+            </div>
+          </div>
         </div>
 
-        {/* Quick Stats */}
-        <div className="grid grid-cols-3 gap-2 mb-4">
-          <StatChip
-            icon="🔥"
-            label="Streak"
-            value={stats.streak}
-          />
-          <StatChip
-            icon="🎟️"
-            label="Tickets"
-            value={stats.tickets}
-          />
-          <StatChip
-            icon="🪙"
-            label="Lik Coins"
-            value={stats.likCoins}
-          />
-        </div>
-
-        {/* Quick Actions */}
-        <div className="grid grid-cols-3 gap-2 mb-4">
-          <QuickActionButton
-            icon={<Trophy size={20} />}
-            label="Passport"
+        {/* Menu Buttons */}
+        <div className="space-y-3 mb-6">
+          <MenuButton
+            icon="📱"
+            label="View Passport"
             onClick={() => onNavigate('passport')}
           />
-          <QuickActionButton
-            icon={<Target size={20} />}
-            label="Quests"
+          <MenuButton
+            icon="🎯"
+            label="My Bounties & Quests"
             onClick={() => onNavigate('quests')}
           />
-          <QuickActionButton
-            icon={<Heart size={20} />}
+          <MenuButton
+            icon="❤️"
             label="Favorites"
             onClick={() => onNavigate('favorites')}
           />
-          <QuickActionButton
-            icon={<TrendingUp size={20} />}
-            label="Leaderboard"
-            onClick={() => onNavigate('leaderboard')}
-          />
-          <QuickActionButton
-            icon={<Bell size={20} />}
-            label="Notifications"
-            onClick={() => onNavigate('notifications')}
-          />
-          <QuickActionButton
-            icon={<MessageCircle size={20} />}
-            label="Messages"
-            onClick={() => onNavigate('messages')}
+          <MenuButton
+            icon="👤"
+            label="Recent Activity"
+            onClick={() => onNavigate('activity')}
           />
         </div>
 
-        {/* Daily Progress Widget */}
-        <Card className="p-3 bg-muted/30 border-border/50">
-          <div className="flex items-center justify-between mb-2">
-            <h4 className="text-sm font-semibold text-foreground nav-rum-raisin">Daily Play</h4>
-            <Badge variant="secondary" className="text-xs">
-              {dailyProgress.bonusReward}
-            </Badge>
-          </div>
-
-          {/* Timer Progress */}
-          <div className="flex items-center gap-2 mb-3">
-            <Timer size={16} className="text-muted-foreground" />
-            <span className="text-sm font-mono text-foreground">
-              {dailyProgress.currentTime} / {dailyProgress.targetTime}
-            </span>
-            <div className="flex-1 bg-muted rounded-full h-1.5">
-              <div 
-                className="bg-primary h-1.5 rounded-full transition-all duration-300"
-                style={{ 
-                  width: `${(parseInt(dailyProgress.currentTime.split(':')[1]) / 120) * 100}%` 
-                }}
-              />
-            </div>
-          </div>
-
-          {/* Streak Dots */}
+        {/* Daily Challenge Widget */}
+        <div className="mb-6 daily-challenge-widget rounded-2xl p-4">
+          <p className="text-slate-300 text-center mb-4 text-sm">
+            Play 2 minutes to earn your daily bonus
+          </p>
+          
           <div className="flex items-center justify-between">
-            <div className="flex gap-1.5">
-              {Array.from({ length: 7 }, (_, i) => (
-                <div
-                  key={i}
-                  className={cn(
-                    "w-2 h-2 rounded-full transition-all duration-200",
-                    i < dailyProgress.currentStreak
-                      ? "bg-primary shadow-sm"
-                      : "bg-muted border border-border"
-                  )}
+            {/* Timer Circle */}
+            <div className="relative w-24 h-24 timer-circle-glow">
+              <svg className="w-24 h-24 transform -rotate-90" viewBox="0 0 96 96">
+                <circle
+                  cx="48"
+                  cy="48"
+                  r="40"
+                  stroke="rgb(51 65 85)"
+                  strokeWidth="3"
+                  fill="none"
                 />
-              ))}
+                <circle
+                  cx="48"
+                  cy="48"
+                  r="40"
+                  stroke="#f97316"
+                  strokeWidth="3"
+                  fill="none"
+                  strokeDasharray={`${2 * Math.PI * 40}`}
+                  strokeDashoffset={`${2 * Math.PI * 40 * 0.95}`}
+                  className="transition-all duration-500"
+                  strokeLinecap="round"
+                />
+              </svg>
+              
+              {/* Timer Display */}
+              <div className="absolute inset-0 flex items-center justify-center">
+                <span className="text-white font-mono text-lg">0:00</span>
+              </div>
+              
+              {/* Small flame icon */}
+              <div className="absolute -bottom-1 -right-1 w-6 h-6 bg-orange-500 rounded-full flex items-center justify-center flame-glow">
+                <span className="text-sm">🔥</span>
+              </div>
             </div>
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={() => onNavigate('daily-details')}
-              className="text-xs h-6 px-2 text-muted-foreground hover:text-foreground"
-            >
-              Details
-            </Button>
+
+            {/* Level Progress */}
+            <div className="flex-1 ml-6">
+              <div className="text-white text-right mb-2">
+                <span className="text-sm text-slate-300">Level</span>
+                <div className="text-3xl font-bold text-cyan-400 nav-rum-raisin">+600</div>
+              </div>
+              
+              {/* Progress Bar */}
+              <div className="w-full h-3 bg-slate-700 rounded-full overflow-hidden">
+                <div className="h-full progress-bar-animated w-3/4 rounded-full" />
+              </div>
+            </div>
           </div>
+        </div>
 
-          {/* CTA */}
-          <Button
-            onClick={() => onNavigate('daily-play')}
-            className="w-full mt-3 h-8 text-xs glossy-red-pill"
-          >
-            <Play size={14} className="mr-1" />
-            Continue Today
-          </Button>
-        </Card>
-
-        {/* Social & Utility Row */}
-        <div className="flex items-center justify-center gap-4 mt-4 pt-3 border-t border-border/50">
-          <Button
-            variant="ghost"
-            size="sm"
-            onClick={() => onNavigate('messages')}
-            className="flex items-center gap-2 text-xs text-muted-foreground hover:text-foreground"
-          >
-            <MessageCircle size={16} />
-            Messages
-          </Button>
-          <Button
-            variant="ghost"
-            size="sm"
+        {/* Bottom Actions */}
+        <div className="flex items-center justify-between pt-4 border-t border-slate-700/50">
+          <button
             onClick={() => onNavigate('friends')}
-            className="flex items-center gap-2 text-xs text-muted-foreground hover:text-foreground"
+            className="flex items-center gap-2 text-slate-300 hover:text-white transition-colors social-button-whimsical rounded-lg px-3 py-2"
           >
-            <Users size={16} />
-            Friends
-          </Button>
+            <Users size={20} />
+            <span className="nav-rum-raisin">Friends</span>
+          </button>
+          
+          <button
+            onClick={() => onNavigate('messages')}
+            className="flex items-center gap-2 text-slate-300 hover:text-white transition-colors social-button-whimsical rounded-lg px-3 py-2"
+          >
+            <Mail size={20} />
+            <span className="nav-rum-raisin">Messages</span>
+          </button>
         </div>
       </Card>
 
