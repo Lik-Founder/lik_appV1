@@ -22,6 +22,7 @@ import {
 import { cn } from '@/lib/utils';
 import { useKV } from '@github/spark/hooks';
 import { UserPost, RestaurantPost, AdPost, User, Comment } from '@/lib/types';
+import LikLogoHeart from '@/assets/images/Lik_Logo_Heart_1.0.png';
 // Removed react-swipeable import - using native touch events instead
 
 // Mock data for trending content
@@ -667,29 +668,35 @@ export function TrendingPage({ onShowRestaurantProfile, onShowUserProfile, onSho
 
             {/* Bottom info bar - only show on current item */}
             {index === currentIndex && (
-              <div className="absolute bottom-4 left-4 right-20 flex items-center justify-between">
-                <div className="flex items-center gap-2 text-white/80 text-sm">
-                  <MapPin size={16} />
-                  <span>{post.location}</span>
-                </div>
-                <div className="flex items-center -space-x-2">
-                  {post.likedBy.slice(0, 3).map((user, index) => (
-                    <ConsistentAvatar
-                      key={user.id}
-                      src={user.avatar}
-                      alt={user.displayName}
-                      fallback={user.displayName[0]}
-                      size="xs"
-                      variant="default"
-                      className="border-2 border-black cursor-pointer hover:scale-110 transition-transform"
-                      onClick={() => onShowUserProfile?.(user.id)}
-                    />
-                  ))}
-                  {post.likedBy.length > 3 && (
-                    <div className="w-6 h-6 rounded-full bg-black/50 border-2 border-black flex items-center justify-center">
-                      <span className="text-white text-xs">+{post.likedBy.length - 3}</span>
+              <div className="absolute bottom-4 left-4 right-20">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-2 text-white/80 text-sm">
+                    <MapPin size={16} />
+                    <span>{post.location}</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <img src={LikLogoHeart} alt="Lik Logo" className="w-4 h-4" />
+                    <span className="text-white text-sm font-medium nav-rum-raisin">Liked By</span>
+                    <div className="flex items-center -space-x-2 ml-2">
+                      {post.likedBy.slice(0, 3).map((user, index) => (
+                        <ConsistentAvatar
+                          key={user.id}
+                          src={user.avatar}
+                          alt={user.displayName}
+                          fallback={user.displayName[0]}
+                          size="xs"
+                          variant="default"
+                          className="border-2 border-black cursor-pointer hover:scale-110 transition-transform"
+                          onClick={() => onShowUserProfile?.(user.id)}
+                        />
+                      ))}
+                      {post.likedBy.length > 3 && (
+                        <div className="w-6 h-6 rounded-full bg-black/50 border-2 border-black flex items-center justify-center">
+                          <span className="text-white text-xs">+{post.likedBy.length - 3}</span>
+                        </div>
+                      )}
                     </div>
-                  )}
+                  </div>
                 </div>
               </div>
             )}
