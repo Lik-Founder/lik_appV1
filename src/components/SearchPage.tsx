@@ -404,8 +404,8 @@ export function SearchPage({ onShowUserProfile, onShowRestaurantProfile, onShowS
           {/* Switch Component */}
           <Button
             variant={isDeliveryMode ? "default" : "outline"}
+            variant={isDeliveryMode ? "default" : "outline"}
             size="sm"
-            onClick={() => setIsDeliveryMode(!isDeliveryMode)}
             className={cn(
               "rounded-full flex-shrink-0 h-8 px-3 nav-rum-raisin",
               isDeliveryMode ? "bg-primary text-primary-foreground font-semibold" : "bg-muted font-light"
