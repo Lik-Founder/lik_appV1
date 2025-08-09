@@ -245,7 +245,7 @@ export const NotificationsPage: React.FC<NotificationsPageProps> = ({ onBack }) 
       <div className="flex-1 overflow-y-auto p-4 space-y-3">
         {getFilteredNotifications().length === 0 ? (
           <div className="text-center py-12">
-            <div className="text-6xl mb-4 animate-bounce">🎉</div>
+            <div className="text-6xl mb-4">🎉</div>
             <h3 className="text-xl font-bold text-purple-900 nav-rum-raisin mb-2">
               All caught up!
             </h3>
@@ -264,14 +264,13 @@ export const NotificationsPage: React.FC<NotificationsPageProps> = ({ onBack }) 
                 "p-4 rounded-2xl border-2 transition-all cursor-pointer group",
                 notification.isRead
                   ? "bg-white/70 border-purple-100 hover:border-purple-200"
-                  : "bg-white border-purple-200 shadow-md hover:shadow-lg animate-magical-float"
+                  : "bg-white border-purple-200 shadow-md hover:shadow-lg"
               )}
             >
               <div className="flex gap-3">
                 {/* Icon/Avatar */}
                 <div className={cn(
-                  "w-12 h-12 rounded-full flex items-center justify-center flex-shrink-0",
-                  !notification.isRead && "animate-sparkle"
+                  "w-12 h-12 rounded-full flex items-center justify-center flex-shrink-0"
                 )}>
                   {notification.avatar ? (
                     <img 
@@ -300,7 +299,7 @@ export const NotificationsPage: React.FC<NotificationsPageProps> = ({ onBack }) 
                         {notification.timestamp}
                       </span>
                       {!notification.isRead && (
-                        <div className="w-2 h-2 bg-red-500 rounded-full animate-pulse" />
+                        <div className="w-2 h-2 bg-red-500 rounded-full" />
                       )}
                     </div>
                   </div>
@@ -317,7 +316,7 @@ export const NotificationsPage: React.FC<NotificationsPageProps> = ({ onBack }) 
                     <div className="mt-2">
                       <Badge 
                         variant="secondary" 
-                        className="bg-gradient-to-r from-yellow-100 to-orange-100 text-orange-700 border-orange-200 text-xs animate-coin-spin"
+                        className="bg-gradient-to-r from-yellow-100 to-orange-100 text-orange-700 border-orange-200 text-xs"
                       >
                         🎁 {notification.reward}
                       </Badge>
@@ -328,7 +327,7 @@ export const NotificationsPage: React.FC<NotificationsPageProps> = ({ onBack }) 
 
               {/* Unread indicator glow */}
               {!notification.isRead && (
-                <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-purple-400/10 via-pink-400/10 to-orange-400/10 animate-bounty-glow pointer-events-none" />
+                <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-purple-400/10 via-pink-400/10 to-orange-400/10 pointer-events-none" />
               )}
             </div>
           ))
