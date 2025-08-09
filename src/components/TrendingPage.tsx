@@ -6,7 +6,6 @@ import { CommentModal } from '@/components/CommentModal';
 import { 
   Heart, 
   ChatCircle, 
-  BookmarkSimple, 
   ShareNetwork,
   MapPin,
   MagnifyingGlass,
@@ -23,6 +22,7 @@ import { cn } from '@/lib/utils';
 import { useKV } from '@github/spark/hooks';
 import { UserPost, RestaurantPost, AdPost, User, Comment } from '@/lib/types';
 import LikLogoHeart from '@/assets/images/Lik_Logo_Heart_1.0.png';
+import BookmarkIcon from '@/assets/images/bookmark_icon.svg';
 // Removed react-swipeable import - using native touch events instead
 
 // Mock data for trending content
@@ -652,7 +652,14 @@ export function TrendingPage({ onShowRestaurantProfile, onShowUserProfile, onSho
                       post.isSaved ? "text-yellow-400" : "text-white"
                     )}
                   >
-                    <BookmarkSimple size={24} weight={post.isSaved ? "fill" : "regular"} />
+                    <img 
+                      src={BookmarkIcon} 
+                      alt="Bookmark" 
+                      className={cn(
+                        "w-6 h-6",
+                        post.isSaved ? "brightness-0 saturate-100 invert-[.65] sepia-[1] saturate-[3] hue-rotate-[20deg]" : ""
+                      )}
+                    />
                   </Button>
                   <span className="text-white text-xs">{post.saves}</span>
                 </div>
