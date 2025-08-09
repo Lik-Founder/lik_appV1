@@ -6,7 +6,6 @@ import { CommentModal } from '@/components/CommentModal';
 import { 
   Heart, 
   ChatCircle, 
-  ShareNetwork,
   MapPin,
   MagnifyingGlass,
   Television,
@@ -24,6 +23,7 @@ import { UserPost, RestaurantPost, AdPost, User, Comment } from '@/lib/types';
 import LikLogoHeart from '@/assets/images/Lik_Logo_Heart_1.0.png';
 import BookmarkIcon from '@/assets/images/bookmark_icon.svg';
 import CommentIcon from '@/assets/images/comment_icon.svg';
+import ShareIcon from '@/assets/images/share_icon1.svg';
 // Removed react-swipeable import - using native touch events instead
 
 // Mock data for trending content
@@ -671,7 +671,11 @@ export function TrendingPage({ onShowRestaurantProfile, onShowUserProfile, onSho
                 
                 <div className="flex flex-col items-center gap-1">
                   <Button variant="ghost" size="sm" className="w-12 h-12 rounded-full text-white touch-feedback">
-                    <ShareNetwork size={24} />
+                    <img 
+                      src={ShareIcon} 
+                      alt="Share" 
+                      className="w-6 h-6"
+                    />
                   </Button>
                   <span className="text-white text-xs">{post.shares}</span>
                 </div>
