@@ -1939,3 +1939,90 @@ input, textarea, select {
     0 1px 3px rgba(239, 68, 68, 0.8),
     0 3px 8px rgba(239, 68, 68, 0.4);
 }
+
+/* Profile Dropdown Animations */
+@keyframes fadeIn {
+  from { 
+    opacity: 0; 
+  }
+  to { 
+    opacity: 1; 
+  }
+}
+
+@keyframes slideInFromTop {
+  0% {
+    opacity: 0;
+    transform: translateY(-10px) scale(0.95);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.profile-dropdown-enter {
+  animation: slideInFromTop 200ms ease-out;
+}
+
+.profile-dropdown-backdrop {
+  animation: fadeIn 200ms ease-out;
+}
+
+/* Profile dropdown stat chip hover effects */
+.stat-chip-hover:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* XP progress ring animation */
+@keyframes xpProgressGlow {
+  0%, 100% {
+    filter: drop-shadow(0 0 2px rgba(var(--primary), 0.3));
+  }
+  50% {
+    filter: drop-shadow(0 0 6px rgba(var(--primary), 0.6));
+  }
+}
+
+.xp-progress-animated {
+  animation: xpProgressGlow 2s ease-in-out infinite;
+}
+
+/* Daily progress widget animations */
+.daily-progress-pulse {
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.8;
+  }
+}
+
+/* Quick action button ripple effect */
+.quick-action-ripple {
+  position: relative;
+  overflow: hidden;
+}
+
+.quick-action-ripple::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.3);
+  transition: width 0.3s ease, height 0.3s ease;
+  transform: translate(-50%, -50%);
+}
+
+.quick-action-ripple:active::before {
+  width: 100px;
+  height: 100px;
+}

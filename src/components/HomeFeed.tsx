@@ -1,9 +1,10 @@
 import { useKV } from '@github/spark/hooks';
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { Story as StoryType, User } from '@/lib/types';
 import { generateMockStories, generateMockUsers, getCurrentUser } from '@/lib/mockData';
 import { StoriesBar } from '@/components/StoriesBar';
 import { CreateStoryModal } from '@/components/CreateStoryModal';
+import { ProfileDropdown } from '@/components/ProfileDropdown';
 import { Carousel } from '@/components/Carousel';
 import { HorizontalCarousel } from '@/components/HorizontalCarousel';
 import { ConsistentAvatar } from '@/components/ui/consistent-avatar';
@@ -36,9 +37,10 @@ interface HomeFeedProps {
   onShowGuidePage?: () => void;
   onShowEventsPage?: () => void;
   onShowMessagesPage?: () => void;
+  onShowLikPassport?: () => void;
 }
 
-export function HomeFeed({ onShowUserProfile, onShowRestaurantProfile, onShowLeaderboard, onShowLikTV, onShowGuidePage, onShowEventsPage, onShowMessagesPage }: HomeFeedProps) {
+export function HomeFeed({ onShowUserProfile, onShowRestaurantProfile, onShowLeaderboard, onShowLikTV, onShowGuidePage, onShowEventsPage, onShowMessagesPage, onShowLikPassport }: HomeFeedProps) {
   const [stories, setStories] = useKV<StoryType[]>('stories', generateMockStories());
   const [users, setUsers] = useKV<User[]>('users', generateMockUsers());
   const [currentUser] = useKV<User>('currentUser', getCurrentUser());
@@ -46,7 +48,76 @@ export function HomeFeed({ onShowUserProfile, onShowRestaurantProfile, onShowLea
   const [activeReviewTab, setActiveReviewTab] = useState('Popular');
   const [currentPromoIndex, setCurrentPromoIndex] = useState(0);
   
+  // Profile dropdown state
+  const [isProfileDropdownOpen, setIsProfileDropdownOpen] = useState(false);
+  const [avatarRect, setAvatarRect] = useState<DOMRect | null>(null);
+  const avatarRef = useRef<HTMLDivElement>(null);
+  
   const device = useDevice();
+
+  // Profile dropdown handlers
+  const handleAvatarClick = () => {
+    if (avatarRef.current) {
+      const rect = avatarRef.current.getBoundingClientRect();
+      setAvatarRect(rect);
+      setIsProfileDropdownOpen(true);
+    }
+  };
+
+  const handleProfileNavigate = (destination: string) => {
+    setIsProfileDropdownOpen(false);
+    
+    switch (destination) {
+      case 'passport':
+        onShowLikPassport?.();
+        break;
+      case 'quests':
+      case 'lik':
+        // Navigate to Lik page (could add this to props if needed)
+        break;
+      case 'leaderboard':
+        onShowLeaderboard?.();
+        break;
+      case 'messages':
+        onShowMessagesPage?.();
+        break;
+      case 'liktv':
+        onShowLikTV?.();
+        break;
+      default:
+        console.log(`Navigate to: ${destination}`);
+    }
+  };
+
+  // Mock data for profile dropdown
+  const profileDropdownUser = {
+    avatar: currentUser.avatar,
+    displayName: currentUser.username,
+    username: currentUser.username,
+    tasteTitle: "Flavor Explorer",
+    level: 24,
+    xp: 18000,
+    maxXp: 20000,
+    badges: [
+      { id: "verified", icon: "✓", label: "Verified" },
+      { id: "creator", icon: "⭐", label: "Creator" }
+    ]
+  };
+
+  const profileDropdownStats = {
+    streak: 4,
+    tickets: 2,
+    likCoins: "1.2k",
+    hearts: "3.2k"
+  };
+
+  const profileDropdownDailyProgress = {
+    currentTime: "01:30",
+    targetTime: "02:00", 
+    bonusReward: "+2 LP",
+    streakDays: 7,
+    currentStreak: 4
+  };
 
   const handleStoryClick = (storyId: string) => {
     setStories(currentStories => 
@@ -210,15 +281,21 @@ export function HomeFeed({ onShowUserProfile, onShowRestaurantProfile, onShowLea
         <div className="flex items-center justify-between px-4 py-3">
           {/* Left - User Icon */}
           <div className="flex items-center min-w-[60px]">
-            <ConsistentAvatar
-              src={currentUser.avatar}
-              alt="Profile"
-              fallback={currentUser.username[0]?.toUpperCase()}
-              size="md"
-              variant="xp-ring"
-              level={12}
-              xpProgress={0.75} // Mock XP progress
-            />
+            <div 
+              ref={avatarRef}
+              onClick={handleAvatarClick}
+              className="cursor-pointer transition-transform hover:scale-105 active:scale-95"
+            >
+              <ConsistentAvatar
+                src={currentUser.avatar}
+                alt="Profile"
+                fallback={currentUser.username[0]?.toUpperCase()}
+                size="md"
+                variant="xp-ring"
+                level={12}
+                xpProgress={0.75} // Mock XP progress
+              />
+            </div>
           </div>
 
           {/* Center - Lik Logo */}
@@ -519,6 +596,17 @@ export function HomeFeed({ onShowUserProfile, onShowRestaurantProfile, onShowLea
       <CreateStoryModal 
         open={isCreateStoryOpen} 
         onOpenChange={setIsCreateStoryOpen}
+      />
+
+      {/* Profile Dropdown */}
+      <ProfileDropdown
+        isOpen={isProfileDropdownOpen}
+        onClose={() => setIsProfileDropdownOpen(false)}
+        anchorRect={avatarRect}
+        user={profileDropdownUser}
+        stats={profileDropdownStats}
+        dailyProgress={profileDropdownDailyProgress}
+        onNavigate={handleProfileNavigate}
       />
     </div>
   );

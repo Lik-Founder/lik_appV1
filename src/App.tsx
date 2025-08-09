@@ -248,6 +248,7 @@ function App() {
             onShowGuidePage={() => setShowGuidePage(true)}
             onShowEventsPage={() => setShowEventsPage(true)}
             onShowMessagesPage={() => setShowMessagesPage(true)}
+            onShowLikPassport={() => setShowLikPassport(true)}
           />
         );
       case 'search':
@@ -256,6 +257,10 @@ function App() {
             onShowUserProfile={(userId) => setShowUserProfile(userId)}
             onShowRestaurantProfile={(restaurantId) => setShowRestaurantProfile(restaurantId)}
             onShowSwipeDiscovery={() => setShowSwipeDiscovery(true)}
+            onShowLikPassport={() => setShowLikPassport(true)}
+            onShowLeaderboard={() => setShowLeaderboard(true)}
+            onShowLikTV={() => setShowLikTV(true)}
+            onShowMessagesPage={() => setShowMessagesPage(true)}
           />
         );
       case 'lik':
