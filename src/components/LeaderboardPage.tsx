@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect, useMemo, useRef } from 'react';
 import { ArrowLeft, MagnifyingGlass, Globe, CaretDown, Star, Heart, TrendUp, CaretRight, Funnel, CircleNotch } from '@phosphor-icons/react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -7,7 +7,6 @@ import { LeaderboardSkeleton } from '@/components/ui/skeleton';
 import { cn } from '@/lib/utils';
 import { toast } from 'sonner';
 import { useInfiniteScroll } from '@/hooks/use-infinite-scroll';
-import { useFloatingAppBar } from '@/hooks/use-floating-app-bar';
 import likLogo from '@/assets/images/Lik_Logo_Heart_1.0.png';
 
 interface LeaderboardPageProps {
@@ -605,11 +604,38 @@ export function LeaderboardPage({ onBack, onShowRestaurantProfile, onShowUserPro
   const [showFilters, setShowFilters] = useState(false);
   
   // Floating app bar behavior
-  const { isVisible: isAppBarVisible, containerRef } = useFloatingAppBar({
-    threshold: 50,
-    hideOnScrollDown: true,
-    showOnScrollUp: true
-  });
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
+  const [isAppBarVisible, setIsAppBarVisible] = useState(true);
+  const lastScrollY = useRef(0);
+
+  useEffect(() => {
+    const container = scrollContainerRef.current;
+    if (!container) return;
+
+    const handleScroll = () => {
+      const currentScrollY = container.scrollTop;
+      const threshold = 50;
+
+      if (currentScrollY > threshold) {
+        // Hide app bar when scrolling down
+        if (currentScrollY > lastScrollY.current) {
+          setIsAppBarVisible(false);
+        }
+        // Show app bar when scrolling up
+        else if (currentScrollY < lastScrollY.current) {
+          setIsAppBarVisible(true);
+        }
+      } else {
+        // Always show at top
+        setIsAppBarVisible(true);
+      }
+
+      lastScrollY.current = currentScrollY;
+    };
+
+    container.addEventListener('scroll', handleScroll, { passive: true });
+    return () => container.removeEventListener('scroll', handleScroll);
+  }, []);
   
   // Infinite scroll state
   const [allData, setAllData] = useState<Record<TabType, LeaderboardItem[]>>(() => ({
@@ -990,7 +1016,7 @@ export function LeaderboardPage({ onBack, onShowRestaurantProfile, onShowUserPro
 
       {/* Content with top padding to account for floating header */}
       <div 
-        ref={containerRef}
+        ref={scrollContainerRef}
         className="flex-1 overflow-auto smooth-scroll-container" 
         style={{ paddingTop: '200px' }}
       >
