@@ -5,7 +5,7 @@ import { DeviceType } from '@/hooks/use-device';
 import { useHapticFeedback } from '@/hooks/use-haptic';
 import { useCommentSwipe } from '@/hooks/use-comment-swipe';
 import { Button } from '@/components/ui/button';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { ConsistentAvatar } from '@/components/ui/consistent-avatar';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -153,13 +153,13 @@ export function CommentItem({
         onClick={() => onUserClick?.(user.id)}
         className="touch-target active:scale-95 transition-transform duration-150"
       >
-        <Avatar className={cn(
-          avatarSize,
-          isNested && "w-6 h-6"
-        )}>
-          <AvatarImage src={user.avatar} alt={user.username} />
-          <AvatarFallback>{user.username[0]?.toUpperCase()}</AvatarFallback>
-        </Avatar>
+        <ConsistentAvatar
+          src={user.avatar}
+          alt={user.username}
+          fallback={user.username[0]?.toUpperCase()}
+          size={isNested ? 'xs' : deviceType === 'tablet' ? 'sm' : 'xs'}
+          variant="default"
+        />
       </button>
       
       <div className="flex-1 min-w-0">
@@ -395,10 +395,14 @@ export function CommentItem({
                       onClick={() => onUserClick?.(replyUser.id)}
                       className="touch-target active:scale-90 transition-transform duration-150"
                     >
-                      <Avatar className="w-4 h-4 border border-background">
-                        <AvatarImage src={replyUser.avatar} alt={replyUser.username} />
-                        <AvatarFallback className="text-xs">{replyUser.username[0]?.toUpperCase()}</AvatarFallback>
-                      </Avatar>
+                      <ConsistentAvatar
+                        src={replyUser.avatar}
+                        alt={replyUser.username}
+                        fallback={replyUser.username[0]?.toUpperCase()}
+                        size="xs"
+                        variant="default"
+                        className="border border-background"
+                      />
                     </button>
                   );
                 })}

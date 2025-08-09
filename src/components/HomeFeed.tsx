@@ -6,6 +6,7 @@ import { StoriesBar } from '@/components/StoriesBar';
 import { CreateStoryModal } from '@/components/CreateStoryModal';
 import { Carousel } from '@/components/Carousel';
 import { HorizontalCarousel } from '@/components/HorizontalCarousel';
+import { ConsistentAvatar } from '@/components/ui/consistent-avatar';
 import { useDevice } from '@/hooks/use-device';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
@@ -209,16 +210,14 @@ export function HomeFeed({ onShowUserProfile, onShowRestaurantProfile, onShowLea
         <div className="flex items-center justify-between px-4 py-3">
           {/* Left - User Icon */}
           <div className="flex items-center min-w-[60px]">
-            <div className="relative">
-              <img 
-                src={currentUser.avatar} 
-                alt="Profile" 
-                className="w-10 h-10 rounded-full"
-              />
-              <Badge className="absolute -bottom-1 -right-1 text-xs px-1 py-0 h-5 bg-primary text-primary-foreground">
-                12
-              </Badge>
-            </div>
+            <ConsistentAvatar
+              src={currentUser.avatar}
+              alt="Profile"
+              fallback={currentUser.username[0]?.toUpperCase()}
+              size="md"
+              variant="level-badge"
+              level={12}
+            />
           </div>
 
           {/* Center - Lik Logo */}

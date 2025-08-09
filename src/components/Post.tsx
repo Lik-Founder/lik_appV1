@@ -7,7 +7,7 @@ import { useHapticFeedback } from '@/hooks/use-haptic';
 import { useKV } from '@github/spark/hooks';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { ConsistentAvatar } from '@/components/ui/consistent-avatar';
 import { CommentModal } from '@/components/CommentModal';
 import { QuickCommentsView } from '@/components/QuickCommentsView';
 import { formatDistanceToNow } from 'date-fns';
@@ -102,7 +102,6 @@ export function Post({ post, user, onLike, onComment, onUserClick, deviceType, o
     setLastTap(now);
   };
 
-  const avatarSize = deviceType === 'tablet' ? 'w-10 h-10' : 'w-8 h-8';
   const iconSize = deviceType === 'tablet' ? 28 : 24;
   const padding = deviceType === 'tablet' ? 'p-6' : 'p-4';
 
@@ -121,10 +120,13 @@ export function Post({ post, user, onLike, onComment, onUserClick, deviceType, o
             onClick={() => onUserClick(user.id)}
             className="touch-target active:scale-95 transition-transform duration-150"
           >
-            <Avatar className={avatarSize}>
-              <AvatarImage src={user.avatar} alt={user.username} />
-              <AvatarFallback>{user.username[0]?.toUpperCase()}</AvatarFallback>
-            </Avatar>
+            <ConsistentAvatar
+              src={user.avatar}
+              alt={user.username}
+              fallback={user.username[0]?.toUpperCase()}
+              size={deviceType === 'tablet' ? 'md' : 'sm'}
+              variant="default"
+            />
           </button>
           <div className="flex-1">
             <button 

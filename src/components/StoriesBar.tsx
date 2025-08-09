@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Story as StoryType, User } from '@/lib/types';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { ConsistentAvatar } from '@/components/ui/consistent-avatar';
 import { DeviceType } from '@/hooks/use-device';
 import { StoryViewer } from '@/components/StoryViewer';
 import { useSwipe } from '@/hooks/use-swipe';
@@ -15,7 +15,7 @@ interface StoryProps {
 }
 
 export function Story({ story, user, onStoryClick, onUserClick, deviceType }: StoryProps) {
-  const avatarSize = deviceType === 'tablet' ? 'w-16 h-16' : 'w-14 h-14';
+  const avatarSize = deviceType === 'tablet' ? 'xl' : 'lg';
   const textWidth = deviceType === 'tablet' ? 'w-20' : 'w-16';
   
   return (
@@ -24,15 +24,13 @@ export function Story({ story, user, onStoryClick, onUserClick, deviceType }: St
         onClick={() => onStoryClick(story.id)}
         className="touch-target active:scale-95 transition-transform duration-150"
       >
-        <div className={cn(
-          "p-0.5 rounded-full transition-transform duration-150 active:scale-95",
-          story.isViewed ? "story-ring-viewed" : "story-ring"
-        )}>
-          <Avatar className={cn(avatarSize, "border-2 border-background")}>
-            <AvatarImage src={user.avatar} alt={user.username} />
-            <AvatarFallback>{user.username[0]?.toUpperCase()}</AvatarFallback>
-          </Avatar>
-        </div>
+        <ConsistentAvatar
+          src={user.avatar}
+          alt={user.username}
+          fallback={user.username[0]?.toUpperCase()}
+          size={avatarSize}
+          variant={story.isViewed ? 'story-viewed' : 'story'}
+        />
       </button>
       <button
         onClick={() => onUserClick?.(user.id)}
@@ -103,7 +101,7 @@ export function StoriesBar({ stories, users, onStoryClick, onUserClick, currentU
     preventDefaultTouchmoveEvent: false
   });
 
-  const avatarSize = deviceType === 'tablet' ? 'w-16 h-16' : 'w-14 h-14';
+  const avatarSize = deviceType === 'tablet' ? 'xl' : 'lg';
   const textWidth = deviceType === 'tablet' ? 'w-20' : 'w-16';
   const padding = deviceType === 'tablet' ? 'px-6 py-4' : 'px-4 py-3';
   const gap = deviceType === 'tablet' ? 'gap-6' : 'gap-4';
@@ -122,11 +120,13 @@ export function StoriesBar({ stories, users, onStoryClick, onUserClick, currentU
           onClick={onAddStory}
           className="flex flex-col items-center gap-1 min-w-0 touch-target active:scale-95 transition-transform duration-150"
         >
-          <div className="relative">
-            <Avatar className={cn(avatarSize, "border border-border")}>
-              <AvatarImage src={currentUser.avatar} alt={currentUser.username} />
-              <AvatarFallback>{currentUser.username[0]?.toUpperCase()}</AvatarFallback>
-            </Avatar>
+          <ConsistentAvatar
+            src={currentUser.avatar}
+            alt={currentUser.username}
+            fallback={currentUser.username[0]?.toUpperCase()}
+            size={avatarSize}
+            variant="default"
+          >
             <div className={cn(
               "absolute -bottom-1 -right-1 bg-accent rounded-full border-2 border-background flex items-center justify-center",
               deviceType === 'tablet' ? "w-7 h-7" : "w-6 h-6"
@@ -138,7 +138,7 @@ export function StoriesBar({ stories, users, onStoryClick, onUserClick, currentU
                 +
               </span>
             </div>
-          </div>
+          </ConsistentAvatar>
           <span className={cn(
             "text-xs text-center truncate selectable-text",
             textWidth,

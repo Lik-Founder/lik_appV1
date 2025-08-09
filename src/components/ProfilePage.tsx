@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useKV } from '@github/spark/hooks';
 import { Post as PostType, User } from '@/lib/types';
 import { generateMockPosts, getCurrentUser } from '@/lib/mockData';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { ConsistentAvatar } from '@/components/ui/consistent-avatar';
 import { Button } from '@/components/ui/button';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
@@ -181,59 +181,16 @@ export function ProfilePage({ onShowLeaderboard, onShowLikPassport }: ProfilePag
               {/* Profile Header */}
               <div className="flex flex-col items-center px-4 py-4 max-w-md mx-auto w-full">
                 {/* Profile Image with XP Ring */}
-                <div className="relative mb-4">
-                  <div className="relative w-24 h-24">
-                    {/* XP Progress Ring */}
-                    <svg className="w-full h-full transform -rotate-90 absolute inset-0">
-                      <circle
-                        cx="48"
-                        cy="48"
-                        r="44"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                        fill="none"
-                        className="text-muted"
-                      />
-                      <circle
-                        cx="48"
-                        cy="48"
-                        r="44"
-                        stroke="url(#xpGradient)"
-                        strokeWidth="2"
-                        fill="none"
-                        strokeLinecap="round"
-                        className="transition-all duration-500"
-                        strokeDasharray={`${2 * Math.PI * 44}`}
-                        strokeDashoffset={`${2 * Math.PI * 44 * (1 - (mockXP / mockXPToNext))}`}
-                      />
-                      <defs>
-                        <linearGradient id="xpGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-                          <stop offset="0%" stopColor="#f09433" />
-                          <stop offset="25%" stopColor="#e6683c" />
-                          <stop offset="50%" stopColor="#dc2743" />
-                          <stop offset="75%" stopColor="#cc2366" />
-                          <stop offset="100%" stopColor="#bc1888" />
-                        </linearGradient>
-                      </defs>
-                    </svg>
-                    
-                    {/* Profile Image */}
-                    <div className="absolute inset-2">
-                      <Avatar className="w-full h-full">
-                        <AvatarImage src={currentUser.avatar} alt={currentUser.username} />
-                        <AvatarFallback className="text-2xl font-bold">
-                          {currentUser.username[0]?.toUpperCase()}
-                        </AvatarFallback>
-                      </Avatar>
-                    </div>
-                  </div>
-                  
-                  {/* Level Badge */}
-                  <div className="absolute -bottom-1 left-1/2 transform -translate-x-1/2">
-                    <div className="bg-primary text-primary-foreground rounded-full px-3 py-1 min-w-[48px] flex items-center justify-center shadow-lg">
-                      <span className="text-sm font-bold">{mockLevel}</span>
-                    </div>
-                  </div>
+                <div className="mb-4">
+                  <ConsistentAvatar
+                    src={currentUser.avatar}
+                    alt={currentUser.username}
+                    fallback={currentUser.username[0]?.toUpperCase()}
+                    size="2xl"
+                    variant="xp-ring"
+                    level={mockLevel}
+                    xpProgress={mockXP / mockXPToNext}
+                  />
                 </div>
 
                 {/* Display Name & Username */}
@@ -415,11 +372,13 @@ export function ProfilePage({ onShowLeaderboard, onShowLikPassport }: ProfilePag
               <div className="flex flex-col px-4 py-6 min-h-[600px]">
                 {/* Profile Avatar */}
                 <div className="flex justify-center mb-6">
-                  <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-purple-400 via-pink-400 to-orange-400 p-1">
-                    <div className="w-full h-full rounded-xl bg-white flex items-center justify-center">
-                      <div className="w-6 h-6 bg-gradient-to-r from-blue-500 to-purple-600 rounded-lg"></div>
-                    </div>
-                  </div>
+                  <ConsistentAvatar
+                    src={currentUser.avatar}
+                    alt={currentUser.username}
+                    fallback={currentUser.username[0]?.toUpperCase()}
+                    size="xl"
+                    variant="default"
+                  />
                 </div>
 
                 <div className="text-center mb-6">

@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useKV } from '@github/spark/hooks';
 import { Post as PostType, User } from '@/lib/types';
 import { generateMockPosts } from '@/lib/mockData';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { ConsistentAvatar } from '@/components/ui/consistent-avatar';
 import { Button } from '@/components/ui/button';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
@@ -307,10 +307,15 @@ export function UserProfile({ userId, onBack }: UserProfileProps) {
               {/* Profile Image with XP Ring */}
               <div className="relative">
                 <div className="story-ring w-20 h-20 rounded-full flex items-center justify-center">
-                  <Avatar className="w-[72px] h-[72px]">
-                    <AvatarImage src={user.avatar} alt={user.displayName} />
-                    <AvatarFallback>{user.displayName.split(' ').map(n => n[0]).join('')}</AvatarFallback>
-                  </Avatar>
+                  <ConsistentAvatar
+                    src={user.avatar}
+                    alt={user.displayName}
+                    fallback={user.displayName.split(' ').map(n => n[0]).join('')}
+                    size="2xl"
+                    variant="xp-ring"
+                    level={user.level}
+                    xpProgress={0.7}
+                  />
                 </div>
                 <Badge 
                   className="absolute -bottom-1 left-1/2 transform -translate-x-1/2 bg-primary text-primary-foreground text-xs px-2 py-0.5"
@@ -392,10 +397,13 @@ export function UserProfile({ userId, onBack }: UserProfileProps) {
               <ScrollArea className="flex-1 p-4">
                 <div className="space-y-6">
                   <div className="text-center">
-                    <Avatar className="w-24 h-24 mx-auto mb-4">
-                      <AvatarImage src={user.avatar} alt={user.displayName} />
-                      <AvatarFallback>{user.displayName.split(' ').map(n => n[0]).join('')}</AvatarFallback>
-                    </Avatar>
+                    <ConsistentAvatar
+                      src={user.avatar}
+                      alt={user.displayName}
+                      fallback={user.displayName.split(' ').map(n => n[0]).join('')}
+                      size="2xl"
+                      variant="default"
+                    />
                     <h2 className="text-2xl font-bold">{user.displayName}</h2>
                     <p className="text-muted-foreground">@{user.username}</p>
                   </div>

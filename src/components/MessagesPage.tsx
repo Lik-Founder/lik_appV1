@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import { ConsistentAvatar } from '@/components/ui/consistent-avatar';
 import { ArrowLeft, Search, SlidersHorizontal, Plus, Crown, Trophy, MapPin, MessageCircle, Users, Gear } from '@phosphor-icons/react';
 import { cn } from '@/lib/utils';
 import { CreateGroupChatModal } from '@/components/CreateGroupChatModal';
@@ -362,39 +363,29 @@ export function MessagesPage({ onBack, onOpenChat, onShowUserProfile, onShowRest
               >
                 {/* Profile Picture with Level Ring */}
                 <div className="relative flex-shrink-0">
-                  <div className={cn(
-                    "w-12 h-12 rounded-full p-0.5",
-                    chat.isGroup ? "bg-gradient-to-br from-purple-500 to-pink-500" :
-                    chat.level > 0 ? `bg-gradient-to-br ${getLevelColor(chat.level)}` : "bg-muted"
-                  )}>
-                    <div className="w-full h-full rounded-full bg-background p-0.5">
-                      {chat.isGroup ? (
-                        <div className="w-full h-full rounded-full bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center">
-                          <Users className="w-6 h-6 text-white" />
-                        </div>
-                      ) : (
-                        <img
-                          src={chat.avatar}
-                          alt={chat.name}
-                          className="w-full h-full rounded-full object-cover"
-                        />
-                      )}
-                    </div>
-                  </div>
-                  
-                  {/* Level Badge or Member Count */}
                   {chat.isGroup ? (
-                    <div className="absolute -bottom-1 -right-1 bg-background border-2 border-background rounded-full px-1.5 py-0.5">
-                      <span className="text-xs font-bold text-primary">
-                        {chat.memberCount}
-                      </span>
-                    </div>
-                  ) : chat.level > 0 && (
-                    <div className="absolute -bottom-1 -right-1 bg-background border-2 border-background rounded-full px-1.5 py-0.5">
-                      <span className="text-xs font-bold text-primary">
-                        {chat.level}
-                      </span>
-                    </div>
+                    <ConsistentAvatar
+                      src=""
+                      alt={chat.name}
+                      fallback=""
+                      size="lg"
+                      variant="level-badge"
+                      level={chat.memberCount}
+                    >
+                      <div className="absolute inset-0 bg-gradient-to-br from-purple-500 to-pink-500 rounded-full flex items-center justify-center">
+                        <Users className="w-6 h-6 text-white" />
+                      </div>
+                    </ConsistentAvatar>
+                  ) : (
+                    <ConsistentAvatar
+                      src={chat.avatar}
+                      alt={chat.name}
+                      fallback={chat.name[0]?.toUpperCase()}
+                      size="lg"
+                      variant="level-badge"
+                      level={chat.level > 0 ? chat.level : undefined}
+                      isOnline={chat.isOnline}
+                    />
                   )}
                   
                   {/* Verification Badge */}

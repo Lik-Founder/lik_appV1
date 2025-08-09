@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { ConsistentAvatar } from '@/components/ui/consistent-avatar';
 import { CommentModal } from '@/components/CommentModal';
 import { 
   Heart, 
@@ -321,13 +321,14 @@ export function TrendingPage({ onShowRestaurantProfile, onShowUserProfile, onSho
         <div className="space-y-3">
           {/* User profile section */}
           <div className="flex items-center gap-3">
-            <Avatar 
-              className="w-10 h-10 story-ring cursor-pointer" 
+            <ConsistentAvatar
+              src={post.user.avatar}
+              alt={post.user.displayName}
+              fallback={post.user.displayName[0]}
+              size="md"
+              variant="default"
               onClick={() => onShowUserProfile?.(post.user.id)}
-            >
-              <AvatarImage src={post.user.avatar} />
-              <AvatarFallback>{post.user.displayName[0]}</AvatarFallback>
-            </Avatar>
+            />
             <div className="flex-1">
               <div className="flex items-center gap-2">
                 <span 
@@ -403,10 +404,14 @@ export function TrendingPage({ onShowRestaurantProfile, onShowUserProfile, onSho
           {/* Restaurant profile section */}
           <div className="flex items-center gap-3">
             <div className="relative">
-              <Avatar className="w-10 h-10 cursor-pointer" onClick={() => onShowRestaurantProfile?.(post.restaurant.id)}>
-                <AvatarImage src={post.restaurant.avatar} />
-                <AvatarFallback>{post.restaurant.name[0]}</AvatarFallback>
-              </Avatar>
+              <ConsistentAvatar
+                src={post.restaurant.avatar}
+                alt={post.restaurant.name}
+                fallback={post.restaurant.name[0]}
+                size="md"
+                variant="default"
+                onClick={() => onShowRestaurantProfile?.(post.restaurant.id)}
+              />
               <div className="absolute -bottom-1 -right-1 bg-black rounded-full px-1">
                 <div className="flex items-center gap-1">
                   <Star size={10} className="text-yellow-400 fill-current" />
@@ -478,10 +483,14 @@ export function TrendingPage({ onShowRestaurantProfile, onShowUserProfile, onSho
         <div className="space-y-3">
           {/* Restaurant profile section */}
           <div className="flex items-center gap-3">
-            <Avatar className="w-10 h-10 cursor-pointer" onClick={() => onShowRestaurantProfile?.(post.restaurant.id)}>
-              <AvatarImage src={post.restaurant.avatar} />
-              <AvatarFallback>{post.restaurant.name[0]}</AvatarFallback>
-            </Avatar>
+            <ConsistentAvatar
+              src={post.restaurant.avatar}
+              alt={post.restaurant.name}
+              fallback={post.restaurant.name[0]}
+              size="md"
+              variant="default"
+              onClick={() => onShowRestaurantProfile?.(post.restaurant.id)}
+            />
             <div className="flex-1">
               <div className="flex items-center gap-2">
                 <span 
@@ -664,14 +673,16 @@ export function TrendingPage({ onShowRestaurantProfile, onShowUserProfile, onSho
                 </div>
                 <div className="flex items-center -space-x-2">
                   {post.likedBy.slice(0, 3).map((user, index) => (
-                    <Avatar 
-                      key={user.id} 
-                      className="w-6 h-6 border-2 border-black cursor-pointer hover:scale-110 transition-transform"
+                    <ConsistentAvatar
+                      key={user.id}
+                      src={user.avatar}
+                      alt={user.displayName}
+                      fallback={user.displayName[0]}
+                      size="xs"
+                      variant="default"
+                      className="border-2 border-black cursor-pointer hover:scale-110 transition-transform"
                       onClick={() => onShowUserProfile?.(user.id)}
-                    >
-                      <AvatarImage src={user.avatar} />
-                      <AvatarFallback className="text-xs">{user.displayName[0]}</AvatarFallback>
-                    </Avatar>
+                    />
                   ))}
                   {post.likedBy.length > 3 && (
                     <div className="w-6 h-6 rounded-full bg-black/50 border-2 border-black flex items-center justify-center">
