@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import { useState } from 'react';
 import { useKV } from '@github/spark/hooks';
 import { useDevice } from '@/hooks/use-device';
 import { Input } from '@/components/ui/input';
@@ -8,8 +8,6 @@ import { Cart } from '@/components/Cart';
 import { Checkout } from '@/components/Checkout';
 import { FavoritesPage } from '@/components/FavoritesPage';
 import { OrderHistory } from '@/components/OrderHistory';
-import { ProfileDropdown } from '@/components/ProfileDropdown';
-import { ConsistentAvatar } from '@/components/ui/consistent-avatar';
 import { getCurrentUser } from '@/lib/mockData';
 import { 
   Search as SearchIcon, 
@@ -96,76 +94,7 @@ export function SearchPage({ onShowUserProfile, onShowRestaurantProfile, onShowS
   const [showFavorites, setShowFavorites] = useState(false);
   const [showOrderHistory, setShowOrderHistory] = useState(false);
   
-  // Profile dropdown state
-  const [isProfileDropdownOpen, setIsProfileDropdownOpen] = useState(false);
-  const [avatarRect, setAvatarRect] = useState<DOMRect | null>(null);
-  const avatarRef = useRef<HTMLDivElement>(null);
-  
   const device = useDevice();
-
-  // Profile dropdown handlers
-  const handleAvatarClick = () => {
-    if (avatarRef.current) {
-      const rect = avatarRef.current.getBoundingClientRect();
-      setAvatarRect(rect);
-      setIsProfileDropdownOpen(true);
-    }
-  };
-
-  const handleProfileNavigate = (destination: string) => {
-    setIsProfileDropdownOpen(false);
-    
-    switch (destination) {
-      case 'passport':
-        onShowLikPassport?.();
-        break;
-      case 'quests':
-      case 'lik':
-        // Navigate to Lik page (could add this to props if needed)
-        break;
-      case 'leaderboard':
-        onShowLeaderboard?.();
-        break;
-      case 'messages':
-        onShowMessagesPage?.();
-        break;
-      case 'liktv':
-        onShowLikTV?.();
-        break;
-      default:
-        console.log(`Navigate to: ${destination}`);
-    }
-  };
-
-  // Mock data for profile dropdown
-  const profileDropdownUser = {
-    avatar: currentUser.avatar,
-    displayName: currentUser.username,
-    username: currentUser.username,
-    tasteTitle: "Food Explorer",
-    level: 34,
-    xp: 18000,
-    maxXp: 20000,
-    badges: [
-      { id: "verified", icon: "✓", label: "Verified" },
-      { id: "creator", icon: "⭐", label: "Creator" }
-    ]
-  };
-
-  const profileDropdownStats = {
-    streak: 4,
-    tickets: 2,
-    likCoins: "1.2k",
-    hearts: "3.2k"
-  };
-
-  const profileDropdownDailyProgress = {
-    currentTime: "00:00",
-    targetTime: "02:00", 
-    bonusReward: "+600 LP",
-    streakDays: 7,
-    currentStreak: 4
-  };
 
   const preferences = ['Vegan', 'Halal', 'Mexican', 'Asian', 'Coffee', 'Pizza', 'Burgers', 'Healthy'];
   const deliveryFilters = ['All', 'Fast Delivery', 'Free Delivery', 'Highly Rated', 'New'];
@@ -384,28 +313,11 @@ export function SearchPage({ onShowUserProfile, onShowRestaurantProfile, onShowS
       <div className="bg-background/95 backdrop-blur-sm border-b border-border sticky top-0 z-20">
         {/* Top Navigation */}
         <div className={cn("flex items-center gap-3", padding, "pb-3")}>
-          {/* User Avatar */}
-          <div 
-            ref={avatarRef}
-            onClick={handleAvatarClick}
-            className="cursor-pointer transition-transform hover:scale-105 active:scale-95 flex-shrink-0"
-          >
-            <ConsistentAvatar
-              src={currentUser.avatar}
-              alt="Profile"
-              fallback={currentUser.username[0]?.toUpperCase()}
-              size="sm"
-              variant="xp-ring"
-              level={24}
-              xpProgress={0.9} // Mock XP progress
-            />
-          </div>
-
           {/* Switch Component */}
           <Button
             variant={isDeliveryMode ? "default" : "outline"}
-            variant={isDeliveryMode ? "default" : "outline"}
             size="sm"
+            onClick={() => setIsDeliveryMode(!isDeliveryMode)}
             className={cn(
               "rounded-full flex-shrink-0 h-8 px-3 nav-rum-raisin",
               isDeliveryMode ? "bg-primary text-primary-foreground font-semibold" : "bg-muted font-light"
@@ -618,17 +530,6 @@ export function SearchPage({ onShowUserProfile, onShowRestaurantProfile, onShowS
         isOpen={showOrderHistory}
         onClose={() => setShowOrderHistory(false)}
         onShowRestaurantProfile={onShowRestaurantProfile}
-      />
-
-      {/* Profile Dropdown */}
-      <ProfileDropdown
-        isOpen={isProfileDropdownOpen}
-        onClose={() => setIsProfileDropdownOpen(false)}
-        anchorRect={avatarRect}
-        user={profileDropdownUser}
-        stats={profileDropdownStats}
-        dailyProgress={profileDropdownDailyProgress}
-        onNavigate={handleProfileNavigate}
       />
     </div>
   );
