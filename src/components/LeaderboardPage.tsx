@@ -315,13 +315,13 @@ function getRankIcon(rank: number) {
 function getRankStyle(rank: number) {
   switch (rank) {
     case 1:
-      return 'bg-gradient-to-br from-yellow-400 to-yellow-600 border-yellow-300';
+      return 'bg-gradient-to-br from-yellow-300 via-yellow-400 to-yellow-500 border-2 border-yellow-200 shadow-lg shadow-yellow-300/50';
     case 2:
-      return 'bg-gradient-to-br from-gray-300 to-gray-500 border-gray-200';
+      return 'bg-gradient-to-br from-slate-300 via-slate-400 to-slate-500 border-2 border-slate-200 shadow-lg shadow-slate-300/50';
     case 3:
-      return 'bg-gradient-to-br from-orange-400 to-orange-600 border-orange-300';
+      return 'bg-gradient-to-br from-orange-300 via-orange-400 to-orange-500 border-2 border-orange-200 shadow-lg shadow-orange-300/50';
     default:
-      return 'bg-muted border-border';
+      return 'bg-gradient-to-br from-pink-100 to-pink-200 border-2 border-pink-300 text-pink-700 shadow-md';
   }
 }
 
@@ -343,10 +343,10 @@ function LeaderboardCard({
   
   const handleClick = () => {
     if (activeTab === 'restaurants' && onShowRestaurantProfile) {
-      toast.success(`Opening ${item.name} profile`);
+      toast.success(`Opening ${item.name} profile! 🏪✨`);
       onShowRestaurantProfile(item.id);
     } else if (activeTab === 'likers' && onShowUserProfile) {
-      toast.success(`Opening ${item.name} profile`);
+      toast.success(`Opening ${item.name} profile! 👨‍🍳✨`);
       onShowUserProfile(item.id);
     }
     // For foods tab, we could navigate to a food detail page in the future
@@ -368,19 +368,20 @@ function LeaderboardCard({
   return (
     <div
       className={cn(
-        "group relative p-4 rounded-2xl border transition-all duration-200 touch-feedback",
-        isClickable && "cursor-pointer hover:shadow-lg",
+        "group relative p-6 rounded-3xl border-2 transition-all duration-300 touch-feedback shadow-lg backdrop-blur-sm",
+        isClickable && "cursor-pointer hover:shadow-xl hover:scale-[1.02]",
         !isClickable && "cursor-default",
-        isPressed && isClickable && "scale-[0.98] shadow-sm",
+        isPressed && isClickable && "scale-[0.98] shadow-md",
         isFirst && item.rank === 1 
-          ? "bg-gradient-to-br from-yellow-50 to-orange-50 border-yellow-200 shadow-lg" 
-          : isClickable 
-            ? "bg-card hover:bg-card/80" 
-            : "bg-card",
-        isTopThree && "ring-1",
-        item.rank === 1 && "ring-yellow-300",
-        item.rank === 2 && "ring-gray-300",
-        item.rank === 3 && "ring-orange-300"
+          ? "bg-gradient-to-br from-yellow-50/90 via-orange-50/90 to-pink-50/90 border-yellow-300 shadow-yellow-200/50" 
+          : isTopThree
+            ? "bg-gradient-to-br from-white/90 to-pink-50/80 border-pink-200"
+            : "bg-gradient-to-br from-white/80 to-pink-50/60 border-pink-200/70",
+        isClickable && "hover:bg-gradient-to-br hover:from-pink-50/90 hover:to-red-50/80 hover:border-pink-300",
+        isTopThree && "ring-2 ring-opacity-30",
+        item.rank === 1 && "ring-yellow-400",
+        item.rank === 2 && "ring-slate-400",
+        item.rank === 3 && "ring-orange-400"
       )}
       onClick={isClickable ? handleClick : undefined}
       onTouchStart={handleTouchStart}
@@ -389,34 +390,48 @@ function LeaderboardCard({
       onMouseUp={handleTouchEnd}
       onMouseLeave={handleTouchEnd}
     >
-      <div className="flex items-center gap-4">
+      <div className="flex items-center gap-6">
         {/* Rank */}
         <div
           className={cn(
-            "flex items-center justify-center w-12 h-12 rounded-full border-2 font-bold text-lg shrink-0",
+            "flex items-center justify-center w-16 h-16 rounded-full font-bold text-xl shrink-0 relative",
             getRankStyle(item.rank),
-            isTopThree ? "text-white" : "text-foreground"
+            isTopThree ? "text-white" : "text-pink-700"
           )}
         >
+          {/* Sparkle decoration for top 3 */}
+          {isTopThree && (
+            <div className="absolute -top-1 -right-1 text-xs">✨</div>
+          )}
           {typeof getRankIcon(item.rank) === 'string' && getRankIcon(item.rank).length > 1 
             ? getRankIcon(item.rank) 
-            : <span className="text-lg">{getRankIcon(item.rank)}</span>
+            : <span className="text-xl font-black">{getRankIcon(item.rank)}</span>
           }
+          {/* Crown for #1 */}
+          {item.rank === 1 && (
+            <div className="absolute -top-3 text-2xl">👑</div>
+          )}
         </div>
 
         {/* Avatar/Image */}
         {activeTab === 'likers' ? (
-          <ConsistentAvatar
-            src={item.imageUrl}
-            alt={item.name}
-            fallback={item.name[0]?.toUpperCase()}
-            size="xl"
-            variant="xp-ring"
-            level={item.rank <= 10 ? 50 + (10 - item.rank) * 5 : Math.floor(Math.random() * 30) + 20} // Mock levels based on rank
-            xpProgress={Math.random() * 0.8 + 0.2} // Mock XP progress
-          />
+          <div className="relative">
+            <ConsistentAvatar
+              src={item.imageUrl}
+              alt={item.name}
+              fallback={item.name[0]?.toUpperCase()}
+              size="xl"
+              variant="xp-ring"
+              level={item.rank <= 10 ? 50 + (10 - item.rank) * 5 : Math.floor(Math.random() * 30) + 20} // Mock levels based on rank
+              xpProgress={Math.random() * 0.8 + 0.2} // Mock XP progress
+            />
+            {/* Chef hat for top foodies */}
+            {item.rank <= 3 && (
+              <div className="absolute -top-2 -right-1 text-lg">👨‍🍳</div>
+            )}
+          </div>
         ) : (
-          <div className="w-16 h-16 rounded-xl overflow-hidden shrink-0 bg-muted">
+          <div className="w-20 h-20 rounded-2xl overflow-hidden shrink-0 bg-pink-100 border-2 border-pink-200 shadow-md relative">
             <img
               src={item.imageUrl}
               alt={item.name}
@@ -426,43 +441,50 @@ function LeaderboardCard({
                 target.src = `https://api.dicebear.com/7.x/shapes/svg?seed=${item.name}`;
               }}
             />
+            {/* Special badges for top restaurants/foods */}
+            {item.rank <= 3 && (
+              <div className="absolute -top-1 -right-1 text-lg">
+                {activeTab === 'restaurants' ? '🏪' : '🍽️'}
+              </div>
+            )}
           </div>
         )}
 
         {/* Content */}
         <div className="flex-1 min-w-0">
-          <div className="flex items-start justify-between gap-2">
+          <div className="flex items-start justify-between gap-4">
             <div className="flex-1 min-w-0">
-              <h3 className="font-semibold text-lg text-foreground line-clamp-1">
+              <h3 className="font-bold text-xl text-pink-800 line-clamp-1 nav-rum-raisin">
                 {item.name}
               </h3>
-              <p className="text-sm text-muted-foreground line-clamp-1">
+              <p className="text-base text-pink-600 line-clamp-1 font-medium">
                 {item.subtitle}
               </p>
               {item.badge && (
-                <span className="inline-block mt-1 px-2 py-1 bg-primary text-primary-foreground text-xs rounded-full">
+                <span className="inline-flex items-center gap-1 mt-2 px-3 py-1 bg-gradient-to-r from-pink-500 to-red-500 text-white text-sm rounded-full font-medium shadow-md">
+                  <span>🎉</span>
                   {item.badge}
                 </span>
               )}
             </div>
 
             {/* Stats */}
-            <div className="text-right shrink-0 flex items-center gap-3">
+            <div className="text-right shrink-0 flex items-center gap-4">
               <div>
                 {activeTab === 'likers' ? (
                   <>
                     {/* Rank placeholder for likers */}
-                    <div className="text-xs text-muted-foreground font-medium mb-2">
-                      Silver
+                    <div className="text-sm text-pink-600 font-bold mb-3 bg-pink-100 px-3 py-1 rounded-full">
+                      🥈 Silver
                     </div>
                     {/* Lik logo count */}
-                    <div className="flex items-center gap-1">
+                    <div className="flex items-center gap-2 bg-white/80 px-3 py-2 rounded-full shadow-md border border-pink-200">
                       <img 
                         src={likLogo} 
                         alt="Lik" 
-                        className="w-4 h-4" 
+                        className="w-5 h-5" 
                       />
-                      <span className="text-sm font-semibold text-foreground">
+                      <span className="text-base font-bold text-pink-700">
                         {item.likes >= 1000 
                           ? `${(item.likes / 1000).toFixed(item.likes >= 100000 ? 0 : 1)}K`
                           : item.likes
@@ -471,46 +493,46 @@ function LeaderboardCard({
                     </div>
                   </>
                 ) : (
-                  <>
-                    <div className="flex items-center gap-1 text-yellow-500 font-semibold text-lg">
-                      <Star size={18} className="fill-current" />
+                  <div className="space-y-2">
+                    <div className="flex items-center gap-2 text-yellow-500 font-bold text-xl bg-white/80 px-3 py-1 rounded-full shadow-md">
+                      <Star size={20} className="fill-current" />
                       {item.rating}
                     </div>
-                    <div className="flex items-center gap-1 text-red-500 text-sm mt-1">
-                      <Heart size={14} className="fill-current" />
+                    <div className="flex items-center gap-2 text-red-500 text-base font-semibold bg-white/80 px-3 py-1 rounded-full shadow-md">
+                      <Heart size={16} className="fill-current" />
                       {item.likes >= 1000 
                         ? `${(item.likes / 1000).toFixed(item.likes >= 100000 ? 0 : 1)}K`
                         : item.likes
                       }
                     </div>
                     {item.reviews && (
-                      <div className="flex items-center gap-1 text-muted-foreground text-xs mt-1">
-                        <TrendUp size={12} />
+                      <div className="flex items-center gap-2 text-pink-600 text-sm font-medium bg-white/80 px-3 py-1 rounded-full shadow-sm">
+                        <TrendUp size={14} />
                         {item.reviews >= 1000 
                           ? `${(item.reviews / 1000).toFixed(1)}K`
                           : item.reviews
-                        }
+                        } reviews
                       </div>
                     )}
-                  </>
+                  </div>
                 )}
               </div>
               
               {/* Navigation Arrow or Info */}
               {isClickable ? (
-                <div className="flex items-center">
-                  <div className="text-xs text-primary font-medium mr-2 opacity-60 group-hover:opacity-100 transition-opacity">
+                <div className="flex items-center bg-gradient-to-r from-pink-500 to-red-500 text-white px-4 py-3 rounded-full shadow-md">
+                  <div className="text-sm font-medium mr-2 nav-rum-raisin">
                     Tap to view
                   </div>
                   <CaretRight 
-                    size={20} 
-                    className="text-primary transition-all duration-200 group-hover:text-primary group-hover:transform group-hover:translate-x-1" 
+                    size={18} 
+                    className="transition-all duration-300 group-hover:translate-x-1" 
                   />
                 </div>
               ) : activeTab === 'foods' ? (
-                <div className="text-xs text-muted-foreground opacity-60 text-center">
-                  <div>View only</div>
-                  <div className="text-[10px] mt-1">Coming soon</div>
+                <div className="text-center bg-pink-100 px-4 py-3 rounded-full border border-pink-200">
+                  <div className="text-sm text-pink-600 font-medium">View only</div>
+                  <div className="text-xs mt-1 text-pink-500">Coming soon! 🚀</div>
                 </div>
               ) : null}
             </div>
@@ -594,40 +616,44 @@ export function LeaderboardPage({ onBack, onShowRestaurantProfile, onShowUserPro
 
   const getScopeText = () => {
     switch (scope) {
-      case 'global': return 'Worldwide';
-      case 'national': return 'National';
-      case 'city': return 'City';
-      default: return 'Worldwide';
+      case 'global': return 'Worldwide 🌍';
+      case 'national': return 'National 🇺🇸';
+      case 'city': return 'City 🏙️';
+      default: return 'Worldwide 🌍';
     }
   };
 
   return (
-    <div className="h-full bg-background flex flex-col">
+    <div className="h-full flex flex-col bg-gradient-to-br from-pink-50 via-red-50 to-orange-50">
       {/* Header */}
-      <div className="flex items-center justify-between p-4 border-b bg-background/95 backdrop-blur-sm">
+      <div className="flex items-center justify-between p-4 border-b border-pink-200/50 bg-gradient-to-r from-pink-100/80 to-red-100/80 backdrop-blur-sm">
         <Button
           variant="ghost"
           size="icon"
           onClick={onBack}
-          className="shrink-0"
+          className="shrink-0 hover:bg-pink-200/50 rounded-full"
         >
-          <ArrowLeft size={24} />
+          <ArrowLeft size={24} className="text-pink-700" />
         </Button>
         
-        <h1 className="text-xl font-semibold text-center flex-1 mr-10 nav-rum-raisin">
-          Leaderboard
-        </h1>
+        <div className="flex items-center gap-3 flex-1 mr-10 justify-center">
+          <span className="text-3xl">🏆</span>
+          <h1 className="text-xl font-semibold text-center nav-rum-raisin bg-gradient-to-r from-pink-600 to-red-600 bg-clip-text text-transparent">
+            Leaderboard
+          </h1>
+          <span className="text-3xl">👑</span>
+        </div>
       </div>
 
       {/* Sticky Filters */}
-      <div className="sticky top-0 z-10 bg-background/95 backdrop-blur-sm border-b">
+      <div className="sticky top-0 z-10 bg-gradient-to-r from-pink-100/90 to-red-100/90 backdrop-blur-md border-b border-pink-200/50">
         {/* Tabs */}
-        <div className="flex p-4 gap-2">
+        <div className="flex p-4 gap-3">
           {([
-            { key: 'foods', label: 'Dishes' },
-            { key: 'restaurants', label: 'Restaurants' },
-            { key: 'likers', label: 'Foodies' }
-          ] as { key: TabType; label: string }[]).map((tab) => (
+            { key: 'foods', label: 'Dishes', emoji: '🍽️' },
+            { key: 'restaurants', label: 'Restaurants', emoji: '🏪' },
+            { key: 'likers', label: 'Foodies', emoji: '👨‍🍳' }
+          ] as { key: TabType; label: string; emoji: string }[]).map((tab) => (
             <Button
               key={tab.key}
               variant={activeTab === tab.key ? 'default' : 'secondary'}
@@ -640,12 +666,13 @@ export function LeaderboardPage({ onBack, onShowRestaurantProfile, onShowUserPro
                 setSearchQuery('');
               }}
               className={cn(
-                "flex-1 rounded-full font-medium transition-all duration-200 nav-rum-raisin",
+                "flex-1 rounded-full font-medium transition-all duration-300 nav-rum-raisin gap-2 h-12 text-base shadow-lg border-2",
                 activeTab === tab.key 
-                  ? "bg-foreground text-background shadow-lg transform scale-105 font-semibold" 
-                  : "bg-muted hover:bg-muted/80 text-muted-foreground hover:scale-102 font-light"
+                  ? "bg-gradient-to-r from-pink-500 to-red-500 text-white shadow-pink-300/50 border-pink-300 font-bold scale-105 transform" 
+                  : "bg-white/80 hover:bg-white text-pink-700 border-pink-200 hover:border-pink-300 hover:scale-102 shadow-pink-200/30"
               )}
             >
+              <span className="text-lg">{tab.emoji}</span>
               {tab.label}
             </Button>
           ))}
@@ -658,13 +685,13 @@ export function LeaderboardPage({ onBack, onShowRestaurantProfile, onShowUserPro
             <div className="relative flex-1">
               <MagnifyingGlass 
                 size={20} 
-                className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground" 
+                className="absolute left-4 top-1/2 transform -translate-y-1/2 text-pink-500" 
               />
               <Input
-                placeholder={`Search ${activeTab === 'restaurants' ? 'restaurants' : activeTab === 'foods' ? 'dishes' : 'foodies'}...`}
+                placeholder={`Search ${activeTab === 'restaurants' ? 'restaurants' : activeTab === 'foods' ? 'dishes' : 'foodies'}... 🔍`}
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="pl-10 rounded-full border-muted-foreground/20"
+                className="pl-12 rounded-full border-2 border-pink-200 bg-white/90 shadow-lg focus:border-pink-400 h-12 text-base placeholder:text-pink-400"
               />
             </div>
 
@@ -672,15 +699,15 @@ export function LeaderboardPage({ onBack, onShowRestaurantProfile, onShowUserPro
             {(activeTab === 'restaurants' || activeTab === 'foods') && (
               <Button
                 variant="outline"
-                className="shrink-0 rounded-full px-4 gap-2 nav-rum-raisin font-light"
+                className="shrink-0 rounded-full px-6 h-12 gap-2 nav-rum-raisin font-medium bg-white/80 border-2 border-pink-200 text-pink-700 hover:bg-pink-50 hover:border-pink-300 shadow-lg"
                 onClick={() => setShowFilters(!showFilters)}
               >
-                <Funnel size={16} />
+                <Funnel size={18} />
                 Filter
                 <CaretDown 
-                  size={14} 
+                  size={16} 
                   className={cn(
-                    "transition-transform duration-200",
+                    "transition-transform duration-300",
                     showFilters && "rotate-180"
                   )}
                 />
@@ -690,7 +717,7 @@ export function LeaderboardPage({ onBack, onShowRestaurantProfile, onShowUserPro
             {/* Scope Selector */}
             <Button
               variant="outline"
-              className="shrink-0 rounded-full px-4 gap-2 nav-rum-raisin font-light"
+              className="shrink-0 rounded-full px-6 h-12 gap-2 nav-rum-raisin font-medium bg-white/80 border-2 border-pink-200 text-pink-700 hover:bg-pink-50 hover:border-pink-300 shadow-lg"
               onClick={() => {
                 const scopes: ScopeType[] = ['global', 'national', 'city'];
                 const currentIndex = scopes.indexOf(scope);
@@ -698,19 +725,22 @@ export function LeaderboardPage({ onBack, onShowRestaurantProfile, onShowUserPro
                 setScope(nextScope);
               }}
             >
-              <Globe size={16} />
+              <Globe size={18} />
               {getScopeText()}
             </Button>
           </div>
 
           {/* Category Filters (expandable) */}
           {showFilters && (activeTab === 'restaurants' || activeTab === 'foods') && (
-            <div className="mt-4 animate-in slide-in-from-top-2 duration-200">
-              <div className="bg-muted/50 rounded-2xl p-4">
-                <h3 className="text-sm font-medium text-foreground mb-3 nav-rum-raisin">
-                  {activeTab === 'restaurants' ? '🍽️ Filter by Cuisine' : '🥘 Filter by Category'}
+            <div className="mt-4 animate-in slide-in-from-top-2 duration-300">
+              <div className="bg-gradient-to-br from-white/90 to-pink-50/90 rounded-3xl p-6 shadow-xl border-2 border-pink-200/50 backdrop-blur-sm">
+                <h3 className="text-lg font-bold text-pink-700 mb-4 nav-rum-raisin flex items-center gap-2">
+                  <span className="text-2xl">
+                    {activeTab === 'restaurants' ? '🍽️' : '🥘'}
+                  </span>
+                  {activeTab === 'restaurants' ? 'Filter by Cuisine' : 'Filter by Category'}
                 </h3>
-                <div className="flex flex-wrap gap-2">
+                <div className="flex flex-wrap gap-3">
                   {(activeTab === 'restaurants' ? cuisineFilters : dishFilters).map((filter) => (
                     <Button
                       key={filter.key}
@@ -722,26 +752,29 @@ export function LeaderboardPage({ onBack, onShowRestaurantProfile, onShowUserPro
                         } else {
                           setDishFilter(filter.key as DishFilter);
                         }
-                        toast.success(`Filtering by ${filter.label}`);
+                        toast.success(`Filtering by ${filter.label} ${filter.emoji}`);
                       }}
                       className={cn(
-                        "rounded-full gap-2 text-xs font-medium transition-all nav-rum-raisin",
+                        "rounded-full gap-2 text-sm font-medium transition-all nav-rum-raisin h-10 px-4 shadow-md border-2",
                         (activeTab === 'restaurants' ? cuisineFilter : dishFilter) === filter.key 
-                          ? "bg-foreground text-background shadow-md scale-105 font-semibold" 
-                          : "bg-background hover:bg-background/80 text-muted-foreground hover:text-foreground font-light"
+                          ? "bg-gradient-to-r from-pink-500 to-red-500 text-white border-pink-300 shadow-pink-300/50 font-bold scale-105 transform" 
+                          : "bg-white/90 hover:bg-pink-50 text-pink-700 border-pink-200 hover:border-pink-300 hover:scale-102"
                       )}
                     >
-                      <span className="text-sm">{filter.emoji}</span>
+                      <span className="text-base">{filter.emoji}</span>
                       {filter.label}
                     </Button>
                   ))}
                 </div>
                 
                 {/* Filter Stats */}
-                <div className="flex items-center justify-between mt-3 pt-3 border-t border-border/50">
-                  <span className="text-xs text-muted-foreground">
-                    {filteredData.length} {activeTab === 'restaurants' ? 'restaurants' : activeTab === 'foods' ? 'dishes' : 'results'} found
-                  </span>
+                <div className="flex items-center justify-between mt-6 pt-4 border-t border-pink-200/50">
+                  <div className="flex items-center gap-2">
+                    <span className="text-2xl">📊</span>
+                    <span className="text-sm font-medium text-pink-700 nav-rum-raisin">
+                      {filteredData.length} {activeTab === 'restaurants' ? 'restaurants' : activeTab === 'foods' ? 'dishes' : 'results'} found
+                    </span>
+                  </div>
                   {((activeTab === 'restaurants' && cuisineFilter !== 'all') || 
                     (activeTab === 'foods' && dishFilter !== 'all')) && (
                     <Button
@@ -753,11 +786,11 @@ export function LeaderboardPage({ onBack, onShowRestaurantProfile, onShowUserPro
                         } else {
                           setDishFilter('all');
                         }
-                        toast.success('Filters cleared');
+                        toast.success('Filters cleared! ✨');
                       }}
-                      className="text-xs h-6 px-2 rounded-full nav-rum-raisin"
+                      className="text-sm h-8 px-4 rounded-full nav-rum-raisin text-pink-600 hover:bg-pink-100 border border-pink-200 hover:border-pink-300"
                     >
-                      Clear filters
+                      🧹 Clear filters
                     </Button>
                   )}
                 </div>
@@ -766,8 +799,8 @@ export function LeaderboardPage({ onBack, onShowRestaurantProfile, onShowUserPro
           )}
 
           {/* Period Selector */}
-          <div className="flex justify-center mt-3">
-            <div className="flex bg-muted rounded-full p-1">
+          <div className="flex justify-center mt-4">
+            <div className="flex bg-white/80 rounded-full p-2 shadow-lg border-2 border-pink-200">
               {(['week', 'month', 'year'] as SortPeriod[]).map((period) => (
                 <Button
                   key={period}
@@ -775,12 +808,15 @@ export function LeaderboardPage({ onBack, onShowRestaurantProfile, onShowUserPro
                   size="sm"
                   onClick={() => setSortPeriod(period)}
                   className={cn(
-                    "capitalize rounded-full px-4 font-medium transition-all nav-rum-raisin",
+                    "capitalize rounded-full px-6 h-10 font-medium transition-all nav-rum-raisin",
                     sortPeriod === period 
-                      ? "bg-background text-foreground shadow-sm font-semibold" 
-                      : "hover:bg-background/50 font-light"
+                      ? "bg-gradient-to-r from-pink-500 to-red-500 text-white shadow-md font-bold" 
+                      : "hover:bg-pink-50 text-pink-700 font-medium"
                   )}
                 >
+                  {period === 'week' && '📅 '}
+                  {period === 'month' && '🗓️ '}
+                  {period === 'year' && '📆 '}
                   {period}
                 </Button>
               ))}
@@ -792,17 +828,23 @@ export function LeaderboardPage({ onBack, onShowRestaurantProfile, onShowUserPro
       {/* Content */}
       <div className="flex-1 overflow-auto">
         {/* Title */}
-        <div className="px-4 py-6 text-center">
-          <h2 className="text-2xl font-bold text-foreground mb-2">
-            {getTabTitle()}
-          </h2>
-          <p className="text-sm text-muted-foreground max-w-sm mx-auto leading-relaxed">
-            {getTabDescription()}
-          </p>
+        <div className="px-4 py-8 text-center bg-gradient-to-br from-pink-50 to-red-50">
+          <div className="flex items-center justify-center gap-3 mb-4">
+            <span className="text-4xl">✨</span>
+            <h2 className="text-3xl font-bold text-transparent bg-gradient-to-r from-pink-600 to-red-600 bg-clip-text nav-rum-raisin">
+              {getTabTitle()}
+            </h2>
+            <span className="text-4xl">✨</span>
+          </div>
+          <div className="max-w-sm mx-auto bg-white/70 rounded-full px-6 py-3 shadow-lg border border-pink-200">
+            <p className="text-sm text-pink-700 leading-relaxed font-medium">
+              {getTabDescription()}
+            </p>
+          </div>
         </div>
 
         {/* Leaderboard List */}
-        <div className="px-4 pb-6 space-y-3 animate-in fade-in duration-300">
+        <div className="px-4 pb-8 space-y-4">
           {filteredData.length > 0 ? (
             filteredData.map((item, index) => (
               <div
@@ -822,11 +864,14 @@ export function LeaderboardPage({ onBack, onShowRestaurantProfile, onShowUserPro
               </div>
             ))
           ) : (
-            <div className="text-center py-12 animate-in fade-in duration-500">
-              <p className="text-muted-foreground text-lg">No results found</p>
-              <p className="text-muted-foreground text-sm mt-2">
-                Try adjusting your search or filters
-              </p>
+            <div className="text-center py-16">
+              <div className="bg-white/80 rounded-3xl p-8 shadow-lg border-2 border-pink-200 max-w-sm mx-auto">
+                <span className="text-6xl mb-4 block">😔</span>
+                <p className="text-pink-700 text-lg font-semibold nav-rum-raisin mb-2">No results found</p>
+                <p className="text-pink-600 text-sm">
+                  Try adjusting your search or filters! 🔍✨
+                </p>
+              </div>
             </div>
           )}
         </div>
