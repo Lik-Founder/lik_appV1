@@ -218,7 +218,7 @@ export function EventsPage({ onBack, onShowEventDetails, onShowRestaurantProfile
       {/* Scrollable Content */}
       <div className="flex-1 overflow-y-auto scrollbar-hide" style={{ height: 0 }}>
         {/* Hero Carousel */}
-        <div className="relative h-64 overflow-hidden flex-shrink-0">
+        <div className="relative h-[326px] overflow-hidden flex-shrink-0">
         <div 
           className="flex transition-transform duration-500 ease-out h-full"
           style={{ transform: `translateX(-${heroEventIndex * 100}%)` }}

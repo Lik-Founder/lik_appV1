@@ -187,7 +187,7 @@ export function LikTVPage({ onBack }: LikTVPageProps) {
       <div className="flex-1 overflow-y-auto">
         {/* Hero Carousel Section */}
         <div 
-          className="liktv-carousel relative h-[400px] mb-8 overflow-hidden bg-black cursor-grab active:cursor-grabbing select-none"
+          className="liktv-carousel relative h-[470px] mb-8 overflow-hidden bg-black cursor-grab active:cursor-grabbing select-none"
           {...enhancedSwipeHandlers}
         >
           <div 

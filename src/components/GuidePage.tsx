@@ -298,7 +298,7 @@ export function GuidePage({ onBack, onShowUserProfile, onShowRestaurantProfile }
               <img 
                 src={guide.coverImage}
                 alt={guide.title}
-                className="w-full h-56 object-cover opacity-80"
+                className="w-full h-[294px] object-cover opacity-80"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
               <div className="absolute bottom-0 left-0 right-0 p-6 text-white">

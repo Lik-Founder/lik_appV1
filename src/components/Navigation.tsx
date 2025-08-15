@@ -3,6 +3,7 @@ import { TabType } from '@/lib/types';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import { DeviceType, Orientation } from '@/hooks/use-device';
+import unselectedFireIcon from '@/assets/images/unselected_fire_icon.png';
 
 interface NavigationProps {
   activeTab: TabType;
@@ -64,11 +65,20 @@ export function Navigation({ activeTab, onTabChange, deviceType, orientation }: 
                   )
             )}
           >
-            <Icon 
-              size={iconSize} 
-              weight={isActive ? "fill" : "regular"}
-              className="transition-transform duration-200"
-            />
+            {item.id === 'trending' && !isActive ? (
+              <img 
+                src={unselectedFireIcon} 
+                alt="Trending" 
+                className="transition-transform duration-200"
+                style={{ width: iconSize, height: iconSize }}
+              />
+            ) : (
+              <Icon 
+                size={iconSize} 
+                weight={isActive ? "fill" : "regular"}
+                className="transition-transform duration-200"
+              />
+            )}
             {showLabels && (
               <span className={cn(
                 "transition-opacity duration-200 nav-rum-raisin",
