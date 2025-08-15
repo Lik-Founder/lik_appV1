@@ -352,7 +352,7 @@ export function HomeFeed({ onShowUserProfile, onShowRestaurantProfile, onShowLea
     <div className="h-full bg-background">
       {/* Top Navigation Bar */}
       <div className={cn(
-        "fixed top-0 left-0 right-0 z-40 bg-background/95 backdrop-blur-sm border-b border-border floating-app-bar floating-app-bar-backdrop",
+        "fixed top-0 left-0 right-0 z-40 bg-background/95 backdrop-blur-sm floating-app-bar floating-app-bar-backdrop",
         showAppBar ? "visible" : "hidden"
       )}>
         <div className="flex items-center justify-between px-4 py-3">
@@ -406,14 +406,14 @@ export function HomeFeed({ onShowUserProfile, onShowRestaurantProfile, onShowLea
       <div 
         ref={scrollContainerRef}
         className={cn(
-          "h-full overflow-y-auto scrollbar-hide pt-[84px] smooth-scroll-container",
+          "h-full overflow-y-auto scrollbar-hide pt-[72px] smooth-scroll-container",
           "mx-auto",
           device.type === 'tablet' ? "max-w-2xl" : "w-full"
         )}
       >
         
         {/* Hero Carousel */}
-        <div className="px-4">
+        <div>
           <Carousel 
             autoScroll={true}
             autoScrollInterval={4000}
