@@ -28,6 +28,9 @@ import {
   ArrowRight
 } from '@phosphor-icons/react';
 import likLogo from '@/assets/images/lik.png';
+import ad1 from '@/assets/images/ad1.png';
+import ad2 from '@/assets/images/ad2.png';
+import ad3 from '@/assets/images/ad3.png';
 
 interface HomeFeedProps {
   onShowUserProfile?: (userId: string) => void;
@@ -144,27 +147,21 @@ export function HomeFeed({ onShowUserProfile, onShowRestaurantProfile, onShowLea
   const promoCarousel = [
     {
       id: '1',
-      image: 'https://images.unsplash.com/photo-1565299624946-b28f40a0ca4b?w=400&h=200&fit=crop',
-      title: 'Summer Food Festival',
-      subtitle: '50% off selected restaurants'
+      image: ad1,
+      title: 'Featured Promotion',
+      subtitle: 'Discover amazing deals'
     },
     {
       id: '2', 
-      image: 'https://images.unsplash.com/photo-1571091718767-18b5b1457add?w=400&h=200&fit=crop',
-      title: 'New Restaurant Alert',
-      subtitle: 'Discover amazing flavors nearby'
+      image: ad2,
+      title: 'Special Offers',
+      subtitle: 'Limited time only'
     },
     {
       id: '3',
-      image: 'https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?w=400&h=200&fit=crop',
-      title: 'Weekend Brunch Special',
-      subtitle: 'Free delivery on orders over $25'
-    },
-    {
-      id: '4',
-      image: 'https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=400&h=200&fit=crop',
-      title: 'Late Night Deals',
-      subtitle: '30% off after 9 PM'
+      image: ad3,
+      title: 'Exclusive Deals',
+      subtitle: 'Just for you'
     }
   ];
 
@@ -429,7 +426,7 @@ export function HomeFeed({ onShowUserProfile, onShowRestaurantProfile, onShowLea
                 <img 
                   src={promo.image} 
                   alt={promo.title}
-                  className="w-full h-[262px] object-cover"
+                  className="w-full h-[332px] object-cover"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
                 <div className="absolute bottom-4 left-4 text-white">
