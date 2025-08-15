@@ -426,13 +426,8 @@ export function HomeFeed({ onShowUserProfile, onShowRestaurantProfile, onShowLea
                 <img 
                   src={promo.image} 
                   alt={promo.title}
-                  className="w-full h-[332px] object-cover"
+                  className="w-full h-[402px] object-cover"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-                <div className="absolute bottom-4 left-4 text-white">
-                  <h3 className="font-bold text-lg">{promo.title}</h3>
-                  <p className="text-sm opacity-90">{promo.subtitle}</p>
-                </div>
               </div>
             ))}
           </Carousel>
