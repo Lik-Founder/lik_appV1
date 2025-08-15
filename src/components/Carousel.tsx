@@ -139,7 +139,6 @@ export function Carousel({
           ))}
         </div>
       </div>
-
       {/* Navigation arrows */}
       {showArrows && totalSlides > 1 && (
         <>
@@ -171,7 +170,6 @@ export function Carousel({
           </Button>
         </>
       )}
-
       {/* Dot indicators */}
       {showDots && totalSlides > 1 && (
         <div className="flex justify-center gap-2 mt-3">
@@ -188,19 +186,6 @@ export function Carousel({
               aria-label={`Go to slide ${index + 1}`}
             />
           ))}
-        </div>
-      )}
-
-      {/* Progress indicator for auto-scroll */}
-      {autoScroll && !isHovered && totalSlides > 1 && (
-        <div className="absolute bottom-0 left-0 right-0 h-1 bg-black/20">
-          <div 
-            className="h-full bg-primary transition-all ease-linear"
-            style={{ 
-              width: `${((currentIndex + 1) / totalSlides) * 100}%`,
-              transitionDuration: `${autoScrollInterval}ms`
-            }}
-          />
         </div>
       )}
     </div>
