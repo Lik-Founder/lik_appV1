@@ -413,12 +413,12 @@ export function HomeFeed({ onShowUserProfile, onShowRestaurantProfile, onShowLea
       >
         
         {/* Hero Carousel */}
-        <div className="p-4">
+        <div className="px-4">
           <Carousel 
             autoScroll={true}
             autoScrollInterval={4000}
             showArrows={true}
-            showDots={true}
+            showDots={false}
             onSlideChange={(index) => setCurrentPromoIndex(index)}
           >
             {promoCarousel.map((promo) => (
