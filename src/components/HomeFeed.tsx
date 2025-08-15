@@ -413,7 +413,7 @@ export function HomeFeed({ onShowUserProfile, onShowRestaurantProfile, onShowLea
       >
         
         {/* Hero Carousel */}
-        <div>
+        <div className="px-[10px]">
           <Carousel 
             autoScroll={true}
             autoScrollInterval={4000}
@@ -426,7 +426,7 @@ export function HomeFeed({ onShowUserProfile, onShowRestaurantProfile, onShowLea
                 <img 
                   src={promo.image} 
                   alt={promo.title}
-                  className="w-full h-[402px] object-cover"
+                  className="w-full h-[402px] object-cover rounded-lg"
                 />
               </div>
             ))}
