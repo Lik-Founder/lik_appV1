@@ -1,28 +1,28 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
 import { Button } from '@/components/ui/button';
-
-  children: React.ReactNode[];
+import { CaretLeft, CaretRight } from '@phosphor-icons/react';
+import { cn } from '@/lib/utils';
 
 interface CarouselProps {
   children: React.ReactNode[];
   autoScroll?: boolean;
   autoScrollInterval?: number;
   showArrows?: boolean;
-  showArrows = true,
+  showDots?: boolean;
   className?: string;
-  onSlideChange
+  itemClassName?: string;
   onSlideChange?: (index: number) => void;
- 
+}
 
-
+export function Carousel({
   children,
-      intervalRef.cur
+  autoScroll = false,
   autoScrollInterval = 5000,
-          return nex
+  showArrows = true,
   showDots = true,
-  }, [autoScroll,
+  className = '',
   itemClassName = '',
-      clearInte
+  onSlideChange,
 }: CarouselProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isHovered, setIsHovered] = useState(false);
@@ -36,31 +36,30 @@ interface CarouselProps {
   // Progress animation for auto-scroll
   const startProgressAnimation = useCallback(() => {
     if (autoScroll && !isHovered) {
-
+      setProgressValue(0);
       const startTime = Date.now();
-  };
+      
       const updateProgress = () => {
         const elapsed = Date.now() - startTime;
         const progress = (elapsed / autoScrollInterval) * 100;
-  const 
+        
         if (progress >= 100) {
           setProgressValue(100);
         } else {
           setProgressValue(progress);
           progressRef.current = setTimeout(updateProgress, 16); // ~60fps
-    const
+        }
       };
-    if
+      
       updateProgress();
     }
   }, [autoScroll, isHovered, autoScrollInterval]);
 
   const stopProgressAnimation = useCallback(() => {
-      onMouseEnter={() => setI
+    if (progressRef.current) {
       clearTimeout(progressRef.current);
-      onTouchEnd={onTouchEnd}
+      setProgressValue(0);
     }
-        ref={carouselRef
   }, []);
 
   // Auto-scroll functionality
@@ -70,33 +69,33 @@ interface CarouselProps {
       intervalRef.current = setInterval(() => {
         setCurrentIndex((prevIndex) => {
           const nextIndex = (prevIndex + 1) % totalSlides;
-          <Button
+          onSlideChange?.(nextIndex);
           return nextIndex;
-           
+        });
       }, autoScrollInterval);
-     
+    }
   }, [autoScroll, isHovered, totalSlides, autoScrollInterval, onSlideChange, startProgressAnimation]);
 
   const stopAutoScroll = useCallback(() => {
     if (intervalRef.current) {
       clearInterval(intervalRef.current);
-              "backdrop-blur-sm"
+      intervalRef.current = null;
     }
-            <ChevronRight si
+    stopProgressAnimation();
   }, [stopProgressAnimation]);
 
   // Start/stop auto-scroll based on hover state
   useEffect(() => {
     if (autoScroll) {
-                curren
+      if (isHovered) {
         stopAutoScroll();
-              
+      } else {
         startAutoScroll();
-       
+      }
     }
 
     return () => stopAutoScroll();
-
+  }, [autoScroll, isHovered, startAutoScroll, stopAutoScroll]);
 
   // Navigation functions
   const goToSlide = (index: number) => {
@@ -104,20 +103,20 @@ interface CarouselProps {
     onSlideChange?.(index);
     // Reset auto-scroll when manually navigating
     if (autoScroll) {
-
+      stopAutoScroll();
       startAutoScroll();
-
-
+    }
+  };
 
   const goToPrevious = () => {
     const newIndex = currentIndex === 0 ? totalSlides - 1 : currentIndex - 1;
     goToSlide(newIndex);
   };
 
-
+  const goToNext = () => {
     const newIndex = (currentIndex + 1) % totalSlides;
-
-
+    goToSlide(newIndex);
+  };
 
   // Touch/swipe support
   const [touchStart, setTouchStart] = useState<number | null>(null);
@@ -128,13 +127,13 @@ interface CarouselProps {
   const onTouchStart = (e: React.TouchEvent) => {
     setTouchEnd(null);
     setTouchStart(e.targetTouches[0].clientX);
-
+  };
 
   const onTouchMove = (e: React.TouchEvent) => {
     setTouchEnd(e.targetTouches[0].clientX);
   };
 
-
+  const onTouchEnd = () => {
     if (!touchStart || !touchEnd) return;
 
     const distance = touchStart - touchEnd;
@@ -142,37 +141,37 @@ interface CarouselProps {
     const isRightSwipe = distance < -minSwipeDistance;
 
     if (isLeftSwipe) {
-
+      goToNext();
     } else if (isRightSwipe) {
-
+      goToPrevious();
     }
-
+  };
 
   // Keyboard navigation support
   const handleKeyDown = (e: React.KeyboardEvent) => {
     switch (e.key) {
       case 'ArrowLeft':
-
+        e.preventDefault();
         goToPrevious();
         break;
       case 'ArrowRight':
-
+        e.preventDefault();
         goToNext();
-
+        break;
       case 'Home':
-
+        e.preventDefault();
         goToSlide(0);
-
+        break;
       case 'End':
         e.preventDefault();
         goToSlide(totalSlides - 1);
-
+        break;
     }
-
+  };
 
   if (totalSlides === 0) return null;
 
-
+  return (
     <div 
       className={cn("relative group", className)}
       onMouseEnter={() => setIsHovered(true)}
@@ -184,7 +183,6 @@ interface CarouselProps {
       tabIndex={0}
       role="region"
       aria-label={`Carousel with ${totalSlides} slides`}
-
     >
       {/* Main carousel container */}
       <div 
@@ -194,23 +192,24 @@ interface CarouselProps {
         <div 
           className="flex transition-transform duration-500 ease-out"
           style={{ transform: `translateX(-${currentIndex * 100}%)` }}
-
+        >
           {children.map((child, index) => (
             <div 
               key={index} 
               className={cn("w-full flex-shrink-0", itemClassName)}
             >
-
+              {child}
             </div>
-
+          ))}
         </div>
+      </div>
 
       {/* Navigation arrows */}
-
+      {showArrows && totalSlides > 1 && (
         <>
-
+          <Button
             variant="secondary"
-
+            size="icon"
             className={cn(
               "absolute left-2 top-1/2 -translate-y-1/2 z-10",
               "w-8 h-8 rounded-full bg-black/20 hover:bg-black/40 border-0",
@@ -219,10 +218,10 @@ interface CarouselProps {
             )}
             onClick={goToPrevious}
           >
-            <ChevronLeft size={16} />
-
+            <CaretLeft size={16} />
+          </Button>
           <Button
-
+            variant="secondary"
             size="icon"
             className={cn(
               "absolute right-2 top-1/2 -translate-y-1/2 z-10",
@@ -232,17 +231,18 @@ interface CarouselProps {
             )}
             onClick={goToNext}
           >
-
+            <CaretRight size={16} />
           </Button>
-
+        </>
       )}
+
       {/* Dot indicators */}
       {showDots && totalSlides > 1 && (
         <div className="flex justify-center gap-3 mt-4">
           {children.map((_, index) => (
-
+            <button
               key={index}
-
+              className={cn(
                 "carousel-dot relative rounded-full transition-all duration-300 ease-out",
                 "touch-target cursor-pointer focus:outline-none focus:ring-2 focus:ring-primary/50",
                 "border-2 border-white/20",
@@ -254,7 +254,7 @@ interface CarouselProps {
               aria-label={`Go to slide ${index + 1}`}
               aria-current={currentIndex === index ? 'true' : 'false'}
               tabIndex={0}
-
+              style={{
                 backdropFilter: 'blur(8px)',
                 WebkitBackdropFilter: 'blur(8px)',
                 '--dot-index': index,
@@ -272,13 +272,13 @@ interface CarouselProps {
                   style={{
                     clipPath: `polygon(0 0, ${progressValue}% 0, ${progressValue}% 100%, 0 100%)`,
                     transition: 'clip-path 0.1s linear'
-
+                  }}
                 />
               )}
             </button>
-
+          ))}
         </div>
-
+      )}
     </div>
-
+  );
 }
