@@ -5,6 +5,8 @@ import { Card } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { ProfileDropdown } from '@/components/ProfileDropdown';
+import { BountyCardModal } from '@/components/BountyCardModal';
+import { QuestCardModal } from '@/components/QuestCardModal';
 import { 
   Flame, 
   Ticket, 
@@ -68,6 +70,34 @@ const mockBounties: Bounty[] = [
   }
 ];
 
+// Enhanced data for modals
+const getBountyModalData = (bounty: Bounty) => ({
+  id: bounty.id,
+  title: bounty.dishName,
+  restaurant: bounty.restaurantName,
+  description: `Experience the authentic flavors of our signature ${bounty.dishName}. This carefully crafted dish combines traditional ingredients with modern preparation techniques to create an unforgettable taste experience.`,
+  image: bounty.imageUrl,
+  reward: `${bounty.reward} LKC`,
+  xp: '+50 XP',
+  difficulty: bounty.difficulty.toLowerCase() as 'easy' | 'medium' | 'hard',
+  timeLeft: bounty.timeRemaining,
+  distance: '0.8 miles',
+  rating: bounty.rating,
+  likes: Math.floor(Math.random() * 500) + 100,
+  completedBy: ['Alex', 'Sarah', 'Mike', 'Emma', 'David'],
+  category: bounty.category,
+  price: '$' + (Math.floor(Math.random() * 20) + 10),
+  calories: Math.floor(Math.random() * 400) + 300 + ' cal',
+  ingredients: ['Fresh herbs', 'Premium spices', 'Organic vegetables', 'Artisan bread'],
+  allergens: ['Gluten', 'Dairy'],
+  nutritionFacts: {
+    protein: '25g',
+    carbs: '45g', 
+    fat: '18g',
+    fiber: '6g'
+  }
+});
+
 const mockQuests: Quest[] = [
   {
     id: '1',
@@ -93,6 +123,51 @@ const mockQuests: Quest[] = [
   }
 ];
 
+// Enhanced data for quest modals
+const getQuestModalData = (quest: Quest) => ({
+  id: quest.id,
+  title: quest.name,
+  description: quest.description + '. Complete this epic food journey to earn exclusive rewards and unlock new areas of the city.',
+  image: quest.imageUrl,
+  reward: `${quest.reward} LKC`,
+  xp: '+100 XP',
+  difficulty: quest.difficulty.toLowerCase() as 'easy' | 'medium' | 'hard' | 'extreme',
+  timeLeft: quest.timeLimit,
+  locations: quest.locationCount,
+  category: 'Food Adventure',
+  type: quest.type as 'solo' | 'team' | 'community',
+  progress: {
+    current: Math.floor(Math.random() * quest.locationCount),
+    total: quest.locationCount
+  },
+  requirements: [
+    'Visit all required locations',
+    'Try the signature dish at each spot',
+    'Rate your experience',
+    'Share photos with the community'
+  ],
+  locations_list: Array.from({ length: quest.locationCount }, (_, i) => ({
+    name: `Location ${i + 1}`,
+    address: `${100 + i * 10} Main St, City`,
+    completed: Math.random() > 0.5
+  })),
+  participants: Math.floor(Math.random() * 200) + 50,
+  leaderboard: {
+    position: Math.floor(Math.random() * 10) + 1,
+    total: 100
+  },
+  tips: [
+    'Visit during peak hours for the best experience',
+    'Ask for recommendations from the staff',
+    'Take photos for bonus points'
+  ],
+  questGiver: {
+    name: 'Chef Martinez',
+    avatar: 'CM',
+    title: 'Food Explorer'
+  }
+});
+
 interface LikPageProps {
   onShowRestaurantProfile?: (restaurantId: string) => void;
   onShowLikPassport?: () => void;
@@ -108,6 +183,10 @@ export function LikPage({ onShowRestaurantProfile, onShowLikPassport, onShowMess
   const [activeView, setActiveView] = useState<'bounties' | 'quests'>('bounties');
   const [selectedFilter, setSelectedFilter] = useState<'nearby' | 'most-wanted' | 'for-you'>('nearby');
   const [searchQuery, setSearchQuery] = useState('');
+  
+  // Modal states
+  const [selectedBounty, setSelectedBounty] = useState<any>(null);
+  const [selectedQuest, setSelectedQuest] = useState<any>(null);
   
   // Profile dropdown state
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -436,9 +515,16 @@ export function LikPage({ onShowRestaurantProfile, onShowLikPassport, onShowMess
         )}
 
         {activeView === 'bounties' ? (
-          <BountiesView bounties={bounties} onShowRestaurantProfile={onShowRestaurantProfile} />
+          <BountiesView 
+            bounties={bounties} 
+            onShowRestaurantProfile={onShowRestaurantProfile} 
+            onBountyClick={(bounty) => setSelectedBounty(getBountyModalData(bounty))}
+          />
         ) : (
-          <QuestsView quests={quests} />
+          <QuestsView 
+            quests={quests} 
+            onQuestClick={(quest) => setSelectedQuest(getQuestModalData(quest))}
+          />
         )}
       </div>
 
@@ -468,11 +554,49 @@ export function LikPage({ onShowRestaurantProfile, onShowLikPassport, onShowMess
         dailyProgress={mockDailyProgress}
         onNavigate={handleDropdownNavigate}
       />
+
+      {/* Bounty Modal */}
+      {selectedBounty && (
+        <BountyCardModal
+          bounty={selectedBounty}
+          isOpen={!!selectedBounty}
+          onClose={() => setSelectedBounty(null)}
+          onAccept={() => {
+            console.log('Accepted bounty:', selectedBounty.id);
+            setSelectedBounty(null);
+          }}
+          onShowRestaurantProfile={(restaurantId) => {
+            setSelectedBounty(null);
+            onShowRestaurantProfile?.(restaurantId);
+          }}
+        />
+      )}
+
+      {/* Quest Modal */}
+      {selectedQuest && (
+        <QuestCardModal
+          quest={selectedQuest}
+          isOpen={!!selectedQuest}
+          onClose={() => setSelectedQuest(null)}
+          onAccept={() => {
+            console.log('Accepted quest:', selectedQuest.id);
+            setSelectedQuest(null);
+          }}
+          onShowRestaurantProfile={(restaurantId) => {
+            setSelectedQuest(null);
+            onShowRestaurantProfile?.(restaurantId);
+          }}
+        />
+      )}
     </div>
   );
 }
 
-function BountiesView({ bounties, onShowRestaurantProfile }: { bounties: Bounty[], onShowRestaurantProfile?: (restaurantId: string) => void }) {
+function BountiesView({ bounties, onShowRestaurantProfile, onBountyClick }: { 
+  bounties: Bounty[], 
+  onShowRestaurantProfile?: (restaurantId: string) => void,
+  onBountyClick?: (bounty: Bounty) => void 
+}) {
   const [flippedCards, setFlippedCards] = useState<Set<string>>(new Set());
 
   const toggleCardFlip = (bountyId: string) => {
@@ -522,7 +646,7 @@ function BountiesView({ bounties, onShowRestaurantProfile }: { bounties: Bounty[
                   "relative w-full h-[200px] sm:h-[240px] transform-style-preserve-3d transition-all duration-700 cursor-pointer",
                   flippedCards.has(bounty.id) && "rotate-y-180"
                 )}
-                onClick={() => toggleCardFlip(bounty.id)}
+                onClick={() => onBountyClick?.(bounty)}
               >
                 {/* Front Side */}
                 <div className="absolute inset-0 backface-hidden">
@@ -774,7 +898,10 @@ function BountiesView({ bounties, onShowRestaurantProfile }: { bounties: Bounty[
   );
 }
 
-function QuestsView({ quests }: { quests: Quest[] }) {
+function QuestsView({ quests, onQuestClick }: { 
+  quests: Quest[], 
+  onQuestClick?: (quest: Quest) => void 
+}) {
   return (
     <div className="px-3 sm:px-4 space-y-6 pb-6">
       {/* Epic Quests */}
@@ -794,7 +921,10 @@ function QuestsView({ quests }: { quests: Quest[] }) {
               {/* Subtle glow effect */}
               <div className="absolute -inset-1 bg-gradient-to-r from-blue-400 via-purple-400 to-indigo-400 rounded-2xl sm:rounded-3xl blur opacity-20"></div>
               
-              <Card className="relative overflow-hidden bg-white/90 backdrop-blur-md border border-white/50 shadow-xl rounded-2xl sm:rounded-3xl">
+              <Card 
+                className="relative overflow-hidden bg-white/90 backdrop-blur-md border border-white/50 shadow-xl rounded-2xl sm:rounded-3xl cursor-pointer hover:shadow-2xl transition-all duration-300"
+                onClick={() => onQuestClick?.(quest)}
+              >
                 {/* Quest Type Badge */}
                 <div className="absolute top-3 sm:top-4 right-3 sm:right-4 z-10">
                   <div className={cn(
