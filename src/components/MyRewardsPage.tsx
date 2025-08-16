@@ -130,7 +130,7 @@ const specialRewards = [
 ];
 
 export function MyRewardsPage({ onBack }: MyRewardsPageProps) {
-  const [activeTab, setActiveTab] = useState<'coupons' | 'loyalty' | 'badges'>('coupons');
+  const [activeTab, setActiveTab] = useState<'coupons' | 'loyalty' | 'rewards'>('coupons');
 
   const getRarityColor = (rarity: string) => {
     switch (rarity) {
@@ -213,7 +213,7 @@ export function MyRewardsPage({ onBack }: MyRewardsPageProps) {
           {[
             { id: 'coupons', label: 'Coupons', icon: Ticket },
             { id: 'loyalty', label: 'Loyalty', icon: Crown },
-            { id: 'badges', label: 'Badges', icon: Trophy }
+            { id: 'rewards', label: 'Rewards', icon: Trophy }
           ].map(tab => {
             const Icon = tab.icon;
             return (
@@ -341,7 +341,7 @@ export function MyRewardsPage({ onBack }: MyRewardsPageProps) {
           </div>
         )}
 
-        {activeTab === 'badges' && (
+        {activeTab === 'rewards' && (
           <div className="space-y-4">
             {specialRewards.map(reward => (
               <div
@@ -351,7 +351,7 @@ export function MyRewardsPage({ onBack }: MyRewardsPageProps) {
                   reward.earned ? getRarityBorder(reward.rarity) : "border-gray-200 opacity-75"
                 )}
               >
-                {/* Sparkle effect for earned badges */}
+                {/* Sparkle effect for earned rewards */}
                 {reward.earned && (
                   <div className="absolute top-2 right-2">
                     <Sparkles className="h-4 w-4 text-yellow-500" />
