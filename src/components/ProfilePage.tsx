@@ -35,9 +35,10 @@ interface ProfilePageProps {
   onShowLeaderboard?: () => void;
   onShowLikPassport?: () => void;
   onShowNotifications?: () => void;
+  onShowRewards?: () => void;
 }
 
-export function ProfilePage({ onShowLeaderboard, onShowLikPassport, onShowNotifications }: ProfilePageProps = {}) {
+export function ProfilePage({ onShowLeaderboard, onShowLikPassport, onShowNotifications, onShowRewards }: ProfilePageProps = {}) {
   const [currentUser, setCurrentUser] = useKV<User>('currentUser', getCurrentUser());
   const [posts] = useKV<PostType[]>('posts', generateMockPosts());
   const [isCreatePostOpen, setIsCreatePostOpen] = useState(false);
@@ -95,6 +96,14 @@ export function ProfilePage({ onShowLeaderboard, onShowLikPassport, onShowNotifi
     }
   };
 
+  const handleRewards = () => {
+    if (onShowRewards) {
+      onShowRewards();
+    } else {
+      toast.info('Rewards coming soon!');
+    }
+  };
+
   const handleLeaderboard = () => {
     if (onShowLeaderboard) {
       onShowLeaderboard();
@@ -131,7 +140,7 @@ export function ProfilePage({ onShowLeaderboard, onShowLikPassport, onShowNotifi
             <Button variant="ghost" size="sm" onClick={handlePassport} className="p-2.5 h-10 w-10 rounded-full bg-gradient-to-r from-blue-100 to-cyan-100 hover:from-blue-200 hover:to-cyan-200 shadow-sm">
               <Certificate size={16} className="text-blue-600" />
             </Button>
-            <Button variant="ghost" size="sm" className="p-2.5 h-10 w-10 rounded-full bg-gradient-to-r from-purple-100 to-pink-100 hover:from-purple-200 hover:to-pink-200 shadow-sm">
+            <Button variant="ghost" size="sm" onClick={handleRewards} className="p-2.5 h-10 w-10 rounded-full bg-gradient-to-r from-purple-100 to-pink-100 hover:from-purple-200 hover:to-pink-200 shadow-sm">
               <Gift size={16} className="text-purple-600" />
             </Button>
             <Button variant="ghost" size="sm" onClick={handleNotifications} className="p-2.5 h-10 w-10 rounded-full bg-gradient-to-r from-green-100 to-emerald-100 hover:from-green-200 hover:to-emerald-200 shadow-sm">

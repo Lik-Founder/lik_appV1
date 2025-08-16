@@ -21,6 +21,7 @@ import { SwipeIndicator } from '@/components/SwipeIndicator';
 import { SwipeDiscoveryPage } from '@/components/SwipeDiscoveryPage';
 import { NotificationsPage } from '@/components/NotificationsPage';
 import { BountyDetailsPage } from '@/components/BountyDetailsPage';
+import { MyRewardsPage } from '@/components/MyRewardsPage';
 import { useDevice, useSafeArea } from '@/hooks/use-device';
 import { useTabSwipe } from '@/hooks/use-tab-swipe';
 import { Toaster } from '@/components/ui/sonner';
@@ -43,6 +44,7 @@ function App() {
   const [showSwipeDiscovery, setShowSwipeDiscovery] = useState(false);
   const [showNotifications, setShowNotifications] = useState(false);
   const [showBountyDetails, setShowBountyDetails] = useState<string | null>(null);
+  const [showRewards, setShowRewards] = useState(false);
   const device = useDevice();
   const safeArea = useSafeArea();
 
@@ -53,10 +55,19 @@ function App() {
       setActiveTab(newTab);
       setShowSwipeIndicator(true);
     },
-    disabled: !!showRestaurantProfile || !!showUserProfile || showLeaderboard || showLikTV || showLikPassport || showGuidePage || showEventsPage || !!showEventDetails || showMessagesPage || !!showMessageThread || showTrendingSearch || showSwipeDiscovery || showNotifications || !!showBountyDetails,
+    disabled: !!showRestaurantProfile || !!showUserProfile || showLeaderboard || showLikTV || showLikPassport || showGuidePage || showEventsPage || !!showEventDetails || showMessagesPage || !!showMessageThread || showTrendingSearch || showSwipeDiscovery || showNotifications || !!showBountyDetails || showRewards,
   });
 
   const renderActiveTab = () => {
+    // Show Rewards if requested
+    if (showRewards) {
+      return (
+        <MyRewardsPage 
+          onBack={() => setShowRewards(false)}
+        />
+      );
+    }
+
     // Show Bounty Details if requested
     if (showBountyDetails) {
       return (
@@ -316,7 +327,7 @@ function App() {
           />
         );
       case 'profile':
-        return <ProfilePage onShowLeaderboard={() => setShowLeaderboard(true)} onShowLikPassport={() => setShowLikPassport(true)} onShowNotifications={() => setShowNotifications(true)} />;
+        return <ProfilePage onShowLeaderboard={() => setShowLeaderboard(true)} onShowLikPassport={() => setShowLikPassport(true)} onShowNotifications={() => setShowNotifications(true)} onShowRewards={() => setShowRewards(true)} />;
       default:
         return <HomeFeed onShowUserProfile={(userId) => setShowUserProfile(userId)} />;
     }
@@ -341,7 +352,7 @@ function App() {
       </div>
 
       {/* Swipe Indicator */}
-      {!showRestaurantProfile && !showUserProfile && !showLeaderboard && !showLikTV && !showLikPassport && !showGuidePage && !showEventsPage && !showEventDetails && !showMessagesPage && !showMessageThread && !showTrendingSearch && !showSwipeDiscovery && !showNotifications && !showBountyDetails && (
+      {!showRestaurantProfile && !showUserProfile && !showLeaderboard && !showLikTV && !showLikPassport && !showGuidePage && !showEventsPage && !showEventDetails && !showMessagesPage && !showMessageThread && !showTrendingSearch && !showSwipeDiscovery && !showNotifications && !showBountyDetails && !showRewards && (
         <SwipeIndicator 
           activeTab={activeTab} 
           isVisible={showSwipeIndicator}
@@ -349,7 +360,7 @@ function App() {
       )}
 
       {/* Bottom Navigation - Hide when viewing restaurant profile */}
-      {!showRestaurantProfile && !showUserProfile && !showLeaderboard && !showLikTV && !showLikPassport && !showGuidePage && !showEventsPage && !showEventDetails && !showMessagesPage && !showMessageThread && !showTrendingSearch && !showSwipeDiscovery && !showNotifications && !showBountyDetails && (
+      {!showRestaurantProfile && !showUserProfile && !showLeaderboard && !showLikTV && !showLikPassport && !showGuidePage && !showEventsPage && !showEventDetails && !showMessagesPage && !showMessageThread && !showTrendingSearch && !showSwipeDiscovery && !showNotifications && !showBountyDetails && !showRewards && (
         <div 
           className={cn(
             "border-t backdrop-blur-sm",
