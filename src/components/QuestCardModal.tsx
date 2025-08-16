@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { X, MapPin, Clock, Users, Star, Trophy, Coins, Flag } from '@phosphor-icons/react';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -53,11 +53,21 @@ export function QuestCardModal({
   onAccept,
   onShowRestaurantProfile 
 }: QuestCardModalProps) {
+  const [isClosing, setIsClosing] = useState(false);
+
+  const handleClose = () => {
+    setIsClosing(true);
+    setTimeout(() => {
+      setIsClosing(false);
+      onClose();
+    }, 200); // Match the animation duration
+  };
+
   // Close modal on escape key
   useEffect(() => {
     const handleEscape = (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
-        onClose();
+        handleClose();
       }
     };
 
@@ -70,7 +80,7 @@ export function QuestCardModal({
       document.removeEventListener('keydown', handleEscape);
       document.body.style.overflow = 'unset';
     };
-  }, [isOpen, onClose]);
+  }, [isOpen]);
 
   if (!isOpen) return null;
 
@@ -104,11 +114,17 @@ export function QuestCardModal({
 
   return (
     <div 
-      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm modal-backdrop"
-      onClick={onClose}
+      className={cn(
+        "fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm",
+        isClosing ? "animate-fadeOut" : "modal-backdrop"
+      )}
+      onClick={handleClose}
     >
       <div 
-        className="w-full max-w-2xl max-h-[90vh] overflow-y-auto scrollbar-hide detail-card-enter"
+        className={cn(
+          "w-full max-w-2xl max-h-[90vh] overflow-y-auto scrollbar-hide",
+          isClosing ? "modal-closing" : "detail-card-enter"
+        )}
         onClick={(e) => e.stopPropagation()}
       >
         <Card className="quest-card-modal overflow-hidden bg-card border border-border/20 shadow-2xl">
@@ -126,7 +142,7 @@ export function QuestCardModal({
               variant="ghost"
               size="icon"
               className="absolute top-4 right-4 bg-black/50 hover:bg-black/70 text-white border-0"
-              onClick={onClose}
+              onClick={handleClose}
             >
               <X className="h-5 w-5" />
             </Button>

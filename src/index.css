@@ -2697,3 +2697,17 @@ input, textarea, select {
     transform: scale(0.95) translateY(10px);
   }
 }
+
+/* Modal backdrop fade out animation */
+.animate-fadeOut {
+  animation: backdropFadeOut 0.2s ease-in;
+}
+
+@keyframes backdropFadeOut {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
