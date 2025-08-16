@@ -8,6 +8,7 @@ import { Cart } from '@/components/Cart';
 import { Checkout } from '@/components/Checkout';
 import { FavoritesPage } from '@/components/FavoritesPage';
 import { OrderHistory } from '@/components/OrderHistory';
+import { MapView } from '@/components/MapView';
 import { getCurrentUser } from '@/lib/mockData';
 import { 
   Search as SearchIcon, 
@@ -56,6 +57,8 @@ interface Restaurant {
   promo?: string;
   distance: string;
   isPartner: boolean;
+  latitude: number;
+  longitude: number;
 }
 
 interface MenuItem {
@@ -81,6 +84,7 @@ interface SearchPageProps {
 export function SearchPage({ onShowUserProfile, onShowRestaurantProfile, onShowSwipeDiscovery, onShowLikPassport, onShowLeaderboard, onShowLikTV, onShowMessagesPage }: SearchPageProps) {
   const [searchQuery, setSearchQuery] = useState('');
   const [isDeliveryMode, setIsDeliveryMode] = useState(false);
+  const [showMapView, setShowMapView] = useState(false);
   const [activePreferences, setActivePreferences] = useKV<string[]>('food-preferences', ['Vegan']);
   const [posts, setPosts] = useKV<FoodPost[]>('food-posts', generateMockFoodPosts());
   const [restaurants, setRestaurants] = useKV<Restaurant[]>('restaurants', generateMockRestaurants());
@@ -212,7 +216,7 @@ export function SearchPage({ onShowUserProfile, onShowRestaurantProfile, onShowS
   };
 
   const openMap = () => {
-    toast.info('Map view coming soon!');
+    setShowMapView(true);
   };
 
   const openSwipeMode = () => {
@@ -306,6 +310,19 @@ export function SearchPage({ onShowUserProfile, onShowRestaurantProfile, onShowS
   // Grid columns based on device type
   const gridCols = device.type === 'tablet' ? 'grid-cols-3' : 'grid-cols-2';
   const padding = device.type === 'tablet' ? 'p-4' : 'p-3';
+
+  // Show map view if requested
+  if (showMapView) {
+    return (
+      <MapView
+        restaurants={restaurants}
+        onBack={() => setShowMapView(false)}
+        onShowRestaurantProfile={onShowRestaurantProfile}
+        searchQuery={searchQuery}
+        onSearchChange={setSearchQuery}
+      />
+    );
+  }
 
   return (
     <div className="h-full flex flex-col relative">
@@ -1124,7 +1141,9 @@ function generateMockRestaurants(): Restaurant[] {
       promo: "30% OFF",
       deliveryTime: "20-35 min",
       deliveryFee: 0,
-      isPartner: true
+      isPartner: true,
+      latitude: 37.7749,
+      longitude: -122.4194
     },
     {
       name: "Tokyo Sushi Bar",
@@ -1133,7 +1152,9 @@ function generateMockRestaurants(): Restaurant[] {
       promo: undefined,
       deliveryTime: "25-40 min",
       deliveryFee: 2.99,
-      isPartner: true
+      isPartner: true,
+      latitude: 37.7849,
+      longitude: -122.4094
     },
     {
       name: "Healthy Bowl Co.",
@@ -1142,7 +1163,9 @@ function generateMockRestaurants(): Restaurant[] {
       promo: "Free Delivery",
       deliveryTime: "15-30 min",
       deliveryFee: 0,
-      isPartner: false
+      isPartner: false,
+      latitude: 37.7649,
+      longitude: -122.4294
     },
     {
       name: "Burger Junction",
@@ -1151,7 +1174,9 @@ function generateMockRestaurants(): Restaurant[] {
       promo: undefined,
       deliveryTime: "10-25 min",
       deliveryFee: 1.99,
-      isPartner: true
+      isPartner: true,
+      latitude: 37.7789,
+      longitude: -122.4184
     },
     {
       name: "Spice Route Indian",
@@ -1160,7 +1185,9 @@ function generateMockRestaurants(): Restaurant[] {
       promo: "25% OFF",
       deliveryTime: "30-45 min",
       deliveryFee: 3.49,
-      isPartner: false
+      isPartner: false,
+      latitude: 37.7709,
+      longitude: -122.4304
     },
     {
       name: "Fresh Salad Works",
@@ -1169,7 +1196,9 @@ function generateMockRestaurants(): Restaurant[] {
       promo: undefined,
       deliveryTime: "15-25 min",
       deliveryFee: 0,
-      isPartner: true
+      isPartner: true,
+      latitude: 37.7819,
+      longitude: -122.4164
     }
   ];
 
@@ -1184,7 +1213,9 @@ function generateMockRestaurants(): Restaurant[] {
     categories: data.categories,
     promo: data.promo,
     distance: `${(0.5 + Math.random() * 2.5).toFixed(1)} mi`,
-    isPartner: data.isPartner
+    isPartner: data.isPartner,
+    latitude: data.latitude,
+    longitude: data.longitude
   }));
 }
 

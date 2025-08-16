@@ -2711,3 +2711,19 @@ input, textarea, select {
     opacity: 0;
   }
 }
+
+/* Slide up animation for map bottom sheet */
+.animate-slideUp {
+  animation: slideUpFromBottom 0.3s ease-out;
+}
+
+@keyframes slideUpFromBottom {
+  0% {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
