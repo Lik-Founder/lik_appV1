@@ -64,7 +64,11 @@ const mockUsers: Record<string, User> = {
       instagram: 'foodieexplorer_nyc',
       tiktok: 'foodieexplorer',
       youtube: 'FoodieExplorerChannel'
-    }
+    },
+    // Activity stats
+    bountiesCompleted: 187,
+    questsCompleted: 64,
+    reviewsWritten: 425
   },
   '2': {
     id: '2',
@@ -94,7 +98,11 @@ const mockUsers: Record<string, User> = {
     socialLinks: {
       instagram: 'chefmaster_nyc',
       youtube: 'ChefMasterCooking'
-    }
+    },
+    // Activity stats
+    bountiesCompleted: 156,
+    questsCompleted: 52,
+    reviewsWritten: 312
   },
   '3': {
     id: '3',
@@ -124,7 +132,11 @@ const mockUsers: Record<string, User> = {
     socialLinks: {
       instagram: 'tasteadventurer',
       tiktok: 'tasteadventurer'
-    }
+    },
+    // Activity stats
+    bountiesCompleted: 143,
+    questsCompleted: 37,
+    reviewsWritten: 289
   },
   '4': {
     id: '4',
@@ -153,7 +165,11 @@ const mockUsers: Record<string, User> = {
     },
     socialLinks: {
       instagram: 'gourmetguru_nyc'
-    }
+    },
+    // Activity stats
+    bountiesCompleted: 89,
+    questsCompleted: 31,
+    reviewsWritten: 198
   },
   '5': {
     id: '5',
@@ -183,7 +199,11 @@ const mockUsers: Record<string, User> = {
     socialLinks: {
       instagram: 'culinaryqueen',
       youtube: 'CulinaryQueenBakes'
-    }
+    },
+    // Activity stats
+    bountiesCompleted: 76,
+    questsCompleted: 28,
+    reviewsWritten: 167
   }
 };
 
@@ -239,18 +259,36 @@ export function UserProfile({ userId, onBack }: UserProfileProps) {
   };
 
   const ProfileStats = () => (
-    <div className="flex justify-center space-x-8 py-4">
-      <div className="text-center">
-        <div className="font-semibold text-lg">{user.followingCount.toLocaleString()}</div>
-        <div className="text-sm text-muted-foreground">Following</div>
+    <div className="space-y-4">
+      <div className="flex justify-center space-x-8 py-4">
+        <div className="text-center">
+          <div className="font-semibold text-lg">{user.followingCount.toLocaleString()}</div>
+          <div className="text-sm text-muted-foreground">Following</div>
+        </div>
+        <div className="text-center">
+          <div className="font-semibold text-lg">{user.followerCount.toLocaleString()}</div>
+          <div className="text-sm text-muted-foreground">Followers</div>
+        </div>
+        <div className="text-center">
+          <div className="font-semibold text-lg">{user.postCount}</div>
+          <div className="text-sm text-muted-foreground">Posts</div>
+        </div>
       </div>
-      <div className="text-center">
-        <div className="font-semibold text-lg">{user.followerCount.toLocaleString()}</div>
-        <div className="text-sm text-muted-foreground">Followers</div>
-      </div>
-      <div className="text-center">
-        <div className="font-semibold text-lg">{user.postCount}</div>
-        <div className="text-sm text-muted-foreground">Posts</div>
+      
+      {/* Activity Stats */}
+      <div className="flex justify-center space-x-8 py-2">
+        <div className="text-center">
+          <div className="font-semibold text-base nav-rum-raisin">{user.bountiesCompleted || 0}</div>
+          <div className="text-xs text-muted-foreground nav-rum-raisin">Bounties</div>
+        </div>
+        <div className="text-center">
+          <div className="font-semibold text-base nav-rum-raisin">{user.questsCompleted || 0}</div>
+          <div className="text-xs text-muted-foreground nav-rum-raisin">Quests</div>
+        </div>
+        <div className="text-center">
+          <div className="font-semibold text-base nav-rum-raisin">{user.reviewsWritten || 0}</div>
+          <div className="text-xs text-muted-foreground nav-rum-raisin">Reviews</div>
+        </div>
       </div>
     </div>
   );

@@ -57,6 +57,11 @@ export function ProfilePage({ onShowLeaderboard, onShowLikPassport, onShowNotifi
   const mockFollowers = '400K';
   const mockLikes = '4K';
   const mockLocation = 'New York, NY';
+  
+  // Mock activity counts
+  const mockBounties = 127;
+  const mockQuests = 43;
+  const mockReviews = 298;
 
   // Mock achievements and social links
   const mockBio = 'Food explorer 🍕 Level 124 Lik Master Chef 👨‍🍳 NYC finest eats';
@@ -138,7 +143,6 @@ export function ProfilePage({ onShowLeaderboard, onShowLikPassport, onShowNotifi
           </div>
         </div>
       </div>
-
       {/* Scrollable Content */}
       <div className="flex-1 overflow-auto">
         <div className="relative">
@@ -197,7 +201,7 @@ export function ProfilePage({ onShowLeaderboard, onShowLikPassport, onShowNotifi
                 {/* Display Name & Username */}
                 <div className="text-center mb-4 w-full max-w-sm mx-auto px-2">
                   <div className="flex items-center justify-center gap-2 mb-1">
-                    <h1 className="text-xl font-bold truncate">DisplayName</h1>
+                    <h1 className="text-xl font-bold truncate">4K</h1>
                     <CheckCircle size={20} className="text-blue-500 flex-shrink-0" weight="fill" />
                   </div>
                   <p className="text-base text-muted-foreground truncate">@username</p>
@@ -216,6 +220,22 @@ export function ProfilePage({ onShowLeaderboard, onShowLikPassport, onShowNotifi
                   <div className="text-center flex-1 px-1">
                     <p className="text-lg font-bold">{mockLikes}</p>
                     <p className="text-xs text-muted-foreground">Likes</p>
+                  </div>
+                </div>
+
+                {/* Activity Stats */}
+                <div className="flex justify-center w-full mb-4 max-w-sm mx-auto">
+                  <div className="text-center flex-1 px-1">
+                    <p className="text-base font-bold nav-rum-raisin">{mockBounties}</p>
+                    <p className="text-xs text-muted-foreground nav-rum-raisin">Bounties</p>
+                  </div>
+                  <div className="text-center flex-1 px-1">
+                    <p className="text-base font-bold nav-rum-raisin">{mockQuests}</p>
+                    <p className="text-xs text-muted-foreground nav-rum-raisin">Quests</p>
+                  </div>
+                  <div className="text-center flex-1 px-1">
+                    <p className="text-base font-bold nav-rum-raisin">{mockReviews}</p>
+                    <p className="text-xs text-muted-foreground nav-rum-raisin">Reviews</p>
                   </div>
                 </div>
 
@@ -439,7 +459,6 @@ export function ProfilePage({ onShowLeaderboard, onShowLikPassport, onShowNotifi
           </div>
         </div>
       </div>
-
       {/* Floating Action Button */}
       <div className="fixed bottom-0 right-0 p-4 z-20" style={{ 
         bottom: device.hasNotch ? 'calc(env(safe-area-inset-bottom) + 120px)' : '120px',
@@ -455,13 +474,11 @@ export function ProfilePage({ onShowLeaderboard, onShowLikPassport, onShowNotifi
         >
         </Button>
       </div>
-
       {/* Create Post Modal */}
       <CreatePostModal 
         open={isCreatePostOpen} 
         onOpenChange={setIsCreatePostOpen}
       />
-      
       {/* Create Story Modal */}
       <CreateStoryModal 
         open={isCreateStoryOpen} 

@@ -29,6 +29,10 @@ export interface User {
     youtube?: string;
     twitter?: string;
   };
+  // Activity stats
+  bountiesCompleted?: number;
+  questsCompleted?: number;
+  reviewsWritten?: number;
 }
 
 export interface Post {
