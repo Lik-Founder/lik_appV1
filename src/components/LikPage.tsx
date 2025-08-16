@@ -98,9 +98,10 @@ interface LikPageProps {
   onShowLikPassport?: () => void;
   onShowMessagesPage?: () => void;
   onShowNotifications?: () => void;
+  onShowBountyDetails?: (bountyId: string) => void;
 }
 
-export function LikPage({ onShowRestaurantProfile, onShowLikPassport, onShowMessagesPage, onShowNotifications }: LikPageProps) {
+export function LikPage({ onShowRestaurantProfile, onShowLikPassport, onShowMessagesPage, onShowNotifications, onShowBountyDetails }: LikPageProps) {
   const [userProgress] = useKV('user-progress', mockUserProgress);
   const [bounties] = useKV('bounties', mockBounties);
   const [quests] = useKV('quests', mockQuests);
@@ -701,11 +702,8 @@ function BountiesView({ bounties, onShowRestaurantProfile }: { bounties: Bounty[
               <div className="absolute -inset-1 bg-gradient-to-r from-emerald-400 via-teal-400 to-cyan-400 rounded-xl blur opacity-20"></div>
               
               <div 
-                className={cn(
-                  "relative h-40 sm:h-48 transform-style-preserve-3d transition-all duration-700 cursor-pointer group",
-                  flippedCards.has(`local-${bounty.id}`) && "rotate-y-180"
-                )}
-                onClick={() => toggleCardFlip(`local-${bounty.id}`)}
+                className="relative h-40 sm:h-48 cursor-pointer group"
+                onClick={() => onShowBountyDetails?.(bounty.id)}
               >
                 {/* Front Side */}
                 <div className="absolute inset-0 backface-hidden">
@@ -764,52 +762,6 @@ function BountiesView({ bounties, onShowRestaurantProfile }: { bounties: Bounty[
                       >
                         Accept
                       </Button>
-                    </div>
-                  </Card>
-                </div>
-
-                {/* Back Side */}
-                <div className="absolute inset-0 backface-hidden rotate-y-180">
-                  <Card className="h-full overflow-hidden bg-gradient-to-br from-slate-800 to-slate-700 border border-teal-400/30 shadow-lg rounded-xl p-3 text-white">
-                    <div className="h-full flex flex-col justify-between">
-                      <div>
-                        <h4 className="font-bold text-sm sm:text-base mb-2 text-teal-300 line-clamp-1">
-                          {bounty.dishName}
-                        </h4>
-                        
-                        <div className="space-y-1 text-xs sm:text-sm">
-                          <div className="flex items-center gap-2">
-                            <MapPin size={12} className="text-teal-400 flex-shrink-0" />
-                            <span>0.5 mi</span>
-                          </div>
-                          <div className="flex items-center gap-2">
-                            <Users size={12} className="text-green-400 flex-shrink-0" />
-                            <span>8 friends</span>
-                          </div>
-                          <div className="flex items-center gap-2">
-                            <Star size={12} className="text-yellow-400 flex-shrink-0" />
-                            <span>{bounty.rating}/5.0</span>
-                          </div>
-                        </div>
-                      </div>
-
-                      <div className="flex gap-2 mt-2">
-                        <Button 
-                          size="sm" 
-                          variant="outline" 
-                          className="flex-1 border-teal-400 text-teal-300 hover:bg-teal-400/10 text-xs py-1"
-                          onClick={(e) => e.stopPropagation()}
-                        >
-                          Save
-                        </Button>
-                        <Button 
-                          size="sm" 
-                          className="flex-1 bg-gradient-to-r from-teal-500 to-cyan-500 hover:from-teal-600 hover:to-cyan-600 text-xs py-1"
-                          onClick={(e) => e.stopPropagation()}
-                        >
-                          Accept
-                        </Button>
-                      </div>
                     </div>
                   </Card>
                 </div>

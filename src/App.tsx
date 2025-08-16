@@ -20,6 +20,7 @@ import { MessageThread } from '@/components/MessageThread';
 import { SwipeIndicator } from '@/components/SwipeIndicator';
 import { SwipeDiscoveryPage } from '@/components/SwipeDiscoveryPage';
 import { NotificationsPage } from '@/components/NotificationsPage';
+import { BountyDetailsPage } from '@/components/BountyDetailsPage';
 import { useDevice, useSafeArea } from '@/hooks/use-device';
 import { useTabSwipe } from '@/hooks/use-tab-swipe';
 import { Toaster } from '@/components/ui/sonner';
@@ -41,6 +42,7 @@ function App() {
   const [showTrendingSearch, setShowTrendingSearch] = useState(false);
   const [showSwipeDiscovery, setShowSwipeDiscovery] = useState(false);
   const [showNotifications, setShowNotifications] = useState(false);
+  const [showBountyDetails, setShowBountyDetails] = useState<string | null>(null);
   const device = useDevice();
   const safeArea = useSafeArea();
 
@@ -51,10 +53,28 @@ function App() {
       setActiveTab(newTab);
       setShowSwipeIndicator(true);
     },
-    disabled: !!showRestaurantProfile || !!showUserProfile || showLeaderboard || showLikTV || showLikPassport || showGuidePage || showEventsPage || !!showEventDetails || showMessagesPage || !!showMessageThread || showTrendingSearch || showSwipeDiscovery || showNotifications,
+    disabled: !!showRestaurantProfile || !!showUserProfile || showLeaderboard || showLikTV || showLikPassport || showGuidePage || showEventsPage || !!showEventDetails || showMessagesPage || !!showMessageThread || showTrendingSearch || showSwipeDiscovery || showNotifications || !!showBountyDetails,
   });
 
   const renderActiveTab = () => {
+    // Show Bounty Details if requested
+    if (showBountyDetails) {
+      return (
+        <BountyDetailsPage 
+          bountyId={showBountyDetails}
+          onBack={() => setShowBountyDetails(null)}
+          onShowRestaurantProfile={(restaurantId) => {
+            setShowBountyDetails(null);
+            setShowRestaurantProfile(restaurantId);
+          }}
+          onShowUserProfile={(userId) => {
+            setShowBountyDetails(null);
+            setShowUserProfile(userId);
+          }}
+        />
+      );
+    }
+
     // Show Notifications if requested
     if (showNotifications) {
       return (
@@ -282,6 +302,7 @@ function App() {
             onShowLikPassport={() => setShowLikPassport(true)}
             onShowMessagesPage={() => setShowMessagesPage(true)}
             onShowNotifications={() => setShowNotifications(true)}
+            onShowBountyDetails={(bountyId) => setShowBountyDetails(bountyId)}
           />
         );
       case 'trending':
@@ -320,7 +341,7 @@ function App() {
       </div>
 
       {/* Swipe Indicator */}
-      {!showRestaurantProfile && !showUserProfile && !showLeaderboard && !showLikTV && !showLikPassport && !showGuidePage && !showEventsPage && !showEventDetails && !showMessagesPage && !showMessageThread && !showTrendingSearch && !showSwipeDiscovery && !showNotifications && (
+      {!showRestaurantProfile && !showUserProfile && !showLeaderboard && !showLikTV && !showLikPassport && !showGuidePage && !showEventsPage && !showEventDetails && !showMessagesPage && !showMessageThread && !showTrendingSearch && !showSwipeDiscovery && !showNotifications && !showBountyDetails && (
         <SwipeIndicator 
           activeTab={activeTab} 
           isVisible={showSwipeIndicator}
@@ -328,7 +349,7 @@ function App() {
       )}
 
       {/* Bottom Navigation - Hide when viewing restaurant profile */}
-      {!showRestaurantProfile && !showUserProfile && !showLeaderboard && !showLikTV && !showLikPassport && !showGuidePage && !showEventsPage && !showEventDetails && !showMessagesPage && !showMessageThread && !showTrendingSearch && !showSwipeDiscovery && !showNotifications && (
+      {!showRestaurantProfile && !showUserProfile && !showLeaderboard && !showLikTV && !showLikPassport && !showGuidePage && !showEventsPage && !showEventDetails && !showMessagesPage && !showMessageThread && !showTrendingSearch && !showSwipeDiscovery && !showNotifications && !showBountyDetails && (
         <div 
           className={cn(
             "border-t backdrop-blur-sm",
