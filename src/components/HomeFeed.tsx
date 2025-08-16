@@ -368,9 +368,8 @@ export function HomeFeed({ onShowUserProfile, onShowRestaurantProfile, onShowLea
                 alt="Profile"
                 fallback={currentUser.username[0]?.toUpperCase()}
                 size="md"
-                variant="xp-ring"
+                variant="level-badge"
                 level={12}
-                xpProgress={0.75} // Mock XP progress
               />
             </div>
           </div>

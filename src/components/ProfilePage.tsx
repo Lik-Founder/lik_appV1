@@ -203,23 +203,62 @@ export function ProfilePage({ onShowLeaderboard, onShowLikPassport, onShowNotifi
                 
                 {/* Profile Content */}
                 <div className="relative z-10 flex flex-col items-center space-y-6">
-                  {/* Profile Avatar with Enhanced XP Ring */}
+                  {/* Clean Profile Avatar with Simple XP Ring */}
                   <div className="relative">
-                    <div className="absolute inset-0 bg-gradient-to-r from-pink-400 to-purple-500 rounded-full p-1 shadow-lg">
-                      <div className="bg-white rounded-full p-2">
-                        <ConsistentAvatar
-                          src={currentUser.avatar}
-                          alt={currentUser.username}
-                          fallback={currentUser.username[0]?.toUpperCase()}
-                          size="2xl"
-                          variant="xp-ring"
-                          level={mockLevel}
-                          xpProgress={mockXP / mockXPToNext}
+                    {/* XP Progress Ring - Simplified */}
+                    <div className="relative w-24 h-24">
+                      <svg className="w-full h-full transform -rotate-90 absolute inset-0" viewBox="0 0 96 96">
+                        {/* Background Ring */}
+                        <circle
+                          cx="48"
+                          cy="48"
+                          r="44"
+                          stroke="currentColor"
+                          strokeWidth="3"
+                          fill="none"
+                          className="text-pink-200"
                         />
+                        {/* Progress Ring */}
+                        <circle
+                          cx="48"
+                          cy="48"
+                          r="44"
+                          stroke="url(#xpGradient)"
+                          strokeWidth="3"
+                          fill="none"
+                          strokeLinecap="round"
+                          className="transition-all duration-700"
+                          style={{
+                            strokeDasharray: 276.46, // 2 * π * 44
+                            strokeDashoffset: 276.46 * (1 - (mockXP / mockXPToNext)),
+                          }}
+                        />
+                        <defs>
+                          <linearGradient id="xpGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                            <stop offset="0%" stopColor="#f59e0b" />
+                            <stop offset="50%" stopColor="#ef4444" />
+                            <stop offset="100%" stopColor="#8b5cf6" />
+                          </linearGradient>
+                        </defs>
+                      </svg>
+                      
+                      {/* Profile Picture - Centered */}
+                      <div className="absolute inset-3">
+                        <div className="w-full h-full rounded-full overflow-hidden bg-white shadow-lg border-2 border-white">
+                          <ConsistentAvatar
+                            src={currentUser.avatar}
+                            alt={currentUser.username}
+                            fallback={currentUser.username[0]?.toUpperCase()}
+                            size="xl"
+                            variant="default"
+                            className="w-full h-full"
+                          />
+                        </div>
                       </div>
                     </div>
-                    {/* Level Badge with Fun Design */}
-                    <div className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 bg-gradient-to-r from-yellow-400 to-orange-500 text-white px-4 py-2 rounded-full shadow-lg border-3 border-white font-bold text-sm">
+                    
+                    {/* Clean Level Badge */}
+                    <div className="absolute -bottom-1 left-1/2 transform -translate-x-1/2 bg-gradient-to-r from-amber-400 to-orange-500 text-white px-3 py-1 rounded-full shadow-md border-2 border-white font-bold text-xs">
                       Level {mockLevel}
                     </div>
                   </div>

@@ -169,13 +169,13 @@ export const ProfileDropdown: React.FC<ProfileDropdownProps> = ({
           isAnimating && "animate-in slide-in-from-top-2 zoom-in-95 duration-200"
         )}
       >
-        {/* Header with XP Ring and Stats */}
+        {/* Header with Clean XP Ring and Stats */}
         <div className="flex items-center justify-between mb-4 sm:mb-6">
-          {/* XP Ring with Level */}
-          <div className="relative xp-ring-animated">
+          {/* Clean XP Ring with Level */}
+          <div className="relative">
             <div className="w-16 h-16 sm:w-20 sm:h-20 relative">
-              {/* Outer Progress Ring */}
-              <svg className="w-16 h-16 sm:w-20 sm:h-20 transform -rotate-90" viewBox="0 0 80 80">
+              {/* Simple Progress Ring */}
+              <svg className="w-full h-full transform -rotate-90" viewBox="0 0 80 80">
                 <circle
                   cx="40"
                   cy="40"
@@ -184,12 +184,11 @@ export const ProfileDropdown: React.FC<ProfileDropdownProps> = ({
                   strokeWidth="3"
                   fill="none"
                 />
-                {/* Orange/Pink gradient progress */}
                 <circle
                   cx="40"
                   cy="40"
                   r="35"
-                  stroke="url(#orangePinkGradient)"
+                  stroke="url(#cleanGradient)"
                   strokeWidth="3"
                   fill="none"
                   strokeDasharray={`${2 * Math.PI * 35}`}
@@ -197,27 +196,11 @@ export const ProfileDropdown: React.FC<ProfileDropdownProps> = ({
                   className="transition-all duration-500"
                   strokeLinecap="round"
                 />
-                {/* Purple progress overlay */}
-                <circle
-                  cx="40"
-                  cy="40"
-                  r="30"
-                  stroke="url(#purpleGradient)"
-                  strokeWidth="2"
-                  fill="none"
-                  strokeDasharray={`${2 * Math.PI * 30}`}
-                  strokeDashoffset={`${2 * Math.PI * 30 * (1 - (xpPercentage * 0.8) / 100)}`}
-                  className="transition-all duration-500"
-                  strokeLinecap="round"
-                />
                 <defs>
-                  <linearGradient id="orangePinkGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                  <linearGradient id="cleanGradient" x1="0%" y1="0%" x2="100%" y2="0%">
                     <stop offset="0%" stopColor="#f97316" />
-                    <stop offset="100%" stopColor="#ec4899" />
-                  </linearGradient>
-                  <linearGradient id="purpleGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-                    <stop offset="0%" stopColor="#a855f7" />
-                    <stop offset="100%" stopColor="#ec4899" />
+                    <stop offset="50%" stopColor="#ec4899" />
+                    <stop offset="100%" stopColor="#8b5cf6" />
                   </linearGradient>
                 </defs>
               </svg>
@@ -228,9 +211,9 @@ export const ProfileDropdown: React.FC<ProfileDropdownProps> = ({
               </div>
             </div>
             
-            {/* Level badge at bottom */}
-            <div className="absolute -bottom-1 left-1/2 transform -translate-x-1/2 bg-slate-800 rounded-full px-2 py-0.5 border border-slate-600 level-badge-sparkle">
-              <span className="text-white text-xs sm:text-sm font-medium">{user.level}</span>
+            {/* Clean level badge */}
+            <div className="absolute -bottom-1 left-1/2 transform -translate-x-1/2 bg-gradient-to-r from-orange-500 to-pink-500 text-white rounded-full px-2 py-0.5 border-2 border-slate-800 text-xs font-bold">
+              Lv {user.level}
             </div>
           </div>
 

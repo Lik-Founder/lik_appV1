@@ -320,23 +320,62 @@ export function UserProfile({ userId, onBack }: UserProfileProps) {
 
             <div className="relative z-10 space-y-6">
               <div className="flex items-start space-x-6">
-                {/* Enhanced Profile Image with XP Ring */}
+                {/* Clean Profile Image with Simple XP Ring */}
                 <div className="relative">
-                  <div className="absolute inset-0 bg-gradient-to-r from-pink-400 to-purple-500 rounded-full p-1 shadow-lg">
-                    <div className="bg-white rounded-full p-2">
-                      <ConsistentAvatar
-                        src={user.avatar}
-                        alt={user.displayName}
-                        fallback={user.displayName.split(' ').map(n => n[0]).join('')}
-                        size="2xl"
-                        variant="xp-ring"
-                        level={user.level}
-                        xpProgress={0.7}
+                  {/* XP Progress Ring - Simplified */}
+                  <div className="relative w-20 h-20">
+                    <svg className="w-full h-full transform -rotate-90 absolute inset-0" viewBox="0 0 80 80">
+                      {/* Background Ring */}
+                      <circle
+                        cx="40"
+                        cy="40"
+                        r="36"
+                        stroke="currentColor"
+                        strokeWidth="2.5"
+                        fill="none"
+                        className="text-blue-200"
                       />
+                      {/* Progress Ring */}
+                      <circle
+                        cx="40"
+                        cy="40"
+                        r="36"
+                        stroke="url(#userXpGradient)"
+                        strokeWidth="2.5"
+                        fill="none"
+                        strokeLinecap="round"
+                        className="transition-all duration-700"
+                        style={{
+                          strokeDasharray: 226.19, // 2 * π * 36
+                          strokeDashoffset: 226.19 * (1 - 0.7),
+                        }}
+                      />
+                      <defs>
+                        <linearGradient id="userXpGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                          <stop offset="0%" stopColor="#06b6d4" />
+                          <stop offset="50%" stopColor="#3b82f6" />
+                          <stop offset="100%" stopColor="#8b5cf6" />
+                        </linearGradient>
+                      </defs>
+                    </svg>
+                    
+                    {/* Profile Picture - Centered */}
+                    <div className="absolute inset-2.5">
+                      <div className="w-full h-full rounded-full overflow-hidden bg-white shadow-lg border-2 border-white">
+                        <ConsistentAvatar
+                          src={user.avatar}
+                          alt={user.displayName}
+                          fallback={user.displayName.split(' ').map(n => n[0]).join('')}
+                          size="lg"
+                          variant="default"
+                          className="w-full h-full"
+                        />
+                      </div>
                     </div>
                   </div>
-                  {/* Whimsical Level Badge */}
-                  <div className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 bg-gradient-to-r from-yellow-400 to-orange-500 text-white px-4 py-2 rounded-full shadow-lg border-2 border-white font-bold text-sm">
+                  
+                  {/* Clean Level Badge */}
+                  <div className="absolute -bottom-1 left-1/2 transform -translate-x-1/2 bg-gradient-to-r from-cyan-400 to-blue-500 text-white px-2.5 py-1 rounded-full shadow-md border-2 border-white font-bold text-xs">
                     Level {user.level}
                   </div>
                 </div>
