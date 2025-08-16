@@ -265,15 +265,10 @@ export function ProfilePage({ onShowLeaderboard, onShowLikPassport, onShowNotifi
 
                   {/* Name & Username - Playful Styling */}
                   <div className="text-center space-y-2">
-                    <div className="flex items-center justify-center gap-3">
-                      <h1 className="text-2xl font-bold bg-gradient-to-r from-pink-600 to-purple-600 bg-clip-text text-transparent nav-rum-raisin">
-                        4K
-                      </h1>
-                      <div className="bg-gradient-to-r from-blue-500 to-cyan-500 p-1.5 rounded-full">
-                        <CheckCircle size={20} className="text-white" weight="fill" />
-                      </div>
-                    </div>
-                    <p className="text-lg text-gray-600 nav-rum-raisin">@username</p>
+                    <h1 className="text-2xl font-bold bg-gradient-to-r from-pink-600 to-purple-600 bg-clip-text text-transparent nav-rum-raisin">
+                      {currentUser.displayName}
+                    </h1>
+                    <p className="text-lg text-gray-600 nav-rum-raisin">@{currentUser.username}</p>
                   </div>
 
                   {/* Fun Stats Grid */}
