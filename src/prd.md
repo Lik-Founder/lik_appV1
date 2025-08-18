@@ -1,53 +1,64 @@
-# Restaurant Profile Page - Product Requirements Document
+# Lik App - Product Requirements Document
 
 ## Core Purpose & Success
 
-**Mission Statement**: Create an immersive, gamified restaurant profile experience that combines Yelp's comprehensive restaurant information with Lik's unique social discovery and leaderboard features.
+**Mission Statement**: Create a comprehensive, gamified food discovery platform with integrated reservation system that combines social discovery, real-time availability, and seamless dining experiences.
 
 **Success Indicators**: 
-- High engagement with restaurant content (reviews, posts, menu)
+- High engagement with restaurant content (reviews, posts, menu, reservations)
 - Increased user interaction with gamification elements (badges, rankings)
 - Successful conversion to reservations, follows, and user-generated content
+- Real-time reservation booking and management
+- Enhanced user dining journey through availability insights
 
-**Experience Qualities**: Engaging, Informative, Gamified
+**Experience Qualities**: Engaging, Informative, Gamified, Convenient
 
 ## Project Classification & Approach
 
-**Complexity Level**: Light Application (multiple features with basic state)
-**Primary User Activity**: Consuming and Interacting
+**Complexity Level**: Complex Application (advanced functionality with real-time features)
+**Primary User Activity**: Consuming, Acting, Creating, and Booking
 
 ## Thought Process for Feature Selection
 
-**Core Problem Analysis**: Users need comprehensive restaurant information presented in an engaging, social format that leverages gamification to encourage exploration and interaction.
+**Core Problem Analysis**: Users need comprehensive restaurant information presented in an engaging, social format with seamless reservation capabilities and real-time availability updates.
 
-**User Context**: Mobile users discovering restaurants, checking reviews, viewing menus, and engaging with restaurant content while on-the-go.
+**User Context**: Mobile users discovering restaurants, checking reviews, viewing menus, making reservations, and managing their dining plans on-the-go.
 
-**Critical Path**: Hero section → Restaurant info → Tab navigation → Content consumption → Action (follow/review/reserve)
+**Critical Path**: Discovery → Restaurant profile → Availability check → Reservation booking → Confirmation → Management
 
 **Key Moments**: 
 1. First impression through hero section with ranking badges
-2. Trust building through reviews and ratings
-3. Action conversion through bottom CTA bar
+2. Trust building through reviews and ratings  
+3. Real-time availability awareness
+4. Seamless reservation booking experience
+5. Reservation management and confirmations
 
 ## Essential Features
 
-### Hero Section
-- **Functionality**: Full-width visual with overlay information and quick actions
-- **Purpose**: Create strong first impression and establish restaurant credibility through rankings
-- **Success Criteria**: Users understand restaurant positioning and quality immediately
+### Restaurant Profile with Integrated Reservations
+- **Functionality**: Enhanced restaurant profiles with live availability widgets and direct booking access
+- **Purpose**: Provide comprehensive restaurant information with seamless booking integration
+- **Success Criteria**: Users can discover, evaluate, and book restaurants in a single flow
 
-### Restaurant Summary Panel
-- **Functionality**: Core restaurant information with key metrics and contact actions
-- **Purpose**: Provide essential information users need to make decisions
-- **Success Criteria**: Users can quickly assess restaurant fit and take action
+### Real-time Availability System
+- **Functionality**: Live availability updates showing open time slots with popularity indicators
+- **Purpose**: Help users make informed booking decisions and discover optimal dining times
+- **Success Criteria**: Accurate availability display with 30-second refresh intervals
 
-### Tabbed Content Navigation
-- **Functionality**: Organized content sections (Reviews, Posts, Menu) with smooth transitions
-- **Purpose**: Structure comprehensive information in digestible sections
-- **Success Criteria**: Users can easily navigate between content types
+### Comprehensive Reservation System
+- **Functionality**: Full-featured booking system with date/time selection, party size options, and special requests
+- **Purpose**: Enable complete reservation management from discovery to confirmation
+- **Success Criteria**: Successful booking completion rate >90% with clear confirmations
 
-### Gamified Elements
-- **Functionality**: Ranking badges, award displays, leaderboard links, and progress indicators
+### Reservation Management Hub
+- **Functionality**: Centralized view of upcoming and past reservations with cancellation and modification options
+- **Purpose**: Provide users complete control over their dining plans
+- **Success Criteria**: Easy access to all reservation details and management actions
+
+### Profile Integration
+- **Functionality**: Quick access to reservation manager from user profile with calendar icon
+- **Purpose**: Make reservation management easily discoverable and accessible
+- **Success Criteria**: Clear navigation path and visual distinction for reservation features
 - **Purpose**: Differentiate from traditional restaurant apps through gaming mechanics
 - **Success Criteria**: Users engage with gamification features and feel motivated to participate
 

@@ -7,6 +7,8 @@ import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
 import { ConsistentAvatar } from '@/components/ui/consistent-avatar';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { AwardsPage } from '@/components/AwardsPage';
+import { ReservationSystem } from '@/components/ReservationSystem';
+import { AvailabilityWidget } from '@/components/AvailabilityWidget';
 import { 
   ArrowLeft,
   Trophy,
@@ -132,6 +134,7 @@ export function RestaurantProfile({ restaurantId, onBack }: RestaurantProfilePro
   const [selectedImageIndex, setSelectedImageIndex] = useState<number | null>(null);
   const [showAwardsPage, setShowAwardsPage] = useState(false);
   const [showDeliveryPage, setShowDeliveryPage] = useState(false);
+  const [showReservationSystem, setShowReservationSystem] = useState(false);
   const device = useDevice();
 
   const handleLikeReview = (reviewId: string) => {
@@ -205,7 +208,7 @@ export function RestaurantProfile({ restaurantId, onBack }: RestaurantProfilePro
   };
 
   const handleReserve = () => {
-    toast.info('Opening reservation system...');
+    setShowReservationSystem(true);
   };
 
   const handleCall = () => {
@@ -241,6 +244,21 @@ export function RestaurantProfile({ restaurantId, onBack }: RestaurantProfilePro
         restaurantId={restaurantId}
         restaurant={restaurant}
         onBack={handleBackFromDelivery}
+      />
+    );
+  }
+
+  // Show reservation system if requested
+  if (showReservationSystem) {
+    return (
+      <ReservationSystem 
+        restaurantId={restaurantId}
+        restaurantName={restaurant.name}
+        onBack={() => setShowReservationSystem(false)}
+        onReservationComplete={() => {
+          setShowReservationSystem(false);
+          // Could navigate to reservation manager here
+        }}
       />
     );
   }
@@ -518,6 +536,9 @@ interface ReviewsSectionProps {
 function ReviewsSection({ reviews, onLikeReview, padding }: ReviewsSectionProps) {
   return (
     <div className={cn("space-y-4", padding, "pb-4")}>
+      {/* Live Availability Widget */}
+      <AvailabilityWidget restaurantId="bella-italia" className="mx-4" />
+      
       {reviews.map((review) => (
         <div key={review.id} className="bg-card rounded-lg border border-border overflow-hidden">
           {/* Media */}

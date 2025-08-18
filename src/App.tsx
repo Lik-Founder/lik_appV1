@@ -23,6 +23,7 @@ import { SwipeDiscoveryPage } from '@/components/SwipeDiscoveryPage';
 import { NotificationsPage } from '@/components/NotificationsPage';
 import { BountyDetailsPage } from '@/components/BountyDetailsPage';
 import { MyRewardsPage } from '@/components/MyRewardsPage';
+import { ReservationManager } from '@/components/ReservationManager';
 import { AuthPage } from '@/components/AuthPage';
 import { OnboardingPage } from '@/components/OnboardingPage';
 import { PreferencesPage } from '@/components/PreferencesPage';
@@ -50,6 +51,7 @@ function AppContent() {
   const [showNotifications, setShowNotifications] = useState(false);
   const [showBountyDetails, setShowBountyDetails] = useState<string | null>(null);
   const [showRewards, setShowRewards] = useState(false);
+  const [showReservationManager, setShowReservationManager] = useState(false);
   const [showAuth, setShowAuth] = useState(false);
   const [showOnboarding, setShowOnboarding] = useState(false);
   const [showPreferences, setShowPreferences] = useState(false);
@@ -64,7 +66,7 @@ function AppContent() {
     import.meta.env.VITE_SUPABASE_ANON_KEY !== 'placeholder_anon_key';
 
   // Set up swipe gestures for tab navigation (disabled when showing modals)
-  const swipeDisabled = !!(showRestaurantProfile || showUserProfile || showLeaderboard || showLikTV || showLikPassport || showGuidePage || showEventsPage || showEventDetails || showMessagesPage || showMessageThread || showTrendingSearch || showSwipeDiscovery || showNotifications || showBountyDetails || showRewards || showOnboarding || showPreferences);
+  const swipeDisabled = !!(showRestaurantProfile || showUserProfile || showLeaderboard || showLikTV || showLikPassport || showGuidePage || showEventsPage || showEventDetails || showMessagesPage || showMessageThread || showTrendingSearch || showSwipeDiscovery || showNotifications || showBountyDetails || showRewards || showReservationManager || showOnboarding || showPreferences);
   
   const tabSwipeHandlers = useTabSwipe({
     activeTab,
@@ -147,6 +149,19 @@ function AppContent() {
   }
 
   const renderActiveTab = () => {
+    // Show Reservation Manager if requested
+    if (showReservationManager) {
+      return (
+        <ReservationManager 
+          onBack={() => setShowReservationManager(false)}
+          onShowReservationSystem={(restaurantId) => {
+            setShowReservationManager(false);
+            setShowRestaurantProfile(restaurantId);
+          }}
+        />
+      );
+    }
+
     // Show Rewards if requested
     if (showRewards) {
       return (
@@ -415,7 +430,7 @@ function AppContent() {
           />
         );
       case 'profile':
-        return <ProfilePage onShowLeaderboard={() => setShowLeaderboard(true)} onShowLikPassport={() => setShowLikPassport(true)} onShowNotifications={() => setShowNotifications(true)} onShowRewards={() => setShowRewards(true)} />;
+        return <ProfilePage onShowLeaderboard={() => setShowLeaderboard(true)} onShowLikPassport={() => setShowLikPassport(true)} onShowNotifications={() => setShowNotifications(true)} onShowRewards={() => setShowRewards(true)} onShowReservationManager={() => setShowReservationManager(true)} />;
       default:
         return <HomeFeed onShowUserProfile={(userId) => setShowUserProfile(userId)} />;
     }
@@ -440,7 +455,7 @@ function AppContent() {
       </div>
 
       {/* Swipe Indicator */}
-      {!showRestaurantProfile && !showUserProfile && !showLeaderboard && !showLikTV && !showLikPassport && !showGuidePage && !showEventsPage && !showEventDetails && !showMessagesPage && !showMessageThread && !showTrendingSearch && !showSwipeDiscovery && !showNotifications && !showBountyDetails && !showRewards && !showOnboarding && !showPreferences && (
+      {!showRestaurantProfile && !showUserProfile && !showLeaderboard && !showLikTV && !showLikPassport && !showGuidePage && !showEventsPage && !showEventDetails && !showMessagesPage && !showMessageThread && !showTrendingSearch && !showSwipeDiscovery && !showNotifications && !showBountyDetails && !showRewards && !showReservationManager && !showOnboarding && !showPreferences && (
         <SwipeIndicator 
           activeTab={activeTab} 
           isVisible={showSwipeIndicator}
@@ -448,7 +463,7 @@ function AppContent() {
       )}
 
       {/* Bottom Navigation - Hide when viewing restaurant profile */}
-      {!showRestaurantProfile && !showUserProfile && !showLeaderboard && !showLikTV && !showLikPassport && !showGuidePage && !showEventsPage && !showEventDetails && !showMessagesPage && !showMessageThread && !showTrendingSearch && !showSwipeDiscovery && !showNotifications && !showBountyDetails && !showRewards && !showOnboarding && !showPreferences && (
+      {!showRestaurantProfile && !showUserProfile && !showLeaderboard && !showLikTV && !showLikPassport && !showGuidePage && !showEventsPage && !showEventDetails && !showMessagesPage && !showMessageThread && !showTrendingSearch && !showSwipeDiscovery && !showNotifications && !showBountyDetails && !showRewards && !showReservationManager && !showOnboarding && !showPreferences && (
         <div 
           className={cn(
             "border-t backdrop-blur-sm",
