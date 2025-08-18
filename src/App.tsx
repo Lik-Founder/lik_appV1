@@ -79,8 +79,14 @@ function AppContent() {
 
   // Use useEffect to handle auth state changes
   useEffect(() => {
+    // If Supabase is not configured, skip auth flow and just show the app
+    if (!isSupabaseConfigured) {
+      console.log('Supabase not configured, showing app directly');
+      return;
+    }
+
     // Show onboarding for new users (only if Supabase is configured)
-    if (!loading && !user && !showAuth && !showOnboarding && isSupabaseConfigured) {
+    if (!loading && !user && !showAuth && !showOnboarding) {
       setShowOnboarding(true);
     }
 
@@ -102,6 +108,66 @@ function AppContent() {
   }, [loading, user, showAuth, showOnboarding, showPreferences, isSupabaseConfigured]);
 
   // Early returns only after all hooks are called
+  // If Supabase is not configured, skip auth flow and show the app directly
+  if (!isSupabaseConfigured) {
+    return (
+      <div 
+        className={cn(
+          "h-screen bg-background flex flex-col tab-navigation-container no-select-on-swipe",
+          device.hasNotch && "safe-area"
+        )}
+        style={{
+          height: device.orientation === 'landscape' ? '100vh' : '100dvh'
+        }}
+        {...tabSwipeHandlers}
+      >
+        {/* Main Content Area */}
+        <div className="flex-1 overflow-hidden">
+          {renderActiveTab()}
+        </div>
+
+        {/* Swipe Indicator */}
+        {!showRestaurantProfile && !showUserProfile && !showLeaderboard && !showLikTV && !showLikPassport && !showGuidePage && !showEventsPage && !showEventDetails && !showMessagesPage && !showMessageThread && !showTrendingSearch && !showSwipeDiscovery && !showNotifications && !showBountyDetails && !showRewards && !showReservationManager && !showOnboarding && !showPreferences && (
+          <SwipeIndicator 
+            activeTab={activeTab} 
+            isVisible={showSwipeIndicator}
+          />
+        )}
+
+        {/* Bottom Navigation */}
+        {!showRestaurantProfile && !showUserProfile && !showLeaderboard && !showLikTV && !showLikPassport && !showGuidePage && !showEventsPage && !showEventDetails && !showMessagesPage && !showMessageThread && !showTrendingSearch && !showSwipeDiscovery && !showNotifications && !showBountyDetails && !showRewards && !showReservationManager && !showOnboarding && !showPreferences && (
+          <div 
+            className={cn(
+              "border-t backdrop-blur-sm",
+              activeTab === 'trending' 
+                ? "bg-black border-black/20" 
+                : "border-border bg-background/95",
+              device.hasNotch && "safe-bottom"
+            )}
+            style={{ paddingBottom: device.hasNotch ? safeArea.bottom : 0 }}
+          >
+            <Navigation 
+              activeTab={activeTab} 
+              onTabChange={(tab) => {
+                setActiveTab(tab);
+                setShowSwipeIndicator(false);
+              }}
+              deviceType={device.type}
+              orientation={device.orientation}
+            />
+          </div>
+        )}
+
+        <Toaster 
+          position="top-center"
+          richColors
+          closeButton
+          offset={device.hasNotch ? safeArea.top + 60 : 60}
+        />
+      </div>
+    );
+  }
+
   // Show onboarding page (only if Supabase is configured)
   if (showOnboarding && isSupabaseConfigured) {
     return (
