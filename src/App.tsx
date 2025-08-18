@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import LikLogo from '@/assets/images/Lik_Logo_Heart_1.0.png';
 import { TabType } from '@/lib/types';
 import { Navigation } from '@/components/Navigation';
 import { HomeFeed } from '@/components/HomeFeed';
@@ -22,12 +23,14 @@ import { SwipeDiscoveryPage } from '@/components/SwipeDiscoveryPage';
 import { NotificationsPage } from '@/components/NotificationsPage';
 import { BountyDetailsPage } from '@/components/BountyDetailsPage';
 import { MyRewardsPage } from '@/components/MyRewardsPage';
+import { AuthPage } from '@/components/AuthPage';
+import { AuthProvider, useAuth } from '@/contexts/AuthContext';
 import { useDevice, useSafeArea } from '@/hooks/use-device';
 import { useTabSwipe } from '@/hooks/use-tab-swipe';
 import { Toaster } from '@/components/ui/sonner';
 import { cn } from '@/lib/utils';
 
-function App() {
+function AppContent() {
   const [activeTab, setActiveTab] = useState<TabType>('home');
   const [showRestaurantProfile, setShowRestaurantProfile] = useState<string | null>(null);
   const [showUserProfile, setShowUserProfile] = useState<string | null>(null);
@@ -45,18 +48,63 @@ function App() {
   const [showNotifications, setShowNotifications] = useState(false);
   const [showBountyDetails, setShowBountyDetails] = useState<string | null>(null);
   const [showRewards, setShowRewards] = useState(false);
+  const [showAuth, setShowAuth] = useState(false);
+  
+  // Always call hooks at the top level - never conditionally
+  const { user, loading } = useAuth();
   const device = useDevice();
   const safeArea = useSafeArea();
 
-  // Set up swipe gestures for tab navigation (disabled when showing restaurant profile)
+  // Check if Supabase is properly configured
+  const isSupabaseConfigured = import.meta.env.VITE_SUPABASE_URL !== 'https://placeholder.supabase.co' &&
+    import.meta.env.VITE_SUPABASE_ANON_KEY !== 'placeholder_anon_key';
+
+  // Set up swipe gestures for tab navigation (disabled when showing modals)
+  const swipeDisabled = !!(showRestaurantProfile || showUserProfile || showLeaderboard || showLikTV || showLikPassport || showGuidePage || showEventsPage || showEventDetails || showMessagesPage || showMessageThread || showTrendingSearch || showSwipeDiscovery || showNotifications || showBountyDetails || showRewards);
+  
   const tabSwipeHandlers = useTabSwipe({
     activeTab,
     onTabChange: (newTab) => {
       setActiveTab(newTab);
       setShowSwipeIndicator(true);
     },
-    disabled: !!showRestaurantProfile || !!showUserProfile || showLeaderboard || showLikTV || showLikPassport || showGuidePage || showEventsPage || !!showEventDetails || showMessagesPage || !!showMessageThread || showTrendingSearch || showSwipeDiscovery || showNotifications || !!showBountyDetails || showRewards,
+    disabled: swipeDisabled,
   });
+
+  // Use useEffect to handle auth state changes
+  useEffect(() => {
+    // Show auth page if not authenticated and not loading (only if Supabase is configured)
+    if (!loading && !user && !showAuth && isSupabaseConfigured) {
+      setShowAuth(true);
+    }
+
+    // Hide auth page if user is authenticated
+    if (user && showAuth) {
+      setShowAuth(false);
+    }
+  }, [loading, user, showAuth, isSupabaseConfigured]);
+
+  // Early returns only after all hooks are called
+  // Show auth page (only if Supabase is configured)
+  if (showAuth && isSupabaseConfigured) {
+    return <AuthPage onBack={() => setShowAuth(false)} />;
+  }
+
+  // Show loading state
+  if (loading) {
+    return (
+      <div className="h-screen bg-background flex items-center justify-center">
+        <div className="text-center">
+          <img 
+            src={LikLogo} 
+            alt="Lik" 
+            className="w-16 h-16 mx-auto mb-4 animate-pulse"
+          />
+          <p className="text-muted-foreground">Loading your food journey...</p>
+        </div>
+      </div>
+    );
+  }
 
   const renderActiveTab = () => {
     // Show Rewards if requested
@@ -390,6 +438,14 @@ function App() {
         offset={device.hasNotch ? safeArea.top + 60 : 60}
       />
     </div>
+  );
+}
+
+function App() {
+  return (
+    <AuthProvider>
+      <AppContent />
+    </AuthProvider>
   );
 }
 
