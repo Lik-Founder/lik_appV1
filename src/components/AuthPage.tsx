@@ -214,6 +214,18 @@ export function AuthPage({ onBack }: AuthPageProps) {
                   >
                     {loading ? 'Signing In...' : (signInData.email || signInData.password ? 'Sign In' : 'Continue as Guest')}
                   </Button>
+
+                  {/* Additional Bypass Button */}
+                  <div className="mt-4 pt-4 border-t border-border">
+                    <Button
+                      type="button"
+                      variant="outline"
+                      onClick={handleDevSkip}
+                      className="w-full border-green-200 text-green-700 hover:bg-green-50"
+                    >
+                      🚀 Skip Login & Enter App
+                    </Button>
+                  </div>
                 </form>
               </TabsContent>
 

@@ -191,23 +191,39 @@ export function OnboardingPage({ onGetStarted }: OnboardingPageProps) {
         </motion.div>
       </div>
 
-      {/* Skip Button */}
-      {currentStep > 0 && currentStep < steps.length - 1 && (
+      {/* Skip Button and Dev Bypass */}
+      <div className="absolute top-6 right-6 flex flex-col gap-2">
+        {currentStep > 0 && currentStep < steps.length - 1 && (
+          <motion.div 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 1 }}
+          >
+            <Button
+              variant="ghost"
+              onClick={onGetStarted}
+              className="text-white/70 hover:text-white hover:bg-white/10 font-rum-raisin"
+            >
+              Skip
+            </Button>
+          </motion.div>
+        )}
+        
+        {/* Dev bypass button */}
         <motion.div 
-          className="absolute top-6 right-6"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ delay: 1 }}
+          transition={{ delay: 1.5 }}
         >
           <Button
             variant="ghost"
             onClick={onGetStarted}
-            className="text-white/70 hover:text-white hover:bg-white/10 font-rum-raisin"
+            className="text-white/50 hover:text-white hover:bg-white/10 font-rum-raisin text-sm"
           >
-            Skip
+            🚀 Enter App
           </Button>
         </motion.div>
-      )}
+      </div>
     </div>
   );
 }

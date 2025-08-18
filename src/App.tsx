@@ -31,6 +31,7 @@ import { AuthProvider, useAuth } from '@/contexts/AuthContext';
 import { useDevice, useSafeArea } from '@/hooks/use-device';
 import { useTabSwipe } from '@/hooks/use-tab-swipe';
 import { Toaster } from '@/components/ui/sonner';
+import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 
 function AppContent() {
@@ -55,6 +56,7 @@ function AppContent() {
   const [showAuth, setShowAuth] = useState(false);
   const [showOnboarding, setShowOnboarding] = useState(false);
   const [showPreferences, setShowPreferences] = useState(false);
+  const [forceShowApp, setForceShowApp] = useState(false);
   
   // Always call hooks at the top level - never conditionally
   const { user, loading } = useAuth();
@@ -64,6 +66,18 @@ function AppContent() {
   // Check if Supabase is properly configured
   const isSupabaseConfigured = import.meta.env.VITE_SUPABASE_URL !== 'https://placeholder.supabase.co' &&
     import.meta.env.VITE_SUPABASE_ANON_KEY !== 'placeholder_anon_key';
+
+  // Force show app after timeout if loading takes too long
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      if (loading && !user) {
+        console.log('Auth loading timeout - forcing app to show');
+        setForceShowApp(true);
+      }
+    }, 3000); // 3 second timeout
+
+    return () => clearTimeout(timeout);
+  }, [loading, user]);
 
   // Set up swipe gestures for tab navigation (disabled when showing modals)
   const swipeDisabled = !!(showRestaurantProfile || showUserProfile || showLeaderboard || showLikTV || showLikPassport || showGuidePage || showEventsPage || showEventDetails || showMessagesPage || showMessageThread || showTrendingSearch || showSwipeDiscovery || showNotifications || showBountyDetails || showRewards || showReservationManager || showOnboarding || showPreferences);
@@ -368,14 +382,17 @@ function AppContent() {
 
   // Use useEffect to handle auth state changes
   useEffect(() => {
-    // If Supabase is not configured, skip auth flow and just show the app
-    if (!isSupabaseConfigured) {
-      console.log('Supabase not configured, showing app directly');
+    console.log('Auth state:', { loading, user: !!user, showAuth, showOnboarding, showPreferences, forceShowApp });
+    
+    // If we're forced to show the app or loading timeout, skip auth flow
+    if (forceShowApp) {
+      console.log('Force showing app');
       return;
     }
-
-    // Show onboarding for new users (only if Supabase is configured)
-    if (!loading && !user && !showAuth && !showOnboarding) {
+    
+    // Show onboarding for new users when no user is authenticated and not in any other flow
+    if (!loading && !user && !showAuth && !showOnboarding && !showPreferences) {
+      console.log('Showing onboarding');
       setShowOnboarding(true);
     }
 
@@ -394,10 +411,10 @@ function AppContent() {
       setShowAuth(false);
       setShowOnboarding(false);
     }
-  }, [loading, user, showAuth, showOnboarding, showPreferences, isSupabaseConfigured]);
+  }, [loading, user, showAuth, showOnboarding, showPreferences, forceShowApp]);
 
-  // Show onboarding page (only if Supabase is configured)
-  if (showOnboarding && isSupabaseConfigured) {
+  // Show onboarding page (but not if forced to show app)
+  if (showOnboarding && !forceShowApp) {
     return (
       <OnboardingPage 
         onGetStarted={() => {
@@ -421,13 +438,13 @@ function AppContent() {
     );
   }
 
-  // Show auth page (only if Supabase is configured)
-  if (showAuth && isSupabaseConfigured) {
+  // Show auth page (but not if forced to show app)
+  if (showAuth && !forceShowApp) {
     return <AuthPage onBack={() => setShowAuth(false)} />;
   }
 
-  // Show loading state
-  if (loading && isSupabaseConfigured) {
+  // Show loading state (but not if forced to show app)
+  if (loading && !forceShowApp) {
     return (
       <div className="h-screen bg-background flex items-center justify-center">
         <div className="text-center">
@@ -437,6 +454,13 @@ function AppContent() {
             className="w-16 h-16 mx-auto mb-4 animate-pulse"
           />
           <p className="text-muted-foreground">Loading your food journey...</p>
+          <Button 
+            variant="outline" 
+            onClick={() => setForceShowApp(true)}
+            className="mt-4"
+          >
+            Skip Loading & Enter App
+          </Button>
         </div>
       </div>
     );
