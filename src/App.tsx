@@ -24,6 +24,8 @@ import { NotificationsPage } from '@/components/NotificationsPage';
 import { BountyDetailsPage } from '@/components/BountyDetailsPage';
 import { MyRewardsPage } from '@/components/MyRewardsPage';
 import { AuthPage } from '@/components/AuthPage';
+import { OnboardingPage } from '@/components/OnboardingPage';
+import { PreferencesPage } from '@/components/PreferencesPage';
 import { AuthProvider, useAuth } from '@/contexts/AuthContext';
 import { useDevice, useSafeArea } from '@/hooks/use-device';
 import { useTabSwipe } from '@/hooks/use-tab-swipe';
@@ -49,6 +51,8 @@ function AppContent() {
   const [showBountyDetails, setShowBountyDetails] = useState<string | null>(null);
   const [showRewards, setShowRewards] = useState(false);
   const [showAuth, setShowAuth] = useState(false);
+  const [showOnboarding, setShowOnboarding] = useState(false);
+  const [showPreferences, setShowPreferences] = useState(false);
   
   // Always call hooks at the top level - never conditionally
   const { user, loading } = useAuth();
@@ -60,7 +64,7 @@ function AppContent() {
     import.meta.env.VITE_SUPABASE_ANON_KEY !== 'placeholder_anon_key';
 
   // Set up swipe gestures for tab navigation (disabled when showing modals)
-  const swipeDisabled = !!(showRestaurantProfile || showUserProfile || showLeaderboard || showLikTV || showLikPassport || showGuidePage || showEventsPage || showEventDetails || showMessagesPage || showMessageThread || showTrendingSearch || showSwipeDiscovery || showNotifications || showBountyDetails || showRewards);
+  const swipeDisabled = !!(showRestaurantProfile || showUserProfile || showLeaderboard || showLikTV || showLikPassport || showGuidePage || showEventsPage || showEventDetails || showMessagesPage || showMessageThread || showTrendingSearch || showSwipeDiscovery || showNotifications || showBountyDetails || showRewards || showOnboarding || showPreferences);
   
   const tabSwipeHandlers = useTabSwipe({
     activeTab,
@@ -73,18 +77,54 @@ function AppContent() {
 
   // Use useEffect to handle auth state changes
   useEffect(() => {
-    // Show auth page if not authenticated and not loading (only if Supabase is configured)
-    if (!loading && !user && !showAuth && isSupabaseConfigured) {
-      setShowAuth(true);
+    // Show onboarding for new users (only if Supabase is configured)
+    if (!loading && !user && !showAuth && !showOnboarding && isSupabaseConfigured) {
+      setShowOnboarding(true);
     }
 
-    // Hide auth page if user is authenticated
-    if (user && showAuth) {
+    // Show preferences page after successful authentication for new users
+    if (user && showAuth && !showPreferences) {
       setShowAuth(false);
+      // Check if user has completed preferences (you could store this in user metadata)
+      const hasCompletedPreferences = user.user_metadata?.preferences_completed;
+      if (!hasCompletedPreferences) {
+        setShowPreferences(true);
+      }
     }
-  }, [loading, user, showAuth, isSupabaseConfigured]);
+
+    // Hide auth/onboarding pages if user is authenticated
+    if (user && (showAuth || showOnboarding)) {
+      setShowAuth(false);
+      setShowOnboarding(false);
+    }
+  }, [loading, user, showAuth, showOnboarding, showPreferences, isSupabaseConfigured]);
 
   // Early returns only after all hooks are called
+  // Show onboarding page (only if Supabase is configured)
+  if (showOnboarding && isSupabaseConfigured) {
+    return (
+      <OnboardingPage 
+        onGetStarted={() => {
+          setShowOnboarding(false);
+          setShowAuth(true);
+        }} 
+      />
+    );
+  }
+
+  // Show preferences page
+  if (showPreferences) {
+    return (
+      <PreferencesPage 
+        onComplete={() => {
+          setShowPreferences(false);
+          // Update user metadata to mark preferences as completed
+          // This would typically be done through your auth service
+        }} 
+      />
+    );
+  }
+
   // Show auth page (only if Supabase is configured)
   if (showAuth && isSupabaseConfigured) {
     return <AuthPage onBack={() => setShowAuth(false)} />;
@@ -400,7 +440,7 @@ function AppContent() {
       </div>
 
       {/* Swipe Indicator */}
-      {!showRestaurantProfile && !showUserProfile && !showLeaderboard && !showLikTV && !showLikPassport && !showGuidePage && !showEventsPage && !showEventDetails && !showMessagesPage && !showMessageThread && !showTrendingSearch && !showSwipeDiscovery && !showNotifications && !showBountyDetails && !showRewards && (
+      {!showRestaurantProfile && !showUserProfile && !showLeaderboard && !showLikTV && !showLikPassport && !showGuidePage && !showEventsPage && !showEventDetails && !showMessagesPage && !showMessageThread && !showTrendingSearch && !showSwipeDiscovery && !showNotifications && !showBountyDetails && !showRewards && !showOnboarding && !showPreferences && (
         <SwipeIndicator 
           activeTab={activeTab} 
           isVisible={showSwipeIndicator}
@@ -408,7 +448,7 @@ function AppContent() {
       )}
 
       {/* Bottom Navigation - Hide when viewing restaurant profile */}
-      {!showRestaurantProfile && !showUserProfile && !showLeaderboard && !showLikTV && !showLikPassport && !showGuidePage && !showEventsPage && !showEventDetails && !showMessagesPage && !showMessageThread && !showTrendingSearch && !showSwipeDiscovery && !showNotifications && !showBountyDetails && !showRewards && (
+      {!showRestaurantProfile && !showUserProfile && !showLeaderboard && !showLikTV && !showLikPassport && !showGuidePage && !showEventsPage && !showEventDetails && !showMessagesPage && !showMessageThread && !showTrendingSearch && !showSwipeDiscovery && !showNotifications && !showBountyDetails && !showRewards && !showOnboarding && !showPreferences && (
         <div 
           className={cn(
             "border-t backdrop-blur-sm",

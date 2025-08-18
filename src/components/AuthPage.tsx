@@ -8,6 +8,7 @@ import { Separator } from '@/components/ui/separator'
 import { useAuth } from '@/contexts/AuthContext'
 import { toast } from 'sonner'
 import { Eye, EyeOff, ArrowLeft } from '@phosphor-icons/react'
+import LikLogo from '@/assets/images/Lik_Logo_Heart_1.0.png'
 
 interface AuthPageProps {
   onBack: () => void
@@ -115,7 +116,7 @@ export function AuthPage({ onBack }: AuthPageProps) {
           </Button>
           <div className="flex items-center space-x-2">
             <img 
-              src="/src/assets/images/Lik_Logo_Heart_1.0.png" 
+              src={LikLogo} 
               alt="Lik" 
               className="w-8 h-8"
             />
