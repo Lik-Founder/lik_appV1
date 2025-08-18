@@ -77,143 +77,7 @@ function AppContent() {
     disabled: swipeDisabled,
   });
 
-  // Use useEffect to handle auth state changes
-  useEffect(() => {
-    // If Supabase is not configured, skip auth flow and just show the app
-    if (!isSupabaseConfigured) {
-      console.log('Supabase not configured, showing app directly');
-      return;
-    }
-
-    // Show onboarding for new users (only if Supabase is configured)
-    if (!loading && !user && !showAuth && !showOnboarding) {
-      setShowOnboarding(true);
-    }
-
-    // Show preferences page after successful authentication for new users
-    if (user && showAuth && !showPreferences) {
-      setShowAuth(false);
-      // Check if user has completed preferences (you could store this in user metadata)
-      const hasCompletedPreferences = user.user_metadata?.preferences_completed;
-      if (!hasCompletedPreferences) {
-        setShowPreferences(true);
-      }
-    }
-
-    // Hide auth/onboarding pages if user is authenticated
-    if (user && (showAuth || showOnboarding)) {
-      setShowAuth(false);
-      setShowOnboarding(false);
-    }
-  }, [loading, user, showAuth, showOnboarding, showPreferences, isSupabaseConfigured]);
-
-  // Early returns only after all hooks are called
-  // If Supabase is not configured, skip auth flow and show the app directly
-  if (!isSupabaseConfigured) {
-    return (
-      <div 
-        className={cn(
-          "h-screen bg-background flex flex-col tab-navigation-container no-select-on-swipe",
-          device.hasNotch && "safe-area"
-        )}
-        style={{
-          height: device.orientation === 'landscape' ? '100vh' : '100dvh'
-        }}
-        {...tabSwipeHandlers}
-      >
-        {/* Main Content Area */}
-        <div className="flex-1 overflow-hidden">
-          {renderActiveTab()}
-        </div>
-
-        {/* Swipe Indicator */}
-        {!showRestaurantProfile && !showUserProfile && !showLeaderboard && !showLikTV && !showLikPassport && !showGuidePage && !showEventsPage && !showEventDetails && !showMessagesPage && !showMessageThread && !showTrendingSearch && !showSwipeDiscovery && !showNotifications && !showBountyDetails && !showRewards && !showReservationManager && !showOnboarding && !showPreferences && (
-          <SwipeIndicator 
-            activeTab={activeTab} 
-            isVisible={showSwipeIndicator}
-          />
-        )}
-
-        {/* Bottom Navigation */}
-        {!showRestaurantProfile && !showUserProfile && !showLeaderboard && !showLikTV && !showLikPassport && !showGuidePage && !showEventsPage && !showEventDetails && !showMessagesPage && !showMessageThread && !showTrendingSearch && !showSwipeDiscovery && !showNotifications && !showBountyDetails && !showRewards && !showReservationManager && !showOnboarding && !showPreferences && (
-          <div 
-            className={cn(
-              "border-t backdrop-blur-sm",
-              activeTab === 'trending' 
-                ? "bg-black border-black/20" 
-                : "border-border bg-background/95",
-              device.hasNotch && "safe-bottom"
-            )}
-            style={{ paddingBottom: device.hasNotch ? safeArea.bottom : 0 }}
-          >
-            <Navigation 
-              activeTab={activeTab} 
-              onTabChange={(tab) => {
-                setActiveTab(tab);
-                setShowSwipeIndicator(false);
-              }}
-              deviceType={device.type}
-              orientation={device.orientation}
-            />
-          </div>
-        )}
-
-        <Toaster 
-          position="top-center"
-          richColors
-          closeButton
-          offset={device.hasNotch ? safeArea.top + 60 : 60}
-        />
-      </div>
-    );
-  }
-
-  // Show onboarding page (only if Supabase is configured)
-  if (showOnboarding && isSupabaseConfigured) {
-    return (
-      <OnboardingPage 
-        onGetStarted={() => {
-          setShowOnboarding(false);
-          setShowAuth(true);
-        }} 
-      />
-    );
-  }
-
-  // Show preferences page
-  if (showPreferences) {
-    return (
-      <PreferencesPage 
-        onComplete={() => {
-          setShowPreferences(false);
-          // Update user metadata to mark preferences as completed
-          // This would typically be done through your auth service
-        }} 
-      />
-    );
-  }
-
-  // Show auth page (only if Supabase is configured)
-  if (showAuth && isSupabaseConfigured) {
-    return <AuthPage onBack={() => setShowAuth(false)} />;
-  }
-
-  // Show loading state
-  if (loading) {
-    return (
-      <div className="h-screen bg-background flex items-center justify-center">
-        <div className="text-center">
-          <img 
-            src={LikLogo} 
-            alt="Lik" 
-            className="w-16 h-16 mx-auto mb-4 animate-pulse"
-          />
-          <p className="text-muted-foreground">Loading your food journey...</p>
-        </div>
-      </div>
-    );
-  }
-
+  // Define renderActiveTab function before any early returns
   const renderActiveTab = () => {
     // Show Reservation Manager if requested
     if (showReservationManager) {
@@ -502,6 +366,82 @@ function AppContent() {
     }
   };
 
+  // Use useEffect to handle auth state changes
+  useEffect(() => {
+    // If Supabase is not configured, skip auth flow and just show the app
+    if (!isSupabaseConfigured) {
+      console.log('Supabase not configured, showing app directly');
+      return;
+    }
+
+    // Show onboarding for new users (only if Supabase is configured)
+    if (!loading && !user && !showAuth && !showOnboarding) {
+      setShowOnboarding(true);
+    }
+
+    // Show preferences page after successful authentication for new users
+    if (user && showAuth && !showPreferences) {
+      setShowAuth(false);
+      // Check if user has completed preferences (you could store this in user metadata)
+      const hasCompletedPreferences = user.user_metadata?.preferences_completed;
+      if (!hasCompletedPreferences) {
+        setShowPreferences(true);
+      }
+    }
+
+    // Hide auth/onboarding pages if user is authenticated
+    if (user && (showAuth || showOnboarding)) {
+      setShowAuth(false);
+      setShowOnboarding(false);
+    }
+  }, [loading, user, showAuth, showOnboarding, showPreferences, isSupabaseConfigured]);
+
+  // Show onboarding page (only if Supabase is configured)
+  if (showOnboarding && isSupabaseConfigured) {
+    return (
+      <OnboardingPage 
+        onGetStarted={() => {
+          setShowOnboarding(false);
+          setShowAuth(true);
+        }} 
+      />
+    );
+  }
+
+  // Show preferences page
+  if (showPreferences) {
+    return (
+      <PreferencesPage 
+        onComplete={() => {
+          setShowPreferences(false);
+          // Update user metadata to mark preferences as completed
+          // This would typically be done through your auth service
+        }} 
+      />
+    );
+  }
+
+  // Show auth page (only if Supabase is configured)
+  if (showAuth && isSupabaseConfigured) {
+    return <AuthPage onBack={() => setShowAuth(false)} />;
+  }
+
+  // Show loading state
+  if (loading && isSupabaseConfigured) {
+    return (
+      <div className="h-screen bg-background flex items-center justify-center">
+        <div className="text-center">
+          <img 
+            src={LikLogo} 
+            alt="Lik" 
+            className="w-16 h-16 mx-auto mb-4 animate-pulse"
+          />
+          <p className="text-muted-foreground">Loading your food journey...</p>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div 
       className={cn(
@@ -509,12 +449,10 @@ function AppContent() {
         device.hasNotch && "safe-area"
       )}
       style={{
-        height: device.orientation === 'landscape' ? '100vh' : '100dvh' // Use dynamic viewport height
+        height: device.orientation === 'landscape' ? '100vh' : '100dvh'
       }}
-      {...tabSwipeHandlers} // Add swipe handlers to the main container
+      {...tabSwipeHandlers}
     >
-
-
       {/* Main Content Area */}
       <div className="flex-1 overflow-hidden">
         {renderActiveTab()}
@@ -528,7 +466,7 @@ function AppContent() {
         />
       )}
 
-      {/* Bottom Navigation - Hide when viewing restaurant profile */}
+      {/* Bottom Navigation */}
       {!showRestaurantProfile && !showUserProfile && !showLeaderboard && !showLikTV && !showLikPassport && !showGuidePage && !showEventsPage && !showEventDetails && !showMessagesPage && !showMessageThread && !showTrendingSearch && !showSwipeDiscovery && !showNotifications && !showBountyDetails && !showRewards && !showReservationManager && !showOnboarding && !showPreferences && (
         <div 
           className={cn(
@@ -544,7 +482,7 @@ function AppContent() {
             activeTab={activeTab} 
             onTabChange={(tab) => {
               setActiveTab(tab);
-              setShowSwipeIndicator(false); // Hide indicator when using nav buttons
+              setShowSwipeIndicator(false);
             }}
             deviceType={device.type}
             orientation={device.orientation}
