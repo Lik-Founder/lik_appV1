@@ -1,5 +1,4 @@
-import { useState, useEffect } from 'react';
-import LikLogo from '@/assets/images/Lik_Logo_Heart_1.0.png';
+import { useState } from 'react';
 import { TabType } from '@/lib/types';
 import { Navigation } from '@/components/Navigation';
 import { HomeFeed } from '@/components/HomeFeed';
@@ -24,17 +23,12 @@ import { NotificationsPage } from '@/components/NotificationsPage';
 import { BountyDetailsPage } from '@/components/BountyDetailsPage';
 import { MyRewardsPage } from '@/components/MyRewardsPage';
 import { ReservationManager } from '@/components/ReservationManager';
-import { AuthPage } from '@/components/AuthPage';
-import { OnboardingPage } from '@/components/OnboardingPage';
-import { PreferencesPage } from '@/components/PreferencesPage';
-import { AuthProvider, useAuth } from '@/contexts/AuthContext';
 import { useDevice, useSafeArea } from '@/hooks/use-device';
 import { useTabSwipe } from '@/hooks/use-tab-swipe';
 import { Toaster } from '@/components/ui/sonner';
-import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 
-function AppContent() {
+function App() {
   const [activeTab, setActiveTab] = useState<TabType>('home');
   const [showRestaurantProfile, setShowRestaurantProfile] = useState<string | null>(null);
   const [showUserProfile, setShowUserProfile] = useState<string | null>(null);
@@ -53,61 +47,12 @@ function AppContent() {
   const [showBountyDetails, setShowBountyDetails] = useState<string | null>(null);
   const [showRewards, setShowRewards] = useState(false);
   const [showReservationManager, setShowReservationManager] = useState(false);
-  const [showAuth, setShowAuth] = useState(false);
-  const [showOnboarding, setShowOnboarding] = useState(false);
-  const [showPreferences, setShowPreferences] = useState(false);
-  const [forceShowApp, setForceShowApp] = useState(false);
   
-  // Always call hooks at the top level - never conditionally
-  const { user, loading } = useAuth();
   const device = useDevice();
   const safeArea = useSafeArea();
 
-  // Check if Supabase is properly configured
-  const isSupabaseConfigured = import.meta.env.VITE_SUPABASE_URL !== 'https://placeholder.supabase.co' &&
-    import.meta.env.VITE_SUPABASE_ANON_KEY !== 'placeholder_anon_key';
-
-  // Force show app after timeout if loading takes too long
-  useEffect(() => {
-    const timeout = setTimeout(() => {
-      if (loading && !user) {
-        console.log('Auth loading timeout - forcing app to show');
-        setForceShowApp(true);
-      }
-    }, 500); // Very short timeout - 500ms
-
-    return () => clearTimeout(timeout);
-  }, [loading, user]);
-
-  // Immediate check - if not loading and no user, show onboarding right away
-  useEffect(() => {
-    if (!loading && !user && !showOnboarding && !showAuth && !showPreferences) {
-      console.log('No user detected - showing onboarding immediately');
-      setShowOnboarding(true);
-    }
-  }, [loading, user, showOnboarding, showAuth, showPreferences]);
-
-  // Emergency fallback - if we've been here for more than 2 seconds and still loading, show onboarding
-  useEffect(() => {
-    const emergencyTimeout = setTimeout(() => {
-      console.log('Emergency fallback triggered - forcing onboarding');
-      setShowOnboarding(true);
-      setForceShowApp(true);
-    }, 1000); // Reduced to 1 second
-
-    return () => clearTimeout(emergencyTimeout);
-  }, []);
-
-  // Immediate check on mount - if nothing is showing and we're not loading, show onboarding
-  useEffect(() => {
-    if (!loading && !user && !showOnboarding && !showAuth && !showPreferences && !forceShowApp) {
-      console.log('Immediate mount check - showing onboarding');
-      setShowOnboarding(true);
-    }
-  }, []);
-
   // Set up swipe gestures for tab navigation (disabled when showing modals)
-  const swipeDisabled = !!(showRestaurantProfile || showUserProfile || showLeaderboard || showLikTV || showLikPassport || showGuidePage || showEventsPage || showEventDetails || showMessagesPage || showMessageThread || showTrendingSearch || showSwipeDiscovery || showNotifications || showBountyDetails || showRewards || showReservationManager || showOnboarding || showPreferences);
+  const swipeDisabled = !!(showRestaurantProfile || showUserProfile || showLeaderboard || showLikTV || showLikPassport || showGuidePage || showEventsPage || showEventDetails || showMessagesPage || showMessageThread || showTrendingSearch || showSwipeDiscovery || showNotifications || showBountyDetails || showRewards || showReservationManager);
   
   const tabSwipeHandlers = useTabSwipe({
     activeTab,
@@ -118,7 +63,7 @@ function AppContent() {
     disabled: swipeDisabled,
   });
 
-  // Define renderActiveTab function before any early returns
+  // Define renderActiveTab function
   const renderActiveTab = () => {
     // Show Reservation Manager if requested
     if (showReservationManager) {
@@ -407,118 +352,6 @@ function AppContent() {
     }
   };
 
-  // Simplified auth flow logic
-  useEffect(() => {
-    console.log('Auth state:', { loading, user: !!user, showAuth, showOnboarding, showPreferences, forceShowApp });
-    
-    // If we're forced to show the app, skip all auth flows
-    if (forceShowApp) {
-      console.log('Force showing app - skipping auth flows');
-      setShowOnboarding(false);
-      setShowAuth(false);
-      setShowPreferences(false);
-      return;
-    }
-
-    // If user is authenticated, hide all onboarding flows
-    if (user) {
-      console.log('User authenticated - hiding onboarding');
-      setShowOnboarding(false);
-      if (showAuth) {
-        setShowAuth(false);
-        // Check if user needs to complete preferences
-        const hasCompletedPreferences = user.user_metadata?.preferences_completed;
-        if (!hasCompletedPreferences) {
-          setShowPreferences(true);
-        }
-      }
-      return;
-    }
-
-    // If not loading and no user, show onboarding
-    if (!loading && !user && !showOnboarding && !showAuth && !showPreferences) {
-      console.log('Not loading, no user - showing onboarding');
-      setShowOnboarding(true);
-    }
-  }, [loading, user, showAuth, showOnboarding, showPreferences, forceShowApp]);
-
-  // Show onboarding page (but not if forced to show app)
-  if (showOnboarding && !forceShowApp) {
-    return (
-      <OnboardingPage 
-        onGetStarted={() => {
-          setShowOnboarding(false);
-          setShowAuth(true);
-        }} 
-      />
-    );
-  }
-
-  // Also show onboarding if forced to show app AND we have showOnboarding flag
-  if (showOnboarding && forceShowApp) {
-    return (
-      <OnboardingPage 
-        onGetStarted={() => {
-          setShowOnboarding(false);
-          setForceShowApp(true); // Keep forced state
-        }} 
-      />
-    );
-  }
-
-  // Show preferences page
-  if (showPreferences) {
-    return (
-      <PreferencesPage 
-        onComplete={() => {
-          setShowPreferences(false);
-          // Update user metadata to mark preferences as completed
-          // This would typically be done through your auth service
-        }} 
-      />
-    );
-  }
-
-  // Show auth page (but not if forced to show app)
-  if (showAuth && !forceShowApp) {
-    return <AuthPage onBack={() => setShowAuth(false)} />;
-  }
-
-  // Show loading state (but not if forced to show app)
-  if (loading && !forceShowApp && !showOnboarding) {
-    return (
-      <div className="h-screen bg-background flex items-center justify-center">
-        <div className="text-center">
-          <img 
-            src={LikLogo} 
-            alt="Lik" 
-            className="w-16 h-16 mx-auto mb-4 animate-pulse"
-          />
-          <p className="text-muted-foreground mb-4">Loading your food journey...</p>
-          <div className="flex flex-col gap-2">
-            <Button 
-              variant="outline" 
-              onClick={() => setForceShowApp(true)}
-              className="mx-auto"
-            >
-              Skip Loading & Enter App
-            </Button>
-            <Button 
-              variant="ghost" 
-              onClick={() => {
-                setShowOnboarding(true);
-                setForceShowApp(true);
-              }}
-              className="mx-auto text-sm"
-            >
-              Start Fresh (Onboarding)
-            </Button>
-          </div>
-        </div>
-      </div>
-    );
-  }
-
   return (
     <div 
       className={cn(
@@ -536,7 +369,7 @@ function AppContent() {
       </div>
 
       {/* Swipe Indicator */}
-      {!showRestaurantProfile && !showUserProfile && !showLeaderboard && !showLikTV && !showLikPassport && !showGuidePage && !showEventsPage && !showEventDetails && !showMessagesPage && !showMessageThread && !showTrendingSearch && !showSwipeDiscovery && !showNotifications && !showBountyDetails && !showRewards && !showReservationManager && !showOnboarding && !showPreferences && (
+      {!showRestaurantProfile && !showUserProfile && !showLeaderboard && !showLikTV && !showLikPassport && !showGuidePage && !showEventsPage && !showEventDetails && !showMessagesPage && !showMessageThread && !showTrendingSearch && !showSwipeDiscovery && !showNotifications && !showBountyDetails && !showRewards && !showReservationManager && (
         <SwipeIndicator 
           activeTab={activeTab} 
           isVisible={showSwipeIndicator}
@@ -544,7 +377,7 @@ function AppContent() {
       )}
 
       {/* Bottom Navigation */}
-      {!showRestaurantProfile && !showUserProfile && !showLeaderboard && !showLikTV && !showLikPassport && !showGuidePage && !showEventsPage && !showEventDetails && !showMessagesPage && !showMessageThread && !showTrendingSearch && !showSwipeDiscovery && !showNotifications && !showBountyDetails && !showRewards && !showReservationManager && !showOnboarding && !showPreferences && (
+      {!showRestaurantProfile && !showUserProfile && !showLeaderboard && !showLikTV && !showLikPassport && !showGuidePage && !showEventsPage && !showEventDetails && !showMessagesPage && !showMessageThread && !showTrendingSearch && !showSwipeDiscovery && !showNotifications && !showBountyDetails && !showRewards && !showReservationManager && (
         <div 
           className={cn(
             "border-t backdrop-blur-sm",
@@ -574,14 +407,6 @@ function AppContent() {
         offset={device.hasNotch ? safeArea.top + 60 : 60}
       />
     </div>
-  );
-}
-
-function App() {
-  return (
-    <AuthProvider>
-      <AppContent />
-    </AuthProvider>
   );
 }
 

@@ -1,12 +1,17 @@
 import { useState, useEffect } from 'react'
 import { supabase } from '@/lib/supabase'
-import { useAuth } from '@/contexts/AuthContext'
 import { toast } from 'sonner'
+
+// Mock user for development
+const mockUser = {
+  id: 'mock-user-123',
+  email: 'guest@lik.app'
+}
 
 export function useRealTimeMessages(chatId: string) {
   const [messages, setMessages] = useState<any[]>([])
   const [loading, setLoading] = useState(true)
-  const { user } = useAuth()
+  const user = mockUser
 
   useEffect(() => {
     if (!chatId || !user) return
@@ -133,7 +138,7 @@ export function useRealTimeMessages(chatId: string) {
 export function useRealTimeNotifications() {
   const [notifications, setNotifications] = useState<any[]>([])
   const [unreadCount, setUnreadCount] = useState(0)
-  const { user } = useAuth()
+  const user = mockUser
 
   useEffect(() => {
     if (!user) return
