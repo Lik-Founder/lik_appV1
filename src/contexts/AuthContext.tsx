@@ -38,8 +38,15 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       return
     }
 
+    // Add timeout for initial auth check
+    const authTimeout = setTimeout(() => {
+      console.log('Auth initialization timeout - setting loading to false')
+      setLoading(false)
+    }, 2000)
+
     // Get initial session
     supabase.auth.getSession().then(({ data: { session } }) => {
+      clearTimeout(authTimeout)
       setSession(session)
       setUser(session?.user ?? null)
       if (session?.user) {
@@ -48,6 +55,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         setLoading(false)
       }
     }).catch((error) => {
+      clearTimeout(authTimeout)
       console.error('Error getting session:', error)
       setLoading(false)
     })
@@ -67,7 +75,10 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       }
     })
 
-    return () => subscription.unsubscribe()
+    return () => {
+      clearTimeout(authTimeout)
+      subscription.unsubscribe()
+    }
   }, [])
 
   const fetchProfile = async (userId: string) => {

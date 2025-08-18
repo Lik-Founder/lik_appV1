@@ -74,10 +74,37 @@ function AppContent() {
         console.log('Auth loading timeout - forcing app to show');
         setForceShowApp(true);
       }
-    }, 3000); // 3 second timeout
+    }, 500); // Very short timeout - 500ms
 
     return () => clearTimeout(timeout);
   }, [loading, user]);
+
+  // Immediate check - if not loading and no user, show onboarding right away
+  useEffect(() => {
+    if (!loading && !user && !showOnboarding && !showAuth && !showPreferences) {
+      console.log('No user detected - showing onboarding immediately');
+      setShowOnboarding(true);
+    }
+  }, [loading, user, showOnboarding, showAuth, showPreferences]);
+
+  // Emergency fallback - if we've been here for more than 2 seconds and still loading, show onboarding
+  useEffect(() => {
+    const emergencyTimeout = setTimeout(() => {
+      console.log('Emergency fallback triggered - forcing onboarding');
+      setShowOnboarding(true);
+      setForceShowApp(true);
+    }, 1000); // Reduced to 1 second
+
+    return () => clearTimeout(emergencyTimeout);
+  }, []);
+
+  // Immediate check on mount - if nothing is showing and we're not loading, show onboarding
+  useEffect(() => {
+    if (!loading && !user && !showOnboarding && !showAuth && !showPreferences && !forceShowApp) {
+      console.log('Immediate mount check - showing onboarding');
+      setShowOnboarding(true);
+    }
+  }, []);
 
   // Set up swipe gestures for tab navigation (disabled when showing modals)
   const swipeDisabled = !!(showRestaurantProfile || showUserProfile || showLeaderboard || showLikTV || showLikPassport || showGuidePage || showEventsPage || showEventDetails || showMessagesPage || showMessageThread || showTrendingSearch || showSwipeDiscovery || showNotifications || showBountyDetails || showRewards || showReservationManager || showOnboarding || showPreferences);
@@ -380,36 +407,38 @@ function AppContent() {
     }
   };
 
-  // Use useEffect to handle auth state changes
+  // Simplified auth flow logic
   useEffect(() => {
     console.log('Auth state:', { loading, user: !!user, showAuth, showOnboarding, showPreferences, forceShowApp });
     
-    // If we're forced to show the app or loading timeout, skip auth flow
+    // If we're forced to show the app, skip all auth flows
     if (forceShowApp) {
-      console.log('Force showing app');
+      console.log('Force showing app - skipping auth flows');
+      setShowOnboarding(false);
+      setShowAuth(false);
+      setShowPreferences(false);
       return;
     }
-    
-    // Show onboarding for new users when no user is authenticated and not in any other flow
-    if (!loading && !user && !showAuth && !showOnboarding && !showPreferences) {
-      console.log('Showing onboarding');
-      setShowOnboarding(true);
-    }
 
-    // Show preferences page after successful authentication for new users
-    if (user && showAuth && !showPreferences) {
-      setShowAuth(false);
-      // Check if user has completed preferences (you could store this in user metadata)
-      const hasCompletedPreferences = user.user_metadata?.preferences_completed;
-      if (!hasCompletedPreferences) {
-        setShowPreferences(true);
-      }
-    }
-
-    // Hide auth/onboarding pages if user is authenticated
-    if (user && (showAuth || showOnboarding)) {
-      setShowAuth(false);
+    // If user is authenticated, hide all onboarding flows
+    if (user) {
+      console.log('User authenticated - hiding onboarding');
       setShowOnboarding(false);
+      if (showAuth) {
+        setShowAuth(false);
+        // Check if user needs to complete preferences
+        const hasCompletedPreferences = user.user_metadata?.preferences_completed;
+        if (!hasCompletedPreferences) {
+          setShowPreferences(true);
+        }
+      }
+      return;
+    }
+
+    // If not loading and no user, show onboarding
+    if (!loading && !user && !showOnboarding && !showAuth && !showPreferences) {
+      console.log('Not loading, no user - showing onboarding');
+      setShowOnboarding(true);
     }
   }, [loading, user, showAuth, showOnboarding, showPreferences, forceShowApp]);
 
@@ -420,6 +449,18 @@ function AppContent() {
         onGetStarted={() => {
           setShowOnboarding(false);
           setShowAuth(true);
+        }} 
+      />
+    );
+  }
+
+  // Also show onboarding if forced to show app AND we have showOnboarding flag
+  if (showOnboarding && forceShowApp) {
+    return (
+      <OnboardingPage 
+        onGetStarted={() => {
+          setShowOnboarding(false);
+          setForceShowApp(true); // Keep forced state
         }} 
       />
     );
@@ -444,7 +485,7 @@ function AppContent() {
   }
 
   // Show loading state (but not if forced to show app)
-  if (loading && !forceShowApp) {
+  if (loading && !forceShowApp && !showOnboarding) {
     return (
       <div className="h-screen bg-background flex items-center justify-center">
         <div className="text-center">
@@ -453,14 +494,26 @@ function AppContent() {
             alt="Lik" 
             className="w-16 h-16 mx-auto mb-4 animate-pulse"
           />
-          <p className="text-muted-foreground">Loading your food journey...</p>
-          <Button 
-            variant="outline" 
-            onClick={() => setForceShowApp(true)}
-            className="mt-4"
-          >
-            Skip Loading & Enter App
-          </Button>
+          <p className="text-muted-foreground mb-4">Loading your food journey...</p>
+          <div className="flex flex-col gap-2">
+            <Button 
+              variant="outline" 
+              onClick={() => setForceShowApp(true)}
+              className="mx-auto"
+            >
+              Skip Loading & Enter App
+            </Button>
+            <Button 
+              variant="ghost" 
+              onClick={() => {
+                setShowOnboarding(true);
+                setForceShowApp(true);
+              }}
+              className="mx-auto text-sm"
+            >
+              Start Fresh (Onboarding)
+            </Button>
+          </div>
         </div>
       </div>
     );

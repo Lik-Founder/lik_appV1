@@ -38,10 +38,18 @@ export function AuthPage({ onBack }: AuthPageProps) {
   const isSupabaseConfigured = import.meta.env.VITE_SUPABASE_URL !== 'https://placeholder.supabase.co' &&
     import.meta.env.VITE_SUPABASE_ANON_KEY !== 'placeholder_anon_key'
 
-  const handleDevSkip = () => {
-    toast.info('Skipping authentication in development mode')
-    onBack()
-  }
+  const handleDevSkip = async () => {
+    try {
+      // Use the bypass login method
+      await signIn('', '');
+      toast.success('Welcome to Lik! (Guest Mode)');
+      onBack();
+    } catch (error: any) {
+      toast.error('Failed to bypass authentication');
+      // Force bypass by going back anyway
+      onBack();
+    }
+  };
 
   const handleSignIn = async (e: React.FormEvent) => {
     e.preventDefault()
