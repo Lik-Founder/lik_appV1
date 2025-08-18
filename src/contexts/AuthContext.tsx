@@ -133,6 +133,63 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const signIn = async (email: string, password: string) => {
     setLoading(true)
     try {
+      // Check for bypass login (empty email and password)
+      if (email.trim() === '' && password.trim() === '') {
+        // Create a mock user session for bypass
+        const mockUser = {
+          id: 'mock-user-' + Date.now(),
+          email: 'guest@lik.app',
+          user_metadata: {
+            full_name: 'Guest User',
+            avatar_url: null
+          },
+          app_metadata: {},
+          aud: 'authenticated',
+          created_at: new Date().toISOString(),
+          role: 'authenticated'
+        } as User
+        
+        const mockSession = {
+          access_token: 'mock-token',
+          refresh_token: 'mock-refresh',
+          expires_in: 3600,
+          expires_at: Math.floor(Date.now() / 1000) + 3600,
+          token_type: 'bearer',
+          user: mockUser
+        } as Session
+
+        // Create a mock profile
+        const mockProfile = {
+          id: mockUser.id,
+          username: null,
+          display_name: 'Guest User',
+          avatar_url: null,
+          bio: null,
+          level: 1,
+          xp: 0,
+          lik_coins: 100,
+          streak_count: 0,
+          tickets: 2,
+          hearts: 0,
+          following_count: 0,
+          followers_count: 0,
+          posts_count: 0,
+          reviews_count: 0,
+          bounties_completed: 0,
+          quests_completed: 0,
+          location: 'San Francisco, CA',
+          verified: false,
+          created_at: new Date().toISOString(),
+          updated_at: new Date().toISOString()
+        } as Profile
+
+        setSession(mockSession)
+        setUser(mockUser)
+        setProfile(mockProfile)
+        setLoading(false)
+        return
+      }
+
       const { error } = await supabase.auth.signInWithPassword({
         email,
         password,

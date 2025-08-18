@@ -45,8 +45,24 @@ export function AuthPage({ onBack }: AuthPageProps) {
 
   const handleSignIn = async (e: React.FormEvent) => {
     e.preventDefault()
+
+    // Allow bypass login with empty credentials
+    if (!signInData.email && !signInData.password) {
+      setLoading(true)
+      try {
+        await signIn('', '')
+        toast.success('Welcome to Lik! (Guest Mode)')
+        onBack()
+      } catch (error: any) {
+        toast.error(error.message || 'Failed to sign in')
+      } finally {
+        setLoading(false)
+      }
+      return
+    }
+
     if (!signInData.email || !signInData.password) {
-      toast.error('Please fill in all fields')
+      toast.error('Please fill in all fields or leave both empty to continue as guest')
       return
     }
 
@@ -146,12 +162,18 @@ export function AuthPage({ onBack }: AuthPageProps) {
 
               <TabsContent value="signin">
                 <form onSubmit={handleSignIn} className="space-y-4">
+                  <div className="bg-blue-50 border border-blue-200 rounded-lg p-3 mb-4">
+                    <p className="text-sm text-blue-700">
+                      💡 <strong>Quick Start:</strong> Leave both fields empty and click "Sign In" to continue as a guest
+                    </p>
+                  </div>
+                  
                   <div className="space-y-2">
                     <Label htmlFor="signin-email">Email</Label>
                     <Input
                       id="signin-email"
                       type="email"
-                      placeholder="Enter your email"
+                      placeholder="Enter your email (or leave empty for guest mode)"
                       value={signInData.email}
                       onChange={(e) => setSignInData(prev => ({ ...prev, email: e.target.value }))}
                       disabled={loading}
@@ -164,7 +186,7 @@ export function AuthPage({ onBack }: AuthPageProps) {
                       <Input
                         id="signin-password"
                         type={showPassword ? "text" : "password"}
-                        placeholder="Enter your password"
+                        placeholder="Enter your password (or leave empty for guest mode)"
                         value={signInData.password}
                         onChange={(e) => setSignInData(prev => ({ ...prev, password: e.target.value }))}
                         disabled={loading}
@@ -190,7 +212,7 @@ export function AuthPage({ onBack }: AuthPageProps) {
                     className="w-full bg-primary hover:bg-primary/90" 
                     disabled={loading}
                   >
-                    {loading ? 'Signing In...' : 'Sign In'}
+                    {loading ? 'Signing In...' : (signInData.email || signInData.password ? 'Sign In' : 'Continue as Guest')}
                   </Button>
                 </form>
               </TabsContent>
