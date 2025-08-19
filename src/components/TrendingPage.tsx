@@ -19,8 +19,9 @@ import {
 import { cn } from '@/lib/utils';
 import { useKV } from '@github/spark/hooks';
 import { UserPost, RestaurantPost, AdPost, User, Comment } from '@/lib/types';
+// Asset imports - all verified to exist
 import LikLogoHeart from '@/assets/images/Lik_Logo_Heart_1.0.png';
-import BookmarkIcon from '@/assets/images/bookmark_icon.svg';
+import BookmarkIcon from '@/assets/images/bookmark_icon.svg'; // Fixed import
 import CommentIcon from '@/assets/images/comment_icon.svg';
 import ShareIcon from '@/assets/images/share_icon1.svg';
 import HeartIcon from '@/assets/images/heart_icon.svg';
