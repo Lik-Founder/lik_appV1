@@ -390,15 +390,12 @@ export function LikPage({ onShowRestaurantProfile, onShowLikPassport, onShowMess
                 size="sm"
                 onClick={() => setActiveView('bounties')}
                 className={cn(
-                  "nav-rum-raisin rounded-lg sm:rounded-xl px-3 sm:px-4 py-2 sm:py-3 relative overflow-hidden flex-1 text-xs sm:text-sm",
+                  "font-rum-raisin rounded-lg sm:rounded-xl px-3 sm:px-4 py-2 sm:py-3 relative overflow-hidden flex-1 text-xs sm:text-sm transition-all duration-300",
                   activeView === 'bounties' 
-                    ? "bg-gradient-to-r from-purple-500 to-pink-500 text-white font-bold shadow-lg" 
+                    ? "glossy-red-pill text-white font-bold shadow-lg" 
                     : "text-gray-600 font-medium hover:bg-white/50"
                 )}
               >
-                {activeView === 'bounties' && (
-                  <div className="absolute inset-0 bg-gradient-to-r from-purple-400 to-pink-400 opacity-20"></div>
-                )}
                 <Target size={12} className="mr-1 sm:mr-2" />
                 <span className="hidden sm:inline">Bounties</span>
                 <span className="sm:hidden">Bounty</span>
@@ -411,15 +408,12 @@ export function LikPage({ onShowRestaurantProfile, onShowLikPassport, onShowMess
                 size="sm"
                 onClick={() => setActiveView('quests')}
                 className={cn(
-                  "nav-rum-raisin rounded-lg sm:rounded-xl px-3 sm:px-4 py-2 sm:py-3 relative overflow-hidden flex-1 text-xs sm:text-sm",
+                  "font-rum-raisin rounded-lg sm:rounded-xl px-3 sm:px-4 py-2 sm:py-3 relative overflow-hidden flex-1 text-xs sm:text-sm transition-all duration-300",
                   activeView === 'quests' 
-                    ? "bg-gradient-to-r from-blue-500 to-indigo-500 text-white font-bold shadow-lg" 
+                    ? "glossy-red-pill text-white font-bold shadow-lg" 
                     : "text-gray-600 font-medium hover:bg-white/50"
                 )}
               >
-                {activeView === 'quests' && (
-                  <div className="absolute inset-0 bg-gradient-to-r from-blue-400 to-indigo-400 opacity-20"></div>
-                )}
                 <Sword size={12} className="mr-1 sm:mr-2" />
                 <span className="hidden sm:inline">Quests</span>
                 <span className="sm:hidden">Quest</span>
@@ -459,15 +453,12 @@ export function LikPage({ onShowRestaurantProfile, onShowLikPassport, onShowMess
                     size="sm"
                     onClick={() => setSelectedFilter(filter)}
                     className={cn(
-                      "rounded-full nav-rum-raisin px-3 sm:px-4 py-1.5 sm:py-2 relative overflow-hidden text-xs sm:text-sm",
+                      "rounded-full font-rum-raisin px-3 sm:px-4 py-1.5 sm:py-2 relative overflow-hidden text-xs sm:text-sm transition-all duration-300",
                       selectedFilter === filter 
-                        ? "bg-gradient-to-r from-emerald-400 to-teal-500 text-white font-bold shadow-lg" 
+                        ? "glossy-red-pill text-white font-bold" 
                         : "bg-white/60 backdrop-blur-sm text-gray-600 font-medium hover:bg-white/80 shadow-md"
                     )}
                   >
-                    {selectedFilter === filter && (
-                      <div className="absolute inset-0 bg-gradient-to-r from-emerald-300 to-teal-400 opacity-30"></div>
-                    )}
                     {filter === 'nearby' && (
                       <>
                         <MapPin size={12} className="mr-1 sm:mr-1.5" />
@@ -535,10 +526,10 @@ export function LikPage({ onShowRestaurantProfile, onShowLikPassport, onShowMess
       {/* Floating Map Button - Mobile optimized positioning */}
       <div className="fixed bottom-20 sm:bottom-24 left-1/2 transform -translate-x-1/2 z-10">
         <div className="relative">
-          <div className="absolute inset-0 bg-gradient-to-r from-blue-400 to-purple-500 rounded-full blur-lg opacity-40"></div>
+          <div className="absolute inset-0 bg-gradient-to-r from-red-400 to-pink-500 rounded-full blur-lg opacity-40"></div>
           <Button 
             size="sm" 
-            className="relative bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white px-4 sm:px-6 py-2 sm:py-3 rounded-full shadow-2xl border border-white/30 text-sm sm:text-base"
+            className="glossy-red-pill relative px-4 sm:px-6 py-2 sm:py-3 rounded-full text-sm sm:text-base"
           >
             <MapPin size={14} className="mr-1 sm:mr-2" />
             <span className="font-bold hidden xs:inline">Explore Map</span>
@@ -733,7 +724,7 @@ function BountiesView({ bounties, onShowRestaurantProfile, onBountyClick }: {
                         </div>
                         <Button 
                           size="sm" 
-                          className="bg-gradient-to-r from-red-500 to-pink-500 hover:from-red-600 hover:to-pink-600 text-white font-bold px-3 py-1 rounded-full shadow-lg text-xs"
+                          className="glossy-red-pill font-bold px-3 py-1 rounded-full text-xs"
                           onClick={(e) => e.stopPropagation()}
                         >
                           Accept
@@ -789,14 +780,14 @@ function BountiesView({ bounties, onShowRestaurantProfile, onBountyClick }: {
                         <Button 
                           size="sm" 
                           variant="outline" 
-                          className="flex-1 border-purple-400 text-purple-300 hover:bg-purple-400/10 text-xs py-1"
+                          className="flex-1 border-red-400 text-red-300 hover:bg-red-400/10 text-xs py-1"
                           onClick={(e) => e.stopPropagation()}
                         >
                           Save
                         </Button>
                         <Button 
                           size="sm" 
-                          className="flex-1 bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-xs py-1"
+                          className="flex-1 glossy-red-pill text-xs py-1"
                           onClick={(e) => e.stopPropagation()}
                         >
                           Details
@@ -885,7 +876,7 @@ function BountiesView({ bounties, onShowRestaurantProfile, onBountyClick }: {
                     <div className="absolute top-2 right-2 z-10 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity duration-300">
                       <Button 
                         size="sm" 
-                        className="bg-gradient-to-r from-green-400 to-emerald-500 hover:from-green-500 hover:to-emerald-600 text-white px-2 py-1 text-xs rounded-full shadow-lg"
+                        className="glossy-red-pill text-white px-2 py-1 text-xs rounded-full"
                         onClick={(e) => e.stopPropagation()}
                       >
                         Accept
@@ -1012,7 +1003,7 @@ function QuestsView({ quests, onQuestClick }: {
 
                   {/* Action Button */}
                   <div className="flex justify-center">
-                    <Button className="bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white font-bold px-6 sm:px-8 py-2 sm:py-3 rounded-xl shadow-lg border border-white/30 text-sm sm:text-base">
+                    <Button className="glossy-red-pill font-bold px-6 sm:px-8 py-2 sm:py-3 rounded-xl text-sm sm:text-base">
                       <Lightning size={14} className="mr-2" />
                       Accept Quest
                       <Sparkle size={12} className="ml-2" />
