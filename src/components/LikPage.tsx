@@ -837,16 +837,16 @@ function BountiesView({ bounties, onShowRestaurantProfile, onBountyClick }: {
 
                 {/* Back Side */}
                 <div className="absolute inset-0 backface-hidden rotate-y-180">
-                  <Card className="h-full overflow-hidden bg-gradient-to-br from-slate-900 to-slate-800 border border-purple-400/30 shadow-xl rounded-2xl p-4 text-white">
+                  <Card className="h-full overflow-hidden bg-gradient-to-br from-slate-900 to-slate-800 border border-[#FF1A75]/30 shadow-xl rounded-2xl p-4 text-white">
                     <div className="h-full flex flex-col justify-between">
                       <div>
-                        <h4 className="font-bold text-lg mb-3 text-center text-purple-300">
+                        <h4 className="font-bold text-lg mb-3 text-center text-[#FF7BAA]">
                           Bounty Details
                         </h4>
                         
                         <div className="space-y-2">
                           <div className="flex items-center gap-2">
-                            <MapPin size={14} className="text-purple-400" />
+                            <MapPin size={14} className="text-[#FF4D88]" />
                             <span className="text-sm">0.8 miles away</span>
                           </div>
                           <div className="flex items-center gap-2">
@@ -859,8 +859,8 @@ function BountiesView({ bounties, onShowRestaurantProfile, onBountyClick }: {
                           </div>
                         </div>
 
-                        <div className="mt-3 p-2 bg-purple-900/30 rounded-lg">
-                          <p className="text-xs text-purple-200 line-clamp-2">
+                        <div className="mt-3 p-2 bg-[#8B0000]/30 rounded-lg">
+                          <p className="text-xs text-[#FF7BAA] line-clamp-2">
                             "Amazing flavors and perfect spice level. Worth every coin!"
                           </p>
                           <div className="flex items-center gap-1 mt-1">
@@ -1075,14 +1075,14 @@ function QuestsView({ quests, onQuestClick }: {
                       quest.difficulty === 'Easy' && "bg-gradient-to-r from-emerald-400 to-green-500",
                       quest.difficulty === 'Medium' && "bg-gradient-to-r from-[#FF7BAA] to-[#FF4D88]",
                       quest.difficulty === 'Hard' && "bg-gradient-to-r from-[#FF1A75] to-[#B30026]",
-                      quest.difficulty === 'Extreme' && "bg-gradient-to-r from-[#B30026] to-purple-600"
+                      quest.difficulty === 'Extreme' && "bg-gradient-to-r from-[#B30026] to-[#8B0000]"
                     )}></div>
                     <div className={cn(
                       "relative px-2 sm:px-3 py-1 rounded-full text-xs font-bold text-white shadow-[0_0_12px_rgba(255,77,136,0.4)] border border-white/30",
                       quest.difficulty === 'Easy' && "bg-gradient-to-r from-emerald-400 to-green-500",
                       quest.difficulty === 'Medium' && "bg-gradient-to-r from-[#FF7BAA] to-[#FF4D88]",
                       quest.difficulty === 'Hard' && "bg-gradient-to-r from-[#FF1A75] to-[#B30026]",
-                      quest.difficulty === 'Extreme' && "bg-gradient-to-r from-[#B30026] to-purple-600"
+                      quest.difficulty === 'Extreme' && "bg-gradient-to-r from-[#B30026] to-[#8B0000]"
                     )}>
                       <Sword size={8} className="inline mr-1 text-white drop-shadow-sm" />
                       <span className="font-rum-raisin">{quest.difficulty}</span>

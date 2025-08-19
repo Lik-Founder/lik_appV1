@@ -1278,7 +1278,7 @@ input, textarea, select {
 .comment-thread:hover .comment-depth-indicator {
   opacity: 0.8;
   width: 3px;
-  box-shadow: 0 0 8px rgba(var(--primary), 0.3);
+  box-shadow: 0 0 8px rgba(220, 20, 60, 0.4);
 }
 
 .comment-thread:hover .comment-thread-line {
@@ -1355,7 +1355,7 @@ input, textarea, select {
   left: -100%;
   width: 100%;
   height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(var(--primary), 0.1), transparent);
+  background: linear-gradient(90deg, transparent, rgba(220, 20, 60, 0.15), transparent);
   transition: left 0.5s ease;
 }
 
@@ -1587,12 +1587,12 @@ input, textarea, select {
   }
 }
 
-/* Infinite scroll loading animations */
+/* Infinite scroll loading animations with red shimmer */
 .loading-shimmer {
   background: linear-gradient(90deg, 
-    rgba(255, 182, 193, 0.1) 0%, 
-    rgba(255, 182, 193, 0.3) 50%, 
-    rgba(255, 182, 193, 0.1) 100%);
+    rgba(220, 20, 60, 0.1) 0%, 
+    rgba(220, 20, 60, 0.3) 50%, 
+    rgba(220, 20, 60, 0.1) 100%);
   background-size: 200% 100%;
   animation: shimmer 1.5s infinite;
 }
@@ -1672,21 +1672,21 @@ input, textarea, select {
   will-change: scroll-position;
 }
 
-/* Loading state overlay */
+/* Loading state overlay with red gradients */
 .loading-overlay {
   background: linear-gradient(135deg, 
-    rgba(252, 231, 243, 0.9) 0%, 
-    rgba(254, 242, 242, 0.9) 100%);
+    rgba(220, 20, 60, 0.1) 0%, 
+    rgba(255, 255, 255, 0.9) 100%);
   backdrop-filter: blur(4px);
   -webkit-backdrop-filter: blur(4px);
 }
 
-/* Skeleton loading placeholders */
+/* Skeleton loading placeholders with red shimmer */
 .skeleton-item {
   background: linear-gradient(90deg, 
-    rgba(255, 182, 193, 0.1) 0%, 
-    rgba(255, 182, 193, 0.2) 50%, 
-    rgba(255, 182, 193, 0.1) 100%);
+    rgba(220, 20, 60, 0.1) 0%, 
+    rgba(220, 20, 60, 0.2) 50%, 
+    rgba(220, 20, 60, 0.1) 100%);
   background-size: 200% 100%;
   animation: skeletonPulse 1.5s ease-in-out infinite;
 }
@@ -1713,29 +1713,29 @@ input, textarea, select {
   }
 }
 
-/* High contrast support for loading states */
+/* High contrast support for loading states with red shimmer */
 @media (prefers-contrast: high) {
   .loading-shimmer {
     background: linear-gradient(90deg, 
-      rgba(0, 0, 0, 0.1) 0%, 
-      rgba(0, 0, 0, 0.3) 50%, 
-      rgba(0, 0, 0, 0.1) 100%);
+      rgba(220, 20, 60, 0.1) 0%, 
+      rgba(220, 20, 60, 0.3) 50%, 
+      rgba(220, 20, 60, 0.1) 100%);
   }
   
   .skeleton-item {
     background: linear-gradient(90deg, 
-      rgba(0, 0, 0, 0.1) 0%, 
-      rgba(0, 0, 0, 0.2) 50%, 
-      rgba(0, 0, 0, 0.1) 100%);
+      rgba(220, 20, 60, 0.1) 0%, 
+      rgba(220, 20, 60, 0.2) 50%, 
+      rgba(220, 20, 60, 0.1) 100%);
   }
 }
 
-/* Reduced motion support for infinite scroll */
+/* Reduced motion support for infinite scroll with red base color */
 @media (prefers-reduced-motion: reduce) {
   .loading-shimmer,
   .skeleton-item {
     animation: none;
-    background: rgba(255, 182, 193, 0.2);
+    background: rgba(220, 20, 60, 0.2);
   }
   
   .leaderboard-item-enter {
@@ -1860,10 +1860,10 @@ input, textarea, select {
 
 @keyframes bountyGlow {
   0%, 100% {
-    box-shadow: 0 0 20px rgba(168, 85, 247, 0.3);
+    box-shadow: 0 0 20px rgba(220, 20, 60, 0.4);
   }
   50% {
-    box-shadow: 0 0 40px rgba(168, 85, 247, 0.6), 0 0 60px rgba(168, 85, 247, 0.3);
+    box-shadow: 0 0 40px rgba(220, 20, 60, 0.7), 0 0 60px rgba(220, 20, 60, 0.4);
   }
 }
 
@@ -1999,9 +1999,9 @@ input, textarea, select {
   animation: rouletteSpin 2s cubic-bezier(0.23, 1, 0.32, 1);
 }
 
-/* XP Progress Bar Glow */
+/* XP Progress Bar Glow with red glow */
 .xp-progress-glow {
-  box-shadow: 0 0 10px rgba(var(--primary), 0.5);
+  box-shadow: 0 0 10px rgba(220, 20, 60, 0.6);
 }
 
 /* Swipe Feedback Pulse */
@@ -2233,10 +2233,10 @@ input, textarea, select {
 /* Enhanced bounty card animations */
 @keyframes bountyCardGlow {
   0%, 100% {
-    box-shadow: 0 0 20px rgba(168, 85, 247, 0.3);
+    box-shadow: 0 0 20px rgba(220, 20, 60, 0.4);
   }
   50% {
-    box-shadow: 0 0 40px rgba(168, 85, 247, 0.6), 0 0 60px rgba(168, 85, 247, 0.3);
+    box-shadow: 0 0 40px rgba(220, 20, 60, 0.7), 0 0 60px rgba(220, 20, 60, 0.4);
   }
 }
 
@@ -2569,13 +2569,13 @@ input, textarea, select {
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
-/* XP progress ring animation */
+/* XP progress ring animation with red glow */
 @keyframes xpProgressGlow {
   0%, 100% {
-    filter: drop-shadow(0 0 2px rgba(var(--primary), 0.3));
+    filter: drop-shadow(0 0 2px rgba(220, 20, 60, 0.4));
   }
   50% {
-    filter: drop-shadow(0 0 6px rgba(var(--primary), 0.6));
+    filter: drop-shadow(0 0 6px rgba(220, 20, 60, 0.7));
   }
 }
 
