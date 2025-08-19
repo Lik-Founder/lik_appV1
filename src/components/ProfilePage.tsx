@@ -23,8 +23,7 @@ import {
   Medal,
   Certificate,
   DotsThree,
-  Gift,
-  Calendar
+  Gift
 } from '@phosphor-icons/react';
 import { CreatePostModal } from '@/components/CreatePostModal';
 import { CreateStoryModal } from '@/components/CreateStoryModal';
@@ -37,10 +36,9 @@ interface ProfilePageProps {
   onShowLikPassport?: () => void;
   onShowNotifications?: () => void;
   onShowRewards?: () => void;
-  onShowReservationManager?: () => void;
 }
 
-export function ProfilePage({ onShowLeaderboard, onShowLikPassport, onShowNotifications, onShowRewards, onShowReservationManager }: ProfilePageProps = {}) {
+export function ProfilePage({ onShowLeaderboard, onShowLikPassport, onShowNotifications, onShowRewards }: ProfilePageProps = {}) {
   const [currentUser, setCurrentUser] = useKV<User>('currentUser', getCurrentUser());
   const [posts] = useKV<PostType[]>('posts', generateMockPosts());
   const [isCreatePostOpen, setIsCreatePostOpen] = useState(false);
@@ -106,14 +104,6 @@ export function ProfilePage({ onShowLeaderboard, onShowLikPassport, onShowNotifi
     }
   };
 
-  const handleReservations = () => {
-    if (onShowReservationManager) {
-      onShowReservationManager();
-    } else {
-      toast.info('Reservations coming soon!');
-    }
-  };
-
   const handleLeaderboard = () => {
     if (onShowLeaderboard) {
       onShowLeaderboard();
@@ -152,9 +142,6 @@ export function ProfilePage({ onShowLeaderboard, onShowLikPassport, onShowNotifi
             </Button>
             <Button variant="ghost" size="sm" onClick={handleRewards} className="p-2.5 h-10 w-10 rounded-full bg-gradient-to-r from-purple-100 to-pink-100 hover:from-purple-200 hover:to-pink-200 shadow-sm">
               <Gift size={16} className="text-purple-600" />
-            </Button>
-            <Button variant="ghost" size="sm" onClick={handleReservations} className="p-2.5 h-10 w-10 rounded-full bg-gradient-to-r from-orange-100 to-red-100 hover:from-orange-200 hover:to-red-200 shadow-sm">
-              <Calendar size={16} className="text-orange-600" />
             </Button>
             <Button variant="ghost" size="sm" onClick={handleNotifications} className="p-2.5 h-10 w-10 rounded-full bg-gradient-to-r from-green-100 to-emerald-100 hover:from-green-200 hover:to-emerald-200 shadow-sm">
               <Bell size={16} className="text-green-600" />

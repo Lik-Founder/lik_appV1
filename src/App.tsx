@@ -311,6 +311,7 @@ function App() {
             onShowMessagesPage={() => setShowMessagesPage(true)}
             onShowLikPassport={() => setShowLikPassport(true)}
             onShowNotifications={() => setShowNotifications(true)}
+            onShowReservationManager={() => setShowReservationManager(true)}
           />
         );
       case 'search':
@@ -333,6 +334,7 @@ function App() {
             onShowMessagesPage={() => setShowMessagesPage(true)}
             onShowNotifications={() => setShowNotifications(true)}
             onShowBountyDetails={(bountyId) => setShowBountyDetails(bountyId)}
+            onShowReservationManager={() => setShowReservationManager(true)}
           />
         );
       case 'trending':
@@ -346,7 +348,7 @@ function App() {
           />
         );
       case 'profile':
-        return <ProfilePage onShowLeaderboard={() => setShowLeaderboard(true)} onShowLikPassport={() => setShowLikPassport(true)} onShowNotifications={() => setShowNotifications(true)} onShowRewards={() => setShowRewards(true)} onShowReservationManager={() => setShowReservationManager(true)} />;
+        return <ProfilePage onShowLeaderboard={() => setShowLeaderboard(true)} onShowLikPassport={() => setShowLikPassport(true)} onShowNotifications={() => setShowNotifications(true)} onShowRewards={() => setShowRewards(true)} />;
       default:
         return <HomeFeed onShowUserProfile={(userId) => setShowUserProfile(userId)} />;
     }

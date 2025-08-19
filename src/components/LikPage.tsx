@@ -174,9 +174,10 @@ interface LikPageProps {
   onShowMessagesPage?: () => void;
   onShowNotifications?: () => void;
   onShowBountyDetails?: (bountyId: string) => void;
+  onShowReservationManager?: () => void;
 }
 
-export function LikPage({ onShowRestaurantProfile, onShowLikPassport, onShowMessagesPage, onShowNotifications, onShowBountyDetails }: LikPageProps) {
+export function LikPage({ onShowRestaurantProfile, onShowLikPassport, onShowMessagesPage, onShowNotifications, onShowBountyDetails, onShowReservationManager }: LikPageProps) {
   const [userProgress] = useKV('user-progress', mockUserProgress);
   const [bounties] = useKV('bounties', mockBounties);
   const [quests] = useKV('quests', mockQuests);
@@ -211,6 +212,9 @@ export function LikPage({ onShowRestaurantProfile, onShowLikPassport, onShowMess
     switch (destination) {
       case 'passport':
         onShowLikPassport?.();
+        break;
+      case 'reservations':
+        onShowReservationManager?.();
         break;
       case 'messages':
         onShowMessagesPage?.();
