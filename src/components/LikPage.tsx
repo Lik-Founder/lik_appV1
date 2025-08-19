@@ -689,10 +689,10 @@ function BountiesView({ bounties, onShowRestaurantProfile, onBountyClick }: {
       <div className="space-y-4">
         <div className="text-center relative py-2">
           <div className="absolute inset-0 flex items-center justify-center">
-            <div className="w-24 sm:w-32 h-1 bg-gradient-to-r from-transparent via-[#FF4D88]/40 to-transparent blur-sm"></div>
-            <div className="w-16 sm:w-20 h-0.5 bg-gradient-to-r from-[#FF7BAA] via-[#FF4D88] to-[#FF1A75]"></div>
+            <div className="w-24 sm:w-32 h-1 bg-gradient-to-r from-transparent via-[#DC143C]/40 to-transparent blur-sm"></div>
+            <div className="w-16 sm:w-20 h-0.5 bg-gradient-to-r from-[#FF1A75] via-[#DC143C] to-[#8B0000]"></div>
           </div>
-          <h3 className="relative bg-gradient-to-r from-[#FF7BAA] via-[#FF1A75] to-[#B30026] bg-clip-text text-transparent px-3 font-bold text-base sm:text-lg font-rum-raisin drop-shadow-sm">
+          <h3 className="relative bg-gradient-to-r from-[#FF1A75] via-[#DC143C] to-[#8B0000] bg-clip-text text-transparent px-3 font-bold text-base sm:text-lg font-rum-raisin drop-shadow-sm">
             ✨ LEGENDARY BOUNTIES ✨
           </h3>
         </div>
@@ -702,8 +702,8 @@ function BountiesView({ bounties, onShowRestaurantProfile, onBountyClick }: {
           {bounties.slice(0, 2).map((bounty, index) => (
             <div key={bounty.id} className="relative perspective-1000 w-full max-w-sm mx-auto">
               {/* Enhanced Multi-layer Glow Effects */}
-              <div className="absolute -inset-2 bg-gradient-to-r from-[#FF7BAA]/30 via-[#FF4D88]/40 to-[#FF1A75]/30 rounded-2xl blur-xl opacity-60"></div>
-              <div className="absolute -inset-1 bg-gradient-to-r from-[#FF4D88]/20 via-[#FF1A75]/25 to-[#B30026]/20 rounded-2xl blur-lg opacity-80"></div>
+              <div className="absolute -inset-2 bg-gradient-to-r from-[#FF1A75]/30 via-[#DC143C]/40 to-[#8B0000]/30 rounded-2xl blur-xl opacity-60"></div>
+              <div className="absolute -inset-1 bg-gradient-to-r from-[#DC143C]/20 via-[#FF1A75]/25 to-[#8B0000]/20 rounded-2xl blur-lg opacity-80"></div>
               
               <div 
                 className={cn(
@@ -1018,10 +1018,10 @@ function QuestsView({ quests, onQuestClick }: {
       <div className="space-y-4">
         <div className="text-center relative py-2">
           <div className="absolute inset-0 flex items-center justify-center">
-            <div className="w-32 sm:w-40 h-1 bg-gradient-to-r from-transparent via-[#FF4D88]/40 to-transparent blur-sm"></div>
-            <div className="w-20 sm:w-24 h-0.5 bg-gradient-to-r from-[#FF7BAA] via-[#FF4D88] to-[#FF1A75]"></div>
+            <div className="w-32 sm:w-40 h-1 bg-gradient-to-r from-transparent via-[#DC143C]/40 to-transparent blur-sm"></div>
+            <div className="w-20 sm:w-24 h-0.5 bg-gradient-to-r from-[#FF1A75] via-[#DC143C] to-[#8B0000]"></div>
           </div>
-          <h3 className="relative bg-gradient-to-r from-[#FF7BAA] via-[#FF1A75] to-[#B30026] bg-clip-text text-transparent px-3 font-bold text-base sm:text-lg font-rum-raisin drop-shadow-sm">
+          <h3 className="relative bg-gradient-to-r from-[#FF1A75] via-[#DC143C] to-[#8B0000] bg-clip-text text-transparent px-3 font-bold text-base sm:text-lg font-rum-raisin drop-shadow-sm">
             ⚔️ LEGENDARY QUESTS ⚔️
           </h3>
         </div>
@@ -1030,8 +1030,8 @@ function QuestsView({ quests, onQuestClick }: {
           {quests.map((quest, index) => (
             <div key={quest.id} className="relative">
               {/* Enhanced Multi-layer Glow Effects */}
-              <div className="absolute -inset-2 bg-gradient-to-r from-[#FF7BAA]/25 via-[#FF4D88]/35 to-[#FF1A75]/25 rounded-2xl sm:rounded-3xl blur-xl opacity-60"></div>
-              <div className="absolute -inset-1 bg-gradient-to-r from-[#FF4D88]/15 via-[#FF1A75]/20 to-[#B30026]/15 rounded-2xl sm:rounded-3xl blur-lg opacity-80"></div>
+              <div className="absolute -inset-2 bg-gradient-to-r from-[#FF1A75]/25 via-[#DC143C]/35 to-[#8B0000]/25 rounded-2xl sm:rounded-3xl blur-xl opacity-60"></div>
+              <div className="absolute -inset-1 bg-gradient-to-r from-[#DC143C]/15 via-[#FF1A75]/20 to-[#8B0000]/15 rounded-2xl sm:rounded-3xl blur-lg opacity-80"></div>
               
               <Card 
                 className="relative overflow-hidden bg-white/90 backdrop-blur-md border-2 border-[#FF4D88]/30 shadow-[0_0_24px_rgba(255,77,136,0.2)] rounded-2xl sm:rounded-3xl cursor-pointer hover:shadow-[0_0_32px_rgba(255,77,136,0.3)] transition-all duration-300"
