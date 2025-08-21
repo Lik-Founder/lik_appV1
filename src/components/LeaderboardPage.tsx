@@ -1013,7 +1013,6 @@ export function LeaderboardPage({ onBack, onShowRestaurantProfile, onShowUserPro
           </div>
         </div>
       </div>
-
       {/* Content with top padding to account for floating header */}
       <div 
         ref={scrollContainerRef}
@@ -1043,7 +1042,7 @@ export function LeaderboardPage({ onBack, onShowRestaurantProfile, onShowUserPro
           </div>
         ) : (
           /* Leaderboard List */
-          <div className="px-2 sm:px-4 pb-6 sm:pb-8 space-y-3 sm:space-y-4">
+          (<div className="px-2 sm:px-4 pb-6 sm:pb-8 space-y-3 sm:space-y-4">
             {filteredData.length > 0 ? (
               <>
                 {filteredData.map((item, index) => (
@@ -1156,7 +1155,7 @@ export function LeaderboardPage({ onBack, onShowRestaurantProfile, onShowUserPro
                 </div>
               </div>
             )}
-          </div>
+          </div>)
         )}
       </div>
     </div>

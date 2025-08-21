@@ -17,7 +17,6 @@ import {
   GameController, 
   Play, 
   ChatCircle, 
-  Trophy, 
   CaretRight,
   Star,
   Heart,
@@ -410,7 +409,7 @@ export function HomeFeed({ onShowUserProfile, onShowRestaurantProfile, onShowLea
               <ChatCircle size={20} />
             </Button>
             <Button variant="ghost" size="icon" className="w-9 h-9" onClick={onShowLeaderboard}>
-              <Trophy size={20} />
+              <span className="text-xl">🏆</span>
             </Button>
           </div>
         </div>
