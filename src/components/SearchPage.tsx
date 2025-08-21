@@ -628,6 +628,14 @@ function FoodCard({ post, onLike, onShowUserProfile, deviceType }: FoodCardProps
           {/* Liked By Section */}
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
+              <div className="flex items-center gap-1">
+                <img 
+                  src={LikLogoHeart} 
+                  alt="Lik Logo" 
+                  className="w-3 h-3"
+                />
+                <span className="text-white/80 text-xs font-rum-raisin">Liked By</span>
+              </div>
               <div className="flex -space-x-1">
                 {post.likedBy.slice(0, 3).map((_, i) => (
                   <div
@@ -640,14 +648,6 @@ function FoodCard({ post, onLike, onShowUserProfile, deviceType }: FoodCardProps
                     )}
                   />
                 ))}
-              </div>
-              <div className="flex items-center gap-1">
-                <img 
-                  src={LikLogoHeart} 
-                  alt="Lik Logo" 
-                  className="w-3 h-3"
-                />
-                <span className="text-white/80 text-xs font-rum-raisin">Liked By</span>
               </div>
             </div>
             
