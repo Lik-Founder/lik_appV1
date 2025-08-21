@@ -24,6 +24,7 @@ import { BountyDetailsPage } from '@/components/BountyDetailsPage';
 import { MyRewardsPage } from '@/components/MyRewardsPage';
 import { RewardsPage } from '@/components/RewardsPage';
 import { ReservationManager } from '@/components/ReservationManager';
+import { CreatePostPage } from '@/components/CreatePostPage';
 import { useDevice, useSafeArea } from '@/hooks/use-device';
 import { useTabSwipe } from '@/hooks/use-tab-swipe';
 import { Toaster } from '@/components/ui/sonner';
@@ -49,12 +50,13 @@ function App() {
   const [showRewards, setShowRewards] = useState(false);
   const [showLikRewards, setShowLikRewards] = useState(false);
   const [showReservationManager, setShowReservationManager] = useState(false);
+  const [showCreatePost, setShowCreatePost] = useState(false);
   
   const device = useDevice();
   const safeArea = useSafeArea();
 
   // Set up swipe gestures for tab navigation (disabled when showing modals)
-  const swipeDisabled = !!(showRestaurantProfile || showUserProfile || showLeaderboard || showLikTV || showLikPassport || showGuidePage || showEventsPage || showEventDetails || showMessagesPage || showMessageThread || showTrendingSearch || showSwipeDiscovery || showNotifications || showBountyDetails || showRewards || showLikRewards || showReservationManager);
+  const swipeDisabled = !!(showRestaurantProfile || showUserProfile || showLeaderboard || showLikTV || showLikPassport || showGuidePage || showEventsPage || showEventDetails || showMessagesPage || showMessageThread || showTrendingSearch || showSwipeDiscovery || showNotifications || showBountyDetails || showRewards || showLikRewards || showReservationManager || showCreatePost);
   
   const tabSwipeHandlers = useTabSwipe({
     activeTab,
@@ -62,11 +64,21 @@ function App() {
       setActiveTab(newTab);
       setShowSwipeIndicator(true);
     },
+    onShowCreatePost: () => setShowCreatePost(true),
     disabled: swipeDisabled,
   });
 
   // Define renderActiveTab function
   const renderActiveTab = () => {
+    // Show Create Post Page if requested
+    if (showCreatePost) {
+      return (
+        <CreatePostPage 
+          onBack={() => setShowCreatePost(false)}
+        />
+      );
+    }
+
     // Show Reservation Manager if requested
     if (showReservationManager) {
       return (
@@ -382,7 +394,7 @@ function App() {
       </div>
 
       {/* Swipe Indicator */}
-      {!showRestaurantProfile && !showUserProfile && !showLeaderboard && !showLikTV && !showLikPassport && !showGuidePage && !showEventsPage && !showEventDetails && !showMessagesPage && !showMessageThread && !showTrendingSearch && !showSwipeDiscovery && !showNotifications && !showBountyDetails && !showRewards && !showLikRewards && !showReservationManager && (
+      {!showRestaurantProfile && !showUserProfile && !showLeaderboard && !showLikTV && !showLikPassport && !showGuidePage && !showEventsPage && !showEventDetails && !showMessagesPage && !showMessageThread && !showTrendingSearch && !showSwipeDiscovery && !showNotifications && !showBountyDetails && !showRewards && !showLikRewards && !showReservationManager && !showCreatePost && (
         <SwipeIndicator 
           activeTab={activeTab} 
           isVisible={showSwipeIndicator}
@@ -390,7 +402,7 @@ function App() {
       )}
 
       {/* Bottom Navigation */}
-      {!showRestaurantProfile && !showUserProfile && !showLeaderboard && !showLikTV && !showLikPassport && !showGuidePage && !showEventsPage && !showEventDetails && !showMessagesPage && !showMessageThread && !showTrendingSearch && !showSwipeDiscovery && !showNotifications && !showBountyDetails && !showRewards && !showLikRewards && !showReservationManager && (
+      {!showRestaurantProfile && !showUserProfile && !showLeaderboard && !showLikTV && !showLikPassport && !showGuidePage && !showEventsPage && !showEventDetails && !showMessagesPage && !showMessageThread && !showTrendingSearch && !showSwipeDiscovery && !showNotifications && !showBountyDetails && !showRewards && !showLikRewards && !showReservationManager && !showCreatePost && (
         <div 
           className={cn(
             "border-t backdrop-blur-sm",

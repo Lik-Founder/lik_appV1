@@ -579,7 +579,7 @@ export function ProfilePage({ onShowLeaderboard, onShowLikPassport, onShowNotifi
       </div>
       {/* Whimsical Floating Action Button */}
       <div className="fixed bottom-0 right-0 p-6 z-20" style={{ 
-        bottom: device.hasNotch ? 'calc(env(safe-area-inset-bottom) + 120px)' : '120px',
+        bottom: device.hasNotch ? 'calc(env(safe-area-inset-bottom) + 80px)' : '80px',
         right: '20px'
       }}>
         <Button
