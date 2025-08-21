@@ -312,7 +312,7 @@ export function TrendingPage({ onShowRestaurantProfile, onShowUserProfile, onSho
 
   const renderUserPost = (post: UserPost) => (
     <div 
-      className="relative w-full h-full bg-black"
+      className="relative w-full h-full bg-black overflow-hidden"
       onDoubleClick={() => handleDoubleTap(post.id)}
     >
       <img 
@@ -322,43 +322,46 @@ export function TrendingPage({ onShowRestaurantProfile, onShowUserProfile, onSho
       />
 
       {/* Bottom overlay with user profile and review info */}
-      <div className="absolute bottom-12 left-0 right-16 p-4 bg-gradient-to-t from-black/80 to-transparent">
-        <div className="space-y-3">
+      <div className="absolute bottom-0 left-0 right-0 p-3 bg-gradient-to-t from-black/90 via-black/70 to-transparent pt-20">
+        <div className="space-y-3 max-w-full">
           {/* User profile section */}
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2 mb-3">
             <ConsistentAvatar
               src={post.user.avatar}
               alt={post.user.displayName}
               fallback={post.user.displayName[0]}
-              size="md"
+              size="sm"
               variant="xp-ring"
               level={post.user.level}
-              xpProgress={0.75} // Mock XP progress
+              xpProgress={0.75}
               onClick={() => onShowUserProfile?.(post.user.id)}
             />
-            <div className="flex-1">
+            <div className="flex-1 min-w-0">
               <div className="flex items-center gap-2">
                 <span 
-                  className="text-white font-medium text-sm cursor-pointer hover:underline" 
+                  className="text-white font-semibold text-sm font-rum-raisin cursor-pointer hover:underline truncate" 
                   onClick={() => onShowUserProfile?.(post.user.id)}
                 >
                   {post.user.displayName}
                 </span>
+                <div className="bg-black/60 px-2 py-1 rounded-full">
+                  <span className="text-white text-xs font-rum-raisin">Level {post.user.level}</span>
+                </div>
               </div>
-              <div className="flex items-center gap-1 text-white/80 text-xs">
+              <div className="flex items-center gap-1 text-white/90 text-xs mt-1">
                 <span 
-                  className="cursor-pointer hover:underline" 
+                  className="cursor-pointer hover:underline font-rum-raisin" 
                   onClick={() => onShowRestaurantProfile?.(post.restaurant.id)}
                 >
                   {post.restaurant.name}
                 </span>
                 <Star size={10} className="text-yellow-400 fill-current" />
-                <span>{post.restaurant.rating}</span>
+                <span className="font-rum-raisin">{post.restaurant.rating}</span>
               </div>
             </div>
             {!post.user.isFollowing && (
-              <Button size="sm" className="bg-white text-black hover:bg-white/90 text-xs px-2 py-1 h-7">
-                <Plus size={12} className="mr-1" />
+              <Button size="sm" className="glossy-red-pill text-white text-xs px-3 py-1 h-7 font-rum-raisin">
+                <Plus size={10} className="mr-1" />
                 Follow
               </Button>
             )}
@@ -366,15 +369,24 @@ export function TrendingPage({ onShowRestaurantProfile, onShowUserProfile, onSho
           
           {/* Review info section */}
           <div className="space-y-2">
-            <div className="flex items-center gap-4 text-white">
-              <span className="text-lg font-bold">{post.review.rating}/10</span>
-              <span className="text-yellow-400 font-medium">{post.review.price}</span>
+            <div className="flex items-center gap-3 text-white">
+              <div className="bg-red-600/80 px-3 py-1 rounded-full">
+                <span className="text-lg font-bold font-rum-raisin">{post.review.rating}/10</span>
+              </div>
+              <div className="bg-yellow-500/80 px-3 py-1 rounded-full">
+                <span className="text-black font-bold font-rum-raisin">{post.review.price}</span>
+              </div>
             </div>
-            <p className="text-white text-sm leading-relaxed">{post.review.text}</p>
-            <div className="flex flex-wrap gap-2 mb-2">
-              {post.review.tags.map((tag, index) => (
-                <span key={index} className="text-blue-300 text-sm">{tag}</span>
+            <p className="text-white text-sm leading-relaxed font-rum-raisin line-clamp-2">{post.review.text}</p>
+            <div className="flex flex-wrap gap-1 mt-2">
+              {post.review.tags.slice(0, 3).map((tag, index) => (
+                <span key={index} className="text-blue-300 text-xs bg-blue-900/30 px-2 py-1 rounded-full font-rum-raisin">
+                  {tag}
+                </span>
               ))}
+              {post.review.tags.length > 3 && (
+                <span className="text-white/60 text-xs font-rum-raisin">+{post.review.tags.length - 3} more</span>
+              )}
             </div>
           </div>
         </div>
@@ -384,7 +396,7 @@ export function TrendingPage({ onShowRestaurantProfile, onShowUserProfile, onSho
 
   const renderRestaurantPost = (post: RestaurantPost) => (
     <div 
-      className="relative w-full h-full bg-black"
+      className="relative w-full h-full bg-black overflow-hidden"
       onDoubleClick={() => handleDoubleTap(post.id)}
     >
       {post.mediaType === 'video' ? (
@@ -405,42 +417,44 @@ export function TrendingPage({ onShowRestaurantProfile, onShowUserProfile, onSho
       )}
 
       {/* Bottom overlay with restaurant profile and dish info */}
-      <div className="absolute bottom-12 left-0 right-16 p-4 bg-gradient-to-t from-black/80 to-transparent">
-        <div className="space-y-3">
+      <div className="absolute bottom-0 left-0 right-0 p-3 bg-gradient-to-t from-black/90 via-black/70 to-transparent pt-20">
+        <div className="space-y-3 max-w-full">
           {/* Restaurant profile section */}
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2 mb-3">
             <div className="relative">
               <ConsistentAvatar
                 src={post.restaurant.avatar}
                 alt={post.restaurant.name}
                 fallback={post.restaurant.name[0]}
-                size="md"
+                size="sm"
                 variant="default"
                 onClick={() => onShowRestaurantProfile?.(post.restaurant.id)}
               />
-              <div className="absolute -bottom-1 -right-1 bg-black rounded-full px-1">
+              <div className="absolute -bottom-1 -right-1 bg-red-600 rounded-full px-2 py-0.5">
                 <div className="flex items-center gap-1">
-                  <Star size={10} className="text-yellow-400 fill-current" />
-                  <span className="text-white text-xs">{post.restaurant.rating}</span>
+                  <Star size={8} className="text-yellow-400 fill-current" />
+                  <span className="text-white text-xs font-bold font-rum-raisin">{post.restaurant.rating}</span>
                 </div>
               </div>
             </div>
-            <div className="flex-1">
+            <div className="flex-1 min-w-0">
               <div className="flex items-center gap-2">
                 <span 
-                  className="text-white font-medium text-sm cursor-pointer hover:underline" 
+                  className="text-white font-semibold text-sm font-rum-raisin cursor-pointer hover:underline truncate" 
                   onClick={() => onShowRestaurantProfile?.(post.restaurant.id)}
                 >
                   {post.restaurant.name}
                 </span>
                 {post.restaurant.isVerified && (
-                  <CheckCircle size={14} className="text-blue-400 fill-current" />
+                  <CheckCircle size={12} className="text-blue-400 fill-current flex-shrink-0" />
                 )}
               </div>
-              <div className="flex items-center gap-2 text-white/80 text-xs">
-                <span>{post.restaurant.cuisineTypes.join(' • ')}</span>
+              <div className="flex items-center gap-1 text-white/90 text-xs mt-1">
+                <span className="font-rum-raisin truncate">{post.restaurant.cuisineTypes.join(' • ')}</span>
                 {post.restaurant.isOpen && (
-                  <Badge variant="secondary" className="text-xs bg-green-600 text-white">Open Now</Badge>
+                  <Badge variant="secondary" className="text-xs bg-green-600 text-white ml-1 font-rum-raisin">
+                    Open
+                  </Badge>
                 )}
               </div>
             </div>
@@ -448,17 +462,26 @@ export function TrendingPage({ onShowRestaurantProfile, onShowUserProfile, onSho
           
           {/* Dish info section */}
           <div className="space-y-2">
-            <div className="flex items-center gap-4 text-white">
-              <span className="text-lg font-bold">{post.dish.name}</span>
-              <span className="text-yellow-400 font-medium">{post.dish.price}</span>
+            <div className="flex items-center gap-3 text-white">
+              <div className="bg-black/60 px-3 py-1 rounded-full">
+                <span className="text-lg font-bold font-rum-raisin">{post.dish.name}</span>
+              </div>
+              <div className="bg-yellow-500/80 px-3 py-1 rounded-full">
+                <span className="text-black font-bold font-rum-raisin">{post.dish.price}</span>
+              </div>
             </div>
-            <div className="text-white/80 text-sm">
-              <span>{post.dish.calories} cal • {post.dish.description}</span>
+            <div className="text-white/90 text-sm">
+              <span className="font-rum-raisin">{post.dish.calories} cal • {post.dish.description}</span>
             </div>
-            <div className="flex flex-wrap gap-2 mb-2">
-              {post.dish.tags.map((tag, index) => (
-                <span key={index} className="text-blue-300 text-sm">{tag}</span>
+            <div className="flex flex-wrap gap-1 mt-2">
+              {post.dish.tags.slice(0, 3).map((tag, index) => (
+                <span key={index} className="text-blue-300 text-xs bg-blue-900/30 px-2 py-1 rounded-full font-rum-raisin">
+                  {tag}
+                </span>
               ))}
+              {post.dish.tags.length > 3 && (
+                <span className="text-white/60 text-xs font-rum-raisin">+{post.dish.tags.length - 3} more</span>
+              )}
             </div>
           </div>
         </div>
@@ -468,7 +491,7 @@ export function TrendingPage({ onShowRestaurantProfile, onShowUserProfile, onSho
 
   const renderAdPost = (post: AdPost) => (
     <div 
-      className="relative w-full h-full bg-black"
+      className="relative w-full h-full bg-black overflow-hidden"
       onDoubleClick={() => handleDoubleTap(post.id)}
     >
       <img 
@@ -478,71 +501,71 @@ export function TrendingPage({ onShowRestaurantProfile, onShowUserProfile, onSho
       />
       
       {/* Sponsored tag */}
-      <div className="absolute top-4 left-4">
-        <Badge className="bg-yellow-500 text-black">
-          Sponsored • {post.distance} miles away
+      <div className="absolute top-4 left-3">
+        <Badge className="bg-gradient-to-r from-yellow-500 to-orange-500 text-black font-bold font-rum-raisin">
+          Sponsored • {post.distance} mi
         </Badge>
       </div>
 
       {/* Bottom overlay with restaurant profile and promotion */}
-      <div className="absolute bottom-12 left-0 right-16 p-4 bg-gradient-to-t from-black/80 to-transparent">
-        <div className="space-y-3">
+      <div className="absolute bottom-0 left-0 right-0 p-3 bg-gradient-to-t from-black/90 via-black/70 to-transparent pt-20">
+        <div className="space-y-3 max-w-full">
           {/* Restaurant profile section */}
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2 mb-3">
             <ConsistentAvatar
               src={post.restaurant.avatar}
               alt={post.restaurant.name}
               fallback={post.restaurant.name[0]}
-              size="md"
+              size="sm"
               variant="default"
               onClick={() => onShowRestaurantProfile?.(post.restaurant.id)}
             />
-            <div className="flex-1">
+            <div className="flex-1 min-w-0">
               <div className="flex items-center gap-2">
                 <span 
-                  className="text-white font-medium text-sm cursor-pointer hover:underline" 
+                  className="text-white font-semibold text-sm font-rum-raisin cursor-pointer hover:underline truncate" 
                   onClick={() => onShowRestaurantProfile?.(post.restaurant.id)}
                 >
                   {post.restaurant.name}
                 </span>
                 {post.restaurant.isVerified && (
-                  <CheckCircle size={14} className="text-blue-400 fill-current" />
+                  <CheckCircle size={12} className="text-blue-400 fill-current flex-shrink-0" />
                 )}
               </div>
-              <div className="flex items-center gap-1 text-white/80 text-xs">
+              <div className="flex items-center gap-1 text-white/90 text-xs mt-1">
                 <Star size={10} className="text-yellow-400 fill-current" />
-                <span>{post.restaurant.rating}</span>
+                <span className="font-rum-raisin">{post.restaurant.rating}</span>
               </div>
             </div>
           </div>
           
           {/* Promotion section */}
           <div className="space-y-3">
-            <p className="text-white text-lg font-medium">{post.promotion.text}</p>
-            <div className="flex items-center gap-2">
-              <Badge className="bg-yellow-500 text-black">
+            <p className="text-white text-base font-bold font-rum-raisin">{post.promotion.text}</p>
+            <div className="flex items-center gap-2 flex-wrap">
+              <Badge className="bg-gradient-to-r from-yellow-500 to-orange-500 text-black font-bold font-rum-raisin">
                 +{post.promotion.likCoinReward} Lik Coins
               </Badge>
               {post.promotion.questAvailable && (
-                <Badge className="bg-purple-600 text-white">
+                <Badge className="bg-gradient-to-r from-purple-600 to-pink-600 text-white font-bold font-rum-raisin">
                   Quest Available (+{post.promotion.xpBonus} XP)
                 </Badge>
               )}
             </div>
-            <div className="flex gap-2">
-              <Button size="sm" className="bg-primary text-primary-foreground">
-                <GameController size={16} className="mr-1" />
+            <div className="flex gap-2 flex-wrap">
+              <Button size="sm" className="glossy-red-pill text-white font-rum-raisin">
+                <GameController size={14} className="mr-1" />
                 Start Quest
               </Button>
-              <Button size="sm" variant="secondary">
-                <ShoppingCart size={16} className="mr-1" />
+              <Button size="sm" className="bg-white/90 hover:bg-white text-black font-rum-raisin">
+                <ShoppingCart size={14} className="mr-1" />
                 Order Now
               </Button>
             </div>
             {post.challenge && (
-              <div className="bg-black/50 rounded-lg p-2 mb-2">
-                <p className="text-yellow-400 text-sm font-medium">{post.challenge.name}</p>
-                <p className="text-white/80 text-xs">{post.challenge.description}</p>
+              <div className="bg-gradient-to-r from-red-600/80 to-pink-600/80 rounded-lg p-3 backdrop-blur-sm">
+                <p className="text-yellow-300 text-sm font-bold font-rum-raisin">{post.challenge.name}</p>
+                <p className="text-white/90 text-xs font-rum-raisin mt-1">{post.challenge.description}</p>
               </div>
             )}
           </div>
@@ -567,10 +590,10 @@ export function TrendingPage({ onShowRestaurantProfile, onShowUserProfile, onSho
   return (
     <div className="h-full bg-black relative overflow-hidden">
       {/* Fixed top navigation */}
-      <div className="absolute top-0 left-0 right-0 z-20 bg-gradient-to-b from-black/60 to-transparent">
-        <div className="flex items-center justify-between p-2 sm:p-4">
+      <div className="absolute top-0 left-0 right-0 z-20 bg-gradient-to-b from-black/80 to-transparent">
+        <div className="flex items-center justify-between p-3 safe-top">
           {/* Tab selector */}
-          <div className="flex items-center gap-1 sm:gap-4">
+          <div className="flex items-center gap-4">
             {['following', 'trending', 'foryou'].map((tab) => (
               <Button
                 key={tab}
@@ -578,10 +601,10 @@ export function TrendingPage({ onShowRestaurantProfile, onShowUserProfile, onSho
                 size="sm"
                 onClick={() => setActiveTab(tab as any)}
                 className={cn(
-                  "text-white text-xs sm:text-sm px-2 sm:px-4 nav-rum-raisin",
+                  "text-white text-sm px-3 py-2 font-rum-raisin transition-all duration-200",
                   activeTab === tab 
-                    ? "font-bold border-b-2 border-white rounded-none font-semibold" 
-                    : "font-light"
+                    ? "font-bold border-b-2 border-white rounded-none bg-white/10" 
+                    : "font-normal hover:bg-white/5"
                 )}
               >
                 {tab === 'foryou' ? 'For You' : tab.charAt(0).toUpperCase() + tab.slice(1)}
@@ -590,15 +613,15 @@ export function TrendingPage({ onShowRestaurantProfile, onShowUserProfile, onSho
           </div>
           
           {/* Right icons */}
-          <div className="flex items-center gap-1 sm:gap-3">
-            <Button variant="ghost" size="sm" className="text-white p-1 sm:p-2">
-              <MapPin size={16} className="sm:w-5 sm:h-5" />
+          <div className="flex items-center gap-2">
+            <Button variant="ghost" size="sm" className="text-white p-2 hover:bg-white/10 rounded-full">
+              <MapPin size={18} />
             </Button>
-            <Button variant="ghost" size="sm" className="text-white p-1 sm:p-2" onClick={onShowLikTV}>
-              <Television size={16} className="sm:w-5 sm:h-5" />
+            <Button variant="ghost" size="sm" className="text-white p-2 hover:bg-white/10 rounded-full" onClick={onShowLikTV}>
+              <Television size={18} />
             </Button>
-            <Button variant="ghost" size="sm" className="text-white p-1 sm:p-2" onClick={onShowSearch}>
-              <MagnifyingGlass size={16} className="sm:w-5 sm:h-5" />
+            <Button variant="ghost" size="sm" className="text-white p-2 hover:bg-white/10 rounded-full" onClick={onShowSearch}>
+              <MagnifyingGlass size={18} />
             </Button>
           </div>
         </div>
@@ -616,23 +639,23 @@ export function TrendingPage({ onShowRestaurantProfile, onShowUserProfile, onSho
           <div key={post.id} className="w-full h-full snap-start relative">
             {renderContent(post)}
             
-            {/* Right side action panel - only show on current item */}
+            {/* Right side action panel - optimized for mobile */}
             {index === currentIndex && (
-              <div className="absolute right-4 bottom-20 flex flex-col items-center gap-6">
+              <div className="absolute right-2 bottom-16 flex flex-col items-center gap-4 z-10">
                 <div className="flex flex-col items-center gap-1">
                   <Button 
                     variant="ghost" 
                     size="sm" 
                     onClick={() => onShowLeaderboard?.()}
-                    className="w-12 h-12 rounded-full touch-feedback text-white"
+                    className="w-11 h-11 rounded-full touch-feedback text-white bg-black/40 backdrop-blur-sm hover:bg-black/60"
                   >
                     <img 
                       src={HeartIcon} 
                       alt="Heart" 
-                      className="w-6 h-6"
+                      className="w-5 h-5"
                     />
                   </Button>
-                  <span className="text-white text-xs">Rank</span>
+                  <span className="text-white text-xs font-rum-raisin bg-black/40 px-1 rounded">Rank</span>
                 </div>
                 
                 <div className="flex flex-col items-center gap-1">
@@ -640,15 +663,15 @@ export function TrendingPage({ onShowRestaurantProfile, onShowUserProfile, onSho
                     variant="ghost" 
                     size="sm" 
                     onClick={() => handleComment(post.id)}
-                    className="w-12 h-12 rounded-full text-white touch-feedback"
+                    className="w-11 h-11 rounded-full text-white touch-feedback bg-black/40 backdrop-blur-sm hover:bg-black/60"
                   >
                     <img 
                       src={CommentIcon} 
                       alt="Comment" 
-                      className="w-6 h-6"
+                      className="w-5 h-5"
                     />
                   </Button>
-                  <span className="text-white text-xs">{post.comments}</span>
+                  <span className="text-white text-xs font-rum-raisin bg-black/40 px-1 rounded">{post.comments}</span>
                 </div>
                 
                 <div className="flex flex-col items-center gap-1">
@@ -657,7 +680,7 @@ export function TrendingPage({ onShowRestaurantProfile, onShowUserProfile, onSho
                     size="sm" 
                     onClick={() => handleSave(post.id)}
                     className={cn(
-                      "w-12 h-12 rounded-full touch-feedback",
+                      "w-11 h-11 rounded-full touch-feedback bg-black/40 backdrop-blur-sm hover:bg-black/60",
                       post.isSaved ? "text-yellow-400" : "text-white"
                     )}
                   >
@@ -665,40 +688,40 @@ export function TrendingPage({ onShowRestaurantProfile, onShowUserProfile, onSho
                       src={BookmarkIcon} 
                       alt="Bookmark" 
                       className={cn(
-                        "w-6 h-6",
+                        "w-5 h-5",
                         post.isSaved ? "brightness-0 saturate-100 invert-[.65] sepia-[1] saturate-[3] hue-rotate-[20deg]" : ""
                       )}
                     />
                   </Button>
-                  <span className="text-white text-xs">{post.saves}</span>
+                  <span className="text-white text-xs font-rum-raisin bg-black/40 px-1 rounded">{post.saves}</span>
                 </div>
                 
                 <div className="flex flex-col items-center gap-1">
-                  <Button variant="ghost" size="sm" className="w-12 h-12 rounded-full text-white touch-feedback">
+                  <Button variant="ghost" size="sm" className="w-11 h-11 rounded-full text-white touch-feedback bg-black/40 backdrop-blur-sm hover:bg-black/60">
                     <img 
                       src={ShareIcon} 
                       alt="Share" 
-                      className="w-6 h-6"
+                      className="w-5 h-5"
                     />
                   </Button>
-                  <span className="text-white text-xs">{post.shares}</span>
+                  <span className="text-white text-xs font-rum-raisin bg-black/40 px-1 rounded">{post.shares}</span>
                 </div>
               </div>
             )}
 
-            {/* Bottom info bar - only show on current item */}
+            {/* Bottom info bar - positioned to not overlap content */}
             {index === currentIndex && (
-              <div className="absolute bottom-4 left-4 right-20">
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-2 text-white/80 text-sm">
-                    <MapPin size={16} />
-                    <span>{post.location}</span>
+              <div className="absolute bottom-2 left-3 right-16 z-10">
+                <div className="flex items-center justify-between bg-black/40 backdrop-blur-sm rounded-full px-3 py-2">
+                  <div className="flex items-center gap-2 text-white/90 text-xs min-w-0">
+                    <MapPin size={12} className="flex-shrink-0" />
+                    <span className="truncate font-rum-raisin">{post.location}</span>
                   </div>
-                  <div className="flex items-center gap-2">
-                    <img src={LikLogoHeart} alt="Lik Logo" className="w-4 h-4" />
-                    <span className="text-white text-sm font-medium nav-rum-raisin">Liked By</span>
-                    <div className="flex items-center -space-x-2 ml-2">
-                      {post.likedBy.slice(0, 3).map((user, index) => (
+                  <div className="flex items-center gap-2 flex-shrink-0">
+                    <img src={LikLogoHeart} alt="Lik Logo" className="w-3 h-3" />
+                    <span className="text-white text-xs font-rum-raisin">Liked By</span>
+                    <div className="flex items-center -space-x-1">
+                      {post.likedBy.slice(0, 2).map((user, index) => (
                         <ConsistentAvatar
                           key={user.id}
                           src={user.avatar}
@@ -706,13 +729,13 @@ export function TrendingPage({ onShowRestaurantProfile, onShowUserProfile, onSho
                           fallback={user.displayName[0]}
                           size="xs"
                           variant="default"
-                          className="border-2 border-black cursor-pointer hover:scale-110 transition-transform"
+                          className="border border-white cursor-pointer hover:scale-110 transition-transform"
                           onClick={() => onShowUserProfile?.(user.id)}
                         />
                       ))}
-                      {post.likedBy.length > 3 && (
-                        <div className="w-6 h-6 rounded-full bg-black/50 border-2 border-black flex items-center justify-center">
-                          <span className="text-white text-xs">+{post.likedBy.length - 3}</span>
+                      {post.likedBy.length > 2 && (
+                        <div className="w-5 h-5 rounded-full bg-black/60 border border-white flex items-center justify-center">
+                          <span className="text-white text-xs font-rum-raisin">+{post.likedBy.length - 2}</span>
                         </div>
                       )}
                     </div>
@@ -724,14 +747,14 @@ export function TrendingPage({ onShowRestaurantProfile, onShowUserProfile, onSho
         ))}
       </div>
 
-      {/* Content indicators */}
-      <div className="absolute right-2 top-1/2 transform -translate-y-1/2 flex flex-col gap-2">
+      {/* Content indicators - repositioned for mobile */}
+      <div className="absolute right-1 top-1/2 transform -translate-y-1/2 flex flex-col gap-1 z-10">
         {content.map((_, index) => (
           <div
             key={index}
             className={cn(
-              "w-1 h-8 rounded-full transition-all duration-300",
-              index === currentIndex ? "bg-white" : "bg-white/30"
+              "w-0.5 h-6 rounded-full transition-all duration-300",
+              index === currentIndex ? "bg-white shadow-lg" : "bg-white/40"
             )}
           />
         ))}
@@ -746,8 +769,8 @@ export function TrendingPage({ onShowRestaurantProfile, onShowUserProfile, onSho
             setSelectedPostId(null);
           }}
           postId={selectedPostId}
-          postAuthor={mockUsers[0]} // You could make this dynamic based on the selected post
-          deviceType="phone" // TrendingPage is mobile-first
+          postAuthor={mockUsers[0]}
+          deviceType="phone"
           onUserClick={onShowUserProfile}
         />
       )}
