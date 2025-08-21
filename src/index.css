@@ -2648,6 +2648,45 @@ input, textarea, select {
   -webkit-backdrop-filter: blur(12px);
 }
 
+/* Pinterest-style masonry layout */
+.masonry-container {
+  column-count: 2;
+  column-gap: 0.75rem;
+  column-fill: balance;
+}
+
+@media (min-width: 768px) {
+  .masonry-container {
+    column-count: 3;
+    column-gap: 1rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .masonry-container {
+    column-count: 4;
+    column-gap: 1.25rem;
+  }
+}
+
+.masonry-item {
+  break-inside: avoid;
+  margin-bottom: 0.75rem;
+  display: inline-block;
+  width: 100%;
+}
+
+/* Ensure proper spacing for column layout */
+.columns-2 {
+  column-count: 2;
+  column-gap: 0.75rem;
+}
+
+.break-inside-avoid {
+  break-inside: avoid;
+  page-break-inside: avoid;
+}
+
 /* Onboarding Animations */
 @keyframes float {
   0%, 100% { 

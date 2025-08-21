@@ -317,7 +317,6 @@ function App() {
       case 'search':
         return (
           <SearchPage 
-            onShowUserProfile={(userId) => setShowUserProfile(userId)}
             onShowRestaurantProfile={(restaurantId) => setShowRestaurantProfile(restaurantId)}
             onShowSwipeDiscovery={() => setShowSwipeDiscovery(true)}
             onShowLikPassport={() => setShowLikPassport(true)}

@@ -34,16 +34,18 @@ import { CartItem, FavoriteRestaurant, FavoriteDish } from '@/lib/types';
 
 interface FoodPost {
   id: string;
-  type: 'user' | 'restaurant' | 'sponsored';
+  type: 'restaurant' | 'dish' | 'sponsored';
   image: string;
-  rating: number;
+  rating?: number; // For restaurant posts (out of 5)
+  dishScore?: number; // For dish posts (out of 10)
   displayName: string;
-  username?: string;
+  restaurantName?: string; // For dish posts
   isVerified?: boolean;
   description: string;
   likedBy: string[];
   isLiked: boolean;
   likes: number;
+  height?: number; // For staggered layout
 }
 
 interface Restaurant {
@@ -73,7 +75,6 @@ interface MenuItem {
 }
 
 interface SearchPageProps {
-  onShowUserProfile?: (userId: string) => void;
   onShowRestaurantProfile?: (restaurantId: string) => void;
   onShowSwipeDiscovery?: () => void;
   onShowLikPassport?: () => void;
@@ -82,7 +83,7 @@ interface SearchPageProps {
   onShowMessagesPage?: () => void;
 }
 
-export function SearchPage({ onShowUserProfile, onShowRestaurantProfile, onShowSwipeDiscovery, onShowLikPassport, onShowLeaderboard, onShowLikTV, onShowMessagesPage }: SearchPageProps) {
+export function SearchPage({ onShowRestaurantProfile, onShowSwipeDiscovery, onShowLikPassport, onShowLeaderboard, onShowLikTV, onShowMessagesPage }: SearchPageProps) {
   const [searchQuery, setSearchQuery] = useState('');
   const [isDeliveryMode, setIsDeliveryMode] = useState(false);
   const [showMapView, setShowMapView] = useState(false);
@@ -471,16 +472,16 @@ export function SearchPage({ onShowUserProfile, onShowRestaurantProfile, onShowS
           padding={padding}
         />
       ) : (
-        /* Pinterest-Style Grid */
+        /* Pinterest-Style Staggered Grid */
         <div className="flex-1 overflow-y-auto scrollbar-hide">
           <div className={cn("pb-20", padding, "pt-2")}>
-            <div className={cn("grid gap-3", gridCols)}>
+            <div className="columns-2 gap-3 space-y-3">
               {posts.map((post) => (
                 <FoodCard
                   key={post.id}
                   post={post}
                   onLike={handleLike}
-                  onShowUserProfile={onShowUserProfile}
+                  onShowRestaurantProfile={onShowRestaurantProfile}
                   deviceType={device.type}
                 />
               ))}
@@ -556,18 +557,20 @@ export function SearchPage({ onShowUserProfile, onShowRestaurantProfile, onShowS
 interface FoodCardProps {
   post: FoodPost;
   onLike: (postId: string) => void;
-  onShowUserProfile?: (userId: string) => void;
+  onShowRestaurantProfile?: (restaurantId: string) => void;
   deviceType: 'phone' | 'tablet';
 }
 
-function FoodCard({ post, onLike, onShowUserProfile, deviceType }: FoodCardProps) {
-  const isLarge = Math.random() > 0.5; // Random staggered heights
+function FoodCard({ post, onLike, onShowRestaurantProfile, deviceType }: FoodCardProps) {
+  // Random heights for staggered effect
+  const heights = ['h-64', 'h-72', 'h-80', 'h-96', 'h-[22rem]', 'h-[26rem]'];
+  const randomHeight = heights[Math.floor(Math.random() * heights.length)];
   
   return (
     <div className={cn(
-      "bg-card rounded-lg overflow-hidden border border-border relative",
-      "touch-feedback cursor-pointer",
-      isLarge ? "aspect-[3/4]" : "aspect-[4/5]"
+      "bg-card rounded-lg overflow-hidden border border-border relative mb-3",
+      "touch-feedback cursor-pointer break-inside-avoid",
+      randomHeight
     )}>
       {/* Image */}
       <div className="relative h-full">
@@ -579,38 +582,52 @@ function FoodCard({ post, onLike, onShowUserProfile, deviceType }: FoodCardProps
         />
         
         {/* Overlay Elements */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/20" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-black/30" />
         
         {/* Top Elements */}
-        <div className="absolute top-2 left-2 right-2 flex justify-between items-start">
-          {/* Rating */}
-          <div className="flex items-center gap-1 bg-black/50 rounded-full px-2 py-1">
-            <Star size={12} className="text-yellow-400 fill-current" />
-            <span className="text-white text-xs font-medium">{post.rating}</span>
-          </div>
+        <div className="absolute top-3 left-3 right-3 flex justify-between items-start">
+          {/* Rating/Score */}
+          {post.type === 'restaurant' && post.rating && (
+            <div className="flex items-center gap-1 bg-black/60 rounded-full px-3 py-1.5 backdrop-blur-sm">
+              <Star size={14} className="text-yellow-400 fill-current" />
+              <span className="text-white text-sm font-semibold">{post.rating}</span>
+            </div>
+          )}
+          
+          {post.type === 'dish' && post.dishScore && (
+            <div className="bg-black/60 rounded-full px-3 py-1.5 backdrop-blur-sm">
+              <span className="text-white text-sm font-bold">{post.dishScore}/10</span>
+            </div>
+          )}
+          
+          {post.type === 'sponsored' && (
+            <div className="bg-black/40 rounded-full px-3 py-1.5 backdrop-blur-sm">
+              {/* Empty for sponsored posts */}
+            </div>
+          )}
           
           {/* Options Menu */}
           <Button
             variant="ghost"
             size="sm"
-            className="h-6 w-6 p-0 bg-black/50 hover:bg-black/70 rounded-full"
+            className="h-8 w-8 p-0 bg-black/50 hover:bg-black/70 rounded-full backdrop-blur-sm"
           >
-            <DotsThree size={14} className="text-white" />
+            <DotsThree size={16} className="text-white" />
           </Button>
         </div>
 
         {/* Bottom Content */}
-        <div className="absolute bottom-0 left-0 right-0 p-3">
+        <div className="absolute bottom-0 left-0 right-0 p-4">
           {/* Profile Section */}
-          <div className="flex items-center gap-2 mb-2">
+          <div className="flex items-center gap-3 mb-3">
             <div 
-              className="w-6 h-6 bg-gradient-to-r from-orange-400 to-pink-600 rounded-full flex-shrink-0 cursor-pointer hover:scale-110 transition-transform" 
-              onClick={() => post.type === 'user' && onShowUserProfile?.(post.id)}
+              className="w-8 h-8 bg-gradient-to-r from-orange-400 to-pink-600 rounded-full flex-shrink-0 cursor-pointer hover:scale-110 transition-transform" 
+              onClick={() => post.type === 'restaurant' && onShowRestaurantProfile?.(post.id)}
             />
-            <div className="flex items-center gap-1 flex-1 min-w-0">
+            <div className="flex items-center gap-2 flex-1 min-w-0">
               <span 
-                className="text-white text-sm font-medium truncate cursor-pointer hover:underline"
-                onClick={() => post.type === 'user' && onShowUserProfile?.(post.id)}
+                className="text-white text-sm font-semibold truncate cursor-pointer hover:underline"
+                onClick={() => post.type === 'restaurant' && onShowRestaurantProfile?.(post.id)}
               >
                 {post.displayName}
               </span>
@@ -622,26 +639,32 @@ function FoodCard({ post, onLike, onShowUserProfile, deviceType }: FoodCardProps
             </div>
           </div>
 
-          {/* Description */}
-          <p className="text-white/90 text-xs mb-2 line-clamp-2">{post.description}</p>
+          {post.type === 'dish' && post.restaurantName && (
+            <div className="mb-2">
+              <span className="text-white/80 text-xs font-medium">{post.restaurantName}</span>
+            </div>
+          )}
 
-          {/* Liked By Section */}
+          {/* Description */}
+          <p className="text-white/90 text-sm mb-3 line-clamp-2 leading-relaxed">{post.description}</p>
+
+          {/* Bottom Section */}
           <div className="flex items-center justify-between">
-            <div className="flex items-center gap-2">
-              <div className="flex items-center gap-1">
+            <div className="flex items-center gap-3">
+              <div className="flex items-center gap-2">
                 <img 
                   src={LikLogoHeart} 
                   alt="Lik Logo" 
-                  className="w-3 h-3"
+                  className="w-4 h-4"
                 />
-                <span className="text-white/80 text-xs font-rum-raisin">Liked By</span>
+                <span className="text-white/80 text-xs font-rum-raisin font-medium">Liked By</span>
               </div>
               <div className="flex -space-x-1">
                 {post.likedBy.slice(0, 3).map((_, i) => (
                   <div
                     key={i}
                     className={cn(
-                      "w-5 h-5 rounded-full border border-white flex-shrink-0",
+                      "w-6 h-6 rounded-full border-2 border-white flex-shrink-0",
                       i === 0 && "bg-green-500",
                       i === 1 && "bg-blue-500", 
                       i === 2 && "bg-red-500"
@@ -658,10 +681,10 @@ function FoodCard({ post, onLike, onShowUserProfile, deviceType }: FoodCardProps
                 e.stopPropagation();
                 onLike(post.id);
               }}
-              className="h-6 w-6 p-0 hover:scale-110 transition-transform"
+              className="h-8 w-8 p-0 hover:scale-110 transition-transform"
             >
               <Heart 
-                size={16} 
+                size={18} 
                 className={cn(
                   "transition-colors",
                   post.isLiked ? "text-red-500 fill-current" : "text-white"
@@ -669,6 +692,13 @@ function FoodCard({ post, onLike, onShowUserProfile, deviceType }: FoodCardProps
               />
             </Button>
           </div>
+
+          {/* Sponsored Label */}
+          {post.type === 'sponsored' && (
+            <div className="mt-2 text-center">
+              <span className="text-white/50 text-xs font-light">Sponsored</span>
+            </div>
+          )}
         </div>
       </div>
     </div>
@@ -686,37 +716,64 @@ function generateMockFoodPosts(): FoodPost[] {
     'https://images.unsplash.com/photo-1563379091339-03246963d321?w=400&h=500&fit=crop', // Asian food
     'https://images.unsplash.com/photo-1551782450-a2132b4ba21d?w=400&h=600&fit=crop', // Sandwich
     'https://images.unsplash.com/photo-1559847844-5315695dadae?w=400&h=500&fit=crop', // Breakfast
+    'https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?w=400&h=550&fit=crop', // Pancakes
+    'https://images.unsplash.com/photo-1574071318508-1cdbab80d002?w=400&h=650&fit=crop', // Soup
+    'https://images.unsplash.com/photo-1565958011703-44f9829ba187?w=400&h=580&fit=crop', // Fried rice
+    'https://images.unsplash.com/photo-1571091718767-18b5b1457add?w=400&h=620&fit=crop', // Dessert
   ];
 
-  const descriptions = [
-    "Best kebab combo in the city! Amazing flavors and perfect grilling",
-    "Fresh pasta with homemade pesto. Absolutely divine!",
-    "Vegan paradise bowl with quinoa and seasonal vegetables",
-    "Authentic street tacos with handmade tortillas",
-    "Artisanal coffee and croissants. Perfect morning combo",
-    "Halal certified restaurant with amazing Middle Eastern cuisine",
-    "Asian fusion at its finest. Bold flavors, beautiful presentation",
-    "Healthy Buddha bowl packed with superfoods and love"
+  const restaurantDescriptions = [
+    "Award-winning Italian restaurant featuring authentic wood-fired pizzas and handmade pasta",
+    "Modern Asian fusion cuisine with bold flavors and stunning presentation",
+    "Farm-to-table restaurant serving organic, locally-sourced ingredients",
+    "Traditional BBQ smokehouse with 12-hour smoked meats and house-made sauces",
+    "Michelin-starred fine dining experience with seasonal tasting menus",
+    "Authentic Mexican cantina with fresh tortillas and craft cocktails",
+    "Contemporary steakhouse featuring premium aged beef and wine selection",
+    "Coastal seafood restaurant with daily fresh catches and ocean views"
   ];
 
-  const displayNames = [
-    "Mario's Kitchen", "FoodieExplorer", "HealthyEats", "TacoLover",
-    "CoffeeAddict", "VeganVibes", "AsianFusion", "LocalEats"
+  const dishDescriptions = [
+    "Perfectly crispy truffle fries with parmesan and herbs - absolutely divine!",
+    "Best ramen I've ever had! Rich tonkotsu broth with tender chashu pork",
+    "Incredible chocolate lava cake with vanilla bean ice cream",
+    "Fresh caught salmon with seasonal vegetables and lemon butter sauce",
+    "Authentic margherita pizza with San Marzano tomatoes and buffalo mozzarella",
+    "House-made gnocchi in brown butter sage sauce - comfort food perfection",
+    "Wagyu beef burger with aged cheddar and caramelized onions",
+    "Spicy tuna roll with avocado and sriracha mayo - so fresh and flavorful"
   ];
 
-  return Array.from({ length: 20 }, (_, i) => ({
-    id: `food-${i}`,
-    type: i % 5 === 0 ? 'sponsored' : (i % 3 === 0 ? 'restaurant' : 'user'),
-    image: foodImages[i % foodImages.length],
-    rating: Number((3.5 + Math.random() * 1.5).toFixed(1)),
-    displayName: displayNames[i % displayNames.length],
-    username: i % 3 === 0 ? undefined : `user${i}`,
-    isVerified: i % 4 === 0,
-    description: descriptions[i % descriptions.length],
-    likedBy: Array.from({ length: Math.floor(Math.random() * 5) + 1 }, (_, j) => `user${j}`),
-    isLiked: Math.random() > 0.5,
-    likes: Math.floor(Math.random() * 100) + 10
-  }));
+  const restaurantNames = [
+    "Bella Vista", "Dragon Palace", "Green Garden", "Smoke & Fire", 
+    "Le Bernardin", "Casa Miguel", "Prime Cut", "Ocean's Bounty",
+    "Mario's Kitchen", "Tokyo Eats", "The Healthy Spot", "BBQ Central"
+  ];
+
+  const dishNames = [
+    "Truffle Fries", "Tonkotsu Ramen", "Chocolate Lava Cake", "Grilled Salmon",
+    "Margherita Pizza", "Brown Butter Gnocchi", "Wagyu Burger", "Spicy Tuna Roll",
+    "Caesar Salad", "Fish Tacos", "Ribeye Steak", "Pad Thai"
+  ];
+
+  return Array.from({ length: 24 }, (_, i) => {
+    const postType = i % 4 === 0 ? 'sponsored' : (i % 3 === 0 ? 'dish' : 'restaurant');
+    
+    return {
+      id: `food-${i}`,
+      type: postType,
+      image: foodImages[i % foodImages.length],
+      rating: postType === 'restaurant' ? Number((3.5 + Math.random() * 1.5).toFixed(1)) : undefined,
+      dishScore: postType === 'dish' ? Number((7.0 + Math.random() * 3.0).toFixed(1)) : undefined,
+      displayName: postType === 'dish' ? dishNames[i % dishNames.length] : restaurantNames[i % restaurantNames.length],
+      restaurantName: postType === 'dish' ? restaurantNames[i % restaurantNames.length] : undefined,
+      isVerified: i % 5 === 0,
+      description: postType === 'dish' ? dishDescriptions[i % dishDescriptions.length] : restaurantDescriptions[i % restaurantDescriptions.length],
+      likedBy: Array.from({ length: Math.floor(Math.random() * 5) + 1 }, (_, j) => `user${j}`),
+      isLiked: Math.random() > 0.5,
+      likes: Math.floor(Math.random() * 100) + 10
+    };
+  });
 }
 
 // Delivery mode components and mock data
