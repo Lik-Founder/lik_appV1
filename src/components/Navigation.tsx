@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import { DeviceType, Orientation } from '@/hooks/use-device';
 import unselectedFireIcon from '@/assets/images/unselected_fire_icon.png';
+import selectedTrendingIcon from '@/assets/images/selected_trending_icon.png';
 import likLogoHeart from '@/assets/images/Lik_Logo_Heart_1.0.png';
 import searchIcon from '@/assets/images/search_icon.png';
 import selectedIcon from '@/assets/images/selected_icon.png';
@@ -84,9 +85,9 @@ export function Navigation({ activeTab, onTabChange, deviceType, orientation }: 
                 className="transition-transform duration-200"
                 style={{ width: iconSize, height: iconSize }}
               />
-            ) : item.id === 'trending' && !isActive ? (
+            ) : item.id === 'trending' ? (
               <img 
-                src={unselectedFireIcon} 
+                src={isActive ? selectedTrendingIcon : unselectedFireIcon} 
                 alt="Trending" 
                 className="transition-transform duration-200"
                 style={{ width: iconSize, height: iconSize }}

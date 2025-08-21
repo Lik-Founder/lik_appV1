@@ -30,6 +30,7 @@ import { CreateStoryModal } from '@/components/CreateStoryModal';
 import { useDevice } from '@/hooks/use-device';
 import { cn } from '@/lib/utils';
 import { toast } from 'sonner';
+import bronzeRankIcon from '@/assets/images/Bronze_Rank.png';
 
 interface ProfilePageProps {
   onShowLeaderboard?: () => void;
@@ -125,18 +126,19 @@ export function ProfilePage({ onShowLeaderboard, onShowLikPassport, onShowNotifi
       {/* Top Navigation Bar (Fixed) */}
       <div className="flex-none sticky top-0 z-20 bg-gradient-to-r from-pink-100/90 via-background/95 to-purple-100/90 backdrop-blur-sm border-b border-pink-200/30 safe-top">
         <div className="flex items-center justify-between px-6 py-4">
-          {/* Left: Whimsical Level Badge */}
-          <div className="flex items-center">
-            <div className="relative bg-gradient-to-r from-orange-400 to-pink-500 p-2 rounded-full shadow-lg">
-              <Medal size={24} className="text-white" weight="duotone" />
-              <div className="absolute -top-2 -right-2 bg-gradient-to-r from-yellow-400 to-orange-500 text-white text-xs rounded-full w-6 h-6 flex items-center justify-center font-bold text-[10px] shadow-md border-2 border-white">
-                {mockLevel}
-              </div>
-            </div>
-          </div>
+          {/* Left: Empty space for balance */}
+          <div className="w-10"></div>
 
           {/* Right Icons */}
           <div className="flex items-center gap-2">
+            {/* Bronze Rank in top right */}
+            <div className="mr-2">
+              <img 
+                src={bronzeRankIcon} 
+                alt="Bronze Rank" 
+                className="w-8 h-8"
+              />
+            </div>
             <Button variant="ghost" size="sm" onClick={handlePassport} className="p-2.5 h-10 w-10 rounded-full bg-gradient-to-r from-blue-100 to-cyan-100 hover:from-blue-200 hover:to-cyan-200 shadow-sm">
               <Certificate size={16} className="text-blue-600" />
             </Button>
