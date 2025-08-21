@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useKV } from '@github/spark/hooks';
 import { Post as PostType, User } from '@/lib/types';
 import { generateMockPosts } from '@/lib/mockData';
-import { ConsistentAvatar } from '@/components/ui/consistent-avatar';
+import { ProfileAvatar } from '@/components/ProfileAvatar';
 import { Button } from '@/components/ui/button';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
@@ -322,62 +322,14 @@ export function UserProfile({ userId, onBack }: UserProfileProps) {
               <div className="flex items-start space-x-4">
                 {/* Compact Profile Image with Simple XP Ring */}
                 <div className="relative">
-                  {/* XP Progress Ring - Simplified */}
-                  <div className="relative w-16 h-16">
-                    <svg className="w-full h-full transform -rotate-90 absolute inset-0" viewBox="0 0 64 64">
-                      {/* Background Ring */}
-                      <circle
-                        cx="32"
-                        cy="32"
-                        r="28"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                        fill="none"
-                        className="text-blue-200"
-                      />
-                      {/* Progress Ring */}
-                      <circle
-                        cx="32"
-                        cy="32"
-                        r="28"
-                        stroke="url(#userXpGradient)"
-                        strokeWidth="2"
-                        fill="none"
-                        strokeLinecap="round"
-                        className="transition-all duration-700"
-                        style={{
-                          strokeDasharray: 175.93, // 2 * π * 28
-                          strokeDashoffset: 175.93 * (1 - 0.7),
-                        }}
-                      />
-                      <defs>
-                        <linearGradient id="userXpGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-                          <stop offset="0%" stopColor="#06b6d4" />
-                          <stop offset="50%" stopColor="#3b82f6" />
-                          <stop offset="100%" stopColor="#8b5cf6" />
-                        </linearGradient>
-                      </defs>
-                    </svg>
-                    
-                    {/* Profile Picture - Centered */}
-                    <div className="absolute inset-2">
-                      <div className="w-full h-full rounded-full overflow-hidden bg-white shadow-lg border border-white">
-                        <ConsistentAvatar
-                          src={user.avatar}
-                          alt={user.displayName}
-                          fallback={user.displayName.split(' ').map(n => n[0]).join('')}
-                          size="md"
-                          variant="default"
-                          className="w-full h-full"
-                        />
-                      </div>
-                    </div>
-                  </div>
-                  
-                  {/* Compact Level Badge */}
-                  <div className="absolute -bottom-0.5 left-1/2 transform -translate-x-1/2 bg-gradient-to-r from-cyan-400 to-blue-500 text-white px-2 py-0.5 rounded-full shadow-md border border-white font-bold text-xs">
-                    {user.level}
-                  </div>
+                  <ProfileAvatar
+                    src={user.avatar}
+                    alt={user.displayName}
+                    level={user.level}
+                    xp={user.xp}
+                    maxXp={user.xp + 3000} // Mock max XP for this level
+                    size="md"
+                  />
                 </div>
 
                 {/* Profile Info */}
@@ -508,12 +460,10 @@ export function UserProfile({ userId, onBack }: UserProfileProps) {
                       <div className="relative mb-4">
                         <div className="absolute inset-0 bg-gradient-to-r from-blue-400 to-purple-500 rounded-full p-0.5 shadow-xl">
                           <div className="bg-white rounded-full p-1.5">
-                            <ConsistentAvatar
+                            <img
                               src={user.avatar}
                               alt={user.displayName}
-                              fallback={user.displayName.split(' ').map(n => n[0]).join('')}
-                              size="xl"
-                              variant="default"
+                              className="w-full h-full rounded-full object-cover"
                             />
                           </div>
                         </div>

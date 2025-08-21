@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useKV } from '@github/spark/hooks';
 import { Post as PostType, User } from '@/lib/types';
 import { generateMockPosts, getCurrentUser } from '@/lib/mockData';
-import { ConsistentAvatar } from '@/components/ui/consistent-avatar';
+import { ProfileAvatar } from '@/components/ProfileAvatar';
 import { Button } from '@/components/ui/button';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
@@ -205,62 +205,14 @@ export function ProfilePage({ onShowLeaderboard, onShowLikPassport, onShowNotifi
                 <div className="relative z-10 flex flex-col items-center space-y-3">
                   {/* Compact Profile Avatar with Simple XP Ring */}
                   <div className="relative">
-                    {/* XP Progress Ring - Smaller */}
-                    <div className="relative w-16 h-16">
-                      <svg className="w-full h-full transform -rotate-90 absolute inset-0" viewBox="0 0 64 64">
-                        {/* Background Ring */}
-                        <circle
-                          cx="32"
-                          cy="32"
-                          r="28"
-                          stroke="currentColor"
-                          strokeWidth="2"
-                          fill="none"
-                          className="text-pink-200"
-                        />
-                        {/* Progress Ring */}
-                        <circle
-                          cx="32"
-                          cy="32"
-                          r="28"
-                          stroke="url(#xpGradient)"
-                          strokeWidth="2"
-                          fill="none"
-                          strokeLinecap="round"
-                          className="transition-all duration-700"
-                          style={{
-                            strokeDasharray: 175.93, // 2 * π * 28
-                            strokeDashoffset: 175.93 * (1 - (mockXP / mockXPToNext)),
-                          }}
-                        />
-                        <defs>
-                          <linearGradient id="xpGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-                            <stop offset="0%" stopColor="#f59e0b" />
-                            <stop offset="50%" stopColor="#ef4444" />
-                            <stop offset="100%" stopColor="#8b5cf6" />
-                          </linearGradient>
-                        </defs>
-                      </svg>
-                      
-                      {/* Profile Picture - Centered */}
-                      <div className="absolute inset-2">
-                        <div className="w-full h-full rounded-full overflow-hidden bg-white shadow-lg border border-white">
-                          <ConsistentAvatar
-                            src={currentUser.avatar}
-                            alt={currentUser.username}
-                            fallback={currentUser.username[0]?.toUpperCase()}
-                            size="md"
-                            variant="default"
-                            className="w-full h-full"
-                          />
-                        </div>
-                      </div>
-                    </div>
-                    
-                    {/* Compact Level Badge */}
-                    <div className="absolute -bottom-0.5 left-1/2 transform -translate-x-1/2 bg-gradient-to-r from-amber-400 to-orange-500 text-white px-2 py-0.5 rounded-full shadow-md border border-white font-bold text-xs">
-                      {mockLevel}
-                    </div>
+                    <ProfileAvatar
+                      src={currentUser.avatar}
+                      alt={currentUser.username}
+                      level={mockLevel}
+                      xp={mockXP}
+                      maxXp={mockXPToNext}
+                      size="md"
+                    />
                   </div>
 
                   {/* Name & Username - Compact */}
@@ -517,12 +469,10 @@ export function ProfilePage({ onShowLeaderboard, onShowLikPassport, onShowNotifi
                     <div className="relative">
                       <div className="absolute inset-0 bg-gradient-to-r from-blue-400 to-purple-500 rounded-full p-0.5 shadow-xl">
                         <div className="bg-white rounded-full p-1.5">
-                          <ConsistentAvatar
+                          <img
                             src={currentUser.avatar}
                             alt={currentUser.username}
-                            fallback={currentUser.username[0]?.toUpperCase()}
-                            size="lg"
-                            variant="default"
+                            className="w-full h-full rounded-full object-cover"
                           />
                         </div>
                       </div>

@@ -5,9 +5,9 @@ import { generateMockStories, generateMockUsers, getCurrentUser } from '@/lib/mo
 import { StoriesBar } from '@/components/StoriesBar';
 import { CreateStoryModal } from '@/components/CreateStoryModal';
 import { ProfileDropdown } from '@/components/ProfileDropdown';
+import { ProfileAvatar } from '@/components/ProfileAvatar';
 import { Carousel } from '@/components/Carousel';
 import { HorizontalCarousel } from '@/components/HorizontalCarousel';
-import { ConsistentAvatar } from '@/components/ui/consistent-avatar';
 import { useDevice } from '@/hooks/use-device';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
@@ -377,13 +377,13 @@ export function HomeFeed({ onShowUserProfile, onShowRestaurantProfile, onShowLea
               onClick={handleAvatarClick}
               className="cursor-pointer transition-transform hover:scale-105 active:scale-95"
             >
-              <ConsistentAvatar
+              <ProfileAvatar
                 src={currentUser.avatar}
                 alt="Profile"
-                fallback={currentUser.username[0]?.toUpperCase()}
-                size="md"
-                variant="level-badge"
                 level={12}
+                xp={8500}
+                maxXp={10000}
+                size="sm"
               />
             </div>
           </div>

@@ -3,7 +3,7 @@ import { useKV } from '@github/spark/hooks';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { ProfileAvatar } from '@/components/ProfileAvatar';
 import { ProfileDropdown } from '@/components/ProfileDropdown';
 import { BountyCardModal } from '@/components/BountyCardModal';
 import { QuestCardModal } from '@/components/QuestCardModal';
@@ -290,81 +290,14 @@ export function LikPage({ onShowRestaurantProfile, onShowLikPassport, onShowMess
             className="relative cursor-pointer group flex-shrink-0"
             onClick={handleAvatarClick}
           >
-            <div className="w-16 h-16 sm:w-20 sm:h-20 relative">
-              {/* Modern XP Progress Ring with Enhanced Glow */}
-              <div className="absolute inset-0">
-                {/* Outer Glow Ring */}
-                <div className="absolute inset-0 rounded-full" style={{
-                  background: `conic-gradient(from 0deg, 
-                    rgba(255, 165, 0, 0.4) 0deg,
-                    rgba(255, 69, 0, 0.6) ${xpProgress * 3.6}deg,
-                    rgba(220, 20, 60, 0.8) ${xpProgress * 3.6}deg,
-                    transparent ${xpProgress * 3.6}deg)`,
-                  filter: 'blur(3px)'
-                }}></div>
-                
-                <svg className="w-full h-full transform -rotate-90 relative z-10" viewBox="0 0 80 80">
-                  <circle
-                    cx="40"
-                    cy="40"
-                    r="35"
-                    fill="none"
-                    stroke="rgba(255, 255, 255, 0.2)"
-                    strokeWidth="2"
-                  />
-                  <circle
-                    cx="40"
-                    cy="40"
-                    r="35"
-                    fill="none"
-                    stroke="url(#modernXpGradient)"
-                    strokeWidth="4"
-                    strokeLinecap="round"
-                    strokeDasharray={`${2 * Math.PI * 35}`}
-                    strokeDashoffset={`${2 * Math.PI * 35 * (1 - xpProgress / 100)}`}
-                    className="transition-all duration-500 drop-shadow-[0_0_8px_rgba(255,165,0,0.6)]"
-                  />
-                  <defs>
-                    <linearGradient id="modernXpGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-                      <stop offset="0%" stopColor="#FFA500" />
-                      <stop offset="50%" stopColor="#FF4500" />
-                      <stop offset="100%" stopColor="#DC143C" />
-                    </linearGradient>
-                  </defs>
-                </svg>
-              </div>
-              
-              {/* Enhanced Sparkle Effects with Modern Colors */}
-              <div className="absolute -top-1 -right-1 w-3 h-3 sm:w-4 sm:h-4 animate-pulse">
-                <Sparkle size={14} className="text-orange-500 drop-shadow-[0_0_4px_rgba(255,165,0,0.8)]" />
-              </div>
-              <div className="absolute -bottom-1 -left-1 w-2 h-2 sm:w-3 sm:h-3 animate-pulse" style={{ animationDelay: '1s' }}>
-                <Sparkle size={10} className="text-amber-500 drop-shadow-[0_0_3px_rgba(245,158,11,0.8)]" />
-              </div>
-              <div className="absolute -top-1 -left-1 w-2 h-2 animate-pulse" style={{ animationDelay: '0.5s' }}>
-                <Sparkle size={8} className="text-red-500 drop-shadow-[0_0_2px_rgba(239,68,68,0.8)]" />
-              </div>
-              
-              {/* Profile Picture with Modern Border */}
-              <div className="absolute inset-2 sm:inset-3">
-                <div className="w-full h-full rounded-full p-0.5 bg-gradient-to-br from-orange-500 via-red-500 to-red-700 shadow-[0_0_16px_rgba(255,165,0,0.4)]">
-                  <Avatar className="w-full h-full border-2 border-white/90 shadow-lg">
-                    <AvatarImage src="/src/assets/images/user-avatar.jpg" alt="User" />
-                    <AvatarFallback className="text-sm sm:text-lg font-bold bg-gradient-to-br from-orange-500 to-red-500 text-white">
-                      U
-                    </AvatarFallback>
-                  </Avatar>
-                </div>
-              </div>
-              
-              {/* Modern Level Badge */}
-              <div className="absolute -bottom-1 sm:-bottom-2 left-1/2 transform -translate-x-1/2">
-                <div className="glossy-red-pill px-2 sm:px-3 py-0.5 sm:py-1 text-xs sm:text-sm font-bold flex items-center gap-1 shadow-[0_0_12px_rgba(255,165,0,0.5)]">
-                  <Crown size={10} className="text-white drop-shadow-sm" />
-                  <span className="text-white">{userProgress.level}</span>
-                </div>
-              </div>
-            </div>
+            <ProfileAvatar
+              src="/src/assets/images/user-avatar.jpg"
+              alt="User"
+              level={userProgress.level}
+              xp={userProgress.xp}
+              maxXp={userProgress.xpToNextLevel}
+              size="md"
+            />
           </div>
 
           {/* Enhanced Stats Row with Modern Effects */}

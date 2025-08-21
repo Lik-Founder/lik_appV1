@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { ChevronRight, Users, Mail, Timer, Play } from '@phosphor-icons/react';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
+import { ProfileAvatar } from '@/components/ProfileAvatar';
 import { cn } from '@/lib/utils';
 
 interface ProfileDropdownProps {
@@ -169,52 +170,18 @@ export const ProfileDropdown: React.FC<ProfileDropdownProps> = ({
           isAnimating && "animate-in slide-in-from-top-2 zoom-in-95 duration-200"
         )}
       >
-        {/* Header with Clean XP Ring and Stats */}
+        {/* Header with ProfileAvatar and Stats */}
         <div className="flex items-center justify-between mb-4 sm:mb-6">
-          {/* Clean XP Ring with Level */}
+          {/* ProfileAvatar */}
           <div className="relative">
-            <div className="w-16 h-16 sm:w-20 sm:h-20 relative">
-              {/* Simple Progress Ring */}
-              <svg className="w-full h-full transform -rotate-90" viewBox="0 0 80 80">
-                <circle
-                  cx="40"
-                  cy="40"
-                  r="35"
-                  stroke="rgb(51 65 85)"
-                  strokeWidth="3"
-                  fill="none"
-                />
-                <circle
-                  cx="40"
-                  cy="40"
-                  r="35"
-                  stroke="url(#cleanGradient)"
-                  strokeWidth="3"
-                  fill="none"
-                  strokeDasharray={`${2 * Math.PI * 35}`}
-                  strokeDashoffset={`${2 * Math.PI * 35 * (1 - xpPercentage / 100)}`}
-                  className="transition-all duration-500"
-                  strokeLinecap="round"
-                />
-                <defs>
-                  <linearGradient id="cleanGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-                    <stop offset="0%" stopColor="#f97316" />
-                    <stop offset="50%" stopColor="#ec4899" />
-                    <stop offset="100%" stopColor="#8b5cf6" />
-                  </linearGradient>
-                </defs>
-              </svg>
-              
-              {/* Level Number */}
-              <div className="absolute inset-0 flex items-center justify-center">
-                <span className="text-white font-bold text-xl sm:text-2xl nav-rum-raisin">{user.level}</span>
-              </div>
-            </div>
-            
-            {/* Clean level badge */}
-            <div className="absolute -bottom-1 left-1/2 transform -translate-x-1/2 bg-gradient-to-r from-orange-500 to-pink-500 text-white rounded-full px-2 py-0.5 border-2 border-slate-800 text-xs font-bold">
-              Lv {user.level}
-            </div>
+            <ProfileAvatar
+              src={user.avatar}
+              alt={user.displayName}
+              level={user.level}
+              xp={user.xp}
+              maxXp={user.maxXp}
+              size="md"
+            />
           </div>
 
           {/* Title and Stats */}
