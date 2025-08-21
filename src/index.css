@@ -2118,13 +2118,13 @@ input, textarea, select {
   border: 1px solid rgba(249, 115, 22, 0.5);
 }
 
-/* Candy-Gloss 3D Button Styling */
+/* Modern 3D Button Styling */
 .glossy-red-pill {
   position: relative;
   background: linear-gradient(135deg, 
-    rgba(255, 123, 170, 0.9) 0%,   /* #FF7BAA top - semi-transparent */
-    rgba(255, 26, 117, 0.95) 50%,  /* #FF1A75 middle */
-    rgba(179, 0, 38, 1) 100%       /* #B30026 bottom */
+    rgba(255, 165, 0, 0.9) 0%,   /* Orange top - semi-transparent */
+    rgba(255, 69, 0, 0.95) 50%,  /* Red-orange middle */
+    rgba(220, 20, 60, 1) 100%    /* Crimson bottom */
   );
   border: 2px solid #DD1010;
   border-radius: 25px;

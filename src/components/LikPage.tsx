@@ -258,47 +258,47 @@ export function LikPage({ onShowRestaurantProfile, onShowLikPassport, onShowMess
   };
 
   return (
-    <div className="h-full flex flex-col bg-gradient-to-br from-[#FF7BAA]/10 via-[#FF1A75]/5 to-[#B30026]/10 overflow-hidden relative">
-      {/* Candy-Gloss Background Effects */}
+    <div className="h-full flex flex-col bg-gradient-to-br from-orange-500/10 via-red-500/8 to-red-700/10 overflow-hidden relative">
+      {/* Modern Background Effects */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         {/* Floating Glossy Orbs */}
-        <div className="absolute top-10 left-10 w-20 h-20 bg-gradient-to-br from-[#FF7BAA]/30 to-[#FF1A75]/20 rounded-full blur-sm"></div>
-        <div className="absolute top-32 right-16 w-16 h-16 bg-gradient-to-br from-[#FF1A75]/25 to-[#B30026]/15 rounded-full blur-sm"></div>
-        <div className="absolute bottom-20 left-1/4 w-12 h-12 bg-gradient-to-br from-[#FF4D88]/20 to-[#FF7BAA]/15 rounded-full blur-sm"></div>
-        <div className="absolute top-1/2 right-8 w-8 h-8 bg-gradient-to-br from-[#FF7BAA]/30 to-[#FF4D88]/25 rounded-full blur-sm"></div>
+        <div className="absolute top-10 left-10 w-20 h-20 bg-gradient-to-br from-orange-400/30 to-red-500/20 rounded-full blur-sm"></div>
+        <div className="absolute top-32 right-16 w-16 h-16 bg-gradient-to-br from-red-500/25 to-red-700/15 rounded-full blur-sm"></div>
+        <div className="absolute bottom-20 left-1/4 w-12 h-12 bg-gradient-to-br from-amber-500/20 to-orange-500/15 rounded-full blur-sm"></div>
+        <div className="absolute top-1/2 right-8 w-8 h-8 bg-gradient-to-br from-orange-500/30 to-red-500/25 rounded-full blur-sm"></div>
         
         {/* Ambient Glow Particles */}
-        <div className="absolute top-20 left-1/3 w-4 h-4 bg-[#FF4D88]/40 rounded-full animate-pulse"></div>
-        <div className="absolute bottom-40 right-1/3 w-6 h-6 bg-[#FF7BAA]/30 rounded-full animate-pulse" style={{ animationDelay: '1s' }}></div>
-        <div className="absolute top-1/3 left-16 w-3 h-3 bg-[#FF1A75]/35 rounded-full animate-pulse" style={{ animationDelay: '2s' }}></div>
+        <div className="absolute top-20 left-1/3 w-4 h-4 bg-orange-500/40 rounded-full animate-pulse"></div>
+        <div className="absolute bottom-40 right-1/3 w-6 h-6 bg-amber-500/30 rounded-full animate-pulse" style={{ animationDelay: '1s' }}></div>
+        <div className="absolute top-1/3 left-16 w-3 h-3 bg-red-500/35 rounded-full animate-pulse" style={{ animationDelay: '2s' }}></div>
         
         {/* Floating Sparkles */}
-        <div className="absolute top-24 right-24 text-[#FF4D88]/50 animate-pulse">✨</div>
-        <div className="absolute bottom-32 left-20 text-[#FF7BAA]/40 animate-pulse" style={{ animationDelay: '1.5s' }}>💫</div>
-        <div className="absolute top-48 left-1/2 text-[#FF1A75]/45 animate-pulse" style={{ animationDelay: '0.5s' }}>⭐</div>
+        <div className="absolute top-24 right-24 text-orange-500/50 animate-pulse">✨</div>
+        <div className="absolute bottom-32 left-20 text-amber-500/40 animate-pulse" style={{ animationDelay: '1.5s' }}>💫</div>
+        <div className="absolute top-48 left-1/2 text-red-500/45 animate-pulse" style={{ animationDelay: '0.5s' }}>⭐</div>
       </div>
 
-      {/* Candy-Gloss Header with Enhanced 3D Effects */}
-      <div className="bg-gradient-to-r from-[#FF7BAA]/15 via-[#FF1A75]/10 to-[#B30026]/15 backdrop-blur-lg border-b border-[#FF4D88]/20 shadow-[0_8px_32px_rgba(255,77,136,0.12)] relative">
+      {/* Modern Header with Enhanced 3D Effects */}
+      <div className="bg-gradient-to-r from-orange-500/15 via-red-500/10 to-red-700/15 backdrop-blur-lg border-b border-orange-500/20 shadow-[0_8px_32px_rgba(255,165,0,0.12)] relative">
         {/* Header Glow Effect */}
-        <div className="absolute inset-0 bg-gradient-to-r from-[#FF7BAA]/5 via-[#FF4D88]/8 to-[#FF1A75]/5 blur-xl"></div>
+        <div className="absolute inset-0 bg-gradient-to-r from-orange-500/5 via-amber-500/8 to-red-500/5 blur-xl"></div>
         {/* Top Section - Enhanced User Progress with Candy-Gloss Effects */}
         <div className="relative px-3 sm:px-4 py-3 sm:py-4 flex items-center justify-between">
-          {/* Profile with Candy-Gloss XP Ring */}
+          {/* Profile with Modern XP Ring */}
           <div 
             ref={avatarRef}
             className="relative cursor-pointer group flex-shrink-0"
             onClick={handleAvatarClick}
           >
             <div className="w-16 h-16 sm:w-20 sm:h-20 relative">
-              {/* Candy-Gloss XP Progress Ring with Enhanced Glow */}
+              {/* Modern XP Progress Ring with Enhanced Glow */}
               <div className="absolute inset-0">
                 {/* Outer Glow Ring */}
                 <div className="absolute inset-0 rounded-full" style={{
                   background: `conic-gradient(from 0deg, 
-                    rgba(255, 123, 170, 0.4) 0deg,
-                    rgba(255, 26, 117, 0.6) ${xpProgress * 3.6}deg,
-                    rgba(179, 0, 38, 0.8) ${xpProgress * 3.6}deg,
+                    rgba(255, 165, 0, 0.4) 0deg,
+                    rgba(255, 69, 0, 0.6) ${xpProgress * 3.6}deg,
+                    rgba(220, 20, 60, 0.8) ${xpProgress * 3.6}deg,
                     transparent ${xpProgress * 3.6}deg)`,
                   filter: 'blur(3px)'
                 }}></div>
@@ -317,49 +317,49 @@ export function LikPage({ onShowRestaurantProfile, onShowLikPassport, onShowMess
                     cy="40"
                     r="35"
                     fill="none"
-                    stroke="url(#candyGlossXpGradient)"
+                    stroke="url(#modernXpGradient)"
                     strokeWidth="4"
                     strokeLinecap="round"
                     strokeDasharray={`${2 * Math.PI * 35}`}
                     strokeDashoffset={`${2 * Math.PI * 35 * (1 - xpProgress / 100)}`}
-                    className="transition-all duration-500 drop-shadow-[0_0_8px_rgba(255,77,136,0.6)]"
+                    className="transition-all duration-500 drop-shadow-[0_0_8px_rgba(255,165,0,0.6)]"
                   />
                   <defs>
-                    <linearGradient id="candyGlossXpGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-                      <stop offset="0%" stopColor="#FF7BAA" />
-                      <stop offset="50%" stopColor="#FF1A75" />
-                      <stop offset="100%" stopColor="#B30026" />
+                    <linearGradient id="modernXpGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                      <stop offset="0%" stopColor="#FFA500" />
+                      <stop offset="50%" stopColor="#FF4500" />
+                      <stop offset="100%" stopColor="#DC143C" />
                     </linearGradient>
                   </defs>
                 </svg>
               </div>
               
-              {/* Enhanced Sparkle Effects with Candy Colors */}
+              {/* Enhanced Sparkle Effects with Modern Colors */}
               <div className="absolute -top-1 -right-1 w-3 h-3 sm:w-4 sm:h-4 animate-pulse">
-                <Sparkle size={14} className="text-[#FF4D88] drop-shadow-[0_0_4px_rgba(255,77,136,0.8)]" />
+                <Sparkle size={14} className="text-orange-500 drop-shadow-[0_0_4px_rgba(255,165,0,0.8)]" />
               </div>
               <div className="absolute -bottom-1 -left-1 w-2 h-2 sm:w-3 sm:h-3 animate-pulse" style={{ animationDelay: '1s' }}>
-                <Sparkle size={10} className="text-[#FF7BAA] drop-shadow-[0_0_3px_rgba(255,123,170,0.8)]" />
+                <Sparkle size={10} className="text-amber-500 drop-shadow-[0_0_3px_rgba(245,158,11,0.8)]" />
               </div>
               <div className="absolute -top-1 -left-1 w-2 h-2 animate-pulse" style={{ animationDelay: '0.5s' }}>
-                <Sparkle size={8} className="text-[#FF1A75] drop-shadow-[0_0_2px_rgba(255,26,117,0.8)]" />
+                <Sparkle size={8} className="text-red-500 drop-shadow-[0_0_2px_rgba(239,68,68,0.8)]" />
               </div>
               
-              {/* Profile Picture with Candy-Gloss Border */}
+              {/* Profile Picture with Modern Border */}
               <div className="absolute inset-2 sm:inset-3">
-                <div className="w-full h-full rounded-full p-0.5 bg-gradient-to-br from-[#FF7BAA] via-[#FF1A75] to-[#B30026] shadow-[0_0_16px_rgba(255,77,136,0.4)]">
+                <div className="w-full h-full rounded-full p-0.5 bg-gradient-to-br from-orange-500 via-red-500 to-red-700 shadow-[0_0_16px_rgba(255,165,0,0.4)]">
                   <Avatar className="w-full h-full border-2 border-white/90 shadow-lg">
                     <AvatarImage src="/src/assets/images/user-avatar.jpg" alt="User" />
-                    <AvatarFallback className="text-sm sm:text-lg font-bold bg-gradient-to-br from-[#FF7BAA] to-[#FF1A75] text-white">
+                    <AvatarFallback className="text-sm sm:text-lg font-bold bg-gradient-to-br from-orange-500 to-red-500 text-white">
                       U
                     </AvatarFallback>
                   </Avatar>
                 </div>
               </div>
               
-              {/* Candy-Gloss Level Badge */}
+              {/* Modern Level Badge */}
               <div className="absolute -bottom-1 sm:-bottom-2 left-1/2 transform -translate-x-1/2">
-                <div className="glossy-red-pill px-2 sm:px-3 py-0.5 sm:py-1 text-xs sm:text-sm font-bold flex items-center gap-1 shadow-[0_0_12px_rgba(255,77,136,0.5)]">
+                <div className="glossy-red-pill px-2 sm:px-3 py-0.5 sm:py-1 text-xs sm:text-sm font-bold flex items-center gap-1 shadow-[0_0_12px_rgba(255,165,0,0.5)]">
                   <Crown size={10} className="text-white drop-shadow-sm" />
                   <span className="text-white">{userProgress.level}</span>
                 </div>
@@ -367,14 +367,14 @@ export function LikPage({ onShowRestaurantProfile, onShowLikPassport, onShowMess
             </div>
           </div>
 
-          {/* Enhanced Stats Row with Candy-Gloss Effects */}
+          {/* Enhanced Stats Row with Modern Effects */}
           <div className="flex items-center gap-2 sm:gap-4 lg:gap-6">
-            {/* Streak with Candy-Gloss Effect */}
+            {/* Streak with Modern Effect */}
             <div className="flex flex-col items-center">
               <div className="relative">
                 {/* Glow effect */}
-                <div className="absolute inset-0 bg-gradient-to-r from-[#FF7BAA] to-[#FF1A75] rounded-full blur-sm opacity-60"></div>
-                <div className="relative flex items-center gap-1 glossy-red-pill px-2 sm:px-3 py-1 sm:py-2 shadow-[0_0_16px_rgba(255,77,136,0.5)]">
+                <div className="absolute inset-0 bg-gradient-to-r from-orange-500 to-red-500 rounded-full blur-sm opacity-60"></div>
+                <div className="relative flex items-center gap-1 glossy-red-pill px-2 sm:px-3 py-1 sm:py-2 shadow-[0_0_16px_rgba(255,165,0,0.5)]">
                   <Flame size={14} weight="fill" className="text-white drop-shadow-sm" />
                   <span className="font-bold text-xs sm:text-sm text-white">{userProgress.streakCount}</span>
                 </div>
@@ -382,12 +382,12 @@ export function LikPage({ onShowRestaurantProfile, onShowLikPassport, onShowMess
               <span className="text-xs text-gray-600 mt-1 font-medium hidden sm:inline">Streak</span>
             </div>
 
-            {/* Tickets with Candy-Gloss Effect */}
+            {/* Tickets with Modern Effect */}
             <div className="flex flex-col items-center">
               <div className="relative">
                 {/* Glow effect */}
-                <div className="absolute inset-0 bg-gradient-to-r from-[#FF1A75] to-[#B30026] rounded-full blur-sm opacity-60"></div>
-                <div className="relative flex items-center gap-1 glossy-red-pill px-2 sm:px-3 py-1 sm:py-2 shadow-[0_0_16px_rgba(179,0,38,0.5)]">
+                <div className="absolute inset-0 bg-gradient-to-r from-red-500 to-red-700 rounded-full blur-sm opacity-60"></div>
+                <div className="relative flex items-center gap-1 glossy-red-pill px-2 sm:px-3 py-1 sm:py-2 shadow-[0_0_16px_rgba(220,20,60,0.5)]">
                   <Ticket size={14} weight="fill" className="text-white drop-shadow-sm" />
                   <span className="font-bold text-xs sm:text-sm text-white">{userProgress.likTickets}</span>
                 </div>
@@ -395,12 +395,12 @@ export function LikPage({ onShowRestaurantProfile, onShowLikPassport, onShowMess
               <span className="text-xs text-gray-600 mt-1 font-medium hidden sm:inline">Tickets</span>
             </div>
 
-            {/* Coins with Candy-Gloss Effect */}
+            {/* Coins with Modern Effect */}
             <div className="flex flex-col items-center">
               <div className="relative">
                 {/* Glow effect */}
-                <div className="absolute inset-0 bg-gradient-to-r from-[#FF4D88] to-[#FF7BAA] rounded-full blur-sm opacity-60"></div>
-                <div className="relative flex items-center gap-1 glossy-red-pill px-2 sm:px-3 py-1 sm:py-2 shadow-[0_0_16px_rgba(255,77,136,0.5)]">
+                <div className="absolute inset-0 bg-gradient-to-r from-amber-500 to-orange-500 rounded-full blur-sm opacity-60"></div>
+                <div className="relative flex items-center gap-1 glossy-red-pill px-2 sm:px-3 py-1 sm:py-2 shadow-[0_0_16px_rgba(255,165,0,0.5)]">
                   <Coins size={14} weight="fill" className="text-white drop-shadow-sm animate-pulse" />
                   <span className="font-bold text-xs sm:text-sm text-white">{userProgress.likCoins > 999 ? `${(userProgress.likCoins / 1000).toFixed(1)}k` : userProgress.likCoins}</span>
                 </div>
@@ -410,31 +410,31 @@ export function LikPage({ onShowRestaurantProfile, onShowLikPassport, onShowMess
           </div>
         </div>
 
-        {/* Secondary Navigation with Enhanced Candy-Gloss Effects */}
+        {/* Secondary Navigation with Enhanced Modern Effects */}
         <div className="relative px-3 sm:px-4 py-2 sm:py-3 flex items-center justify-center">
           {/* Navigation Background Glow */}
-          <div className="absolute inset-0 bg-gradient-to-r from-[#FF7BAA]/5 via-[#FF4D88]/8 to-[#FF1A75]/5 blur-lg"></div>
+          <div className="absolute inset-0 bg-gradient-to-r from-orange-500/5 via-amber-500/8 to-red-500/5 blur-lg"></div>
           
           <div className="relative flex items-center gap-3 sm:gap-4 lg:gap-6 w-full max-w-md justify-center">
-            {/* Leaderboard with Candy-Gloss Style */}
+            {/* Leaderboard with Modern Style */}
             <div className="relative">
-              <div className="absolute inset-0 bg-[#FF4D88]/30 rounded-full blur-md"></div>
+              <div className="absolute inset-0 bg-orange-500/30 rounded-full blur-md"></div>
               <Button 
                 variant="ghost" 
                 size="sm" 
-                className="relative bg-white/60 hover:bg-white/80 backdrop-blur-sm rounded-full p-2 sm:p-3 shadow-[0_0_12px_rgba(255,77,136,0.3)] border border-[#FF4D88]/20 transition-all duration-300 hover:shadow-[0_0_20px_rgba(255,77,136,0.5)] hover:scale-105"
+                className="relative bg-white/60 hover:bg-white/80 backdrop-blur-sm rounded-full p-2 sm:p-3 shadow-[0_0_12px_rgba(255,165,0,0.3)] border border-orange-500/20 transition-all duration-300 hover:shadow-[0_0_20px_rgba(255,165,0,0.5)] hover:scale-105"
               >
-                <Trophy size={16} className="text-[#FF1A75] drop-shadow-sm" />
-                <div className="absolute -top-0.5 -right-0.5 w-2 h-2 sm:w-3 sm:h-3 bg-gradient-to-br from-[#FF4D88] to-[#FF1A75] rounded-full shadow-[0_0_6px_rgba(255,77,136,0.8)]"></div>
+                <Trophy size={16} className="text-red-600 drop-shadow-sm" />
+                <div className="absolute -top-0.5 -right-0.5 w-2 h-2 sm:w-3 sm:h-3 bg-gradient-to-br from-orange-500 to-red-500 rounded-full shadow-[0_0_6px_rgba(255,165,0,0.8)]"></div>
               </Button>
             </div>
 
-            {/* Enhanced Tab Selector with Candy-Gloss Design */}
+            {/* Enhanced Tab Selector with Modern Design */}
             <div className="relative">
               {/* Tab Container Glow */}
-              <div className="absolute inset-0 bg-gradient-to-r from-[#FF7BAA]/20 via-[#FF4D88]/25 to-[#FF1A75]/20 rounded-xl sm:rounded-2xl blur-lg"></div>
+              <div className="absolute inset-0 bg-gradient-to-r from-orange-500/20 via-amber-500/25 to-red-500/20 rounded-xl sm:rounded-2xl blur-lg"></div>
               
-              <div className="relative bg-white/70 backdrop-blur-md rounded-xl sm:rounded-2xl p-1 sm:p-1.5 flex shadow-[0_0_20px_rgba(255,77,136,0.2)] border border-[#FF4D88]/30 flex-1 max-w-xs">
+              <div className="relative bg-white/70 backdrop-blur-md rounded-xl sm:rounded-2xl p-1 sm:p-1.5 flex shadow-[0_0_20px_rgba(255,165,0,0.2)] border border-orange-500/30 flex-1 max-w-xs">
                 <Button
                   variant="ghost"
                   size="sm"
@@ -442,8 +442,8 @@ export function LikPage({ onShowRestaurantProfile, onShowLikPassport, onShowMess
                   className={cn(
                     "font-rum-raisin rounded-lg sm:rounded-xl px-3 sm:px-4 py-2 sm:py-3 relative overflow-hidden flex-1 text-xs sm:text-sm transition-all duration-300",
                     activeView === 'bounties' 
-                      ? "glossy-red-pill text-white font-bold shadow-[0_0_16px_rgba(255,77,136,0.6)]" 
-                      : "text-gray-600 font-medium hover:bg-white/50 hover:text-[#FF1A75] hover:shadow-[0_0_8px_rgba(255,77,136,0.2)]"
+                      ? "glossy-red-pill text-white font-bold shadow-[0_0_16px_rgba(255,165,0,0.6)]" 
+                      : "text-gray-600 font-medium hover:bg-white/50 hover:text-red-600 hover:shadow-[0_0_8px_rgba(255,165,0,0.2)]"
                   )}
                 >
                   <Target size={12} className="mr-1 sm:mr-2" />
@@ -460,8 +460,8 @@ export function LikPage({ onShowRestaurantProfile, onShowLikPassport, onShowMess
                   className={cn(
                     "font-rum-raisin rounded-lg sm:rounded-xl px-3 sm:px-4 py-2 sm:py-3 relative overflow-hidden flex-1 text-xs sm:text-sm transition-all duration-300",
                     activeView === 'quests' 
-                      ? "glossy-red-pill text-white font-bold shadow-[0_0_16px_rgba(255,77,136,0.6)]" 
-                      : "text-gray-600 font-medium hover:bg-white/50 hover:text-[#FF1A75] hover:shadow-[0_0_8px_rgba(255,77,136,0.2)]"
+                      ? "glossy-red-pill text-white font-bold shadow-[0_0_16px_rgba(255,165,0,0.6)]" 
+                      : "text-gray-600 font-medium hover:bg-white/50 hover:text-red-600 hover:shadow-[0_0_8px_rgba(255,165,0,0.2)]"
                   )}
                 >
                   <Sword size={12} className="mr-1 sm:mr-2" />
@@ -474,17 +474,17 @@ export function LikPage({ onShowRestaurantProfile, onShowLikPassport, onShowMess
               </div>
             </div>
 
-            {/* Rewards with Candy-Gloss Style */}
+            {/* Rewards with Modern Style */}
             <div className="relative">
-              <div className="absolute inset-0 bg-[#FF7BAA]/30 rounded-full blur-md"></div>
+              <div className="absolute inset-0 bg-amber-500/30 rounded-full blur-md"></div>
               <Button 
                 variant="ghost" 
                 size="sm" 
-                className="relative bg-white/60 hover:bg-white/80 backdrop-blur-sm rounded-full p-2 sm:p-3 shadow-[0_0_12px_rgba(255,123,170,0.3)] border border-[#FF7BAA]/20 transition-all duration-300 hover:shadow-[0_0_20px_rgba(255,123,170,0.5)] hover:scale-105"
+                className="relative bg-white/60 hover:bg-white/80 backdrop-blur-sm rounded-full p-2 sm:p-3 shadow-[0_0_12px_rgba(245,158,11,0.3)] border border-amber-500/20 transition-all duration-300 hover:shadow-[0_0_20px_rgba(245,158,11,0.5)] hover:scale-105"
               >
-                <Gift size={16} className="text-[#FF1A75] drop-shadow-sm" />
+                <Gift size={16} className="text-red-600 drop-shadow-sm" />
                 <div className="absolute -top-0.5 -right-0.5">
-                  <Confetti size={10} className="text-[#FF4D88] drop-shadow-[0_0_4px_rgba(255,77,136,0.8)]" />
+                  <Confetti size={10} className="text-orange-500 drop-shadow-[0_0_4px_rgba(255,165,0,0.8)]" />
                 </div>
               </Button>
             </div>
@@ -494,7 +494,7 @@ export function LikPage({ onShowRestaurantProfile, onShowLikPassport, onShowMess
 
       {/* Scrollable Content */}
       <div className="flex-1 overflow-y-auto scrollbar-hide pb-20">
-        {/* Enhanced Filter Tabs with Candy-Gloss Design */}
+        {/* Enhanced Filter Tabs with Modern Design */}
         {activeView === 'bounties' && (
           <>
             <div className="px-3 sm:px-4 py-4 sm:py-6 flex justify-center">
@@ -502,7 +502,7 @@ export function LikPage({ onShowRestaurantProfile, onShowLikPassport, onShowMess
                 {(['nearby', 'most-wanted', 'for-you'] as const).map((filter) => (
                   <div key={filter} className="relative">
                     {selectedFilter === filter && (
-                      <div className="absolute inset-0 bg-gradient-to-r from-[#FF7BAA]/40 via-[#FF4D88]/50 to-[#FF1A75]/40 rounded-full blur-md"></div>
+                      <div className="absolute inset-0 bg-gradient-to-r from-orange-500/40 via-amber-500/50 to-red-500/40 rounded-full blur-md"></div>
                     )}
                     <Button
                       variant="ghost"
@@ -511,8 +511,8 @@ export function LikPage({ onShowRestaurantProfile, onShowLikPassport, onShowMess
                       className={cn(
                         "relative rounded-full font-rum-raisin px-3 sm:px-4 py-1.5 sm:py-2 overflow-hidden text-xs sm:text-sm transition-all duration-300",
                         selectedFilter === filter 
-                          ? "glossy-red-pill text-white font-bold shadow-[0_0_16px_rgba(255,77,136,0.6)]" 
-                          : "bg-white/60 backdrop-blur-sm text-gray-600 font-medium hover:bg-white/80 shadow-md hover:shadow-[0_0_12px_rgba(255,77,136,0.3)] hover:text-[#FF1A75] hover:scale-105"
+                          ? "glossy-red-pill text-white font-bold shadow-[0_0_16px_rgba(255,165,0,0.6)]" 
+                          : "bg-white/60 backdrop-blur-sm text-gray-600 font-medium hover:bg-white/80 shadow-md hover:shadow-[0_0_12px_rgba(255,165,0,0.3)] hover:text-red-600 hover:scale-105"
                       )}
                     >
                       {filter === 'nearby' && (
@@ -545,23 +545,23 @@ export function LikPage({ onShowRestaurantProfile, onShowLikPassport, onShowMess
               </div>
             </div>
 
-            {/* Enhanced Search Bar with Candy-Gloss Effects */}
+            {/* Enhanced Search Bar with Modern Effects */}
             <div className="px-3 sm:px-4 pb-4 sm:pb-6">
               <div className="relative max-w-md mx-auto">
                 {/* Multi-layer glow effect */}
-                <div className="absolute inset-0 bg-gradient-to-r from-[#FF7BAA]/20 via-[#FF4D88]/30 to-[#FF1A75]/20 rounded-xl sm:rounded-2xl blur-lg"></div>
-                <div className="absolute inset-0 bg-gradient-to-r from-[#FF7BAA]/10 via-[#FF4D88]/15 to-[#FF1A75]/10 rounded-xl sm:rounded-2xl blur-sm"></div>
+                <div className="absolute inset-0 bg-gradient-to-r from-orange-500/20 via-amber-500/30 to-red-500/20 rounded-xl sm:rounded-2xl blur-lg"></div>
+                <div className="absolute inset-0 bg-gradient-to-r from-orange-500/10 via-amber-500/15 to-red-500/10 rounded-xl sm:rounded-2xl blur-sm"></div>
                 
-                <div className="relative bg-white/80 backdrop-blur-md rounded-xl sm:rounded-2xl border border-[#FF4D88]/30 shadow-[0_0_20px_rgba(255,77,136,0.15)]">
-                  <MagnifyingGlass className="absolute left-3 sm:left-4 top-1/2 transform -translate-y-1/2 text-[#FF1A75] drop-shadow-sm" size={16} />
+                <div className="relative bg-white/80 backdrop-blur-md rounded-xl sm:rounded-2xl border border-orange-500/30 shadow-[0_0_20px_rgba(255,165,0,0.15)]">
+                  <MagnifyingGlass className="absolute left-3 sm:left-4 top-1/2 transform -translate-y-1/2 text-red-600 drop-shadow-sm" size={16} />
                   <Input
                     placeholder="🔍 Discover epic bounties..."
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
-                    className="pl-10 sm:pl-12 pr-10 sm:pr-12 py-2.5 sm:py-3 bg-transparent border-none text-gray-700 placeholder-gray-500 font-medium text-sm sm:text-base focus:ring-2 focus:ring-[#FF4D88]/40"
+                    className="pl-10 sm:pl-12 pr-10 sm:pr-12 py-2.5 sm:py-3 bg-transparent border-none text-gray-700 placeholder-gray-500 font-medium text-sm sm:text-base focus:ring-2 focus:ring-orange-500/40"
                   />
                   <div className="absolute right-3 sm:right-4 top-1/2 transform -translate-y-1/2">
-                    <div className="w-2 h-2 bg-gradient-to-r from-[#FF4D88] to-[#FF7BAA] rounded-full shadow-[0_0_8px_rgba(255,77,136,0.6)] animate-pulse"></div>
+                    <div className="w-2 h-2 bg-gradient-to-r from-orange-500 to-red-500 rounded-full shadow-[0_0_8px_rgba(255,165,0,0.6)] animate-pulse"></div>
                   </div>
                 </div>
               </div>
@@ -583,20 +583,20 @@ export function LikPage({ onShowRestaurantProfile, onShowLikPassport, onShowMess
         )}
       </div>
 
-      {/* Enhanced Floating Map Button with Candy-Gloss Design */}
+      {/* Enhanced Floating Map Button with Modern Design */}
       <div className="fixed bottom-20 sm:bottom-24 left-1/2 transform -translate-x-1/2 z-10">
         <div className="relative">
           {/* Multi-layer glow effects */}
-          <div className="absolute inset-0 bg-gradient-to-r from-[#FF7BAA] via-[#FF4D88] to-[#FF1A75] rounded-full blur-xl opacity-50"></div>
-          <div className="absolute inset-0 bg-gradient-to-r from-[#FF1A75] to-[#B30026] rounded-full blur-lg opacity-40"></div>
+          <div className="absolute inset-0 bg-gradient-to-r from-orange-500 via-amber-500 to-red-500 rounded-full blur-xl opacity-50"></div>
+          <div className="absolute inset-0 bg-gradient-to-r from-red-500 to-red-700 rounded-full blur-lg opacity-40"></div>
           
           {/* Pulsing Ring Effect */}
-          <div className="absolute inset-0 rounded-full border-2 border-[#FF4D88]/30 animate-pulse"></div>
-          <div className="absolute inset-0 rounded-full border border-[#FF7BAA]/20 animate-pulse" style={{ animationDelay: '0.5s' }}></div>
+          <div className="absolute inset-0 rounded-full border-2 border-orange-500/30 animate-pulse"></div>
+          <div className="absolute inset-0 rounded-full border border-amber-500/20 animate-pulse" style={{ animationDelay: '0.5s' }}></div>
           
           <Button 
             size="sm" 
-            className="glossy-red-pill relative px-4 sm:px-6 py-2 sm:py-3 rounded-full text-sm sm:text-base shadow-[0_0_24px_rgba(255,77,136,0.6)] hover:shadow-[0_0_32px_rgba(255,77,136,0.8)] transition-all duration-300 hover:scale-110"
+            className="glossy-red-pill relative px-4 sm:px-6 py-2 sm:py-3 rounded-full text-sm sm:text-base shadow-[0_0_24px_rgba(255,165,0,0.6)] hover:shadow-[0_0_32px_rgba(255,165,0,0.8)] transition-all duration-300 hover:scale-110"
           >
             <MapPin size={14} className="mr-1 sm:mr-2 text-white drop-shadow-sm" />
             <span className="font-bold hidden xs:inline text-white">Explore Map</span>
@@ -685,14 +685,14 @@ function BountiesView({ bounties, onShowRestaurantProfile, onBountyClick }: {
 
   return (
     <div className="px-3 sm:px-4 space-y-6 pb-6">
-      {/* Enhanced Bounties Section with Candy-Gloss Theme */}
+      {/* Enhanced Bounties Section with Modern Theme */}
       <div className="space-y-4">
         <div className="text-center relative py-2">
           <div className="absolute inset-0 flex items-center justify-center">
-            <div className="w-24 sm:w-32 h-1 bg-gradient-to-r from-transparent via-[#DC143C]/40 to-transparent blur-sm"></div>
-            <div className="w-16 sm:w-20 h-0.5 bg-gradient-to-r from-[#FF1A75] via-[#DC143C] to-[#8B0000]"></div>
+            <div className="w-24 sm:w-32 h-1 bg-gradient-to-r from-transparent via-red-600/40 to-transparent blur-sm"></div>
+            <div className="w-16 sm:w-20 h-0.5 bg-gradient-to-r from-orange-500 via-red-600 to-red-800"></div>
           </div>
-          <h3 className="relative bg-gradient-to-r from-[#FF1A75] via-[#DC143C] to-[#8B0000] bg-clip-text text-transparent px-3 font-bold text-base sm:text-lg font-rum-raisin drop-shadow-sm">
+          <h3 className="relative bg-gradient-to-r from-orange-500 via-red-600 to-red-800 bg-clip-text text-transparent px-3 font-bold text-base sm:text-lg font-rum-raisin drop-shadow-sm">
             ✨ LEGENDARY BOUNTIES ✨
           </h3>
         </div>
@@ -702,8 +702,8 @@ function BountiesView({ bounties, onShowRestaurantProfile, onBountyClick }: {
           {bounties.slice(0, 2).map((bounty, index) => (
             <div key={bounty.id} className="relative perspective-1000 w-full max-w-sm mx-auto">
               {/* Enhanced Multi-layer Glow Effects */}
-              <div className="absolute -inset-2 bg-gradient-to-r from-[#FF1A75]/30 via-[#DC143C]/40 to-[#8B0000]/30 rounded-2xl blur-xl opacity-60"></div>
-              <div className="absolute -inset-1 bg-gradient-to-r from-[#DC143C]/20 via-[#FF1A75]/25 to-[#8B0000]/20 rounded-2xl blur-lg opacity-80"></div>
+              <div className="absolute -inset-2 bg-gradient-to-r from-orange-500/30 via-red-600/40 to-red-800/30 rounded-2xl blur-xl opacity-60"></div>
+              <div className="absolute -inset-1 bg-gradient-to-r from-red-600/20 via-orange-500/25 to-red-800/20 rounded-2xl blur-lg opacity-80"></div>
               
               <div 
                 className={cn(
@@ -714,7 +714,7 @@ function BountiesView({ bounties, onShowRestaurantProfile, onBountyClick }: {
               >
                 {/* Front Side */}
                 <div className="absolute inset-0 backface-hidden">
-                  <Card className="h-full overflow-hidden bg-gradient-to-br from-white/95 to-white/90 backdrop-blur-lg border-2 border-[#FF4D88]/30 shadow-[0_0_24px_rgba(255,77,136,0.2)] rounded-2xl">
+                  <Card className="h-full overflow-hidden bg-gradient-to-br from-white/95 to-white/90 backdrop-blur-lg border-2 border-orange-500/30 shadow-[0_0_24px_rgba(255,165,0,0.2)] rounded-2xl">
                     {/* Background Image with Enhanced Overlay */}
                     <div 
                       className="absolute inset-0 bg-cover bg-center bg-no-repeat"
