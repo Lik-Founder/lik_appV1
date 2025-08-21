@@ -22,6 +22,7 @@ import { SwipeDiscoveryPage } from '@/components/SwipeDiscoveryPage';
 import { NotificationsPage } from '@/components/NotificationsPage';
 import { BountyDetailsPage } from '@/components/BountyDetailsPage';
 import { MyRewardsPage } from '@/components/MyRewardsPage';
+import { RewardsPage } from '@/components/RewardsPage';
 import { ReservationManager } from '@/components/ReservationManager';
 import { useDevice, useSafeArea } from '@/hooks/use-device';
 import { useTabSwipe } from '@/hooks/use-tab-swipe';
@@ -46,13 +47,14 @@ function App() {
   const [showNotifications, setShowNotifications] = useState(false);
   const [showBountyDetails, setShowBountyDetails] = useState<string | null>(null);
   const [showRewards, setShowRewards] = useState(false);
+  const [showLikRewards, setShowLikRewards] = useState(false);
   const [showReservationManager, setShowReservationManager] = useState(false);
   
   const device = useDevice();
   const safeArea = useSafeArea();
 
   // Set up swipe gestures for tab navigation (disabled when showing modals)
-  const swipeDisabled = !!(showRestaurantProfile || showUserProfile || showLeaderboard || showLikTV || showLikPassport || showGuidePage || showEventsPage || showEventDetails || showMessagesPage || showMessageThread || showTrendingSearch || showSwipeDiscovery || showNotifications || showBountyDetails || showRewards || showReservationManager);
+  const swipeDisabled = !!(showRestaurantProfile || showUserProfile || showLeaderboard || showLikTV || showLikPassport || showGuidePage || showEventsPage || showEventDetails || showMessagesPage || showMessageThread || showTrendingSearch || showSwipeDiscovery || showNotifications || showBountyDetails || showRewards || showLikRewards || showReservationManager);
   
   const tabSwipeHandlers = useTabSwipe({
     activeTab,
@@ -74,6 +76,15 @@ function App() {
             setShowReservationManager(false);
             setShowRestaurantProfile(restaurantId);
           }}
+        />
+      );
+    }
+
+    // Show Lik Rewards if requested
+    if (showLikRewards) {
+      return (
+        <RewardsPage 
+          onBack={() => setShowLikRewards(false)}
         />
       );
     }
@@ -334,6 +345,7 @@ function App() {
             onShowNotifications={() => setShowNotifications(true)}
             onShowBountyDetails={(bountyId) => setShowBountyDetails(bountyId)}
             onShowReservationManager={() => setShowReservationManager(true)}
+            onShowRewards={() => setShowLikRewards(true)}
           />
         );
       case 'trending':
@@ -370,7 +382,7 @@ function App() {
       </div>
 
       {/* Swipe Indicator */}
-      {!showRestaurantProfile && !showUserProfile && !showLeaderboard && !showLikTV && !showLikPassport && !showGuidePage && !showEventsPage && !showEventDetails && !showMessagesPage && !showMessageThread && !showTrendingSearch && !showSwipeDiscovery && !showNotifications && !showBountyDetails && !showRewards && !showReservationManager && (
+      {!showRestaurantProfile && !showUserProfile && !showLeaderboard && !showLikTV && !showLikPassport && !showGuidePage && !showEventsPage && !showEventDetails && !showMessagesPage && !showMessageThread && !showTrendingSearch && !showSwipeDiscovery && !showNotifications && !showBountyDetails && !showRewards && !showLikRewards && !showReservationManager && (
         <SwipeIndicator 
           activeTab={activeTab} 
           isVisible={showSwipeIndicator}
@@ -378,7 +390,7 @@ function App() {
       )}
 
       {/* Bottom Navigation */}
-      {!showRestaurantProfile && !showUserProfile && !showLeaderboard && !showLikTV && !showLikPassport && !showGuidePage && !showEventsPage && !showEventDetails && !showMessagesPage && !showMessageThread && !showTrendingSearch && !showSwipeDiscovery && !showNotifications && !showBountyDetails && !showRewards && !showReservationManager && (
+      {!showRestaurantProfile && !showUserProfile && !showLeaderboard && !showLikTV && !showLikPassport && !showGuidePage && !showEventsPage && !showEventDetails && !showMessagesPage && !showMessageThread && !showTrendingSearch && !showSwipeDiscovery && !showNotifications && !showBountyDetails && !showRewards && !showLikRewards && !showReservationManager && (
         <div 
           className={cn(
             "border-t backdrop-blur-sm",

@@ -175,9 +175,10 @@ interface LikPageProps {
   onShowNotifications?: () => void;
   onShowBountyDetails?: (bountyId: string) => void;
   onShowReservationManager?: () => void;
+  onShowRewards?: () => void;
 }
 
-export function LikPage({ onShowRestaurantProfile, onShowLikPassport, onShowMessagesPage, onShowNotifications, onShowBountyDetails, onShowReservationManager }: LikPageProps) {
+export function LikPage({ onShowRestaurantProfile, onShowLikPassport, onShowMessagesPage, onShowNotifications, onShowBountyDetails, onShowReservationManager, onShowRewards }: LikPageProps) {
   const [userProgress] = useKV('user-progress', mockUserProgress);
   const [bounties] = useKV('bounties', mockBounties);
   const [quests] = useKV('quests', mockQuests);
@@ -413,6 +414,7 @@ export function LikPage({ onShowRestaurantProfile, onShowLikPassport, onShowMess
               <Button 
                 variant="ghost" 
                 size="sm" 
+                onClick={() => onShowRewards?.()}
                 className="relative bg-white/60 hover:bg-white/80 backdrop-blur-sm rounded-full p-2 sm:p-3 shadow-[0_0_12px_rgba(245,158,11,0.3)] border border-amber-500/20 transition-all duration-300 hover:shadow-[0_0_20px_rgba(245,158,11,0.5)] hover:scale-105"
               >
                 <Gift size={16} className="text-red-600 drop-shadow-sm" />
