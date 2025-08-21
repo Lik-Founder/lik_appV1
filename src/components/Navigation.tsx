@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import { DeviceType, Orientation } from '@/hooks/use-device';
 import unselectedFireIcon from '@/assets/images/unselected_fire_icon.png';
+import likLogoHeart from '@/assets/images/Lik_Logo_Heart_1.0.png';
 
 interface NavigationProps {
   activeTab: TabType;
@@ -70,6 +71,16 @@ export function Navigation({ activeTab, onTabChange, deviceType, orientation }: 
                 src={unselectedFireIcon} 
                 alt="Trending" 
                 className="transition-transform duration-200"
+                style={{ width: iconSize, height: iconSize }}
+              />
+            ) : item.id === 'lik' ? (
+              <img 
+                src={likLogoHeart} 
+                alt="Lik" 
+                className={cn(
+                  "transition-transform duration-200",
+                  isActive && "brightness-110"
+                )}
                 style={{ width: iconSize, height: iconSize }}
               />
             ) : (

@@ -626,7 +626,6 @@ export function TrendingPage({ onShowRestaurantProfile, onShowUserProfile, onSho
           </div>
         </div>
       </div>
-
       {/* Scrollable content container */}
       <div 
         ref={containerRef}
@@ -655,7 +654,7 @@ export function TrendingPage({ onShowRestaurantProfile, onShowUserProfile, onSho
                       className="w-5 h-5"
                     />
                   </Button>
-                  <span className="text-white text-xs font-rum-raisin bg-black/40 px-1 rounded">Rank</span>
+                  <span className="text-white text-xs font-rum-raisin bg-black/40 px-1 rounded">200</span>
                 </div>
                 
                 <div className="flex flex-col items-center gap-1">
@@ -746,7 +745,6 @@ export function TrendingPage({ onShowRestaurantProfile, onShowUserProfile, onSho
           </div>
         ))}
       </div>
-
       {/* Content indicators - repositioned for mobile */}
       <div className="absolute right-1 top-1/2 transform -translate-y-1/2 flex flex-col gap-1 z-10">
         {content.map((_, index) => (
@@ -759,7 +757,6 @@ export function TrendingPage({ onShowRestaurantProfile, onShowUserProfile, onSho
           />
         ))}
       </div>
-
       {/* Comment Modal */}
       {selectedPostId && (
         <CommentModal
