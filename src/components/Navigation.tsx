@@ -10,6 +10,8 @@ import searchIcon from '@/assets/images/search_icon.png';
 import selectedIcon from '@/assets/images/selected_icon.png';
 import unselectedHomeIcon from '@/assets/images/unselected_home_icon.png';
 import selectedHomeIcon from '@/assets/images/selected_home.png';
+import searchPng from '@/assets/images/search.png';
+import home3Icon from '@/assets/images/home_(3).png';
 
 interface NavigationProps {
   activeTab: TabType;
@@ -73,14 +75,14 @@ export function Navigation({ activeTab, onTabChange, deviceType, orientation }: 
           >
             {item.id === 'home' ? (
               <img 
-                src={isActive ? selectedHomeIcon : unselectedHomeIcon} 
+                src={isActive ? selectedHomeIcon : (isOnTrendingPage ? home3Icon : unselectedHomeIcon)} 
                 alt="Home" 
                 className="transition-transform duration-200"
                 style={{ width: iconSize, height: iconSize }}
               />
             ) : item.id === 'search' ? (
               <img 
-                src={isActive ? selectedIcon : searchIcon} 
+                src={isOnTrendingPage ? searchPng : (isActive ? selectedIcon : searchIcon)} 
                 alt="Explore" 
                 className="transition-transform duration-200"
                 style={{ width: iconSize, height: iconSize }}
