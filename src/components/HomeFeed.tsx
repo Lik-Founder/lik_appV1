@@ -471,7 +471,7 @@ export function HomeFeed({ onShowUserProfile, onShowRestaurantProfile, onShowLea
                   onClick={() => setActiveReviewTab(tab)}
                   className={`rounded-full nav-rum-raisin transition-all duration-300 px-4 py-2 text-sm ${
                     activeReviewTab === tab 
-                      ? 'bg-black text-white font-semibold shadow-sm'
+                      ? 'glossy-red-pill text-white font-semibold'
                       : 'text-gray-600 font-light hover:bg-gray-100/50'
                   }`}
                 >
@@ -507,9 +507,7 @@ export function HomeFeed({ onShowUserProfile, onShowRestaurantProfile, onShowLea
                   <img 
                     src={review.image} 
                     alt={review.restaurant}
-                    className={`w-full object-cover ${
-                      index % 4 === 0 || index % 4 === 3 ? 'h-48' : 'h-40'
-                    }`}
+                    className="w-full h-44 object-cover"
                   />
                   
                   {/* Rating/Score Overlay */}
