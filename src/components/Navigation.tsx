@@ -1,10 +1,14 @@
-import { Home, Search, GameController, TrendUp, User } from '@phosphor-icons/react';
+import { GameController, TrendUp, User } from '@phosphor-icons/react';
 import { TabType } from '@/lib/types';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import { DeviceType, Orientation } from '@/hooks/use-device';
 import unselectedFireIcon from '@/assets/images/unselected_fire_icon.png';
 import likLogoHeart from '@/assets/images/Lik_Logo_Heart_1.0.png';
+import searchIcon from '@/assets/images/search_icon.png';
+import selectedIcon from '@/assets/images/selected_icon.png';
+import unselectedHomeIcon from '@/assets/images/unselected_home_icon.png';
+import selectedHomeIcon from '@/assets/images/selected_home.png';
 
 interface NavigationProps {
   activeTab: TabType;
@@ -15,8 +19,8 @@ interface NavigationProps {
 
 export function Navigation({ activeTab, onTabChange, deviceType, orientation }: NavigationProps) {
   const navItems = [
-    { id: 'home' as TabType, icon: Home, label: 'Home' },
-    { id: 'search' as TabType, icon: Search, label: 'Explore' },
+    { id: 'home' as TabType, label: 'Home' },
+    { id: 'search' as TabType, label: 'Explore' },
     { id: 'lik' as TabType, icon: GameController, label: 'Lik' },
     { id: 'trending' as TabType, icon: TrendUp, label: 'Trending' },
     { id: 'profile' as TabType, icon: User, label: 'Profile' },
@@ -66,7 +70,21 @@ export function Navigation({ activeTab, onTabChange, deviceType, orientation }: 
                   )
             )}
           >
-            {item.id === 'trending' && !isActive ? (
+            {item.id === 'home' ? (
+              <img 
+                src={isActive ? selectedHomeIcon : unselectedHomeIcon} 
+                alt="Home" 
+                className="transition-transform duration-200"
+                style={{ width: iconSize, height: iconSize }}
+              />
+            ) : item.id === 'search' ? (
+              <img 
+                src={isActive ? selectedIcon : searchIcon} 
+                alt="Explore" 
+                className="transition-transform duration-200"
+                style={{ width: iconSize, height: iconSize }}
+              />
+            ) : item.id === 'trending' && !isActive ? (
               <img 
                 src={unselectedFireIcon} 
                 alt="Trending" 
@@ -83,13 +101,13 @@ export function Navigation({ activeTab, onTabChange, deviceType, orientation }: 
                 )}
                 style={{ width: iconSize, height: iconSize }}
               />
-            ) : (
+            ) : Icon ? (
               <Icon 
                 size={iconSize} 
                 weight={isActive ? "fill" : "regular"}
                 className="transition-transform duration-200"
               />
-            )}
+            ) : null}
             {showLabels && (
               <span className={cn(
                 "transition-opacity duration-200 nav-rum-raisin",
