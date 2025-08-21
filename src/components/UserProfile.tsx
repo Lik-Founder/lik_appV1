@@ -287,9 +287,9 @@ export function UserProfile({ userId, onBack }: UserProfileProps) {
 
       <ScrollArea className="flex-1">
         <div className="p-6">
-          {/* Whimsical Profile Header */}
+          {/* Compact Profile Header */}
           <div 
-            className="relative bg-gradient-to-br from-blue-100 via-white to-purple-100 rounded-3xl p-8 shadow-lg border border-blue-200/50 mb-8 overflow-hidden"
+            className="relative bg-gradient-to-br from-blue-100 via-white to-purple-100 rounded-2xl p-6 shadow-lg border border-blue-200/50 mb-6 overflow-hidden"
             {...(showBio ? {} : {
               onTouchStart: (e) => {
                 const startX = e.touches[0].clientX;
@@ -312,42 +312,42 @@ export function UserProfile({ userId, onBack }: UserProfileProps) {
             })}
           >
             {/* Floating Background Elements */}
-            <div className="absolute inset-0 overflow-hidden rounded-3xl">
-              <div className="absolute top-4 right-6 text-2xl opacity-20">🌟</div>
-              <div className="absolute bottom-8 left-6 text-xl opacity-20">🎨</div>
-              <div className="absolute top-1/2 right-4 text-lg opacity-20">✨</div>
+            <div className="absolute inset-0 overflow-hidden rounded-2xl">
+              <div className="absolute top-2 right-4 text-lg opacity-20">🌟</div>
+              <div className="absolute bottom-4 left-4 text-sm opacity-20">🎨</div>
+              <div className="absolute top-1/2 right-2 text-sm opacity-20">✨</div>
             </div>
 
-            <div className="relative z-10 space-y-6">
-              <div className="flex items-start space-x-6">
-                {/* Clean Profile Image with Simple XP Ring */}
+            <div className="relative z-10 space-y-4">
+              <div className="flex items-start space-x-4">
+                {/* Compact Profile Image with Simple XP Ring */}
                 <div className="relative">
                   {/* XP Progress Ring - Simplified */}
-                  <div className="relative w-20 h-20">
-                    <svg className="w-full h-full transform -rotate-90 absolute inset-0" viewBox="0 0 80 80">
+                  <div className="relative w-16 h-16">
+                    <svg className="w-full h-full transform -rotate-90 absolute inset-0" viewBox="0 0 64 64">
                       {/* Background Ring */}
                       <circle
-                        cx="40"
-                        cy="40"
-                        r="36"
+                        cx="32"
+                        cy="32"
+                        r="28"
                         stroke="currentColor"
-                        strokeWidth="2.5"
+                        strokeWidth="2"
                         fill="none"
                         className="text-blue-200"
                       />
                       {/* Progress Ring */}
                       <circle
-                        cx="40"
-                        cy="40"
-                        r="36"
+                        cx="32"
+                        cy="32"
+                        r="28"
                         stroke="url(#userXpGradient)"
-                        strokeWidth="2.5"
+                        strokeWidth="2"
                         fill="none"
                         strokeLinecap="round"
                         className="transition-all duration-700"
                         style={{
-                          strokeDasharray: 226.19, // 2 * π * 36
-                          strokeDashoffset: 226.19 * (1 - 0.7),
+                          strokeDasharray: 175.93, // 2 * π * 28
+                          strokeDashoffset: 175.93 * (1 - 0.7),
                         }}
                       />
                       <defs>
@@ -360,13 +360,13 @@ export function UserProfile({ userId, onBack }: UserProfileProps) {
                     </svg>
                     
                     {/* Profile Picture - Centered */}
-                    <div className="absolute inset-2.5">
-                      <div className="w-full h-full rounded-full overflow-hidden bg-white shadow-lg border-2 border-white">
+                    <div className="absolute inset-2">
+                      <div className="w-full h-full rounded-full overflow-hidden bg-white shadow-lg border border-white">
                         <ConsistentAvatar
                           src={user.avatar}
                           alt={user.displayName}
                           fallback={user.displayName.split(' ').map(n => n[0]).join('')}
-                          size="lg"
+                          size="md"
                           variant="default"
                           className="w-full h-full"
                         />
@@ -374,110 +374,110 @@ export function UserProfile({ userId, onBack }: UserProfileProps) {
                     </div>
                   </div>
                   
-                  {/* Clean Level Badge */}
-                  <div className="absolute -bottom-1 left-1/2 transform -translate-x-1/2 bg-gradient-to-r from-cyan-400 to-blue-500 text-white px-2.5 py-1 rounded-full shadow-md border-2 border-white font-bold text-xs">
-                    Level {user.level}
+                  {/* Compact Level Badge */}
+                  <div className="absolute -bottom-0.5 left-1/2 transform -translate-x-1/2 bg-gradient-to-r from-cyan-400 to-blue-500 text-white px-2 py-0.5 rounded-full shadow-md border border-white font-bold text-xs">
+                    {user.level}
                   </div>
                 </div>
 
                 {/* Profile Info */}
-                <div className="flex-1 space-y-3">
+                <div className="flex-1 space-y-2">
                   <div>
-                    <h1 className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent nav-rum-raisin">{user.displayName}</h1>
-                    <p className="text-gray-600 nav-rum-raisin text-lg">@{user.username}</p>
+                    <h1 className="text-lg font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent nav-rum-raisin">{user.displayName}</h1>
+                    <p className="text-gray-600 nav-rum-raisin text-sm">@{user.username}</p>
                   </div>
                   
                   {user.location && (
-                    <div className="flex items-center gap-2 bg-white/60 rounded-full px-4 py-2 w-fit shadow-sm">
-                      <div className="bg-gradient-to-r from-green-400 to-blue-500 p-1 rounded-full">
-                        <MapPin className="w-3 h-3 text-white" />
+                    <div className="flex items-center gap-2 bg-white/60 rounded-full px-3 py-1 w-fit shadow-sm">
+                      <div className="bg-gradient-to-r from-green-400 to-blue-500 p-0.5 rounded-full">
+                        <MapPin className="w-2.5 h-2.5 text-white" />
                       </div>
-                      <span className="text-sm text-gray-700 nav-rum-raisin">{user.location}</span>
+                      <span className="text-xs text-gray-700 nav-rum-raisin">{user.location}</span>
                     </div>
                   )}
                 </div>
               </div>
 
-              {/* Enhanced Bio */}
-              <div className="bg-white/60 rounded-2xl p-6 shadow-sm border border-blue-100">
-                <p className="text-sm leading-relaxed text-gray-700 whitespace-pre-line selectable-text nav-rum-raisin">
+              {/* Compact Bio */}
+              <div className="bg-white/60 rounded-xl p-4 shadow-sm border border-blue-100">
+                <p className="text-sm leading-relaxed text-gray-700 whitespace-pre-line selectable-text nav-rum-raisin line-clamp-2">
                   {user.bio}
                 </p>
                 
                 {user.favoriteAchievement && (
-                  <div className="flex items-center space-x-3 mt-4 p-4 bg-gradient-to-r from-yellow-100 to-orange-100 rounded-xl border border-yellow-200">
-                    <div className="w-12 h-12 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-xl flex items-center justify-center shadow-md">
-                      <span className="text-xl">{user.favoriteAchievement.icon}</span>
+                  <div className="flex items-center space-x-2 mt-3 p-3 bg-gradient-to-r from-yellow-100 to-orange-100 rounded-lg border border-yellow-200">
+                    <div className="w-8 h-8 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-lg flex items-center justify-center shadow-md">
+                      <span className="text-sm">{user.favoriteAchievement.icon}</span>
                     </div>
                     <div className="flex-1">
-                      <p className="font-bold text-gray-800 nav-rum-raisin">{user.favoriteAchievement.title}</p>
-                      <p className="text-xs text-gray-600 nav-rum-raisin">{user.favoriteAchievement.description}</p>
+                      <p className="font-bold text-gray-800 nav-rum-raisin text-sm">{user.favoriteAchievement.title}</p>
+                      <p className="text-xs text-gray-600 nav-rum-raisin line-clamp-1">{user.favoriteAchievement.description}</p>
                     </div>
-                    <div className="bg-gradient-to-r from-purple-500 to-pink-500 text-white px-3 py-1 rounded-full text-xs font-medium shadow-sm">
+                    <div className="bg-gradient-to-r from-purple-500 to-pink-500 text-white px-2 py-0.5 rounded-full text-xs font-medium shadow-sm">
                       {user.favoriteAchievement.rarity}
                     </div>
                   </div>
                 )}
               </div>
 
-              {/* Enhanced Stats */}
-              <div className="space-y-4">
+              {/* Compact Stats */}
+              <div className="space-y-3">
                 {/* Main Stats */}
-                <div className="grid grid-cols-3 gap-4">
-                  <div className="text-center bg-white/60 rounded-2xl p-4 shadow-sm border border-pink-100">
-                    <div className="text-xl font-bold text-gray-800">{user.followingCount.toLocaleString()}</div>
-                    <div className="text-sm text-gray-600 nav-rum-raisin">Following</div>
+                <div className="grid grid-cols-3 gap-3">
+                  <div className="text-center bg-white/60 rounded-xl p-2 shadow-sm border border-pink-100">
+                    <div className="text-sm font-bold text-gray-800">{user.followingCount.toLocaleString()}</div>
+                    <div className="text-xs text-gray-600 nav-rum-raisin">Following</div>
                   </div>
-                  <div className="text-center bg-white/60 rounded-2xl p-4 shadow-sm border border-purple-100">
-                    <div className="text-xl font-bold text-gray-800">{user.followerCount.toLocaleString()}</div>
-                    <div className="text-sm text-gray-600 nav-rum-raisin">Followers</div>
+                  <div className="text-center bg-white/60 rounded-xl p-2 shadow-sm border border-purple-100">
+                    <div className="text-sm font-bold text-gray-800">{user.followerCount.toLocaleString()}</div>
+                    <div className="text-xs text-gray-600 nav-rum-raisin">Followers</div>
                   </div>
-                  <div className="text-center bg-white/60 rounded-2xl p-4 shadow-sm border border-blue-100">
-                    <div className="text-xl font-bold text-gray-800">{user.postCount}</div>
-                    <div className="text-sm text-gray-600 nav-rum-raisin">Posts</div>
+                  <div className="text-center bg-white/60 rounded-xl p-2 shadow-sm border border-blue-100">
+                    <div className="text-sm font-bold text-gray-800">{user.postCount}</div>
+                    <div className="text-xs text-gray-600 nav-rum-raisin">Posts</div>
                   </div>
                 </div>
                 
                 {/* Activity Stats with Icons */}
-                <div className="grid grid-cols-3 gap-4">
-                  <div className="text-center bg-gradient-to-br from-orange-100 to-red-100 rounded-xl p-3 shadow-sm">
-                    <div className="text-lg mb-1">🎯</div>
-                    <div className="text-lg font-bold text-gray-800 nav-rum-raisin">{user.bountiesCompleted || 0}</div>
+                <div className="grid grid-cols-3 gap-2">
+                  <div className="text-center bg-gradient-to-br from-orange-100 to-red-100 rounded-lg p-2 shadow-sm">
+                    <div className="text-sm mb-0.5">🎯</div>
+                    <div className="text-sm font-bold text-gray-800 nav-rum-raisin">{user.bountiesCompleted || 0}</div>
                     <div className="text-xs text-gray-600 nav-rum-raisin">Bounties</div>
                   </div>
-                  <div className="text-center bg-gradient-to-br from-blue-100 to-cyan-100 rounded-xl p-3 shadow-sm">
-                    <div className="text-lg mb-1">⚔️</div>
-                    <div className="text-lg font-bold text-gray-800 nav-rum-raisin">{user.questsCompleted || 0}</div>
+                  <div className="text-center bg-gradient-to-br from-blue-100 to-cyan-100 rounded-lg p-2 shadow-sm">
+                    <div className="text-sm mb-0.5">⚔️</div>
+                    <div className="text-sm font-bold text-gray-800 nav-rum-raisin">{user.questsCompleted || 0}</div>
                     <div className="text-xs text-gray-600 nav-rum-raisin">Quests</div>
                   </div>
-                  <div className="text-center bg-gradient-to-br from-green-100 to-emerald-100 rounded-xl p-3 shadow-sm">
-                    <div className="text-lg mb-1">📝</div>
-                    <div className="text-lg font-bold text-gray-800 nav-rum-raisin">{user.reviewsWritten || 0}</div>
+                  <div className="text-center bg-gradient-to-br from-green-100 to-emerald-100 rounded-lg p-2 shadow-sm">
+                    <div className="text-sm mb-0.5">📝</div>
+                    <div className="text-sm font-bold text-gray-800 nav-rum-raisin">{user.reviewsWritten || 0}</div>
                     <div className="text-xs text-gray-600 nav-rum-raisin">Reviews</div>
                   </div>
                 </div>
               </div>
 
-              {/* Whimsical Action Buttons */}
-              <div className="flex space-x-4">
+              {/* Compact Action Buttons */}
+              <div className="flex space-x-3">
                 <Button 
                   onClick={handleFollow}
                   className={cn(
-                    "flex-1 h-12 rounded-full font-medium nav-rum-raisin shadow-sm",
+                    "flex-1 h-9 rounded-full font-medium nav-rum-raisin shadow-sm text-sm",
                     user.isFollowing 
                       ? "bg-gradient-to-r from-gray-200 to-slate-200 hover:from-gray-300 hover:to-slate-300 text-gray-700" 
                       : "bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white"
                   )}
                 >
-                  <UserPlus className="w-4 h-4 mr-2" />
+                  <UserPlus className="w-3 h-3 mr-1.5" />
                   {user.isFollowing ? 'Following' : 'Follow'}
                 </Button>
                 <Button 
                   variant="outline" 
                   onClick={handleShare}
-                  className="p-3 h-12 w-12 rounded-full bg-gradient-to-r from-blue-100 to-cyan-100 hover:from-blue-200 hover:to-cyan-200 border-blue-200 shadow-sm"
+                  className="p-2 h-9 w-9 rounded-full bg-gradient-to-r from-blue-100 to-cyan-100 hover:from-blue-200 hover:to-cyan-200 border-blue-200 shadow-sm"
                 >
-                  <ShareNetwork className="w-5 h-5 text-blue-600" />
+                  <ShareNetwork className="w-4 h-4 text-blue-600" />
                 </Button>
               </div>
             </div>
@@ -486,49 +486,48 @@ export function UserProfile({ userId, onBack }: UserProfileProps) {
           {/* Enhanced Bio View (Swipe) */}
           {showBio && (
             <div className="fixed inset-0 bg-gradient-to-br from-pink-50 via-background to-purple-50 z-50 flex flex-col">
-              <div className="flex items-center justify-between p-6 bg-gradient-to-r from-pink-100/90 via-background/95 to-purple-100/90 backdrop-blur-sm border-b border-pink-200/30">
-                <Button variant="ghost" size="sm" onClick={() => setShowBio(false)} className="p-2.5 h-10 w-10 rounded-full bg-gradient-to-r from-gray-100 to-slate-100 hover:from-gray-200 hover:to-slate-200 shadow-sm">
-                  <ArrowLeft className="w-5 h-5 text-gray-600" />
+              <div className="flex items-center justify-between p-4 bg-gradient-to-r from-pink-100/90 via-background/95 to-purple-100/90 backdrop-blur-sm border-b border-pink-200/30">
+                <Button variant="ghost" size="sm" onClick={() => setShowBio(false)} className="p-2 h-8 w-8 rounded-full bg-gradient-to-r from-gray-100 to-slate-100 hover:from-gray-200 hover:to-slate-200 shadow-sm">
+                  <ArrowLeft className="w-4 h-4 text-gray-600" />
                 </Button>
                 <span className="font-bold text-gray-800 nav-rum-raisin text-lg">About</span>
-                <div className="w-10" />
+                <div className="w-8" />
               </div>
               
-              <ScrollArea className="flex-1 p-6">
-                <div className="bg-gradient-to-br from-blue-50 via-white to-indigo-50 rounded-3xl p-8 shadow-lg border border-blue-200/50 relative overflow-hidden">
+              <ScrollArea className="flex-1 p-4">
+                <div className="bg-gradient-to-br from-blue-50 via-white to-indigo-50 rounded-2xl p-6 shadow-lg border border-blue-200/50 relative overflow-hidden">
                   {/* Floating Decorative Elements */}
                   <div className="absolute inset-0">
-                    <div className="absolute top-4 left-6 text-2xl opacity-20">🎨</div>
-                    <div className="absolute bottom-6 right-8 text-xl opacity-20">🌈</div>
-                    <div className="absolute top-1/3 right-6 text-lg opacity-20">✨</div>
-                    <div className="absolute bottom-1/3 left-4 text-lg opacity-20">🦄</div>
+                    <div className="absolute top-2 left-4 text-lg opacity-20">🎨</div>
+                    <div className="absolute bottom-4 right-6 text-sm opacity-20">🌈</div>
+                    <div className="absolute top-1/3 right-4 text-sm opacity-20">✨</div>
                   </div>
 
-                  <div className="space-y-8 relative z-10">
+                  <div className="space-y-6 relative z-10">
                     <div className="text-center">
-                      <div className="relative mb-6">
-                        <div className="absolute inset-0 bg-gradient-to-r from-blue-400 to-purple-500 rounded-full p-1 shadow-xl">
-                          <div className="bg-white rounded-full p-2">
+                      <div className="relative mb-4">
+                        <div className="absolute inset-0 bg-gradient-to-r from-blue-400 to-purple-500 rounded-full p-0.5 shadow-xl">
+                          <div className="bg-white rounded-full p-1.5">
                             <ConsistentAvatar
                               src={user.avatar}
                               alt={user.displayName}
                               fallback={user.displayName.split(' ').map(n => n[0]).join('')}
-                              size="2xl"
+                              size="xl"
                               variant="default"
                             />
                           </div>
                         </div>
                       </div>
-                      <h2 className="text-3xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent nav-rum-raisin mb-2">{user.displayName}</h2>
-                      <p className="text-gray-600 nav-rum-raisin text-lg">@{user.username}</p>
+                      <h2 className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent nav-rum-raisin mb-1">{user.displayName}</h2>
+                      <p className="text-gray-600 nav-rum-raisin">@{user.username}</p>
                     </div>
 
-                    <div className="bg-white/80 rounded-2xl p-6 shadow-sm border border-blue-100">
-                      <div className="flex items-center gap-3 mb-4">
-                        <div className="bg-gradient-to-r from-blue-400 to-purple-500 p-2 rounded-full">
-                          <span className="text-white text-sm">📖</span>
+                    <div className="bg-white/80 rounded-xl p-4 shadow-sm border border-blue-100">
+                      <div className="flex items-center gap-2 mb-3">
+                        <div className="bg-gradient-to-r from-blue-400 to-purple-500 p-1.5 rounded-full">
+                          <span className="text-white text-xs">📖</span>
                         </div>
-                        <h3 className="text-xl font-bold text-gray-800 nav-rum-raisin">Biography</h3>
+                        <h3 className="text-lg font-bold text-gray-800 nav-rum-raisin">Biography</h3>
                       </div>
                       <p className="text-gray-700 leading-relaxed whitespace-pre-line selectable-text nav-rum-raisin">
                         {user.bio}
@@ -536,23 +535,23 @@ export function UserProfile({ userId, onBack }: UserProfileProps) {
                     </div>
 
                     {user.favoriteAchievement && (
-                      <div className="bg-gradient-to-r from-yellow-100 to-orange-100 rounded-2xl p-6 shadow-sm border border-yellow-200 relative overflow-hidden">
-                        <div className="absolute top-2 right-2 text-2xl opacity-30">🏆</div>
-                        <div className="flex items-center gap-3 mb-4 relative z-10">
-                          <div className="bg-gradient-to-r from-yellow-500 to-orange-600 p-2 rounded-full">
-                            <span className="text-white text-sm">⭐</span>
+                      <div className="bg-gradient-to-r from-yellow-100 to-orange-100 rounded-xl p-4 shadow-sm border border-yellow-200 relative overflow-hidden">
+                        <div className="absolute top-1 right-1 text-lg opacity-30">🏆</div>
+                        <div className="flex items-center gap-2 mb-3 relative z-10">
+                          <div className="bg-gradient-to-r from-yellow-500 to-orange-600 p-1.5 rounded-full">
+                            <span className="text-white text-xs">⭐</span>
                           </div>
-                          <h3 className="text-xl font-bold text-gray-800 nav-rum-raisin">Featured Achievement</h3>
+                          <h3 className="text-lg font-bold text-gray-800 nav-rum-raisin">Featured Achievement</h3>
                         </div>
-                        <div className="flex items-center space-x-4 relative z-10">
-                          <div className="w-16 h-16 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-2xl flex items-center justify-center shadow-lg">
-                            <span className="text-2xl">{user.favoriteAchievement.icon}</span>
+                        <div className="flex items-center space-x-3 relative z-10">
+                          <div className="w-12 h-12 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-xl flex items-center justify-center shadow-lg">
+                            <span className="text-xl">{user.favoriteAchievement.icon}</span>
                           </div>
                           <div className="flex-1">
                             <h4 className="text-lg font-bold text-gray-800 nav-rum-raisin">{user.favoriteAchievement.title}</h4>
                             <p className="text-sm text-gray-600 nav-rum-raisin">{user.favoriteAchievement.description}</p>
-                            <div className="mt-2">
-                              <span className="bg-gradient-to-r from-purple-500 to-pink-500 text-white px-3 py-1 rounded-full text-xs font-medium shadow-sm">
+                            <div className="mt-1">
+                              <span className="bg-gradient-to-r from-purple-500 to-pink-500 text-white px-2 py-0.5 rounded-full text-xs font-medium shadow-sm">
                                 {user.favoriteAchievement.rarity}
                               </span>
                             </div>
@@ -562,30 +561,30 @@ export function UserProfile({ userId, onBack }: UserProfileProps) {
                     )}
 
                     {user.socialLinks && (
-                      <div className="bg-white/80 rounded-2xl p-6 shadow-sm border border-purple-100">
-                        <div className="flex items-center gap-3 mb-6">
-                          <div className="bg-gradient-to-r from-purple-400 to-pink-500 p-2 rounded-full">
-                            <span className="text-white text-sm">🔗</span>
+                      <div className="bg-white/80 rounded-xl p-4 shadow-sm border border-purple-100">
+                        <div className="flex items-center gap-2 mb-4">
+                          <div className="bg-gradient-to-r from-purple-400 to-pink-500 p-1.5 rounded-full">
+                            <span className="text-white text-xs">🔗</span>
                           </div>
-                          <h3 className="text-xl font-bold text-gray-800 nav-rum-raisin">Social Links</h3>
+                          <h3 className="text-lg font-bold text-gray-800 nav-rum-raisin">Social Links</h3>
                         </div>
-                        <div className="space-y-3">
+                        <div className="space-y-2">
                           {user.socialLinks.instagram && (
-                            <div className="flex items-center justify-between p-4 bg-gradient-to-r from-pink-100 to-purple-100 rounded-xl border border-pink-200">
-                              <span className="font-medium text-gray-800 nav-rum-raisin">Instagram</span>
-                              <span className="text-gray-600 nav-rum-raisin">@{user.socialLinks.instagram}</span>
+                            <div className="flex items-center justify-between p-3 bg-gradient-to-r from-pink-100 to-purple-100 rounded-lg border border-pink-200">
+                              <span className="font-medium text-gray-800 nav-rum-raisin text-sm">Instagram</span>
+                              <span className="text-gray-600 nav-rum-raisin text-sm">@{user.socialLinks.instagram}</span>
                             </div>
                           )}
                           {user.socialLinks.tiktok && (
-                            <div className="flex items-center justify-between p-4 bg-gradient-to-r from-red-100 to-pink-100 rounded-xl border border-red-200">
-                              <span className="font-medium text-gray-800 nav-rum-raisin">TikTok</span>
-                              <span className="text-gray-600 nav-rum-raisin">@{user.socialLinks.tiktok}</span>
+                            <div className="flex items-center justify-between p-3 bg-gradient-to-r from-red-100 to-pink-100 rounded-lg border border-red-200">
+                              <span className="font-medium text-gray-800 nav-rum-raisin text-sm">TikTok</span>
+                              <span className="text-gray-600 nav-rum-raisin text-sm">@{user.socialLinks.tiktok}</span>
                             </div>
                           )}
                           {user.socialLinks.youtube && (
-                            <div className="flex items-center justify-between p-4 bg-gradient-to-r from-red-100 to-orange-100 rounded-xl border border-red-200">
-                              <span className="font-medium text-gray-800 nav-rum-raisin">YouTube</span>
-                              <span className="text-gray-600 nav-rum-raisin">{user.socialLinks.youtube}</span>
+                            <div className="flex items-center justify-between p-3 bg-gradient-to-r from-red-100 to-orange-100 rounded-lg border border-red-200">
+                              <span className="font-medium text-gray-800 nav-rum-raisin text-sm">YouTube</span>
+                              <span className="text-gray-600 nav-rum-raisin text-sm">{user.socialLinks.youtube}</span>
                             </div>
                           )}
                         </div>
@@ -597,69 +596,69 @@ export function UserProfile({ userId, onBack }: UserProfileProps) {
             </div>
           )}
 
-          {/* Whimsical Tabs */}
-          <div className="bg-white/50 mx-6 rounded-2xl shadow-sm border border-pink-100/50 p-2 mb-6">
+          {/* Compact Tabs */}
+          <div className="bg-white/50 mx-4 rounded-xl shadow-sm border border-pink-100/50 p-1.5 mb-4">
             <Tabs value={activeTab} onValueChange={(value) => setActiveTab(value as any)} className="w-full">
-              <TabsList className="grid w-full grid-cols-4 bg-transparent border-0 h-14 gap-1">
+              <TabsList className="grid w-full grid-cols-4 bg-transparent border-0 h-10 gap-1">
                 <TabsTrigger 
                   value="posts" 
-                  className="flex flex-col items-center gap-1 h-full rounded-xl data-[state=active]:bg-gradient-to-br data-[state=active]:from-pink-200 data-[state=active]:to-purple-200 data-[state=active]:shadow-sm nav-rum-raisin font-medium text-gray-600 data-[state=active]:text-gray-800"
+                  className="flex flex-col items-center gap-0.5 h-full rounded-lg data-[state=active]:bg-gradient-to-br data-[state=active]:from-pink-200 data-[state=active]:to-purple-200 data-[state=active]:shadow-sm nav-rum-raisin font-medium text-gray-600 data-[state=active]:text-gray-800 text-xs"
                 >
-                  <Grid3X3 className="w-5 h-5" />
+                  <Grid3X3 className="w-4 h-4" />
                   <span className="text-xs">Posts</span>
                 </TabsTrigger>
                 <TabsTrigger 
                   value="likes" 
-                  className="flex flex-col items-center gap-1 h-full rounded-xl data-[state=active]:bg-gradient-to-br data-[state=active]:from-red-200 data-[state=active]:to-pink-200 data-[state=active]:shadow-sm nav-rum-raisin font-medium text-gray-600 data-[state=active]:text-gray-800"
+                  className="flex flex-col items-center gap-0.5 h-full rounded-lg data-[state=active]:bg-gradient-to-br data-[state=active]:from-red-200 data-[state=active]:to-pink-200 data-[state=active]:shadow-sm nav-rum-raisin font-medium text-gray-600 data-[state=active]:text-gray-800 text-xs"
                 >
-                  <Heart className="w-5 h-5" />
+                  <Heart className="w-4 h-4" />
                   <span className="text-xs">Likes</span>
                 </TabsTrigger>
                 <TabsTrigger 
                   value="favorites" 
-                  className="flex flex-col items-center gap-1 h-full rounded-xl data-[state=active]:bg-gradient-to-br data-[state=active]:from-yellow-200 data-[state=active]:to-orange-200 data-[state=active]:shadow-sm nav-rum-raisin font-medium text-gray-600 data-[state=active]:text-gray-800"
+                  className="flex flex-col items-center gap-0.5 h-full rounded-lg data-[state=active]:bg-gradient-to-br data-[state=active]:from-yellow-200 data-[state=active]:to-orange-200 data-[state=active]:shadow-sm nav-rum-raisin font-medium text-gray-600 data-[state=active]:text-gray-800 text-xs"
                 >
-                  <BookBookmark className="w-5 h-5" />
+                  <BookBookmark className="w-4 h-4" />
                   <span className="text-xs">Saved</span>
                 </TabsTrigger>
                 <TabsTrigger 
                   value="guides" 
-                  className="flex flex-col items-center gap-1 h-full rounded-xl data-[state=active]:bg-gradient-to-br data-[state=active]:from-green-200 data-[state=active]:to-emerald-200 data-[state=active]:shadow-sm nav-rum-raisin font-medium text-gray-600 data-[state=active]:text-gray-800"
+                  className="flex flex-col items-center gap-0.5 h-full rounded-lg data-[state=active]:bg-gradient-to-br data-[state=active]:from-green-200 data-[state=active]:to-emerald-200 data-[state=active]:shadow-sm nav-rum-raisin font-medium text-gray-600 data-[state=active]:text-gray-800 text-xs"
                 >
-                  <Medal className="w-5 h-5" />
+                  <Medal className="w-4 h-4" />
                   <span className="text-xs">Guides</span>
                 </TabsTrigger>
               </TabsList>
             </Tabs>
           </div>
 
-          {/* Whimsical Search and Filter */}
-          <div className="px-6 mb-6">
+          {/* Compact Search and Filter */}
+          <div className="px-4 mb-4">
             <div className="relative">
-              <MagnifyingGlass className="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-500" />
+              <MagnifyingGlass className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-500" />
               <Input
                 placeholder={`🔍 Search ${activeTab}...`}
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="pl-12 bg-white/80 border-pink-200 h-12 text-sm rounded-full shadow-sm nav-rum-raisin placeholder:text-gray-500"
+                className="pl-10 bg-white/80 border-pink-200 h-9 text-sm rounded-full shadow-sm nav-rum-raisin placeholder:text-gray-500"
               />
               <Button 
                 variant="ghost" 
                 size="sm" 
-                className="absolute right-2 top-1/2 transform -translate-y-1/2 h-8 w-8 rounded-full bg-gradient-to-r from-pink-200 to-purple-200 hover:from-pink-300 hover:to-purple-300"
+                className="absolute right-1 top-1/2 transform -translate-y-1/2 h-7 w-7 rounded-full bg-gradient-to-r from-pink-200 to-purple-200 hover:from-pink-300 hover:to-purple-300"
               >
-                <SlidersHorizontal size={16} className="text-gray-600" />
+                <SlidersHorizontal size={12} className="text-gray-600" />
               </Button>
             </div>
           </div>
 
-          {/* Enhanced Tab Content */}
-          <div className="px-6 pb-8">
+          {/* Compact Tab Content */}
+          <div className="px-4 pb-6">
             <TabsContent value="posts" className="mt-0">
               {userPosts.length > 0 ? (
-                <div className="grid grid-cols-3 gap-2">
+                <div className="grid grid-cols-3 gap-1.5">
                   {userPosts.map((post) => (
-                    <div key={post.id} className="aspect-square bg-gradient-to-br from-pink-100 to-purple-100 rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-all">
+                    <div key={post.id} className="aspect-square bg-gradient-to-br from-pink-100 to-purple-100 rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-all">
                       <img 
                         src={post.imageUrl} 
                         alt="Post" 
@@ -669,9 +668,9 @@ export function UserProfile({ userId, onBack }: UserProfileProps) {
                   ))}
                 </div>
               ) : (
-                <div className="bg-gradient-to-br from-pink-50 to-purple-50 rounded-3xl p-12 text-center border border-pink-100">
-                  <div className="text-6xl mb-6">📸</div>
-                  <h3 className="text-xl font-bold mb-4 text-gray-800 nav-rum-raisin">No posts yet</h3>
+                <div className="bg-gradient-to-br from-pink-50 to-purple-50 rounded-2xl p-8 text-center border border-pink-100">
+                  <div className="text-4xl mb-4">📸</div>
+                  <h3 className="text-lg font-bold mb-3 text-gray-800 nav-rum-raisin">No posts yet</h3>
                   <p className="text-sm text-gray-600 nav-rum-raisin">This user hasn't shared any posts</p>
                 </div>
               )}
@@ -679,9 +678,9 @@ export function UserProfile({ userId, onBack }: UserProfileProps) {
 
             <TabsContent value="likes" className="mt-0">
               {likedPosts.length > 0 ? (
-                <div className="grid grid-cols-3 gap-2">
+                <div className="grid grid-cols-3 gap-1.5">
                   {likedPosts.map((post) => (
-                    <div key={`liked-${post.id}`} className="aspect-square bg-gradient-to-br from-red-100 to-pink-100 rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-all">
+                    <div key={`liked-${post.id}`} className="aspect-square bg-gradient-to-br from-red-100 to-pink-100 rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-all">
                       <img 
                         src={post.imageUrl} 
                         alt="Liked post" 
@@ -691,26 +690,26 @@ export function UserProfile({ userId, onBack }: UserProfileProps) {
                   ))}
                 </div>
               ) : (
-                <div className="bg-gradient-to-br from-red-50 to-pink-50 rounded-3xl p-12 text-center border border-red-100">
-                  <div className="text-6xl mb-6">💖</div>
-                  <h3 className="text-xl font-bold mb-4 text-gray-800 nav-rum-raisin">No liked posts</h3>
+                <div className="bg-gradient-to-br from-red-50 to-pink-50 rounded-2xl p-8 text-center border border-red-100">
+                  <div className="text-4xl mb-4">💖</div>
+                  <h3 className="text-lg font-bold mb-3 text-gray-800 nav-rum-raisin">No liked posts</h3>
                   <p className="text-sm text-gray-600 nav-rum-raisin">This user hasn't liked any posts yet</p>
                 </div>
               )}
             </TabsContent>
 
             <TabsContent value="favorites" className="mt-0">
-              <div className="bg-gradient-to-br from-yellow-50 to-orange-50 rounded-3xl p-12 text-center border border-yellow-100">
-                <div className="text-6xl mb-6">⭐</div>
-                <h3 className="text-xl font-bold mb-4 text-gray-800 nav-rum-raisin">No saved favorites</h3>
+              <div className="bg-gradient-to-br from-yellow-50 to-orange-50 rounded-2xl p-8 text-center border border-yellow-100">
+                <div className="text-4xl mb-4">⭐</div>
+                <h3 className="text-lg font-bold mb-3 text-gray-800 nav-rum-raisin">No saved favorites</h3>
                 <p className="text-sm text-gray-600 nav-rum-raisin">This user hasn't saved any favorites</p>
               </div>
             </TabsContent>
 
             <TabsContent value="guides" className="mt-0">
-              <div className="bg-gradient-to-br from-green-50 to-emerald-50 rounded-3xl p-12 text-center border border-green-100">
-                <div className="text-6xl mb-6">📚</div>
-                <h3 className="text-xl font-bold mb-4 text-gray-800 nav-rum-raisin">No guides created</h3>
+              <div className="bg-gradient-to-br from-green-50 to-emerald-50 rounded-2xl p-8 text-center border border-green-100">
+                <div className="text-4xl mb-4">📚</div>
+                <h3 className="text-lg font-bold mb-3 text-gray-800 nav-rum-raisin">No guides created</h3>
                 <p className="text-sm text-gray-600 nav-rum-raisin">This user hasn't created any guides</p>
               </div>
             </TabsContent>
