@@ -29,6 +29,7 @@ import {
 } from '@phosphor-icons/react';
 import { toast } from 'sonner';
 import { cn } from '@/lib/utils';
+import LikLogoHeart from '@/assets/images/Lik_Logo_Heart_1.0.png';
 import { CartItem, FavoriteRestaurant, FavoriteDish } from '@/lib/types';
 
 interface FoodPost {
@@ -640,7 +641,14 @@ function FoodCard({ post, onLike, onShowUserProfile, deviceType }: FoodCardProps
                   />
                 ))}
               </div>
-              <span className="text-white/80 text-xs">Liked By</span>
+              <div className="flex items-center gap-1">
+                <img 
+                  src={LikLogoHeart} 
+                  alt="Lik Logo" 
+                  className="w-3 h-3"
+                />
+                <span className="text-white/80 text-xs font-rum-raisin">Liked By</span>
+              </div>
             </div>
             
             <Button
