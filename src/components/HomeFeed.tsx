@@ -174,36 +174,47 @@ export function HomeFeed({ onShowUserProfile, onShowRestaurantProfile, onShowLea
   const reviewCards = [
     {
       id: '1',
-      userId: '1', // Add user ID for profile navigation
-      image: 'https://images.unsplash.com/photo-1565299624946-b28f40a0ca4b?w=200&h=200&fit=crop',
-      reviewer: 'Sarah Wilson',
+      userId: '1',
+      image: 'https://images.unsplash.com/photo-1551024506-0bccd828d307?w=300&h=400&fit=crop',
+      reviewer: 'DisplayName',
       verified: true,
-      rating: 4.8,
-      likes: 124,
-      restaurant: 'Bella Italia',
+      rating: 4.9,
+      likes: '11.2K',
+      restaurant: 'Ice Cream Shop',
       restaurantId: 'rest1'
     },
     {
       id: '2',
-      userId: '2', // Add user ID for profile navigation
-      image: 'https://images.unsplash.com/photo-1571091718767-18b5b1457add?w=200&h=200&fit=crop',
-      reviewer: 'John Doe',
+      userId: '2',
+      image: 'https://images.unsplash.com/photo-1565299624946-b28f40a0ca4b?w=300&h=350&fit=crop',
+      reviewer: 'DisplayName',
       verified: false,
-      rating: 4.5,
-      likes: 89,
-      restaurant: 'Taco Bell',
+      rating: '9.9/10',
+      likes: 99,
+      restaurant: 'Pizza Palace',
       restaurantId: 'rest2'
     },
     {
       id: '3',
-      userId: '1', // Sarah Wilson again for example
-      image: 'https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?w=200&h=200&fit=crop',
-      reviewer: 'Alex Rivera',
+      userId: '3',
+      image: 'https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=300&h=400&fit=crop',
+      reviewer: 'DisplayName',
       verified: true,
-      rating: 4.9,
-      likes: 203,
-      restaurant: 'Sushi Palace',
+      rating: 4.1,
+      likes: '1.1k',
+      restaurant: 'Coffee House',
       restaurantId: 'rest3'
+    },
+    {
+      id: '4',
+      userId: '4',
+      image: 'https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?w=300&h=350&fit=crop',
+      reviewer: 'DisplayName',
+      verified: false,
+      rating: '8/10',
+      likes: 102,
+      restaurant: 'Pancake House',
+      restaurantId: 'rest4'
     }
   ];
 
@@ -449,72 +460,83 @@ export function HomeFeed({ onShowUserProfile, onShowRestaurantProfile, onShowLea
 
         {/* Review Section */}
         <div className="p-4">
-          <div className="flex gap-2 mb-4 justify-center">
-            {reviewTabs.map((tab) => (
-              <Button
-                key={tab}
-                variant="ghost"
-                size="sm"
-                onClick={() => setActiveReviewTab(tab)}
-                className={`rounded-full nav-rum-raisin transition-all duration-300 px-6 py-2 border ${
-                  activeReviewTab === tab 
-                    ? 'glossy-red-pill text-white font-semibold shadow-lg transform-gpu'
-                    : 'text-black font-light hover:bg-gray-100/50 border-transparent'
-                } relative overflow-hidden`}
-              >
-                {tab}
-              </Button>
-            ))}
+          {/* Tab Bar */}
+          <div className="bg-white/70 backdrop-blur-sm rounded-full p-1 mb-6 shadow-sm max-w-fit mx-auto">
+            <div className="flex gap-1">
+              {reviewTabs.map((tab) => (
+                <Button
+                  key={tab}
+                  variant="ghost"
+                  size="sm"
+                  onClick={() => setActiveReviewTab(tab)}
+                  className={`rounded-full nav-rum-raisin transition-all duration-300 px-4 py-2 text-sm ${
+                    activeReviewTab === tab 
+                      ? 'bg-black text-white font-semibold shadow-sm'
+                      : 'text-gray-600 font-light hover:bg-gray-100/50'
+                  }`}
+                >
+                  {tab}
+                </Button>
+              ))}
+            </div>
           </div>
           
-          <HorizontalCarousel 
-            autoScroll={true}
-            autoScrollInterval={6000}
-            itemClassName="min-w-[200px]"
-          >
-            {reviewCards.map((review) => (
-              <Card key={review.id}>
-                <CardContent className="p-0">
+          {/* Posts Grid */}
+          <div className="grid grid-cols-2 gap-3">
+            {reviewCards.map((review, index) => (
+              <div key={review.id} className="relative group">
+                {/* Display Name */}
+                <div className="flex items-center justify-between mb-2">
+                  <span 
+                    className="font-medium text-sm cursor-pointer hover:underline" 
+                    onClick={() => onShowUserProfile?.(review.userId)}
+                  >
+                    {review.reviewer}
+                  </span>
+                  <Button variant="ghost" size="icon" className="w-6 h-6 hover:bg-gray-100">
+                    <div className="flex flex-col gap-0.5">
+                      <div className="w-1 h-1 bg-gray-400 rounded-full"></div>
+                      <div className="w-1 h-1 bg-gray-400 rounded-full"></div>
+                      <div className="w-1 h-1 bg-gray-400 rounded-full"></div>
+                    </div>
+                  </Button>
+                </div>
+
+                {/* Image Card */}
+                <div className="relative overflow-hidden rounded-2xl">
                   <img 
                     src={review.image} 
                     alt={review.restaurant}
-                    className="w-full h-32 object-cover rounded-t-lg"
+                    className={`w-full object-cover ${
+                      index % 4 === 0 || index % 4 === 3 ? 'h-48' : 'h-40'
+                    }`}
                   />
-                  <div className="p-3">
-                    <div className="flex items-center gap-2 mb-2">
-                      <span 
-                        className="font-medium text-sm cursor-pointer hover:underline" 
-                        onClick={() => onShowUserProfile?.(review.userId)}
-                      >
-                        {review.reviewer}
-                      </span>
-                      {review.verified && (
-                        <Badge variant="secondary" className="text-xs px-1 py-0">✓</Badge>
+                  
+                  {/* Rating/Score Overlay */}
+                  <div className="absolute top-3 left-3">
+                    <div className="bg-black/50 backdrop-blur-sm rounded-full px-2 py-1 flex items-center gap-1">
+                      {typeof review.rating === 'string' && review.rating.includes('/10') ? (
+                        <span className="text-white font-semibold text-sm">{review.rating}</span>
+                      ) : (
+                        <>
+                          <Star size={12} className="fill-yellow-400 text-yellow-400" />
+                          <span className="text-white font-semibold text-sm">{review.rating}</span>
+                        </>
                       )}
                     </div>
-                    <div className="mb-2">
-                      <span 
-                        className="text-xs text-muted-foreground cursor-pointer hover:underline"
-                        onClick={() => onShowRestaurantProfile?.(review.restaurantId)}
-                      >
-                        at {review.restaurant}
-                      </span>
-                    </div>
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center gap-1">
-                        <Star size={14} className="fill-yellow-400 text-yellow-400" />
-                        <span className="text-sm font-medium">{review.rating}</span>
-                      </div>
-                      <div className="flex items-center gap-1">
-                        <Heart size={14} className="text-red-500" />
-                        <span className="text-sm text-muted-foreground">{review.likes}</span>
-                      </div>
+                  </div>
+
+                  {/* Like Count Overlay */}
+                  <div className="absolute bottom-3 right-3">
+                    <div className="bg-black/50 backdrop-blur-sm rounded-full px-2 py-1 flex items-center gap-1">
+                      <Heart size={12} className="text-red-500 fill-red-500" />
+                      <span className="text-white font-semibold text-sm">{review.likes}</span>
                     </div>
                   </div>
-                </CardContent>
-              </Card>
+                </div>
+              </div>
             ))}
-          </HorizontalCarousel>
+          </div>
         </div>
 
         {/* Lik's Picks */}
