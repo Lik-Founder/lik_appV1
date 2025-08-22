@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
-import { X, ArrowLeft, ArrowRight, Pause, Play, VolumeMute, VolumeHigh } from '@phosphor-icons/react';
+import { XMarkIcon as X, ArrowLeftIcon as ArrowLeft, ArrowRightIcon as ArrowRight, PauseIcon as Pause, PlayIcon as Play, SpeakerXMarkIcon as VolumeMute, SpeakerWaveIcon as VolumeHigh } from '@heroicons/react/24/outline';
 import { Story, User } from '@/lib/types';
 import { DeviceType } from '@/hooks/use-device';
 import { useSwipe } from '@/hooks/use-swipe';

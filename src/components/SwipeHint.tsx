@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { ChevronLeft, ChevronRight, X } from '@phosphor-icons/react';
+import { ChevronLeftIcon as ChevronLeft, ChevronRightIcon as ChevronRight, XMarkIcon as X } from '@heroicons/react/24/outline';
 import { useKV } from '@github/spark/hooks';
 import { cn } from '@/lib/utils';
 

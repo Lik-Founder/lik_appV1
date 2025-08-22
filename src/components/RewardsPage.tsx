@@ -4,30 +4,30 @@ import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { 
-  ArrowLeft,
-  Coins,
-  Star,
-  Gift,
-  Coffee,
-  Hamburger,
-  Pizza,
-  Cookie,
-  IceCream,
-  Wine,
-  Crown,
-  Lightning,
-  Sparkle,
-  Medal,
-  Trophy,
-  Heart,
-  Fire,
-  Confetti,
-  ShoppingCart,
-  Check,
-  Clock,
-  MapPin,
-  Users
-} from '@phosphor-icons/react';
+  ArrowLeftIcon as ArrowLeft,
+  CurrencyDollarIcon as Coins,
+  StarIcon as Star,
+  GiftIcon as Gift,
+  Square3Stack3DIcon as Coffee,
+  Square2StackIcon as Hamburger,
+  CircleStackIcon as Pizza,
+  Square3Stack3DIcon as Cookie,
+  Square3Stack3DIcon as IceCream,
+  BeakerIcon as Wine,
+  CrownIcon as Crown,
+  BoltIcon as Lightning,
+  SparklesIcon as Sparkle,
+  TrophyIcon as Medal,
+  TrophyIcon as Trophy,
+  HeartIcon as Heart,
+  FireIcon as Fire,
+  SparklesIcon as Confetti,
+  ShoppingCartIcon as ShoppingCart,
+  CheckIcon as Check,
+  ClockIcon as Clock,
+  MapPinIcon as MapPin,
+  UsersIcon as Users
+} from '@heroicons/react/24/outline';
 import { cn } from '@/lib/utils';
 
 // Mock rewards data

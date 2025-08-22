@@ -3,18 +3,18 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Input } from '@/components/ui/input';
 import { 
-  Search as SearchIcon,
-  SlidersHorizontal as FilterIcon,
-  ArrowLeft,
-  Star,
-  Clock,
-  Truck,
-  MapPin,
-  Navigation,
-  Plus,
-  Minus,
-  X
-} from '@phosphor-icons/react';
+  MagnifyingGlassIcon as SearchIcon,
+  AdjustmentsHorizontalIcon as FilterIcon,
+  ArrowLeftIcon as ArrowLeft,
+  StarIcon as Star,
+  ClockIcon as Clock,
+  TruckIcon as Truck,
+  MapPinIcon as MapPin,
+  ArrowUpIcon as Navigation,
+  PlusIcon as Plus,
+  MinusIcon as Minus,
+  XMarkIcon as X
+} from '@heroicons/react/24/outline';
 import { cn } from '@/lib/utils';
 
 interface Restaurant {

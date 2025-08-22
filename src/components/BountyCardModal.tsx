@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { X, MapPin, Clock, Users, Star, Heart, Coins } from '@phosphor-icons/react';
+import { XMarkIcon as X, MapPinIcon as MapPin, ClockIcon as Clock, UsersIcon as Users, StarIcon as Star, HeartIcon as Heart, CurrencyDollarIcon as Coins } from '@heroicons/react/24/outline';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';

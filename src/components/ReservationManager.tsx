@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Calendar, Clock, Users, MapPin, Phone, Mail, QrCode, Star, X, Check, AlertCircle } from '@phosphor-icons/react';
+import { CalendarIcon as Calendar, ClockIcon as Clock, UsersIcon as Users, MapPinIcon as MapPin, PhoneIcon as Phone, EnvelopeIcon as Mail, QrCodeIcon as QrCode, StarIcon as Star, XMarkIcon as X, CheckIcon as Check, ExclamationCircleIcon as AlertCircle } from '@heroicons/react/24/outline';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';

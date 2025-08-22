@@ -6,17 +6,17 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
 import { 
-  ArrowLeft,
-  ClockCounterClockwise,
-  MapPin,
-  Truck,
-  CheckCircle,
-  Clock,
-  Star,
-  Phone,
-  ShoppingCart,
-  Plus
-} from '@phosphor-icons/react';
+  ArrowLeftIcon as ArrowLeft,
+  ArrowPathIcon as ClockCounterClockwise,
+  MapPinIcon as MapPin,
+  TruckIcon as Truck,
+  CheckCircleIcon as CheckCircle,
+  ClockIcon as Clock,
+  StarIcon as Star,
+  PhoneIcon as Phone,
+  ShoppingCartIcon as ShoppingCart,
+  PlusIcon as Plus
+} from '@heroicons/react/24/outline';
 import { toast } from 'sonner';
 import { cn } from '@/lib/utils';
 import { Order, CartItem } from '@/lib/types';

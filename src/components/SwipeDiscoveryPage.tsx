@@ -6,23 +6,23 @@ import { Progress } from '@/components/ui/progress';
 import { useSwipeGestures } from '@/hooks/use-swipe-gestures';
 import { useKV } from '@github/spark/hooks';
 import { 
-  ArrowLeft, 
-  Search, 
-  Heart, 
-  X, 
-  Star, 
-  MapPin, 
-  DollarSign,
-  Clock,
-  Users,
-  Filter,
-  RotateCcw,
-  Sparkles,
-  Trophy,
-  Zap,
-  Target,
-  Eye
-} from '@phosphor-icons/react';
+  ArrowLeftIcon as ArrowLeft, 
+  MagnifyingGlassIcon as Search, 
+  HeartIcon as Heart, 
+  XMarkIcon as X, 
+  StarIcon as Star, 
+  MapPinIcon as MapPin, 
+  CurrencyDollarIcon as DollarSign,
+  ClockIcon as Clock,
+  UsersIcon as Users,
+  AdjustmentsHorizontalIcon as Filter,
+  ArrowPathIcon as RotateCcw,
+  SparklesIcon as Sparkles,
+  TrophyIcon as Trophy,
+  BoltIcon as Zap,
+  ViewfinderCircleIcon as Target,
+  EyeIcon as Eye
+} from '@heroicons/react/24/outline';
 import { cn } from '@/lib/utils';
 
 interface Restaurant {

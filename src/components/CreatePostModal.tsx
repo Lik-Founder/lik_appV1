@@ -8,7 +8,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
-import { Camera, Image as ImageIcon, X } from '@phosphor-icons/react';
+import { CameraIcon as Camera, PhotoIcon as ImageIcon, XMarkIcon as X } from '@heroicons/react/24/outline';
 import { toast } from 'sonner';
 
 interface CreatePostModalProps {

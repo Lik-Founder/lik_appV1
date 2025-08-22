@@ -10,17 +10,17 @@ import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { 
-  ArrowLeft,
-  MapPin,
-  Clock,
-  CreditCard,
-  Wallet,
-  DeviceMobile,
-  Star,
-  Gift,
-  CheckCircle,
-  Truck
-} from '@phosphor-icons/react';
+  ArrowLeftIcon as ArrowLeft,
+  MapPinIcon as MapPin,
+  ClockIcon as Clock,
+  CreditCardIcon as CreditCard,
+  WalletIcon as Wallet,
+  DevicePhoneMobileIcon as DeviceMobile,
+  StarIcon as Star,
+  GiftIcon as Gift,
+  CheckCircleIcon as CheckCircle,
+  TruckIcon as Truck
+} from '@heroicons/react/24/outline';
 import { toast } from 'sonner';
 import { cn } from '@/lib/utils';
 import { CartItem, DeliveryInfo, PaymentMethod, Order } from '@/lib/types';

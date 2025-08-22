@@ -7,20 +7,20 @@ import { Badge } from '@/components/ui/badge';
 import { Input } from '@/components/ui/input';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { 
-  ArrowLeft,
-  Heart,
-  Star,
-  Clock,
-  Truck,
-  Plus,
-  Lightning,
-  MapPin,
-  Trash,
-  ShoppingCart,
-  MagnifyingGlass,
-  SortAscending,
-  Funnel
-} from '@phosphor-icons/react';
+  ArrowLeftIcon as ArrowLeft,
+  HeartIcon as Heart,
+  StarIcon as Star,
+  ClockIcon as Clock,
+  TruckIcon as Truck,
+  PlusIcon as Plus,
+  BoltIcon as Lightning,
+  MapPinIcon as MapPin,
+  TrashIcon as Trash,
+  ShoppingCartIcon as ShoppingCart,
+  MagnifyingGlassIcon as MagnifyingGlass,
+  ArrowUpIcon as SortAscending,
+  FunnelIcon as Funnel
+} from '@heroicons/react/24/outline';
 import { toast } from 'sonner';
 import { cn } from '@/lib/utils';
 import { FavoriteRestaurant, FavoriteDish, CartItem } from '@/lib/types';

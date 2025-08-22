@@ -6,15 +6,15 @@ import { Badge } from '@/components/ui/badge';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Checkbox } from '@/components/ui/checkbox';
 import { 
-  X, 
-  Search, 
-  Plus,
-  Crown, 
-  UserPlus,
-  Share,
-  Link as LinkIcon,
-  QrCode
-} from '@phosphor-icons/react';
+  XMarkIcon as X, 
+  MagnifyingGlassIcon as Search, 
+  PlusIcon as Plus,
+  CrownIcon as Crown, 
+  UserPlusIcon as UserPlus,
+  ShareIcon as Share,
+  LinkIcon,
+  QrCodeIcon as QrCode
+} from '@heroicons/react/24/outline';
 import { cn } from '@/lib/utils';
 
 interface User {

@@ -8,22 +8,22 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Switch } from '@/components/ui/switch';
 import { 
-  X, 
-  Camera,
-  Crown,
-  Shield,
-  UserMinus,
-  Settings,
-  Bell,
-  Volume,
-  Eye,
-  Globe,
-  Lock,
-  Trash,
-  Users,
-  Info,
-  Edit
-} from '@phosphor-icons/react';
+  XMarkIcon as X, 
+  CameraIcon as Camera,
+  CrownIcon as Crown,
+  ShieldCheckIcon as Shield,
+  UserMinusIcon as UserMinus,
+  Cog6ToothIcon as Settings,
+  BellIcon as Bell,
+  SpeakerWaveIcon as Volume,
+  EyeIcon as Eye,
+  GlobeAltIcon as Globe,
+  LockClosedIcon as Lock,
+  TrashIcon as Trash,
+  UsersIcon as Users,
+  InformationCircleIcon as Info,
+  PencilIcon as Edit
+} from '@heroicons/react/24/outline';
 import { cn } from '@/lib/utils';
 
 interface GroupMember {

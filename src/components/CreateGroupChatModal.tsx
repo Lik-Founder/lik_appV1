@@ -7,18 +7,18 @@ import { Badge } from '@/components/ui/badge';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Checkbox } from '@/components/ui/checkbox';
 import { 
-  X, 
-  Plus, 
-  Search, 
-  Camera, 
-  Users, 
-  Crown, 
-  MapPin,
-  Utensils,
-  Globe,
-  Lock,
-  Shield
-} from '@phosphor-icons/react';
+  XMarkIcon as X, 
+  PlusIcon as Plus, 
+  MagnifyingGlassIcon as Search, 
+  CameraIcon as Camera, 
+  UsersIcon as Users, 
+  CrownIcon as Crown, 
+  MapPinIcon as MapPin,
+  Square3Stack3DIcon as Utensils,
+  GlobeAltIcon as Globe,
+  LockClosedIcon as Lock,
+  ShieldCheckIcon as Shield
+} from '@heroicons/react/24/outline';
 import { cn } from '@/lib/utils';
 import { useKV } from '@github/spark/hooks';
 

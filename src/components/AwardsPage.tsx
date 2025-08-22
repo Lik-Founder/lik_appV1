@@ -6,21 +6,21 @@ import { Badge } from '@/components/ui/badge';
 import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { 
-  ArrowLeft,
-  Trophy,
-  Share,
-  Star,
-  TrendUp,
-  TrendDown,
-  Calendar,
-  MapPin,
-  Crown,
-  Medal,
-  Award,
-  Heart,
-  Eye,
-  X
-} from '@phosphor-icons/react';
+  ArrowLeftIcon as ArrowLeft,
+  TrophyIcon as Trophy,
+  ShareIcon as Share,
+  StarIcon as Star,
+  TrendingUpIcon as TrendUp,
+  TrendingDownIcon as TrendDown,
+  CalendarIcon as Calendar,
+  MapPinIcon as MapPin,
+  CrownIcon as Crown,
+  TrophyIcon as Medal,
+  TrophyIcon as Award,
+  HeartIcon as Heart,
+  EyeIcon as Eye,
+  XMarkIcon as X
+} from '@heroicons/react/24/outline';
 import { toast } from 'sonner';
 import { cn } from '@/lib/utils';
 

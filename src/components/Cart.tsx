@@ -6,15 +6,15 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
 import { 
-  ShoppingCart,
-  Minus,
-  Plus,
-  Trash,
-  MapPin,
-  Clock,
-  CreditCard,
-  X
-} from '@phosphor-icons/react';
+  ShoppingCartIcon as ShoppingCart,
+  MinusIcon as Minus,
+  PlusIcon as Plus,
+  TrashIcon as Trash,
+  MapPinIcon as MapPin,
+  ClockIcon as Clock,
+  CreditCardIcon as CreditCard,
+  XMarkIcon as X
+} from '@heroicons/react/24/outline';
 import { toast } from 'sonner';
 import { cn } from '@/lib/utils';
 import { CartItem } from '@/lib/types';

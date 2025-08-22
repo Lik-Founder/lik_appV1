@@ -7,7 +7,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { Separator } from '@/components/ui/separator'
 import { useAuth } from '@/contexts/AuthContext'
 import { toast } from 'sonner'
-import { Eye, EyeOff, ArrowLeft } from '@phosphor-icons/react'
+import { EyeIcon as Eye, EyeSlashIcon as EyeOff, ArrowLeftIcon as ArrowLeft } from '@heroicons/react/24/outline'
 import LikLogo from '@/assets/images/Lik_Logo_Heart_1.0.png'
 
 interface AuthPageProps {

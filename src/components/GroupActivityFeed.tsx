@@ -3,17 +3,17 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { 
-  X, 
-  Users, 
-  UserPlus,
-  Crown,
-  Trophy,
-  MapPin,
-  MessageCircle,
-  Heart,
-  Share,
-  Clock
-} from '@phosphor-icons/react';
+  XMarkIcon as X, 
+  UsersIcon as Users, 
+  UserPlusIcon as UserPlus,
+  CrownIcon as Crown,
+  TrophyIcon as Trophy,
+  MapPinIcon as MapPin,
+  ChatBubbleLeftIcon as MessageCircle,
+  HeartIcon as Heart,
+  ShareIcon as Share,
+  ClockIcon as Clock
+} from '@heroicons/react/24/outline';
 import { cn } from '@/lib/utils';
 
 interface GroupActivity {

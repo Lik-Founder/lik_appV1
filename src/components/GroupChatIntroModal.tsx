@@ -2,19 +2,19 @@ import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { 
-  X, 
-  Users, 
-  Plus, 
-  Crown,
-  Globe,
-  Lock,
-  Shield,
-  Gear,
-  Bell,
-  MessageCircle,
-  Trophy,
-  MapPin
-} from '@phosphor-icons/react';
+  XMarkIcon as X, 
+  UsersIcon as Users, 
+  PlusIcon as Plus, 
+  CrownIcon as Crown,
+  GlobeAltIcon as Globe,
+  LockClosedIcon as Lock,
+  ShieldCheckIcon as Shield,
+  Cog6ToothIcon as Gear,
+  BellIcon as Bell,
+  ChatBubbleLeftIcon as MessageCircle,
+  TrophyIcon as Trophy,
+  MapPinIcon as MapPin
+} from '@heroicons/react/24/outline';
 import { cn } from '@/lib/utils';
 
 interface GroupChatIntroModalProps {
