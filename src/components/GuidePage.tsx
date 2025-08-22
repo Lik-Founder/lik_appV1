@@ -8,19 +8,19 @@ import { ConsistentAvatar } from '@/components/ui/consistent-avatar';
 import { HorizontalCarousel } from '@/components/HorizontalCarousel';
 import { IndividualGuidePage } from '@/components/IndividualGuidePage';
 import { 
-  ArrowLeft, 
-  BookmarkSimple, 
-  MagnifyingGlass,
-  CaretDown,
-  MapPin,
-  ArrowRight,
-  Star,
-  Fire,
-  Heart,
-  Users,
-  Trophy,
-  Sparkle
-} from '@phosphor-icons/react';
+  ArrowLeftIcon, 
+  BookmarkIcon, 
+  MagnifyingGlassIcon,
+  ChevronDownIcon,
+  MapPinIcon,
+  ArrowRightIcon,
+  StarIcon,
+  FireIcon,
+  HeartIcon,
+  UsersIcon,
+  TrophyIcon,
+  SparklesIcon
+} from '@heroicons/react/24/outline';
 
 interface GuidePageProps {
   onBack: () => void;
@@ -266,17 +266,17 @@ export function GuidePage({ onBack, onShowUserProfile, onShowRestaurantProfile }
       <div className="sticky top-0 z-50 bg-background/95 backdrop-blur-sm border-b">
         <div className="flex items-center justify-between p-4">
           <Button variant="ghost" size="icon" onClick={onBack}>
-            <ArrowLeft size={24} />
+            <ArrowLeftIcon className="w-6 h-6" />
           </Button>
           
           <div className="flex items-center gap-2">
-            <MapPin size={16} className="text-muted-foreground" />
+            <MapPinIcon className="w-4 h-4 text-muted-foreground" />
             <span className="font-medium">{location}</span>
-            <CaretDown size={16} className="text-muted-foreground" />
+            <ChevronDownIcon className="w-4 h-4 text-muted-foreground" />
           </div>
           
           <Button variant="ghost" size="icon">
-            <BookmarkSimple size={24} />
+            <BookmarkIcon className="w-6 h-6" />
           </Button>
         </div>
       </div>
@@ -314,14 +314,14 @@ export function GuidePage({ onBack, onShowUserProfile, onShowRestaurantProfile }
                   />
                   <span className="text-sm font-medium">{guide.author}</span>
                   {guide.isVerified && (
-                    <Star size={14} className="text-yellow-400 fill-yellow-400" />
+                    <StarIcon className="w-3.5 h-3.5 text-yellow-400 fill-yellow-400" />
                   )}
                 </div>
                 <h2 className="text-xl font-bold mb-2">{guide.title}</h2>
                 <p className="text-sm text-gray-200 mb-4 line-clamp-2">{guide.description}</p>
                 <Button className="bg-white text-black hover:bg-white/90">
                   Open Guide
-                  <ArrowRight size={16} className="ml-2" />
+                  <ArrowRightIcon className="w-4 h-4 ml-2" />
                 </Button>
               </div>
             </div>
@@ -333,7 +333,7 @@ export function GuidePage({ onBack, onShowUserProfile, onShowRestaurantProfile }
       <div className="px-4 py-4">
         {/* Search Bar */}
         <div className="relative mb-4">
-          <MagnifyingGlass size={20} className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground" />
+          <MagnifyingGlassIcon className="w-5 h-5 absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground" />
           <Input
             placeholder="Search for Guide"
             value={searchQuery}
@@ -391,7 +391,7 @@ export function GuidePage({ onBack, onShowUserProfile, onShowRestaurantProfile }
               <span className="text-sm text-muted-foreground">Sort:</span>
               <Button variant="ghost" size="sm" className="rounded-full">
                 {sortBy}
-                <CaretDown size={16} className="ml-1" />
+                <ChevronDownIcon className="w-4 h-4 ml-1" />
               </Button>
             </div>
           </div>
@@ -423,7 +423,7 @@ export function GuidePage({ onBack, onShowUserProfile, onShowRestaurantProfile }
           <CardContent className="p-4">
             <div className="flex items-center gap-3">
               <div className="w-8 h-8 bg-primary/20 rounded-full flex items-center justify-center">
-                <Trophy size={16} className="text-primary" />
+                <TrophyIcon className="w-4 h-4 text-primary" />
               </div>
               <div className="flex-1">
                 <p className="text-sm font-medium">Complete 3 Guides This Week</p>
@@ -456,13 +456,13 @@ export function GuidePage({ onBack, onShowUserProfile, onShowRestaurantProfile }
                   />
                   {guide.isTrending && (
                     <Badge className="absolute top-2 left-2 bg-red-500 text-white text-xs">
-                      <Fire size={12} className="mr-1" />
+                      <FireIcon className="w-3 h-3 mr-1" />
                       Trending
                     </Badge>
                   )}
                   {guide.isEditorsPick && (
                     <Badge className="absolute top-2 right-2 bg-yellow-500 text-black text-xs">
-                      <Sparkle size={12} className="mr-1" />
+                      <SparklesIcon className="w-3 h-3 mr-1" />
                       Editor's Pick
                     </Badge>
                   )}
@@ -483,11 +483,11 @@ export function GuidePage({ onBack, onShowUserProfile, onShowRestaurantProfile }
                   <h4 className="font-medium text-sm mb-2 line-clamp-2">{guide.title}</h4>
                   <div className="flex items-center justify-between text-xs text-muted-foreground">
                     <div className="flex items-center gap-1">
-                      <Heart size={12} />
+                      <HeartIcon className="w-3 h-3" />
                       <span>{guide.likes.toLocaleString()}</span>
                     </div>
                     <div className="flex items-center gap-1">
-                      <Users size={12} />
+                      <UsersIcon className="w-3 h-3" />
                       <span>Saved by {(guide.likes / 10).toFixed(1)}K</span>
                     </div>
                   </div>

@@ -3,19 +3,19 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { cn } from '@/lib/utils';
 import { 
-  ArrowLeft,
-  Check, 
-  Heart,
-  MessageCircle, 
-  Users,
-  Zap, 
-  MapPin, 
-  Trophy, 
-  Crown, 
-  Gift,
-  Star,
-  Clock 
-} from '@phosphor-icons/react';
+  ArrowLeftIcon,
+  CheckIcon, 
+  HeartIcon,
+  ChatBubbleOvalLeftIcon, 
+  UsersIcon,
+  BoltIcon, 
+  MapPinIcon, 
+  TrophyIcon, 
+  StarIcon as CrownIcon, 
+  GiftIcon,
+  StarIcon,
+  ClockIcon 
+} from '@heroicons/react/24/outline';
 
 interface NotificationsPageProps {
   onBack: () => void;
@@ -43,7 +43,7 @@ export const NotificationsPage: React.FC<NotificationsPageProps> = ({ onBack }) 
       message: 'Congratulations! You\'ve earned the "Taco Tuesday Titan" badge for visiting 5 Mexican restaurants this week!',
       timestamp: '2 minutes ago',
       isRead: false,
-      icon: <Trophy className="w-5 h-5 text-yellow-500" />,
+      icon: <TrophyIcon className="w-5 h-5 text-yellow-500" />,
       reward: '+250 XP, +500 Lik Coins'
     },
     {
@@ -53,7 +53,7 @@ export const NotificationsPage: React.FC<NotificationsPageProps> = ({ onBack }) 
       message: 'Amazing work completing the "Pizza Paradise" quest! Your taste buds are legendary.',
       timestamp: '15 minutes ago',
       isRead: false,
-      icon: <Zap className="w-5 h-5 text-purple-500" />,
+      icon: <BoltIcon className="w-5 h-5 text-purple-500" />,
       reward: '+1000 XP, +750 Lik Coins'
     },
     {
@@ -72,7 +72,7 @@ export const NotificationsPage: React.FC<NotificationsPageProps> = ({ onBack }) 
       message: 'Incredible! You\'ve reached Level 25 - Flavor Explorer! New perks and challenges await.',
       timestamp: '2 hours ago',
       isRead: false,
-      icon: <Crown className="w-5 h-5 text-gradient-to-r from-yellow-400 to-orange-500" />,
+      icon: <CrownIcon className="w-5 h-5 text-gradient-to-r from-yellow-400 to-orange-500" />,
       reward: '+500 XP'
     },
     {
@@ -82,7 +82,7 @@ export const NotificationsPage: React.FC<NotificationsPageProps> = ({ onBack }) 
       message: 'A legendary "Midnight Munchies" bounty appeared at Late Night Bites! Complete before dawn for bonus XP.',
       timestamp: '4 hours ago',
       isRead: true,
-      icon: <MapPin className="w-5 h-5 text-blue-500" />,
+      icon: <MapPinIcon className="w-5 h-5 text-blue-500" />,
       reward: '+350 Lik Coins'
     },
     {
@@ -101,7 +101,7 @@ export const NotificationsPage: React.FC<NotificationsPageProps> = ({ onBack }) 
       message: 'You received 200 Lik Coins for checking in at Sunset Cafe during Happy Hour!',
       timestamp: '8 hours ago',
       isRead: true,
-      icon: <Gift className="w-5 h-5 text-green-500" />,
+      icon: <GiftIcon className="w-5 h-5 text-green-500" />,
       reward: '+200 Lik Coins'
     },
     {
@@ -146,11 +146,11 @@ export const NotificationsPage: React.FC<NotificationsPageProps> = ({ onBack }) 
     if (notification.icon) return notification.icon;
     
     switch (notification.type) {
-      case 'like': return <Heart className="w-5 h-5 text-red-500" />;
-      case 'comment': return <MessageCircle className="w-5 h-5 text-blue-500" />;
-      case 'follow': return <Users className="w-5 h-5 text-green-500" />;
-      case 'quest': return <Zap className="w-5 h-5 text-purple-500" />;
-      case 'bounty': return <MapPin className="w-5 h-5 text-blue-500" />;
+      case 'like': return <HeartIcon className="w-5 h-5 text-red-500" />;
+      case 'comment': return <ChatBubbleOvalLeftIcon className="w-5 h-5 text-blue-500" />;
+      case 'follow': return <UsersIcon className="w-5 h-5 text-green-500" />;
+      case 'quest': return <BoltIcon className="w-5 h-5 text-purple-500" />;
+      case 'bounty': return <MapPinIcon className="w-5 h-5 text-blue-500" />;
       case 'achievement': return <Trophy className="w-5 h-5 text-yellow-500" />;
       case 'coin': return <Gift className="w-5 h-5 text-green-500" />;
       case 'level': return <Crown className="w-5 h-5 text-orange-500" />;
@@ -172,7 +172,7 @@ export const NotificationsPage: React.FC<NotificationsPageProps> = ({ onBack }) 
             onClick={onBack}
             className="p-2 hover:bg-purple-100 transition-colors"
           >
-            <ArrowLeft className="w-5 h-5 text-purple-600" />
+            <ArrowLeftIcon className="w-5 h-5 text-purple-600" />
           </Button>
           <div>
             <h1 className="text-xl font-bold text-purple-900 nav-rum-raisin">

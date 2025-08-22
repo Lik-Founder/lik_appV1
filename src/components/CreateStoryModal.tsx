@@ -9,21 +9,21 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Slider } from '@/components/ui/slider';
 import { 
-  Camera, 
-  Image as ImageIcon, 
-  X, 
-  FlipHorizontal,
-  Circle,
-  Play,
-  Pause,
-  StopCircle,
-  SmileySticker,
-  TextT,
-  Palette,
-  Warning,
-  Sparkle,
-  ArrowLeft
-} from '@phosphor-icons/react';
+  CameraIcon, 
+  PhotoIcon, 
+  XMarkIcon, 
+  ArrowsRightLeftIcon,
+  CircleStackIcon,
+  PlayIcon,
+  PauseIcon,
+  StopCircleIcon,
+  FaceSmileIcon,
+  LanguageIcon,
+  SwatchIcon,
+  ExclamationTriangleIcon,
+  SparklesIcon,
+  ArrowLeftIcon
+} from '@heroicons/react/24/outline';
 import { toast } from 'sonner';
 import { useDevice, useCameraCapabilities, useHapticFeedback } from '@/hooks';
 import { useStoryEditor, IMAGE_FILTERS, type ImageFilter, type TextOverlay } from '@/hooks/use-story-editor';
@@ -342,7 +342,7 @@ export function CreateStoryModal({ open, onOpenChange }: CreateStoryModalProps) 
     <div className="space-y-6">
       {!cameraCapabilities.hasCamera && (
         <div className="bg-muted/50 border border-border rounded-lg p-4 flex items-start gap-3">
-          <Warning size={20} className="text-muted-foreground mt-0.5 flex-shrink-0" />
+          <ExclamationTriangleIcon className="w-5 h-5 text-muted-foreground mt-0.5 flex-shrink-0" />
           <div className="text-sm text-muted-foreground">
             <p className="font-medium mb-1">Camera not available</p>
             <p>Camera access is not available on this device or browser. You can still create stories using photos from the gallery.</p>
@@ -364,7 +364,7 @@ export function CreateStoryModal({ open, onOpenChange }: CreateStoryModalProps) 
           }}
           disabled={!cameraCapabilities.hasCamera}
         >
-          <Camera size={24} />
+          <CameraIcon className="w-6 h-6" />
           <span className="text-sm">Camera</span>
         </Button>
         <Button
@@ -384,7 +384,7 @@ export function CreateStoryModal({ open, onOpenChange }: CreateStoryModalProps) 
           }}
           disabled={!cameraCapabilities.hasCamera || !cameraCapabilities.supportsVideoRecording}
         >
-          <Play size={24} />
+          <PlayIcon className="w-6 h-6" />
           <span className="text-sm">Video</span>
         </Button>
       </div>
@@ -392,7 +392,7 @@ export function CreateStoryModal({ open, onOpenChange }: CreateStoryModalProps) 
       <Card>
         <CardHeader className="pb-4">
           <CardTitle className="flex items-center gap-2 text-base">
-            <ImageIcon size={20} />
+            <PhotoIcon className="w-5 h-5" />
             Choose from Gallery
           </CardTitle>
         </CardHeader>
@@ -448,7 +448,7 @@ export function CreateStoryModal({ open, onOpenChange }: CreateStoryModalProps) 
                 onClick={flipCamera}
                 className="bg-black/50 text-white border-0 backdrop-blur-sm"
               >
-                <FlipHorizontal size={16} />
+                <ArrowsRightLeftIcon className="w-4 h-4" />
               </Button>
             )}
             <Button
@@ -457,7 +457,7 @@ export function CreateStoryModal({ open, onOpenChange }: CreateStoryModalProps) 
               onClick={() => setCurrentStep('select')}
               className="bg-black/50 text-white border-0 backdrop-blur-sm"
             >
-              <X size={16} />
+              <XMarkIcon className="w-4 h-4" />
             </Button>
           </div>
 
@@ -470,7 +470,7 @@ export function CreateStoryModal({ open, onOpenChange }: CreateStoryModalProps) 
                   onClick={takePhoto}
                   className="w-16 h-16 rounded-full bg-white text-black hover:bg-gray-100 border-4 border-white"
                 >
-                  <Circle size={24} />
+                  <CircleStackIcon className="w-6 h-6" />
                 </Button>
               ) : (
                 <Button
@@ -483,7 +483,7 @@ export function CreateStoryModal({ open, onOpenChange }: CreateStoryModalProps) 
                       : "bg-white text-black hover:bg-gray-100"
                   )}
                 >
-                  {isRecording ? <StopCircle size={24} /> : <Circle size={24} />}
+                  {isRecording ? <StopCircleIcon className="w-6 h-6" /> : <CircleStackIcon className="w-6 h-6" />}
                 </Button>
               )}
             </div>
@@ -543,7 +543,7 @@ export function CreateStoryModal({ open, onOpenChange }: CreateStoryModalProps) 
           className="flex items-center gap-2"
           onClick={() => setCurrentStep('filters')}
         >
-          <Sparkle size={16} />
+          <SparklesIcon className="w-4 h-4" />
           Filters
         </Button>
         <Button
@@ -552,7 +552,7 @@ export function CreateStoryModal({ open, onOpenChange }: CreateStoryModalProps) 
           className="flex items-center gap-2"
           onClick={() => setCurrentStep('text')}
         >
-          <TextT size={16} />
+          <LanguageIcon className="w-4 h-4" />
           Text
         </Button>
         <Button
@@ -561,7 +561,7 @@ export function CreateStoryModal({ open, onOpenChange }: CreateStoryModalProps) 
           className="flex items-center gap-2"
           onClick={() => toast.info('Stickers coming soon!')}
         >
-          <SmileySticker size={16} />
+          <FaceSmileIcon className="w-4 h-4" />
           Stickers
         </Button>
       </div>
@@ -600,7 +600,7 @@ export function CreateStoryModal({ open, onOpenChange }: CreateStoryModalProps) 
     <div className="space-y-6">
       <div className="flex items-center gap-3 mb-4">
         <Button variant="ghost" size="sm" onClick={() => setCurrentStep('edit')}>
-          <ArrowLeft size={16} />
+          <ArrowLeftIcon className="w-4 h-4" />
         </Button>
         <h3 className="font-semibold">Choose Filter</h3>
       </div>
@@ -643,7 +643,7 @@ export function CreateStoryModal({ open, onOpenChange }: CreateStoryModalProps) 
     <div className="space-y-6">
       <div className="flex items-center gap-3 mb-4">
         <Button variant="ghost" size="sm" onClick={() => setCurrentStep('edit')}>
-          <ArrowLeft size={16} />
+          <ArrowLeftIcon className="w-4 h-4" />
         </Button>
         <h3 className="font-semibold">Add Text</h3>
       </div>
@@ -681,7 +681,7 @@ export function CreateStoryModal({ open, onOpenChange }: CreateStoryModalProps) 
                   size="sm"
                   onClick={() => removeTextOverlay(overlay.id)}
                 >
-                  <X size={14} />
+                  <XMarkIcon className="w-3.5 h-3.5" />
                 </Button>
               </div>
             ))}

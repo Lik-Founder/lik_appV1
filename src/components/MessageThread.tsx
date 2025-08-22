@@ -3,28 +3,28 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { ConsistentAvatar } from '@/components/ui/consistent-avatar';
 import { 
-  ArrowLeft, 
-  MapPin, 
-  Gift, 
-  DotsThreeVertical,
-  Camera,
-  Target,
-  Buildings,
-  Trophy,
-  Heart,
-  Fire,
-  ThumbsUp,
-  Smiley,
-  PaperPlaneRight,
-  Image as ImageIcon,
-  Clock,
-  Star,
-  CurrencyCircleDollar,
-  Users,
-  X,
-  Check,
-  CheckCheck
-} from '@phosphor-icons/react';
+  ArrowLeftIcon, 
+  MapPinIcon, 
+  GiftIcon, 
+  EllipsisVerticalIcon,
+  CameraIcon,
+  BookmarkIcon as TargetIcon,
+  BuildingOfficeIcon,
+  TrophyIcon,
+  HeartIcon,
+  FireIcon,
+  HandThumbUpIcon,
+  FaceSmileIcon,
+  PaperAirplaneIcon,
+  PhotoIcon,
+  ClockIcon,
+  StarIcon,
+  CurrencyDollarIcon,
+  UsersIcon,
+  XMarkIcon,
+  CheckIcon,
+  CheckBadgeIcon
+} from '@heroicons/react/24/outline';
 import { cn } from '@/lib/utils';
 import { toast } from 'sonner';
 
@@ -314,7 +314,7 @@ export function MessageThread({ chatId, onBack, onShowRestaurantProfile, onShowU
                     <div className="flex-1">
                       <h4 className="font-semibold text-foreground">{message.restaurantData.name}</h4>
                       <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                        <Star className="w-4 h-4 fill-yellow-400 text-yellow-400" />
+                        <StarIcon className="w-4 h-4 fill-yellow-400 text-yellow-400" />
                         <span>{message.restaurantData.rating}</span>
                         <span>•</span>
                         <span>{message.restaurantData.cuisine}</span>
@@ -340,18 +340,18 @@ export function MessageThread({ chatId, onBack, onShowRestaurantProfile, onShowU
                 )}>
                   <div className="flex items-start gap-3">
                     <div className="w-10 h-10 rounded-full bg-orange-100 flex items-center justify-center">
-                      <Target className="w-5 h-5 text-orange-600" />
+                      <TargetIcon className="w-5 h-5 text-orange-600" />
                     </div>
                     <div className="flex-1">
                       <h4 className="font-semibold text-foreground">{message.questData.title}</h4>
                       <p className="text-sm text-muted-foreground">{message.questData.restaurant}</p>
                       <div className="flex items-center gap-4 mt-2 text-sm">
                         <div className="flex items-center gap-1 text-orange-600">
-                          <CurrencyCircleDollar className="w-4 h-4" />
+                          <CurrencyDollarIcon className="w-4 h-4" />
                           <span>+{message.questData.reward} LKC</span>
                         </div>
                         <div className="flex items-center gap-1 text-muted-foreground">
-                          <Clock className="w-4 h-4" />
+                          <ClockIcon className="w-4 h-4" />
                           <span>{message.questData.timeLeft}</span>
                         </div>
                       </div>
@@ -385,7 +385,7 @@ export function MessageThread({ chatId, onBack, onShowRestaurantProfile, onShowU
               <div className="space-y-2">
                 <div className="text-center coin-burst-animation">
                   <div className="inline-flex items-center gap-2 bg-yellow-100 text-yellow-800 px-3 py-2 rounded-full">
-                    <CurrencyCircleDollar className="w-5 h-5" />
+                    <CurrencyDollarIcon className="w-5 h-5" />
                     <span className="font-bold">+{message.coinData.amount} Lik Coins</span>
                   </div>
                   <p className="text-sm mt-2">{message.coinData.message}</p>
@@ -424,9 +424,9 @@ export function MessageThread({ chatId, onBack, onShowRestaurantProfile, onShowU
             {isOwnMessage && (
               <div className="flex items-center">
                 {message.isRead ? (
-                  <CheckCheck className="w-3 h-3 text-blue-500" />
+                  <CheckBadgeIcon className="w-3 h-3 text-blue-500" />
                 ) : (
-                  <Check className="w-3 h-3" />
+                  <CheckIcon className="w-3 h-3" />
                 )}
               </div>
             )}
@@ -512,7 +512,7 @@ export function MessageThread({ chatId, onBack, onShowRestaurantProfile, onShowU
               onClick={onBack}
               className="p-2 hover:bg-muted rounded-full"
             >
-              <ArrowLeft className="w-5 h-5" />
+              <ArrowLeftIcon className="w-5 h-5" />
             </Button>
             
             <div 
@@ -546,7 +546,7 @@ export function MessageThread({ chatId, onBack, onShowRestaurantProfile, onShowU
               onClick={handleSendLocation}
               className="p-2 hover:bg-muted rounded-full"
             >
-              <MapPin className="w-5 h-5" />
+              <MapPinIcon className="w-5 h-5" />
             </Button>
             <Button
               variant="ghost"
@@ -554,7 +554,7 @@ export function MessageThread({ chatId, onBack, onShowRestaurantProfile, onShowU
               onClick={handleSendCoins}
               className="p-2 hover:bg-muted rounded-full"
             >
-              <Gift className="w-5 h-5" />
+              <GiftIcon className="w-5 h-5" />
             </Button>
             <Button
               variant="ghost"
@@ -562,7 +562,7 @@ export function MessageThread({ chatId, onBack, onShowRestaurantProfile, onShowU
               onClick={() => setShowMoreOptions(!showMoreOptions)}
               className="p-2 hover:bg-muted rounded-full"
             >
-              <DotsThreeVertical className="w-5 h-5" />
+              <EllipsisVerticalIcon className="w-5 h-5" />
             </Button>
           </div>
         </div>
@@ -624,7 +624,7 @@ export function MessageThread({ chatId, onBack, onShowRestaurantProfile, onShowU
             "flex items-center gap-2 bg-muted/50 px-3 py-1.5 rounded-full",
             chatStreak >= 7 && "chat-streak-glow"
           )}>
-            <Fire className="w-4 h-4 text-orange-500" />
+            <FireIcon className="w-4 h-4 text-orange-500" />
             <span className="text-sm font-medium">Chat streak: {chatStreak} days</span>
           </div>
         </div>
@@ -637,7 +637,7 @@ export function MessageThread({ chatId, onBack, onShowRestaurantProfile, onShowU
               size="sm"
               className="p-2 hover:bg-muted rounded-full"
             >
-              <Camera className="w-5 h-5" />
+              <CameraIcon className="w-5 h-5" />
             </Button>
             <Button
               variant="ghost"
@@ -666,7 +666,7 @@ export function MessageThread({ chatId, onBack, onShowRestaurantProfile, onShowU
                 onClick={() => setShowEmojiPicker(!showEmojiPicker)}
                 className="p-1.5 hover:bg-muted rounded-full"
               >
-                <Smiley className="w-4 h-4" />
+                <FaceSmileIcon className="w-4 h-4" />
               </Button>
               
               {newMessage.trim() && (
@@ -675,7 +675,7 @@ export function MessageThread({ chatId, onBack, onShowRestaurantProfile, onShowU
                   onClick={handleSendMessage}
                   className="p-1.5 rounded-full bg-primary text-primary-foreground"
                 >
-                  <PaperPlaneRight className="w-4 h-4" />
+                  <PaperAirplaneIcon className="w-4 h-4" />
                 </Button>
               )}
             </div>
@@ -690,7 +690,7 @@ export function MessageThread({ chatId, onBack, onShowRestaurantProfile, onShowU
             onClick={() => {/* Handle restaurant sharing */}}
             className="flex items-center gap-2 text-sm"
           >
-            <Buildings className="w-4 h-4" />
+            <BuildingOfficeIcon className="w-4 h-4" />
             Restaurant
           </Button>
           <Button
@@ -699,7 +699,7 @@ export function MessageThread({ chatId, onBack, onShowRestaurantProfile, onShowU
             onClick={handleSendCoins}
             className="flex items-center gap-2 text-sm"
           >
-            <Gift className="w-4 h-4" />
+            <GiftIcon className="w-4 h-4" />
             Reward
           </Button>
           <Button
@@ -708,7 +708,7 @@ export function MessageThread({ chatId, onBack, onShowRestaurantProfile, onShowU
             onClick={() => {/* Handle food duel */}}
             className="flex items-center gap-2 text-sm"
           >
-            <Trophy className="w-4 h-4" />
+            <TrophyIcon className="w-4 h-4" />
             Duel
           </Button>
         </div>
