@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
-import { ChevronLeft, ChevronRight } from '@phosphor-icons/react';
+import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/24/outline';
 import { cn } from '@/lib/utils';
 
 interface HorizontalCarouselProps {
@@ -121,7 +121,7 @@ export function HorizontalCarousel({
           )}
           onClick={scrollLeft}
         >
-          <ChevronLeft size={16} />
+          <ChevronLeftIcon className="w-4 h-4" />
         </Button>
       )}
 
@@ -137,7 +137,7 @@ export function HorizontalCarousel({
           )}
           onClick={scrollRight}
         >
-          <ChevronRight size={16} />
+          <ChevronRightIcon className="w-4 h-4" />
         </Button>
       )}
 

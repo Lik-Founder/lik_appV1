@@ -1,5 +1,16 @@
 import { useState, useEffect, useMemo, useRef } from 'react';
-import { ArrowLeft, MagnifyingGlass, Globe, CaretDown, Star, Heart, TrendUp, CaretRight, Funnel, CircleNotch } from '@phosphor-icons/react';
+import { 
+  ArrowLeftIcon, 
+  MagnifyingGlassIcon, 
+  GlobeAltIcon, 
+  ChevronDownIcon, 
+  StarIcon, 
+  HeartIcon, 
+  TrendingUpIcon, 
+  ChevronRightIcon, 
+  FunnelIcon, 
+  ArrowPathIcon 
+} from '@heroicons/react/24/outline';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { ConsistentAvatar } from '@/components/ui/consistent-avatar';
@@ -548,11 +559,11 @@ function LeaderboardCard({
               ) : (
                 <div className="flex items-center gap-2">
                   <div className="flex items-center gap-1 text-yellow-500 font-bold text-sm sm:text-base bg-white/80 px-2 py-1 rounded-full shadow-md">
-                    <Star size={16} className="fill-current" />
+                    <StarIcon className="w-4 h-4 fill-current" />
                     {item.rating}
                   </div>
                   <div className="flex items-center gap-1 text-red-500 text-sm font-semibold bg-white/80 px-2 py-1 rounded-full shadow-md">
-                    <Heart size={14} className="fill-current" />
+                    <HeartIcon className="w-3.5 h-3.5 fill-current" />
                     {item.likes >= 1000 
                       ? `${(item.likes / 1000).toFixed(item.likes >= 100000 ? 0 : 1)}K`
                       : item.likes
@@ -560,7 +571,7 @@ function LeaderboardCard({
                   </div>
                   {item.reviews && (
                     <div className="hidden sm:flex items-center gap-1 text-pink-600 text-xs font-medium bg-white/80 px-2 py-1 rounded-full shadow-sm">
-                      <TrendUp size={12} />
+                      <TrendingUpIcon className="w-3 h-3" />
                       {item.reviews >= 1000 
                         ? `${(item.reviews / 1000).toFixed(1)}K`
                         : item.reviews
@@ -577,9 +588,8 @@ function LeaderboardCard({
                 <div className="text-xs sm:text-sm font-medium mr-1 nav-rum-raisin hidden sm:block">
                   Tap
                 </div>
-                <CaretRight 
-                  size={16} 
-                  className="transition-all duration-300 group-hover:translate-x-1" 
+                <ChevronRightIcon 
+                  className="w-4 h-4 transition-all duration-300 group-hover:translate-x-1" 
                 />
               </div>
             ) : activeTab === 'foods' ? (
@@ -821,7 +831,7 @@ export function LeaderboardPage({ onBack, onShowRestaurantProfile, onShowUserPro
             onClick={onBack}
             className="shrink-0 hover:bg-pink-200/50 rounded-full w-10 h-10"
           >
-            <ArrowLeft size={20} className="text-pink-700" />
+            <ArrowLeftIcon className="w-5 h-5 text-pink-700" />
           </Button>
           
           <div className="flex items-center gap-2 flex-1 justify-center">
@@ -865,9 +875,8 @@ export function LeaderboardPage({ onBack, onShowRestaurantProfile, onShowUserPro
             <div className="flex items-center gap-2 sm:gap-3">
               {/* Search */}
               <div className="relative flex-1">
-                <MagnifyingGlass 
-                  size={18} 
-                  className="absolute left-3 top-1/2 transform -translate-y-1/2 text-pink-500" 
+                <MagnifyingGlassIcon 
+                  className="w-4.5 h-4.5 absolute left-3 top-1/2 transform -translate-y-1/2 text-pink-500" 
                 />
                 <Input
                   placeholder={`Search ${activeTab === 'restaurants' ? 'restaurants' : activeTab === 'foods' ? 'dishes' : 'foodies'}... 🔍`}
@@ -884,12 +893,11 @@ export function LeaderboardPage({ onBack, onShowRestaurantProfile, onShowUserPro
                   className="shrink-0 rounded-full px-3 sm:px-6 h-10 sm:h-12 gap-1 sm:gap-2 nav-rum-raisin font-medium bg-white/80 border-2 border-pink-200 text-pink-700 hover:bg-pink-50 hover:border-pink-300 shadow-lg"
                   onClick={() => setShowFilters(!showFilters)}
                 >
-                  <Funnel size={16} />
+                  <FunnelIcon className="w-4 h-4" />
                   <span className="hidden sm:inline">Filter</span>
-                  <CaretDown 
-                    size={14} 
+                  <ChevronDownIcon 
                     className={cn(
-                      "transition-transform duration-300",
+                      "w-3.5 h-3.5 transition-transform duration-300",
                       showFilters && "rotate-180"
                     )}
                   />
@@ -907,7 +915,7 @@ export function LeaderboardPage({ onBack, onShowRestaurantProfile, onShowUserPro
                   setScope(nextScope);
                 }}
               >
-                <Globe size={16} />
+                <GlobeAltIcon className="w-4 h-4" />
                 <span className="hidden sm:inline">{getScopeText()}</span>
                 <span className="sm:hidden text-xs">
                   {scope === 'global' ? '🌍' : scope === 'national' ? '🇺🇸' : '🏙️'}
@@ -1068,7 +1076,7 @@ export function LeaderboardPage({ onBack, onShowRestaurantProfile, onShowUserPro
                   <div ref={observerRef} className="flex justify-center py-6">
                     {isLoading ? (
                       <div className="infinite-scroll-indicator loading flex items-center gap-3 bg-gradient-to-r from-pink-50 to-red-50 rounded-2xl px-6 py-4 shadow-lg border-2 border-pink-200 backdrop-blur-sm">
-                        <CircleNotch size={20} className="leaderboard-loading-spinner text-pink-500" />
+                        <ArrowPathIcon className="w-5 h-5 leaderboard-loading-spinner text-pink-500" />
                         <span className="text-pink-700 font-medium nav-rum-raisin">
                           Loading more amazing {activeTab}...
                         </span>

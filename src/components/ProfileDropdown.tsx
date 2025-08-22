@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { ChevronRight, Users, Mail, Timer, Play } from '@phosphor-icons/react';
+import { ChevronRightIcon, UsersIcon, EnvelopeIcon, ClockIcon, PlayIcon } from '@heroicons/react/24/outline';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { ProfileAvatar } from '@/components/ProfileAvatar';
@@ -54,9 +54,8 @@ const MenuButton: React.FC<{
     <span className="flex-1 text-left text-white font-medium text-base sm:text-lg nav-rum-raisin">
       {label}
     </span>
-    <ChevronRight 
-      size={18} 
-      className="text-slate-400 group-hover:text-white transition-colors sm:w-5 sm:h-5" 
+    <ChevronRightIcon 
+      className="w-4.5 h-4.5 sm:w-5 sm:h-5 text-slate-400 group-hover:text-white transition-colors" 
     />
   </button>
 );
@@ -305,7 +304,7 @@ export const ProfileDropdown: React.FC<ProfileDropdownProps> = ({
             onClick={() => onNavigate('friends')}
             className="flex items-center gap-1.5 sm:gap-2 text-slate-300 hover:text-white transition-colors social-button-whimsical rounded-lg px-2.5 sm:px-3 py-1.5 sm:py-2"
           >
-            <Users size={18} className="sm:w-5 sm:h-5" />
+            <UsersIcon className="w-4.5 h-4.5 sm:w-5 sm:h-5" />
             <span className="nav-rum-raisin text-sm sm:text-base">Friends</span>
           </button>
           
@@ -313,7 +312,7 @@ export const ProfileDropdown: React.FC<ProfileDropdownProps> = ({
             onClick={() => onNavigate('messages')}
             className="flex items-center gap-1.5 sm:gap-2 text-slate-300 hover:text-white transition-colors social-button-whimsical rounded-lg px-2.5 sm:px-3 py-1.5 sm:py-2"
           >
-            <Mail size={18} className="sm:w-5 sm:h-5" />
+            <EnvelopeIcon className="w-4.5 h-4.5 sm:w-5 sm:h-5" />
             <span className="nav-rum-raisin text-sm sm:text-base">Messages</span>
           </button>
         </div>

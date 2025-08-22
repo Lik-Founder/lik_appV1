@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { MagnifyingGlass, Bell, User, Play, ChevronLeft } from '@phosphor-icons/react';
+import { MagnifyingGlassIcon, BellIcon, UserIcon, PlayIcon, ChevronLeftIcon } from '@heroicons/react/24/outline';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { useCarouselSwipe } from '@/hooks';
@@ -154,7 +154,7 @@ export function LikTVPage({ onBack }: LikTVPageProps) {
             onClick={onBack}
             className="p-1 hover:bg-muted md:hidden"
           >
-            <ChevronLeft size={20} />
+            <ChevronLeftIcon className="w-5 h-5" />
           </Button>
           <h1 className="text-xl font-bold text-primary">LikTV</h1>
         </div>
@@ -162,7 +162,7 @@ export function LikTVPage({ onBack }: LikTVPageProps) {
         {/* Search Bar */}
         <div className="flex-1 max-w-md mx-4">
           <div className="relative">
-            <MagnifyingGlass className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground" size={16} />
+            <MagnifyingGlassIcon className="w-4 h-4 absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground" />
             <Input
               placeholder="Search for a show"
               value={searchQuery}
@@ -175,10 +175,10 @@ export function LikTVPage({ onBack }: LikTVPageProps) {
         {/* Right Icons */}
         <div className="flex items-center space-x-2">
           <Button variant="ghost" size="sm" className="p-2 hover:bg-muted">
-            <Bell size={20} />
+            <BellIcon className="w-5 h-5" />
           </Button>
           <Button variant="ghost" size="sm" className="p-2 hover:bg-muted">
-            <User size={20} />
+            <UserIcon className="w-5 h-5" />
           </Button>
         </div>
       </div>
@@ -218,7 +218,7 @@ export function LikTVPage({ onBack }: LikTVPageProps) {
                   <Button 
                     className="bg-white text-black hover:bg-white/90 font-semibold px-6"
                   >
-                    <Play size={16} className="mr-2" />
+                    <PlayIcon className="w-4 h-4 mr-2" />
                     Watch Now
                   </Button>
                 </div>

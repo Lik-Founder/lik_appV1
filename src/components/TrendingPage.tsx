@@ -554,11 +554,11 @@ export function TrendingPage({ onShowRestaurantProfile, onShowUserProfile, onSho
             </div>
             <div className="flex gap-2 flex-wrap">
               <Button size="sm" className="glossy-red-pill text-white font-rum-raisin">
-                <GameController size={14} className="mr-1" />
+                <PuzzlePieceIcon className="w-3.5 h-3.5 mr-1" />
                 Start Quest
               </Button>
               <Button size="sm" className="bg-white/90 hover:bg-white text-black font-rum-raisin">
-                <ShoppingCart size={14} className="mr-1" />
+                <ShoppingCartIcon className="w-3.5 h-3.5 mr-1" />
                 Order Now
               </Button>
             </div>

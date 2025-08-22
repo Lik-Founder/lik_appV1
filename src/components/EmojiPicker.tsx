@@ -5,7 +5,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from '@/components/ui/popover';
-import { Smiley } from '@phosphor-icons/react';
+import { FaceSmileIcon } from '@heroicons/react/24/outline';
 import { cn } from '@/lib/utils';
 
 interface EmojiPickerProps {
@@ -38,7 +38,7 @@ export function EmojiPicker({ onEmojiSelect, children }: EmojiPickerProps) {
             size="sm"
             className="h-6 w-6 p-0 text-muted-foreground hover:text-foreground"
           >
-            <Smiley size={16} />
+            <FaceSmileIcon className="w-4 h-4" />
           </Button>
         )}
       </PopoverTrigger>

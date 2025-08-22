@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
 import { Button } from '@/components/ui/button';
-import { CaretLeft, CaretRight } from '@phosphor-icons/react';
+import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/24/outline';
 import { cn } from '@/lib/utils';
 
 interface CarouselProps {
@@ -218,7 +218,7 @@ export function Carousel({
             )}
             onClick={goToPrevious}
           >
-            <CaretLeft size={16} />
+            <ChevronLeftIcon className="w-4 h-4" />
           </Button>
           <Button
             variant="secondary"
@@ -231,7 +231,7 @@ export function Carousel({
             )}
             onClick={goToNext}
           >
-            <CaretRight size={16} />
+            <ChevronRightIcon className="w-4 h-4" />
           </Button>
         </>
       )}

@@ -1,5 +1,12 @@
 import { useState, useEffect } from 'react';
-import { Heart, ArrowBendUpLeft, DotsThree, CaretDown, CaretRight, ChatsCircle } from '@phosphor-icons/react';
+import { 
+  HeartIcon, 
+  ArrowUturnLeftIcon, 
+  EllipsisHorizontalIcon, 
+  ChevronDownIcon, 
+  ChevronRightIcon, 
+  ChatBubbleLeftEllipsisIcon 
+} from '@heroicons/react/24/outline';
 import { Comment as CommentType, User } from '@/lib/types';
 import { DeviceType } from '@/hooks/use-device';
 import { useHapticFeedback } from '@/hooks/use-haptic';
@@ -141,9 +148,9 @@ export function CommentItem({
             )}
           >
             {showReplies ? (
-              <CaretDown size={12} className="text-muted-foreground" />
+              <ChevronDownIcon className="w-3 h-3 text-muted-foreground" />
             ) : (
-              <CaretRight size={12} className="text-muted-foreground" />
+              <ChevronRightIcon className="w-3 h-3 text-muted-foreground" />
             )}
           </button>
         </div>
@@ -208,12 +215,12 @@ export function CommentItem({
                     "touch-target"
                   )}
                 >
-                  <DotsThree size={iconSize} />
+                  <EllipsisHorizontalIcon className="w-4 h-4" />
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end" className="w-36">
                 <DropdownMenuItem onClick={handleReplyClick}>
-                  <ArrowBendUpLeft size={14} className="mr-2" />
+                  <ArrowUturnLeftIcon className="w-3.5 h-3.5 mr-2" />
                   Reply
                 </DropdownMenuItem>
                 {onDelete && (
@@ -242,7 +249,7 @@ export function CommentItem({
           {/* Like indicator on comment bubble */}
           {comment.isLiked && (
             <div className="absolute -bottom-1 -right-1 bg-red-500 rounded-full p-1">
-              <Heart size={10} weight="fill" className="text-white" />
+              <HeartIcon className="w-2.5 h-2.5 text-white fill-current" />
             </div>
           )}
           
@@ -254,14 +261,14 @@ export function CommentItem({
                 "comment-swipe-indicator",
                 swipeDirection === 'right' ? "left-2 text-red-500 active" : "left-2 opacity-0"
               )}>
-                <Heart size={16} weight="fill" />
+                <HeartIcon className="w-4 h-4 fill-current" />
               </div>
               <div className={cn(
                 "absolute top-1/2 -translate-y-1/2 transition-all duration-200 pointer-events-none",
                 "comment-swipe-indicator", 
                 swipeDirection === 'left' ? "right-2 text-blue-500 active" : "right-2 opacity-0"
               )}>
-                <ArrowBendUpLeft size={16} />
+                <ArrowUturnLeftIcon className="w-4 h-4" />
               </div>
             </>
           )}
@@ -283,10 +290,8 @@ export function CommentItem({
                 : "text-muted-foreground hover:text-red-500"
             )}
           >
-            <Heart 
-              size={12} 
-              weight={comment.isLiked ? "fill" : "regular"}
-              className="transition-all duration-200"
+            <HeartIcon 
+              className={`w-3 h-3 transition-all duration-200 ${comment.isLiked ? 'fill-current' : ''}`}
             />
             {comment.likes > 0 && (
               <span className="transition-all duration-200">
@@ -319,13 +324,13 @@ export function CommentItem({
             >
               {showReplies ? (
                 <>
-                  <CaretDown size={12} />
+                  <ChevronDownIcon className="w-3 h-3" />
                   <span>Hide {totalReplies} {totalReplies === 1 ? 'reply' : 'replies'}</span>
                 </>
               ) : (
                 <>
-                  <CaretRight size={12} />
-                  <ChatsCircle size={12} />
+                  <ChevronRightIcon className="w-3 h-3" />
+                  <ChatBubbleLeftEllipsisIcon className="w-3 h-3" />
                   <span>Show {totalReplies} {totalReplies === 1 ? 'reply' : 'replies'}</span>
                 </>
               )}
@@ -341,9 +346,9 @@ export function CommentItem({
                 "transition-colors touch-target font-medium px-2 py-1 rounded-full hover:bg-muted"
               )}
             >
-              <ChatsCircle size={12} />
+              <ChatBubbleLeftEllipsisIcon className="w-3 h-3" />
               <span>{totalReplies} {totalReplies === 1 ? 'reply' : 'replies'}</span>
-              <CaretRight size={10} />
+              <ChevronRightIcon className="w-2.5 h-2.5" />
             </button>
           )}
         </div>

@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { MessageCircle, Heart } from '@phosphor-icons/react';
+import { ChatBubbleLeftIcon, HeartIcon } from '@heroicons/react/24/outline';
 import { Comment, User } from '@/lib/types';
 import { useKV } from '@github/spark/hooks';
 import { DeviceType } from '@/hooks/use-device';
@@ -59,7 +59,7 @@ export function QuickCommentsView({ postId, onOpenModal, deviceType }: QuickComm
             deviceType === 'tablet' ? "text-sm" : "text-xs"
           )}
         >
-          <MessageCircle size={iconSize} />
+          <ChatBubbleLeftIcon className="w-5 h-5" />
           View all {comments.length} comments
         </button>
       )}
@@ -99,10 +99,8 @@ export function QuickCommentsView({ postId, onOpenModal, deviceType }: QuickComm
                 
                 {comment.likes > 0 && (
                   <div className="flex items-center gap-1">
-                    <Heart 
-                      size={10} 
-                      weight={comment.isLiked ? "fill" : "regular"}
-                      className={comment.isLiked ? "text-red-500" : "text-muted-foreground"}
+                    <HeartIcon 
+                      className={`w-2.5 h-2.5 ${comment.isLiked ? "text-red-500 fill-current" : "text-muted-foreground"}`}
                     />
                     <span className="text-xs text-muted-foreground">
                       {comment.likes}

@@ -400,7 +400,7 @@ export function HomeFeed({ onShowUserProfile, onShowRestaurantProfile, onShowLea
           {/* Right - Icons */}
           <div className="flex items-center gap-2 min-w-[160px] justify-end">
             <Button variant="ghost" size="icon" className="w-9 h-9">
-              <GameController size={20} />
+              <PuzzlePieceIcon className="w-5 h-5" />
             </Button>
             <Button variant="ghost" size="icon" className="w-9 h-9" onClick={onShowLikTV}>
               <PlayIcon className="w-5 h-5" />
