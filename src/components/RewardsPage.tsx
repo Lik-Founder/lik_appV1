@@ -3,30 +3,14 @@ import { useKV } from '@github/spark/hooks';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
+import { CurrencyDollarIcon as CoinsIcon, ArrowLeftIcon, FaceSmileIcon as PartyPopperIcon, SparklesIcon, MapPinIcon, ClockIcon, BoltIcon, StarIcon, GiftIcon, TrophyIcon, HeartIcon, FireIcon, ShoppingCartIcon, CheckIcon, CrownIcon, UsersIcon } from '@heroicons/react/24/outline';
 import { 
-  ArrowLeftIcon as ArrowLeft,
-  CurrencyDollarIcon as Coins,
-  StarIcon as Star,
-  GiftIcon as Gift,
   Square3Stack3DIcon as Coffee,
   Square2StackIcon as Hamburger,
   CircleStackIcon as Pizza,
   Square3Stack3DIcon as Cookie,
   Square3Stack3DIcon as IceCream,
   BeakerIcon as Wine,
-  StarIcon as Crown,
-  BoltIcon as Lightning,
-  SparklesIcon as Sparkle,
-  TrophyIcon as Medal,
-  TrophyIcon as Trophy,
-  HeartIcon as Heart,
-  FireIcon as Fire,
-  SparklesIcon as Confetti,
-  ShoppingCartIcon as ShoppingCart,
-  CheckIcon as Check,
-  ClockIcon as Clock,
-  MapPinIcon as MapPin,
-  UsersIcon as Users
 } from '@heroicons/react/24/outline';
 import { cn } from '@/lib/utils';
 
@@ -76,7 +60,7 @@ const rewardCategories = [
   {
     id: 'experiences',
     name: 'Dining Experiences',
-    icon: Crown,
+    icon: CrownIcon,
     gradient: 'from-purple-500 to-pink-500',
     rewards: [
       {
@@ -84,7 +68,7 @@ const rewardCategories = [
         name: 'Chef\'s Table',
         description: 'Exclusive 5-course tasting menu',
         cost: 1000,
-        icon: Crown,
+        icon: CrownIcon,
         rarity: 'legendary',
         category: 'experience',
         redeemableAt: ['Le Bernardin', 'Eleven Madison Park'],
@@ -106,7 +90,7 @@ const rewardCategories = [
   {
     id: 'boosts',
     name: 'Lik Boosts',
-    icon: Lightning,
+    icon: BoltIcon,
     gradient: 'from-blue-500 to-cyan-500',
     rewards: [
       {
@@ -114,7 +98,7 @@ const rewardCategories = [
         name: '2x XP Boost',
         description: 'Double XP for next 5 reviews',
         cost: 100,
-        icon: Lightning,
+        icon: BoltIcon,
         rarity: 'uncommon',
         category: 'boost',
         duration: '5 reviews'
@@ -124,7 +108,7 @@ const rewardCategories = [
         name: 'Streak Shield',
         description: 'Protect your streak for 7 days',
         cost: 200,
-        icon: Fire,
+        icon: FireIcon,
         rarity: 'rare',
         category: 'boost',
         duration: '7 days'
@@ -203,7 +187,7 @@ export function RewardsPage({ onBack }: RewardsPageProps) {
               onClick={onBack}
               className="rounded-full bg-white/70 hover:bg-white/90 backdrop-blur-sm shadow-md"
             >
-              <ArrowLeft size={20} className="text-red-600" />
+              <ArrowLeftIcon className="h-5 w-5 text-red-600" />
             </Button>
             <div>
               <h1 className="text-2xl font-bold font-rum-raisin bg-gradient-to-r from-orange-600 to-red-600 bg-clip-text text-transparent">
@@ -216,7 +200,7 @@ export function RewardsPage({ onBack }: RewardsPageProps) {
           {/* Coin Balance */}
           <div className="bg-gradient-to-r from-yellow-400 to-orange-500 rounded-full px-4 py-2 shadow-lg">
             <div className="flex items-center gap-2">
-              <Coins size={20} weight="fill" className="text-white" />
+              <CoinsIcon className="h-5 w-5 fill-current text-white" />
               <span className="font-bold text-white font-rum-raisin">{userLikCoins.toLocaleString()}</span>
             </div>
           </div>
@@ -226,9 +210,9 @@ export function RewardsPage({ onBack }: RewardsPageProps) {
       {/* Success Banner */}
       {showSuccess && (
         <div className="bg-gradient-to-r from-green-500 to-emerald-500 text-white p-3 text-center font-medium relative">
-          <Confetti size={16} className="inline mr-2" />
+          <PartyPopperIcon className="h-4 w-4 inline mr-2" />
           Reward redeemed successfully! Check your profile for details.
-          <Sparkle size={16} className="inline ml-2" />
+          <SparklesIcon className="h-4 w-4 inline ml-2" />
         </div>
       )}
 
@@ -344,7 +328,7 @@ export function RewardsPage({ onBack }: RewardsPageProps) {
 
                     {reward.duration && (
                       <div className="flex items-center gap-2 text-sm text-gray-600">
-                        <Lightning size={14} />
+                        <Zap size={14} />
                         <span>Duration: {reward.duration}</span>
                       </div>
                     )}
@@ -353,7 +337,7 @@ export function RewardsPage({ onBack }: RewardsPageProps) {
                   {/* Cost and Action */}
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-2">
-                      <Coins size={20} weight="fill" className="text-yellow-500" />
+                      <Coins size={20} fill="currentColor" className="text-yellow-500" />
                       <span className="font-bold text-lg font-rum-raisin text-gray-800">
                         {reward.cost.toLocaleString()}
                       </span>
@@ -444,7 +428,7 @@ export function RewardsPage({ onBack }: RewardsPageProps) {
               
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2">
-                  <Coins size={16} weight="fill" className="text-yellow-500" />
+                  <Coins size={16} fill="currentColor" className="text-yellow-500" />
                   <span className="font-medium">
                     Total: {cart.reduce((total, itemId) => {
                       const reward = rewardCategories

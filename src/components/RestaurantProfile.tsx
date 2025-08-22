@@ -9,15 +9,15 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { AwardsPage } from '@/components/AwardsPage';
 import { ReservationSystem } from '@/components/ReservationSystem';
 import { AvailabilityWidget } from '@/components/AvailabilityWidget';
+import { ArrowLeftIcon, BuildingStorefrontIcon, TrophyIcon, ShareIcon, EllipsisHorizontalIcon, HeartIcon, EyeIcon, ChatBubbleLeftIcon, PlusIcon, CalendarIcon, PhoneIcon, PlayIcon, XMarkIcon, ArrowRightIcon, CameraIcon, PhotoIcon } from '@heroicons/react/24/outline';
 import { 
-  ArrowLeftIcon,
-  TrophyIcon,
-  ShareIcon,
-  HeartIcon,
-  EyeIcon,
-  MapPinIcon,
+  TrophyIcon as Trophy,
+  ShareIcon as Share,
+  HeartIcon as Heart,
+  EyeIcon as Eye,
+  MapPinIcon as MapPin,
   StarIcon,
-  PhoneIcon,
+  PhoneIcon as Phone,
   ChatBubbleOvalLeftIcon,
   CalendarIcon,
   PlayIcon,
@@ -27,7 +27,6 @@ import {
   XMarkIcon,
   PhotoIcon,
   ArrowRightIcon,
-  ArrowLeftIcon as BackArrowIcon,
   BuildingStorefrontIcon
 } from '@heroicons/react/24/outline';
 import { toast } from 'sonner';
@@ -302,7 +301,7 @@ export function RestaurantProfile({ restaurantId, onBack }: RestaurantProfilePro
               size="sm"
               className="bg-black/50 hover:bg-black/70 text-white h-10 w-10 p-0 rounded-full backdrop-blur-sm"
             >
-              <Storefront size={18} />
+              <Store size={18} />
             </Button>
             <Button
               onClick={handleShowAwards}
@@ -363,10 +362,10 @@ export function RestaurantProfile({ restaurantId, onBack }: RestaurantProfilePro
             {/* Rating */}
             <div className="flex items-center gap-1 mt-1">
               {[...Array(5)].map((_, i) => (
-                <Star
+                <StarIcon
                   key={i}
-                  size={16}
                   className={cn(
+                    "h-4 w-4",
                     i < Math.floor(restaurant.rating) ? "text-yellow-400 fill-current" : "text-gray-300"
                   )}
                 />
@@ -405,7 +404,7 @@ export function RestaurantProfile({ restaurantId, onBack }: RestaurantProfilePro
                 size="sm"
                 className="flex-1"
               >
-                <Plus size={14} className="mr-2" />
+                <PlusIcon className="h-3.5 w-3.5 mr-2" />
                 {restaurant.isFollowing ? 'Following' : 'Follow'}
               </Button>
               <Button
@@ -413,7 +412,7 @@ export function RestaurantProfile({ restaurantId, onBack }: RestaurantProfilePro
                 size="sm"
                 className="flex-1"
               >
-                <Heart size={14} className="mr-2" />
+                <HeartIcon className="h-3.5 w-3.5 mr-2" />
                 Favorite
               </Button>
             </div>
@@ -427,7 +426,7 @@ export function RestaurantProfile({ restaurantId, onBack }: RestaurantProfilePro
             variant="outline"
             className="flex-1"
           >
-            <MessageCircle size={16} className="mr-2" />
+            <ChatBubbleLeftIcon className="h-4 w-4 mr-2" />
             Message
           </Button>
           <Button
@@ -435,7 +434,7 @@ export function RestaurantProfile({ restaurantId, onBack }: RestaurantProfilePro
             variant="outline"
             className="flex-1"
           >
-            <Calendar size={16} className="mr-2" />
+            <CalendarIcon className="h-4 w-4 mr-2" />
             Reserve
           </Button>
           <Button
@@ -443,7 +442,7 @@ export function RestaurantProfile({ restaurantId, onBack }: RestaurantProfilePro
             variant="outline"
             className="flex-1"
           >
-            <Phone size={16} className="mr-2" />
+            <PhoneIcon className="h-4 w-4 mr-2" />
             Call
           </Button>
         </div>
@@ -557,7 +556,7 @@ function ReviewsSection({ reviews, onLikeReview, padding }: ReviewsSectionProps)
                       size="lg"
                       className="bg-black/50 hover:bg-black/70 text-white rounded-full w-16 h-16"
                     >
-                      <Play size={24} className="fill-current" />
+                      <PlayIcon className="h-6 w-6 fill-current" />
                     </Button>
                   </div>
                 </div>
@@ -592,10 +591,10 @@ function ReviewsSection({ reviews, onLikeReview, padding }: ReviewsSectionProps)
                 </div>
                 <div className="flex items-center gap-1 mt-1">
                   {[...Array(5)].map((_, i) => (
-                    <Star
+                    <StarIcon
                       key={i}
-                      size={12}
                       className={cn(
+                        "h-3 w-3",
                         i < review.rating ? "text-yellow-400 fill-current" : "text-gray-300"
                       )}
                     />
@@ -605,7 +604,7 @@ function ReviewsSection({ reviews, onLikeReview, padding }: ReviewsSectionProps)
                 </div>
               </div>
               <Button variant="ghost" size="sm" className="h-8 w-8 p-0">
-                <DotsThree size={16} />
+                <MoreHorizontal size={16} />
               </Button>
             </div>
 
@@ -693,7 +692,7 @@ function PostsSection({ posts, onLikePost, padding }: PostsSectionProps) {
                     size="lg"
                     className="bg-black/50 hover:bg-black/70 text-white rounded-full w-16 h-16"
                   >
-                    <Play size={24} className="fill-current" />
+                    <PlayIcon className="h-6 w-6 fill-current" />
                   </Button>
                 </div>
               </div>
@@ -863,7 +862,7 @@ function GallerySection({ images, onLikeImage, onImageClick, padding }: GalleryS
             {/* Like indicator */}
             {image.isLiked && (
               <div className="absolute top-2 right-2">
-                <Heart size={16} className="text-red-500 fill-current" />
+                <HeartIcon className="h-4 w-4 text-red-500 fill-current" />
               </div>
             )}
           </div>
@@ -873,7 +872,7 @@ function GallerySection({ images, onLikeImage, onImageClick, padding }: GalleryS
       {/* Empty state */}
       {filteredImages.length === 0 && (
         <div className="text-center py-12">
-          <Images size={48} className="mx-auto text-muted-foreground mb-4" />
+          <PhotoIcon className="h-12 w-12 mx-auto text-muted-foreground mb-4" />
           <h3 className="text-lg font-medium mb-2">No images found</h3>
           <p className="text-muted-foreground">
             No images in this category yet.
@@ -942,7 +941,7 @@ function ImageViewer({ images, currentIndex, onClose, onNavigate, onLike }: Imag
               size="lg"
               className="absolute left-4 top-1/2 -translate-y-1/2 text-white hover:bg-white/20 h-12 w-12 p-0 rounded-full"
             >
-              <ArrowLeftIcon size={24} />
+              <ArrowLeft size={24} />
             </Button>
             
             <Button
@@ -1021,7 +1020,7 @@ function MenuSection({ menuItems, padding }: MenuSectionProps) {
                           size="sm"
                           className="mt-3"
                         >
-                          <Camera size={14} className="mr-2" />
+                          <CameraIcon className="h-3.5 w-3.5 mr-2" />
                           AR Preview
                         </Button>
                       )}
@@ -1499,7 +1498,7 @@ function RestaurantDeliveryPage({ restaurantId, restaurant, onBack }: Restaurant
           <div className="flex-1">
             <div className="flex items-center gap-2">
               <div className="flex items-center gap-1">
-                <Star size={14} className="text-yellow-400 fill-current" />
+                <StarIcon className="h-3.5 w-3.5 text-yellow-400 fill-current" />
                 <span className="font-semibold text-sm">{restaurant.rating}</span>
               </div>
               <span className="text-sm text-muted-foreground">•</span>
@@ -1633,7 +1632,7 @@ function DeliveryItemCard({ item, quantity, onAdd, onRemove }: DeliveryItemCardP
               {/* Rating & Cook Time */}
               <div className="flex items-center gap-3 mb-2">
                 <div className="flex items-center gap-1">
-                  <Star size={12} className="text-yellow-400 fill-current" />
+                  <StarIcon className="h-3 w-3 text-yellow-400 fill-current" />
                   <span className="text-sm font-medium">{item.rating}</span>
                   <span className="text-xs text-muted-foreground">({item.reviewCount})</span>
                 </div>

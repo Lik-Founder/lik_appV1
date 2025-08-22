@@ -5,22 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { 
-  ArrowLeftIcon as ArrowLeft,
-  TrophyIcon as Trophy,
-  ShareIcon as Share,
-  StarIcon as Star,
-  ArrowTrendingUpIcon as TrendUp,
-  TrendingDownIcon as TrendDown,
-  CalendarIcon as Calendar,
-  MapPinIcon as MapPin,
-  StarIcon as Crown,
-  TrophyIcon as Medal,
-  TrophyIcon as Award,
-  HeartIcon as Heart,
-  EyeIcon as Eye,
-  XMarkIcon as X
-} from '@heroicons/react/24/outline';
+import { ArrowLeftIcon, TrophyIcon, ShareIcon, StarIcon, ArrowTrendingUpIcon, ArrowTrendingDownIcon, CalendarIcon, MapPinIcon, CrownIcon, ShieldCheckIcon, TrophyIcon as AwardIcon, HeartIcon, EyeIcon, XMarkIcon } from '@heroicons/react/24/outline';
 import { toast } from 'sonner';
 import { cn } from '@/lib/utils';
 
@@ -111,9 +96,9 @@ export function AwardsPage({ restaurantId, onBack }: AwardsPageProps) {
   const getTrendIcon = (trend: string) => {
     switch (trend) {
       case 'up':
-        return <TrendUp size={16} className="text-green-500" />;
+        return <ArrowTrendingUpIcon className="h-4 w-4 text-green-500" />;
       case 'down':
-        return <TrendDown size={16} className="text-red-500" />;
+        return <ArrowTrendingDownIcon className="h-4 w-4 text-red-500" />;
       default:
         return <div className="w-4 h-4 bg-gray-400 rounded-full" />;
     }
@@ -140,7 +125,7 @@ export function AwardsPage({ restaurantId, onBack }: AwardsPageProps) {
             size="sm"
             className="bg-black/50 hover:bg-black/70 text-white h-10 w-10 p-0 rounded-full backdrop-blur-sm"
           >
-            <ArrowLeft size={18} />
+            <ArrowLeftIcon className="h-4 w-4" />
           </Button>
           
           <Button
@@ -149,14 +134,14 @@ export function AwardsPage({ restaurantId, onBack }: AwardsPageProps) {
             size="sm"
             className="bg-black/50 hover:bg-black/70 text-white h-10 w-10 p-0 rounded-full backdrop-blur-sm"
           >
-            <Share size={18} />
+            <ShareIcon className="h-4 w-4" />
           </Button>
         </div>
 
         {/* Title Overlay */}
         <div className="absolute top-16 left-0 right-0 flex flex-col justify-center items-center text-center text-white px-4 pt-4 pb-48">
           <div className="flex items-center gap-3 mb-4">
-            <Trophy size={32} className="text-yellow-400" />
+            <TrophyIcon className="h-8 w-8 text-yellow-400" />
             <h1 className="text-3xl font-bold nav-rum-raisin">Awards & Recognition</h1>
           </div>
           <p className="text-lg opacity-90">Celebrating Excellence in Culinary Arts</p>
@@ -168,7 +153,7 @@ export function AwardsPage({ restaurantId, onBack }: AwardsPageProps) {
             <CardContent className="p-4">
               <div className="flex items-center justify-between text-white">
                 <div className="flex items-center gap-3">
-                  <Crown size={24} className="text-yellow-400" />
+                  <CrownIcon className="h-6 w-6 text-yellow-400" />
                   <div>
                     <p className="font-bold text-lg">#3 Italian in NYC</p>
                     <p className="text-sm opacity-80">Current Global Ranking</p>
@@ -189,7 +174,7 @@ export function AwardsPage({ restaurantId, onBack }: AwardsPageProps) {
         {/* Award Badges Carousel */}
         <div className={cn("border-b border-border", padding, "pb-6")}>
           <h2 className="text-xl font-bold mb-4 flex items-center gap-2 nav-rum-raisin">
-            <Medal size={20} className="text-yellow-500" />
+            <ShieldCheckIcon className="h-5 w-5 text-yellow-500" />
             Award Collection
           </h2>
           <div className="flex gap-4 overflow-x-auto scrollbar-hide pb-2">
@@ -219,7 +204,7 @@ export function AwardsPage({ restaurantId, onBack }: AwardsPageProps) {
         {/* Leaderboard Highlights */}
         <div className={cn("border-b border-border", padding, "pb-6")}>
           <h2 className="text-xl font-bold mb-4 flex items-center gap-2 nav-rum-raisin">
-            <Trophy size={20} className="text-orange-500" />
+            <TrophyIcon className="h-5 w-5 text-orange-500" />
             Leaderboard Performance
           </h2>
           <div className="grid gap-4">
@@ -260,7 +245,7 @@ export function AwardsPage({ restaurantId, onBack }: AwardsPageProps) {
         {/* Awards Timeline */}
         <div className={cn("border-b border-border", padding, "pb-6")}>
           <h2 className="text-xl font-bold mb-4 flex items-center gap-2 nav-rum-raisin">
-            <Calendar size={20} className="text-blue-500" />
+            <CalendarIcon className="h-5 w-5 text-blue-500" />
             Achievement Timeline
           </h2>
           <div className="space-y-4">
@@ -300,7 +285,7 @@ export function AwardsPage({ restaurantId, onBack }: AwardsPageProps) {
         {/* User & Critic Recognition */}
         <div className={cn("border-b border-border", padding, "pb-6")}>
           <h2 className="text-xl font-bold mb-4 flex items-center gap-2 nav-rum-raisin">
-            <Star size={20} className="text-purple-500" />
+            <StarIcon className="h-5 w-5 text-purple-500" />
             Critic & Professional Recognition
           </h2>
           <div className="space-y-4">
@@ -321,7 +306,7 @@ export function AwardsPage({ restaurantId, onBack }: AwardsPageProps) {
                         {review.rating && (
                           <div className="flex items-center gap-1">
                             {[...Array(review.rating)].map((_, i) => (
-                              <Star key={i} size={12} className="text-yellow-400 fill-current" />
+                              <StarIcon key={i} className="h-3 w-3 text-yellow-400 fill-current" />
                             ))}
                           </div>
                         )}
@@ -344,18 +329,18 @@ export function AwardsPage({ restaurantId, onBack }: AwardsPageProps) {
         <div className={cn(padding, "pb-8")}>
           <Card className="bg-gradient-to-r from-orange-500/10 to-red-500/10 border-orange-500/20">
             <CardContent className="p-6 text-center">
-              <Trophy size={32} className="mx-auto text-orange-500 mb-3" />
+              <TrophyIcon className="h-8 w-8 mx-auto text-orange-500 mb-3" />
               <h2 className="text-xl font-bold mb-2 nav-rum-raisin">Nominate for Next Lik Award</h2>
               <p className="text-muted-foreground mb-4">
                 Think Bella Italia deserves recognition? Nominate them for upcoming awards!
               </p>
               <div className="flex gap-3 justify-center">
                 <Button variant="outline" className="flex-1 max-w-xs">
-                  <Eye size={16} className="mr-2" />
+                  <EyeIcon className="h-4 w-4 mr-2" />
                   View Award-Winning Dishes
                 </Button>
                 <Button className="flex-1 max-w-xs bg-gradient-to-r from-orange-500 to-red-500">
-                  <Heart size={16} className="mr-2" />
+                  <HeartIcon className="h-4 w-4 mr-2" />
                   Nominate Restaurant
                 </Button>
               </div>
@@ -391,7 +376,7 @@ export function AwardsPage({ restaurantId, onBack }: AwardsPageProps) {
                   onClick={() => setSelectedAward(null)}
                   className="h-8 w-8 p-0"
                 >
-                  <X size={16} />
+                  <XMarkIcon className="h-4 w-4" />
                 </Button>
               </div>
             </CardHeader>

@@ -12,7 +12,7 @@ import {
   Cog6ToothIcon, 
   PlusIcon, 
   BellIcon,
-  MapPinIcon,
+  MapPinIcon as MapPin,
   CheckCircleIcon,
   ShareIcon,
   BookmarkIcon,
@@ -25,6 +25,7 @@ import {
   EllipsisHorizontalIcon,
   GiftIcon
 } from '@heroicons/react/24/outline';
+import { EllipsisHorizontalIcon, HeartIcon, AcademicCapIcon, GiftIcon, BellIcon } from '@heroicons/react/24/outline';
 import { CreatePostModal } from '@/components/CreatePostModal';
 import { CreateStoryModal } from '@/components/CreateStoryModal';
 import { useDevice } from '@/hooks/use-device';
@@ -138,16 +139,16 @@ export function ProfilePage({ onShowLeaderboard, onShowLikPassport, onShowNotifi
           {/* Right Icons */}
           <div className="flex items-center gap-2">
             <Button variant="ghost" size="sm" onClick={handlePassport} className="p-2.5 h-10 w-10 rounded-full bg-gradient-to-r from-blue-100 to-cyan-100 hover:from-blue-200 hover:to-cyan-200 shadow-sm">
-              <Certificate size={16} className="text-blue-600" />
+              <AcademicCapIcon className="h-4 w-4 text-blue-600" />
             </Button>
             <Button variant="ghost" size="sm" onClick={handleRewards} className="p-2.5 h-10 w-10 rounded-full bg-gradient-to-r from-purple-100 to-pink-100 hover:from-purple-200 hover:to-pink-200 shadow-sm">
-              <Gift size={16} className="text-purple-600" />
+              <GiftIcon className="h-4 w-4 text-purple-600" />
             </Button>
             <Button variant="ghost" size="sm" onClick={handleNotifications} className="p-2.5 h-10 w-10 rounded-full bg-gradient-to-r from-green-100 to-emerald-100 hover:from-green-200 hover:to-emerald-200 shadow-sm">
-              <Bell size={16} className="text-green-600" />
+              <BellIcon className="h-4 w-4 text-green-600" />
             </Button>
             <Button variant="ghost" size="sm" onClick={handleSettings} className="p-2.5 h-10 w-10 rounded-full bg-gradient-to-r from-gray-100 to-slate-100 hover:from-gray-200 hover:to-slate-200 shadow-sm">
-              <DotsThree size={16} className="text-gray-600" />
+              <EllipsisHorizontalIcon className="h-4 w-4 text-gray-600" />
             </Button>
           </div>
         </div>
@@ -350,7 +351,7 @@ export function ProfilePage({ onShowLeaderboard, onShowLikPassport, onShowNotifi
                         value="likes" 
                         className="flex flex-col items-center gap-0.5 h-full rounded-lg data-[state=active]:bg-gradient-to-br data-[state=active]:from-red-200 data-[state=active]:to-pink-200 data-[state=active]:shadow-sm nav-rum-raisin font-medium text-gray-600 data-[state=active]:text-gray-800 text-xs"
                       >
-                        <Heart size={14} />
+                        <HeartIcon className="h-3.5 w-3.5" />
                         <span className="text-xs">Likes</span>
                       </TabsTrigger>
                       <TabsTrigger 

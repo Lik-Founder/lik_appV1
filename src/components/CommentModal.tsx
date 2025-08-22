@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
 import { XMarkIcon, HeartIcon, ArrowUturnLeftIcon, PaperAirplaneIcon, ChatBubbleOvalLeftIcon, BarsArrowUpIcon, HandThumbUpIcon, ClockIcon } from '@heroicons/react/24/outline';
+import { PaperAirplaneIcon, ArrowsUpDownIcon } from '@heroicons/react/24/outline';
 import { Comment, User } from '@/lib/types';
 import { useKV } from '@github/spark/hooks';
 import { DeviceType } from '@/hooks/use-device';
@@ -381,7 +382,7 @@ export function CommentModal({ isOpen, onClose, postId, postAuthor, deviceType, 
                     size="sm"
                     className="touch-target flex items-center gap-1"
                   >
-                    <SortAscending size={iconSize} />
+                    <ArrowsUpDownIcon className={iconSize === 16 ? 'h-4 w-4' : 'h-5 w-5'} />
                     {deviceType === 'tablet' && (
                       <span className="text-xs">
                         {sortFilter === 'engagement' && 'Top'}
@@ -403,7 +404,7 @@ export function CommentModal({ isOpen, onClose, postId, postAuthor, deviceType, 
                       sortFilter === 'engagement' && "bg-muted"
                     )}
                   >
-                    <SortAscending size={16} />
+                    <ArrowsUpDownIcon className="h-4 w-4" />
                     <span>Top Comments</span>
                   </DropdownMenuItem>
                   <DropdownMenuItem
@@ -582,7 +583,7 @@ export function CommentModal({ isOpen, onClose, postId, postAuthor, deviceType, 
                       : "text-muted-foreground"
                   )}
                 >
-                  <PaperPlaneTilt size={16} weight="fill" />
+                  <PaperAirplaneIcon className="h-4 w-4" />
                 </Button>
               </div>
             </div>

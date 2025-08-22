@@ -1,5 +1,6 @@
 import { useState, useRef } from 'react';
-import { HeartIcon, ChatBubbleOvalLeftIcon, EllipsisHorizontalIcon, BookmarkIcon, PaperAirplaneIcon } from '@heroicons/react/24/outline';
+import { ChatBubbleOvalLeftIcon, EllipsisHorizontalIcon, PaperAirplaneIcon } from '@heroicons/react/24/outline';
+import { BookmarkIcon, HeartIcon, ChatBubbleLeftIcon, PaperAirplaneIcon } from '@heroicons/react/24/outline';
 import { Post as PostType, User, Comment } from '@/lib/types';
 import { DeviceType, Orientation } from '@/hooks/use-device';
 import { useSwipe } from '@/hooks/use-swipe';
@@ -179,17 +180,15 @@ export function Post({ post, user, onLike, onComment, onUserClick, deviceType, o
           )}
           {swipeOffset < -20 && (
             <div className="absolute right-4 top-1/2 transform -translate-y-1/2 z-10 bg-blue-500 text-white rounded-full p-2">
-              <Bookmark size={20} weight="fill" />
+              <BookmarkIcon className="h-5 w-5 fill-current" />
             </div>
           )}
           
           {/* Heart animation overlay */}
           {showHeartAnimation && (
             <div className="absolute inset-0 flex items-center justify-center z-10 pointer-events-none">
-              <Heart 
-                size={80} 
-                weight="fill" 
-                className="text-red-500 heart-animation"
+              <HeartIcon 
+                className="h-20 w-20 text-red-500 heart-animation fill-current"
               />
             </div>
           )}
@@ -222,10 +221,8 @@ export function Post({ post, user, onLike, onComment, onUserClick, deviceType, o
             onClick={() => onLike(post.id)}
             className="p-0 hover:bg-transparent touch-target active:scale-90 transition-all duration-150"
           >
-            <Heart 
-              size={iconSize} 
-              weight={post.isLiked ? "fill" : "regular"}
-              className={post.isLiked ? "text-red-500" : "text-foreground"}
+            <HeartIcon 
+              className={`${iconSize === 20 ? 'h-5 w-5' : 'h-6 w-6'} ${post.isLiked ? "text-red-500 fill-current" : "text-foreground"}`}
             />
           </Button>
           <Button
@@ -234,14 +231,14 @@ export function Post({ post, user, onLike, onComment, onUserClick, deviceType, o
             onClick={() => setShowCommentModal(true)}
             className="p-0 hover:bg-transparent touch-target active:scale-90 transition-all duration-150"
           >
-            <MessageCircle size={iconSize} />
+            <ChatBubbleLeftIcon className={iconSize === 20 ? 'h-5 w-5' : 'h-6 w-6'} />
           </Button>
           <Button
             variant="ghost"
             size="sm"
             className="p-0 hover:bg-transparent touch-target active:scale-90 transition-all duration-150"
           >
-            <PaperPlaneTilt size={iconSize} />
+            <PaperAirplaneIcon className={iconSize === 20 ? 'h-5 w-5' : 'h-6 w-6'} />
           </Button>
           <div className="flex-1" />
           <Button 
@@ -249,7 +246,7 @@ export function Post({ post, user, onLike, onComment, onUserClick, deviceType, o
             size="sm" 
             className="p-0 hover:bg-transparent touch-target active:scale-90 transition-all duration-150"
           >
-            <Bookmark size={iconSize} />
+            <BookmarkIcon className={iconSize === 20 ? 'h-5 w-5' : 'h-6 w-6'} />
           </Button>
         </div>
 

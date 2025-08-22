@@ -1,7 +1,7 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
-import { ChefHat, MapPin, Trophy, Heart, Sparkles, Utensils, Star, Users } from 'lucide-react';
+import { ChefHatIcon, MapPinIcon, TrophyIcon, HeartIcon, SparklesIcon, CakeIcon as UtensilsIcon, StarIcon, UsersIcon } from '@heroicons/react/24/outline';
 import LikLogo from '@/assets/images/Lik_Logo_Heart_1.0.png';
 
 interface OnboardingPageProps {
@@ -20,28 +20,28 @@ export function OnboardingPage({ onGetStarted }: OnboardingPageProps) {
       gradient: "from-pink-400 via-purple-500 to-indigo-500"
     },
     {
-      icon: <MapPin className="w-24 h-24 mx-auto text-green-400 animate-pulse" />,
+      icon: <MapPinIcon className="w-24 h-24 mx-auto text-green-400 animate-pulse" />,
       title: "Discover Hidden Gems 💎",
       subtitle: "Explore Your Food Universe",
       description: "Swipe through restaurants like a dating app! Find your perfect food match and unlock secret spots that only the coolest foodies know about.",
       gradient: "from-green-400 via-teal-500 to-blue-500"
     },
     {
-      icon: <Trophy className="w-24 h-24 mx-auto text-yellow-400 animate-bounce" />,
+      icon: <TrophyIcon className="w-24 h-24 mx-auto text-yellow-400 animate-bounce" />,
       title: "Complete Epic Quests 🗡️",
       subtitle: "Level Up Your Taste Buds",
       description: "Take on bounties and quests! Try the spiciest ramen, find the best late-night pizza, or master the art of brunch. Earn Lik Coins and bragging rights!",
       gradient: "from-yellow-400 via-orange-500 to-red-500"
     },
     {
-      icon: <Users className="w-24 h-24 mx-auto text-purple-400 animate-pulse" />,
+      icon: <UsersIcon className="w-24 h-24 mx-auto text-purple-400 animate-pulse" />,
       title: "Join the Foodie Squad 👥",
       subtitle: "Share Your Delicious Journey",
       description: "Connect with fellow food adventurers! Share your discoveries, compete on leaderboards, and build your reputation as a legendary food explorer.",
       gradient: "from-purple-400 via-pink-500 to-rose-500"
     },
     {
-      icon: <Sparkles className="w-24 h-24 mx-auto text-pink-400 animate-spin-slow" />,
+      icon: <SparklesIcon className="w-24 h-24 mx-auto text-pink-400 animate-spin-slow" />,
       title: "Ready to Start? ✨",
       subtitle: "Your Food Adventure Begins Now",
       description: "Join thousands of food explorers on the most epic culinary journey ever created. Are you ready to become a Lik Legend?",
@@ -70,22 +70,22 @@ export function OnboardingPage({ onGetStarted }: OnboardingPageProps) {
       {/* Floating Background Elements */}
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute top-10 left-10 animate-float">
-          <ChefHat className="w-8 h-8 text-white/20" />
+          <ChefHatIcon className="w-8 h-8 text-white/20" />
         </div>
         <div className="absolute top-20 right-20 animate-float delay-1000">
-          <Utensils className="w-6 h-6 text-white/20" />
+          <UtensilsIcon className="w-6 h-6 text-white/20" />
         </div>
         <div className="absolute bottom-32 left-20 animate-float delay-2000">
-          <Star className="w-10 h-10 text-white/20" />
+          <StarIcon className="w-10 h-10 text-white/20" />
         </div>
         <div className="absolute bottom-20 right-10 animate-float delay-3000">
-          <Heart className="w-7 h-7 text-white/20" />
+          <HeartIcon className="w-7 h-7 text-white/20" />
         </div>
         <div className="absolute top-1/2 left-5 animate-float delay-500">
-          <Trophy className="w-5 h-5 text-white/20" />
+          <TrophyIcon className="w-5 h-5 text-white/20" />
         </div>
         <div className="absolute top-1/3 right-5 animate-float delay-1500">
-          <Sparkles className="w-9 h-9 text-white/20" />
+          <SparklesIcon className="w-9 h-9 text-white/20" />
         </div>
       </div>
 

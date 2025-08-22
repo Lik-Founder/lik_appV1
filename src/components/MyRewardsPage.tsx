@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ArrowLeft, Gift, Ticket, Crown, Star, Clock, MapPin, Sparkles, Coins, Coffee, Pizza, Heart, Users, Trophy, Flame } from 'lucide-react';
+import { ArrowLeftIcon, GiftIcon, TicketIcon, CrownIcon, StarIcon, ClockIcon, MapPinIcon, SparklesIcon, CurrencyDollarIcon as CoinsIcon, CupIcon as CoffeeIcon, UserIcon as PizzaIcon, HeartIcon, UsersIcon, TrophyIcon, FireIcon } from '@heroicons/react/24/outline';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Progress } from '@/components/ui/progress';
@@ -164,10 +164,10 @@ export function MyRewardsPage({ onBack }: MyRewardsPageProps) {
               onClick={onBack}
               className="p-2 hover:bg-pink-100 rounded-full"
             >
-              <ArrowLeft className="h-5 w-5 text-gray-700" />
+              <ArrowLeftIcon className="h-5 w-5 text-gray-700" />
             </Button>
             <div className="flex items-center gap-2">
-              <Gift className="h-6 w-6 text-pink-500" />
+              <GiftIcon className="h-6 w-6 text-pink-500" />
               <h1 className="text-xl font-bold text-gray-900 nav-rum-raisin">My Rewards</h1>
             </div>
           </div>
@@ -175,11 +175,11 @@ export function MyRewardsPage({ onBack }: MyRewardsPageProps) {
           {/* Coins Display */}
           <div className="flex items-center gap-4">
             <div className="flex items-center gap-1 bg-yellow-100 px-3 py-1 rounded-full">
-              <Coins className="h-4 w-4 text-yellow-600" />
+              <CoinsIcon className="h-4 w-4 text-yellow-600" />
               <span className="text-sm font-bold text-yellow-700">{userRewards.likCoins}</span>
             </div>
             <div className="flex items-center gap-1 bg-purple-100 px-3 py-1 rounded-full">
-              <Ticket className="h-4 w-4 text-purple-600" />
+              <TicketIcon className="h-4 w-4 text-purple-600" />
               <span className="text-sm font-bold text-purple-700">{userRewards.likTickets}</span>
             </div>
           </div>
@@ -195,7 +195,7 @@ export function MyRewardsPage({ onBack }: MyRewardsPageProps) {
           </div>
           <div className="text-center">
             <div className="text-2xl font-bold text-orange-600 nav-rum-raisin flex items-center justify-center gap-1">
-              <Flame className="h-5 w-5" />
+              <FireIcon className="h-5 w-5" />
               {userRewards.streakDays}
             </div>
             <div className="text-xs text-orange-500">Day Streak</div>
@@ -211,9 +211,9 @@ export function MyRewardsPage({ onBack }: MyRewardsPageProps) {
       <div className="px-4 py-3 bg-white/60">
         <div className="flex bg-white/80 rounded-2xl p-1">
           {[
-            { id: 'coupons', label: 'Coupons', icon: Ticket },
-            { id: 'loyalty', label: 'Loyalty', icon: Crown },
-            { id: 'rewards', label: 'Rewards', icon: Trophy }
+            { id: 'coupons', label: 'Coupons', icon: TicketIcon },
+            { id: 'loyalty', label: 'Loyalty', icon: CrownIcon },
+            { id: 'rewards', label: 'Rewards', icon: TrophyIcon }
           ].map(tab => {
             const Icon = tab.icon;
             return (
@@ -274,7 +274,7 @@ export function MyRewardsPage({ onBack }: MyRewardsPageProps) {
                     
                     <div className="flex items-center justify-between mt-3">
                       <div className="flex items-center gap-2 text-xs text-gray-500">
-                        <Clock className="h-3 w-3" />
+                        <ClockIcon className="h-3 w-3" />
                         <span>Expires in {coupon.expiresIn}</span>
                       </div>
                       <div className="flex items-center gap-2">
@@ -354,7 +354,7 @@ export function MyRewardsPage({ onBack }: MyRewardsPageProps) {
                 {/* Sparkle effect for earned rewards */}
                 {reward.earned && (
                   <div className="absolute top-2 right-2">
-                    <Sparkles className="h-4 w-4 text-yellow-500" />
+                    <SparklesIcon className="h-4 w-4 text-yellow-500" />
                   </div>
                 )}
                 

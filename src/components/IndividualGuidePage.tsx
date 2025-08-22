@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
-import { ArrowLeft, Heart, Bookmark, Share, MapPin, Clock, Star, Plus, ChevronDown, ChevronUp, Map, Users, Eye } from 'lucide-react';
+import { ArrowLeftIcon, HeartIcon, BookmarkIcon, ShareIcon, MapPinIcon, ClockIcon, StarIcon, PlusIcon, ChevronDownIcon, ChevronUpIcon, MapIcon, UsersIcon, EyeIcon } from '@heroicons/react/24/outline';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent } from '@/components/ui/card';
@@ -220,7 +220,7 @@ export function IndividualGuidePage({
             onClick={onBack}
             className="bg-black/50 text-white hover:bg-black/70 backdrop-blur-sm"
           >
-            <ArrowLeft className="h-5 w-5" />
+            <ArrowLeftIcon className="h-5 w-5" />
           </Button>
           
           <div className="flex gap-2">
@@ -230,7 +230,7 @@ export function IndividualGuidePage({
               onClick={() => setShowMap(!showMap)}
               className="bg-black/50 text-white hover:bg-black/70 backdrop-blur-sm"
             >
-              <Map className="h-5 w-5" />
+              <MapIcon className="h-5 w-5" />
             </Button>
             <Button
               variant="ghost"
@@ -238,7 +238,7 @@ export function IndividualGuidePage({
               onClick={handleShare}
               className="bg-black/50 text-white hover:bg-black/70 backdrop-blur-sm"
             >
-              <Share className="h-5 w-5" />
+              <ShareIcon className="h-5 w-5" />
             </Button>
             <Button
               variant="ghost"
@@ -276,7 +276,7 @@ export function IndividualGuidePage({
           <h1 className="text-3xl font-bold mb-2 leading-tight">{guide.title}</h1>
           <div className="flex items-center gap-4 text-sm opacity-90">
             <div className="flex items-center gap-1">
-              <MapPin className="h-4 w-4" />
+              <MapPinIcon className="h-4 w-4" />
               <span>{guide.location}</span>
             </div>
             {guide.badge && (
@@ -291,7 +291,7 @@ export function IndividualGuidePage({
             className="absolute bottom-6 left-1/2 transform -translate-x-1/2 cursor-pointer animate-bounce"
             onClick={scrollToContent}
           >
-            <ChevronDown className="h-6 w-6 text-white/80" />
+            <ChevronDownIcon className="h-6 w-6 text-white/80" />
           </div>
         </div>
 
@@ -333,9 +333,9 @@ export function IndividualGuidePage({
               className="mt-2 p-0 h-auto text-primary"
             >
               {isDescriptionExpanded ? (
-                <>Show less <ChevronUp className="h-4 w-4 ml-1" /></>
+                <>Show less <ChevronUpIcon className="h-4 w-4 ml-1" /></>
               ) : (
-                <>Read more <ChevronDown className="h-4 w-4 ml-1" /></>
+                <>Read more <ChevronDownIcon className="h-4 w-4 ml-1" /></>
               )}
             </Button>
           )}
@@ -351,7 +351,7 @@ export function IndividualGuidePage({
                 isLiked && "text-red-500"
               )}
             >
-              <Heart className={cn("h-4 w-4", isLiked && "fill-current")} />
+              <HeartIcon className={cn("h-4 w-4", isLiked && "fill-current")} />
               <span>{guide.likeCount.toLocaleString()}</span>
             </Button>
             
@@ -364,12 +364,12 @@ export function IndividualGuidePage({
                 isFavorited && "text-primary"
               )}
             >
-              <Bookmark className={cn("h-4 w-4", isFavorited && "fill-current")} />
+              <BookmarkIcon className={cn("h-4 w-4", isFavorited && "fill-current")} />
               <span>{guide.favoriteCount.toLocaleString()}</span>
             </Button>
 
             <div className="flex items-center gap-2 text-sm text-muted-foreground">
-              <Eye className="h-4 w-4" />
+              <EyeIcon className="h-4 w-4" />
               <span>{guide.viewCount.toLocaleString()}</span>
             </div>
           </div>
@@ -398,7 +398,7 @@ export function IndividualGuidePage({
             </div>
             
             <div className="flex items-center gap-2 text-sm text-muted-foreground">
-              <Users className="h-4 w-4" />
+              <UsersIcon className="h-4 w-4" />
               <span>1.1m</span>
             </div>
           </div>
@@ -462,7 +462,7 @@ export function IndividualGuidePage({
                       </div>
                     </div>
                     <Button variant="ghost" size="icon" className="text-muted-foreground">
-                      <Bookmark className="h-4 w-4" />
+                      <BookmarkIcon className="h-4 w-4" />
                     </Button>
                   </div>
 
@@ -486,7 +486,7 @@ export function IndividualGuidePage({
                     </div>
                     
                     <div className="flex items-center gap-1 text-sm text-red-500">
-                      <Heart className="h-4 w-4 fill-current" />
+                      <HeartIcon className="h-4 w-4 fill-current" />
                       <span>{restaurant.heartCount.toLocaleString()}</span>
                     </div>
                   </div>
@@ -494,11 +494,11 @@ export function IndividualGuidePage({
                   {/* Address and Hours */}
                   <div className="space-y-1 mb-3 text-sm text-muted-foreground">
                     <div className="flex items-center gap-1">
-                      <MapPin className="h-3 w-3" />
+                      <MapPinIcon className="h-3 w-3" />
                       <span>{restaurant.address}</span>
                     </div>
                     <div className="flex items-center gap-1">
-                      <Clock className="h-3 w-3" />
+                      <ClockIcon className="h-3 w-3" />
                       <span>{restaurant.hours}</span>
                     </div>
                   </div>
@@ -524,7 +524,7 @@ export function IndividualGuidePage({
                   {/* Action Buttons */}
                   <div className="flex gap-2">
                     <Button size="sm" className="flex-1">
-                      <Plus className="h-4 w-4 mr-1" />
+                      <PlusIcon className="h-4 w-4 mr-1" />
                       Add to List
                     </Button>
                     <Button variant="outline" size="sm">

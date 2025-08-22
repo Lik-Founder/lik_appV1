@@ -14,7 +14,7 @@ import {
   ChartBarIcon, 
   GiftIcon, 
   MagnifyingGlassIcon,
-  MapPinIcon,
+  MapPinIcon as MapPin,
   ClockIcon,
   StarIcon,
   UsersIcon,
@@ -309,7 +309,7 @@ export function LikPage({ onShowRestaurantProfile, onShowLikPassport, onShowMess
                 {/* Glow effect */}
                 <div className="absolute inset-0 bg-gradient-to-r from-orange-500 to-red-500 rounded-full blur-sm opacity-60"></div>
                 <div className="relative flex items-center gap-1 glossy-red-pill px-2 sm:px-3 py-1 sm:py-2 shadow-[0_0_16px_rgba(255,165,0,0.5)]">
-                  <Flame size={14} weight="fill" className="text-white drop-shadow-sm" />
+                  <Flame size={14} fill="currentColor" className="text-white drop-shadow-sm" />
                   <span className="font-bold text-xs sm:text-sm text-white">{userProgress.streakCount}</span>
                 </div>
               </div>
@@ -322,7 +322,7 @@ export function LikPage({ onShowRestaurantProfile, onShowLikPassport, onShowMess
                 {/* Glow effect */}
                 <div className="absolute inset-0 bg-gradient-to-r from-red-500 to-red-700 rounded-full blur-sm opacity-60"></div>
                 <div className="relative flex items-center gap-1 glossy-red-pill px-2 sm:px-3 py-1 sm:py-2 shadow-[0_0_16px_rgba(220,20,60,0.5)]">
-                  <Ticket size={14} weight="fill" className="text-white drop-shadow-sm" />
+                  <Ticket size={14} fill="currentColor" className="text-white drop-shadow-sm" />
                   <span className="font-bold text-xs sm:text-sm text-white">{userProgress.likTickets}</span>
                 </div>
               </div>
@@ -335,7 +335,7 @@ export function LikPage({ onShowRestaurantProfile, onShowLikPassport, onShowMess
                 {/* Glow effect */}
                 <div className="absolute inset-0 bg-gradient-to-r from-amber-500 to-orange-500 rounded-full blur-sm opacity-60"></div>
                 <div className="relative flex items-center gap-1 glossy-red-pill px-2 sm:px-3 py-1 sm:py-2 shadow-[0_0_16px_rgba(255,165,0,0.5)]">
-                  <Coins size={14} weight="fill" className="text-white drop-shadow-sm animate-pulse" />
+                  <Coins size={14} fill="currentColor" className="text-white drop-shadow-sm animate-pulse" />
                   <span className="font-bold text-xs sm:text-sm text-white">{userProgress.likCoins > 999 ? `${(userProgress.likCoins / 1000).toFixed(1)}k` : userProgress.likCoins}</span>
                 </div>
               </div>
@@ -384,7 +384,7 @@ export function LikPage({ onShowRestaurantProfile, onShowLikPassport, onShowMess
                   <span className="hidden sm:inline">Bounties</span>
                   <span className="sm:hidden">Bounty</span>
                   {activeView === 'bounties' && (
-                    <Sparkle size={10} className="ml-1 sm:ml-2 text-white drop-shadow-sm" />
+                    <Sparkles size={10} className="ml-1 sm:ml-2 text-white drop-shadow-sm" />
                   )}
                 </Button>
                 <Button
@@ -419,7 +419,7 @@ export function LikPage({ onShowRestaurantProfile, onShowLikPassport, onShowMess
               >
                 <Gift size={16} className="text-red-600 drop-shadow-sm" />
                 <div className="absolute -top-0.5 -right-0.5">
-                  <Confetti size={10} className="text-orange-500 drop-shadow-[0_0_4px_rgba(255,165,0,0.8)]" />
+                  <PartyPopper size={10} className="text-orange-500 drop-shadow-[0_0_4px_rgba(255,165,0,0.8)]" />
                 </div>
               </Button>
             </div>
@@ -472,7 +472,7 @@ export function LikPage({ onShowRestaurantProfile, onShowLikPassport, onShowMess
                         </>
                       )}
                       {selectedFilter === filter && (
-                        <Sparkle size={8} className="ml-1 sm:ml-1.5 text-white drop-shadow-sm" />
+                        <Sparkles size={8} className="ml-1 sm:ml-1.5 text-white drop-shadow-sm" />
                       )}
                     </Button>
                   </div>
@@ -488,7 +488,7 @@ export function LikPage({ onShowRestaurantProfile, onShowLikPassport, onShowMess
                 <div className="absolute inset-0 bg-gradient-to-r from-orange-500/10 via-amber-500/15 to-red-500/10 rounded-xl sm:rounded-2xl blur-sm"></div>
                 
                 <div className="relative bg-white/80 backdrop-blur-md rounded-xl sm:rounded-2xl border border-orange-500/30 shadow-[0_0_20px_rgba(255,165,0,0.15)]">
-                  <MagnifyingGlass className="absolute left-3 sm:left-4 top-1/2 transform -translate-y-1/2 text-red-600 drop-shadow-sm" size={16} />
+                  <Search className="absolute left-3 sm:left-4 top-1/2 transform -translate-y-1/2 text-red-600 drop-shadow-sm" size={16} />
                   <Input
                     placeholder="🔍 Discover epic bounties..."
                     value={searchQuery}
@@ -536,7 +536,7 @@ export function LikPage({ onShowRestaurantProfile, onShowLikPassport, onShowMess
             <MapPin size={14} className="mr-1 sm:mr-2 text-white drop-shadow-sm" />
             <span className="font-bold hidden xs:inline text-white">Explore Map</span>
             <span className="font-bold xs:hidden text-white">Map</span>
-            <Sparkle size={10} className="ml-1 sm:ml-2 text-white drop-shadow-sm animate-pulse" />
+            <Sparkles size={10} className="ml-1 sm:ml-2 text-white drop-shadow-sm animate-pulse" />
           </Button>
         </div>
       </div>
@@ -740,7 +740,7 @@ function BountiesView({ bounties, onShowRestaurantProfile, onBountyClick }: {
                           <div className="relative">
                             <div className="absolute inset-0 bg-gradient-to-r from-[#FF7BAA] to-[#FF4D88] rounded-full blur-sm opacity-60"></div>
                             <div className="relative flex items-center gap-1 bg-gradient-to-r from-[#FF7BAA] to-[#FF4D88] px-2 py-1 rounded-full shadow-[0_0_8px_rgba(255,77,136,0.5)]">
-                              <Coins size={12} weight="fill" className="text-white drop-shadow-sm" />
+                              <Coins size={12} fill="currentColor" className="text-white drop-shadow-sm" />
                               <span className="font-bold text-xs text-white font-rum-raisin">+{bounty.reward}</span>
                             </div>
                           </div>
@@ -800,7 +800,7 @@ function BountiesView({ bounties, onShowRestaurantProfile, onBountyClick }: {
                           </p>
                           <div className="flex items-center gap-1 mt-1">
                             {[1, 2, 3, 4, 5].map((i) => (
-                              <Star key={i} size={10} weight="fill" className="text-yellow-400" />
+                              <Star key={i} size={10} fill="currentColor" className="text-yellow-400" />
                             ))}
                           </div>
                         </div>
@@ -913,7 +913,7 @@ function BountiesView({ bounties, onShowRestaurantProfile, onBountyClick }: {
                           <div className="absolute inset-0 bg-[#FF4D88]/60 rounded-full blur-sm"></div>
                           <div className="relative flex items-center gap-1 bg-[#FF4D88]/80 text-white px-2 py-1 rounded-full text-xs shadow-[0_0_8px_rgba(255,77,136,0.4)]">
                             <span className="font-bold font-rum-raisin">+{bounty.reward}</span>
-                            <Coins size={10} weight="fill" className="text-white drop-shadow-sm" />
+                            <Coins size={10} fill="currentColor" className="text-white drop-shadow-sm" />
                           </div>
                         </div>
                       </div>
@@ -1044,7 +1044,7 @@ function QuestsView({ quests, onQuestClick }: {
                       <div className="absolute inset-0 bg-gradient-to-r from-[#FF7BAA]/20 to-[#FF4D88]/20 rounded-xl blur-sm"></div>
                       <div className="relative bg-gradient-to-r from-[#FF7BAA]/10 to-[#FF4D88]/10 rounded-xl p-3 border border-[#FF4D88]/30 shadow-[0_0_12px_rgba(255,77,136,0.1)]">
                         <div className="flex items-center gap-2 mb-1">
-                          <Coins size={16} weight="fill" className="text-[#FF1A75] flex-shrink-0 drop-shadow-sm" />
+                          <Coins size={16} fill="currentColor" className="text-[#FF1A75] flex-shrink-0 drop-shadow-sm" />
                           <span className="font-bold text-[#FF1A75] text-sm sm:text-base font-rum-raisin">Epic Reward</span>
                         </div>
                         <div className="text-lg sm:text-xl font-black text-[#B30026] font-rum-raisin">+{quest.reward} LKC</div>
@@ -1089,7 +1089,7 @@ function QuestsView({ quests, onQuestClick }: {
                       <Button className="glossy-red-pill font-bold px-6 sm:px-8 py-2 sm:py-3 rounded-xl text-sm sm:text-base shadow-[0_0_16px_rgba(255,77,136,0.6)] hover:shadow-[0_0_24px_rgba(255,77,136,0.8)] transition-all duration-300 hover:scale-105">
                         <Lightning size={14} className="mr-2 text-white drop-shadow-sm" />
                         <span className="font-rum-raisin">Accept Quest</span>
-                        <Sparkle size={12} className="ml-2 text-white drop-shadow-sm" />
+                        <Sparkles size={12} className="ml-2 text-white drop-shadow-sm" />
                       </Button>
                     </div>
                   </div>

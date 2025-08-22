@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { Check, X, ChefHat, Leaf, Wheat, Milk, Egg, Fish, Nut, Heart, AlertTriangle } from 'lucide-react';
+import { CheckIcon, XMarkIcon, ChefHatIcon, CubeIcon as LeafIcon, CakeIcon as WheatIcon, CupIcon as MilkIcon, EggIcon, FishIcon, CubeIcon as NutIcon, HeartIcon, ExclamationTriangleIcon } from '@heroicons/react/24/outline';
 import { useAuth } from '@/contexts/AuthContext';
 import { toast } from 'sonner';
 
@@ -34,25 +34,25 @@ export function PreferencesPage({ onComplete }: PreferencesPageProps) {
   ];
 
   const diets = [
-    { id: 'vegetarian', name: 'Vegetarian', icon: <Leaf className="w-4 h-4" />, color: 'bg-green-100 text-green-700' },
-    { id: 'vegan', name: 'Vegan', icon: <Leaf className="w-4 h-4" />, color: 'bg-emerald-100 text-emerald-700' },
-    { id: 'halal', name: 'Halal', icon: <Heart className="w-4 h-4" />, color: 'bg-blue-100 text-blue-700' },
-    { id: 'kosher', name: 'Kosher', icon: <Heart className="w-4 h-4" />, color: 'bg-purple-100 text-purple-700' },
-    { id: 'keto', name: 'Keto', icon: <ChefHat className="w-4 h-4" />, color: 'bg-orange-100 text-orange-700' },
-    { id: 'paleo', name: 'Paleo', icon: <ChefHat className="w-4 h-4" />, color: 'bg-amber-100 text-amber-700' },
-    { id: 'gluten-free', name: 'Gluten-Free', icon: <Wheat className="w-4 h-4" />, color: 'bg-yellow-100 text-yellow-700' },
-    { id: 'dairy-free', name: 'Dairy-Free', icon: <Milk className="w-4 h-4" />, color: 'bg-cyan-100 text-cyan-700' }
+    { id: 'vegetarian', name: 'Vegetarian', icon: <LeafIcon className="w-4 h-4" />, color: 'bg-green-100 text-green-700' },
+    { id: 'vegan', name: 'Vegan', icon: <LeafIcon className="w-4 h-4" />, color: 'bg-emerald-100 text-emerald-700' },
+    { id: 'halal', name: 'Halal', icon: <HeartIcon className="w-4 h-4" />, color: 'bg-blue-100 text-blue-700' },
+    { id: 'kosher', name: 'Kosher', icon: <HeartIcon className="w-4 h-4" />, color: 'bg-purple-100 text-purple-700' },
+    { id: 'keto', name: 'Keto', icon: <ChefHatIcon className="w-4 h-4" />, color: 'bg-orange-100 text-orange-700' },
+    { id: 'paleo', name: 'Paleo', icon: <ChefHatIcon className="w-4 h-4" />, color: 'bg-amber-100 text-amber-700' },
+    { id: 'gluten-free', name: 'Gluten-Free', icon: <WheatIcon className="w-4 h-4" />, color: 'bg-yellow-100 text-yellow-700' },
+    { id: 'dairy-free', name: 'Dairy-Free', icon: <MilkIcon className="w-4 h-4" />, color: 'bg-cyan-100 text-cyan-700' }
   ];
 
   const allergies = [
-    { id: 'peanuts', name: 'Peanuts', icon: <Nut className="w-4 h-4" />, color: 'bg-red-100 text-red-700' },
-    { id: 'tree-nuts', name: 'Tree Nuts', icon: <Nut className="w-4 h-4" />, color: 'bg-orange-100 text-orange-700' },
-    { id: 'shellfish', name: 'Shellfish', icon: <Fish className="w-4 h-4" />, color: 'bg-blue-100 text-blue-700' },
-    { id: 'fish', name: 'Fish', icon: <Fish className="w-4 h-4" />, color: 'bg-cyan-100 text-cyan-700' },
-    { id: 'eggs', name: 'Eggs', icon: <Egg className="w-4 h-4" />, color: 'bg-yellow-100 text-yellow-700' },
-    { id: 'dairy', name: 'Dairy', icon: <Milk className="w-4 h-4" />, color: 'bg-purple-100 text-purple-700' },
-    { id: 'soy', name: 'Soy', icon: <Leaf className="w-4 h-4" />, color: 'bg-green-100 text-green-700' },
-    { id: 'wheat', name: 'Wheat/Gluten', icon: <Wheat className="w-4 h-4" />, color: 'bg-amber-100 text-amber-700' }
+    { id: 'peanuts', name: 'Peanuts', icon: <NutIcon className="w-4 h-4" />, color: 'bg-red-100 text-red-700' },
+    { id: 'tree-nuts', name: 'Tree Nuts', icon: <NutIcon className="w-4 h-4" />, color: 'bg-orange-100 text-orange-700' },
+    { id: 'shellfish', name: 'Shellfish', icon: <FishIcon className="w-4 h-4" />, color: 'bg-blue-100 text-blue-700' },
+    { id: 'fish', name: 'Fish', icon: <FishIcon className="w-4 h-4" />, color: 'bg-cyan-100 text-cyan-700' },
+    { id: 'eggs', name: 'Eggs', icon: <EggIcon className="w-4 h-4" />, color: 'bg-yellow-100 text-yellow-700' },
+    { id: 'dairy', name: 'Dairy', icon: <MilkIcon className="w-4 h-4" />, color: 'bg-purple-100 text-purple-700' },
+    { id: 'soy', name: 'Soy', icon: <LeafIcon className="w-4 h-4" />, color: 'bg-green-100 text-green-700' },
+    { id: 'wheat', name: 'Wheat/Gluten', icon: <WheatIcon className="w-4 h-4" />, color: 'bg-amber-100 text-amber-700' }
   ];
 
   const steps = [
@@ -133,7 +133,7 @@ export function PreferencesPage({ onComplete }: PreferencesPageProps) {
           <Leaf className="w-10 h-10 text-white/20" />
         </div>
         <div className="absolute bottom-20 right-10 animate-float delay-3000">
-          <AlertTriangle className="w-7 h-7 text-white/20" />
+          <ExclamationTriangleIcon className="w-7 h-7 text-white/20" />
         </div>
       </div>
 
@@ -215,7 +215,7 @@ export function PreferencesPage({ onComplete }: PreferencesPageProps) {
                       {isSelected && (
                         <div className="absolute top-2 right-2">
                           <div className="w-6 h-6 bg-white rounded-full flex items-center justify-center">
-                            <Check className="w-4 h-4 text-green-600" />
+                            <CheckIcon className="w-4 h-4 text-green-600" />
                           </div>
                         </div>
                       )}

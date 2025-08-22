@@ -212,7 +212,7 @@ export function ReservationSystem({
           <CardContent className="p-4">
             <div className="flex items-center gap-3 mb-3">
               <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center">
-                <Star className="w-6 h-6 text-primary" />
+                <StarIcon className="w-6 h-6 text-primary" />
               </div>
               <div>
                 <h3 className="font-semibold">{restaurantName}</h3>
@@ -224,7 +224,7 @@ export function ReservationSystem({
             </div>
             <div className="flex items-center gap-4 text-sm">
               <div className="flex items-center gap-1">
-                <Star className="w-4 h-4 text-yellow-500" />
+                <StarIcon className="w-4 h-4 text-yellow-500" />
                 <span>4.8 (1.2k reviews)</span>
               </div>
               <div className="flex items-center gap-1">

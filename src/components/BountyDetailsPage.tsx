@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { ArrowLeftIcon, MapPinIcon, ClockIcon, StarIcon, UsersIcon, TrophyIcon, CurrencyDollarIcon, ViewfinderCircleIcon, CameraIcon, ShareIcon, BookmarkIcon, CheckCircleIcon } from '@heroicons/react/24/outline';
+import { ArrowLeftIcon, MapPinIcon as MapPin, ClockIcon, StarIcon, UsersIcon, TrophyIcon, CurrencyDollarIcon, ViewfinderCircleIcon, CameraIcon, ShareIcon, BookmarkIcon, CheckCircleIcon } from '@heroicons/react/24/outline';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';

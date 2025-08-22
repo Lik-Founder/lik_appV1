@@ -13,7 +13,7 @@ import {
   UsersIcon, 
   CameraIcon, 
   QrCodeIcon,
-  NavigationIcon,
+  MapIcon,
   StarIcon,
   HeartIcon,
   PlayIcon
@@ -201,7 +201,7 @@ export function FoodEventPage({ eventId, onBack, onShowRestaurantProfile, onShow
               <div className="flex items-center justify-between">
                 <span className="text-sm text-muted-foreground">{mockEvent.distance} away</span>
                 <Button size="sm" variant="outline" className="rounded-full">
-                  <NavigationIcon className="h-4 w-4 mr-2" />
+                  <MapIcon className="h-4 w-4 mr-2" />
                   Navigate
                 </Button>
               </div>

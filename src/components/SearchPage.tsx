@@ -18,7 +18,7 @@ import {
   HeartIcon,
   StarIcon,
   EllipsisHorizontalIcon,
-  MapPinIcon,
+  MapPinIcon as MapPin,
   ClockIcon,
   TruckIcon,
   BoltIcon as LightningIcon,
@@ -27,6 +27,7 @@ import {
   ShoppingCartIcon,
   ArrowPathIcon as ClockCounterClockwiseIcon
 } from '@heroicons/react/24/outline';
+import { EllipsisHorizontalIcon, HeartIcon, StarIcon } from '@heroicons/react/24/outline';
 import { toast } from 'sonner';
 import { cn } from '@/lib/utils';
 import LikLogoHeart from '@/assets/images/Lik_Logo_Heart_1.0.png';
@@ -589,7 +590,7 @@ function FoodCard({ post, onLike, onShowRestaurantProfile, deviceType }: FoodCar
           {/* Rating/Score */}
           {post.type === 'restaurant' && post.rating && (
             <div className="flex items-center gap-1 bg-black/60 rounded-full px-3 py-1.5 backdrop-blur-sm">
-              <Star size={14} className="text-yellow-400 fill-current" />
+              <StarIcon className="h-3.5 w-3.5 text-yellow-400 fill-current" />
               <span className="text-white text-sm font-semibold">{post.rating}</span>
             </div>
           )}
@@ -612,7 +613,7 @@ function FoodCard({ post, onLike, onShowRestaurantProfile, deviceType }: FoodCar
             size="sm"
             className="h-8 w-8 p-0 bg-black/50 hover:bg-black/70 rounded-full backdrop-blur-sm"
           >
-            <DotsThree size={16} className="text-white" />
+            <EllipsisHorizontalIcon className="h-4 w-4 text-white" />
           </Button>
         </div>
 
@@ -683,10 +684,9 @@ function FoodCard({ post, onLike, onShowRestaurantProfile, deviceType }: FoodCar
               }}
               className="h-8 w-8 p-0 hover:scale-110 transition-transform"
             >
-              <Heart 
-                size={18} 
+              <HeartIcon 
                 className={cn(
-                  "transition-colors",
+                  "h-4.5 w-4.5 transition-colors",
                   post.isLiked ? "text-red-500 fill-current" : "text-white"
                 )} 
               />
@@ -893,7 +893,7 @@ function FeaturedRestaurantCard({ restaurant, onClick, onAddToFavorites, deviceT
         <div className="absolute top-2 right-2 flex gap-1">
           <div className="bg-black/50 backdrop-blur-sm rounded px-2 py-1">
             <div className="flex items-center gap-1">
-              <Star size={12} className="text-yellow-400 fill-current" />
+              <StarIcon className="h-3 w-3 text-yellow-400 fill-current" />
               <span className="text-white text-xs font-medium">{restaurant.rating}</span>
             </div>
           </div>
@@ -903,7 +903,7 @@ function FeaturedRestaurantCard({ restaurant, onClick, onAddToFavorites, deviceT
             onClick={handleFavoriteClick}
             className="h-6 w-6 p-0 bg-black/50 hover:bg-black/70 rounded-full"
           >
-            <Heart size={12} className="text-white" />
+            <HeartIcon className="h-3 w-3 text-white" />
           </Button>
         </div>
       </div>
@@ -965,7 +965,7 @@ function RestaurantCard({ restaurant, onClick, onAddToFavorites, deviceType }: R
               <h3 className="font-semibold truncate">{restaurant.name}</h3>
               <p className="text-sm text-muted-foreground truncate">{restaurant.categories.join(', ')}</p>
               <div className="flex items-center gap-1 mt-1">
-                <Star size={12} className="text-yellow-400 fill-current" />
+                <StarIcon className="h-3 w-3 text-yellow-400 fill-current" />
                 <span className="text-sm font-medium">{restaurant.rating}</span>
                 <span className="text-sm text-muted-foreground">({restaurant.reviewCount})</span>
                 <span className="text-sm text-muted-foreground">• {restaurant.distance}</span>
@@ -983,7 +983,7 @@ function RestaurantCard({ restaurant, onClick, onAddToFavorites, deviceType }: R
                 onClick={handleFavoriteClick}
                 className="h-8 w-8 p-0 rounded-full"
               >
-                <Heart size={16} />
+                <HeartIcon className="h-4 w-4" />
               </Button>
             </div>
           </div>
@@ -1056,13 +1056,13 @@ function RestaurantMenu({
           size="sm"
           className="absolute top-4 right-4 bg-black/50 hover:bg-black/70 text-white h-8 w-8 p-0 rounded-full"
         >
-          <Heart size={16} />
+          <HeartIcon className="h-4 w-4" />
         </Button>
         <div className="absolute bottom-4 left-4 right-4">
           <h1 className="text-white text-2xl font-bold">{restaurant.name}</h1>
           <div className="flex items-center gap-2 mt-1">
             <div className="flex items-center gap-1">
-              <Star size={14} className="text-yellow-400 fill-current" />
+              <StarIcon className="h-3.5 w-3.5 text-yellow-400 fill-current" />
               <span className="text-white font-medium">{restaurant.rating}</span>
               <span className="text-white/80">({restaurant.reviewCount})</span>
             </div>
@@ -1147,7 +1147,7 @@ function MenuItem({
               onClick={handleFavoriteDish}
               className="h-8 w-8 p-0 rounded-full ml-2"
             >
-              <Heart size={16} />
+              <HeartIcon className="h-4 w-4" />
             </Button>
           </div>
           

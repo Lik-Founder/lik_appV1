@@ -5,7 +5,7 @@ import { ConsistentAvatar } from '@/components/ui/consistent-avatar';
 import { CommentModal } from '@/components/CommentModal';
 import { 
   ChatBubbleLeftIcon, 
-  MapPinIcon,
+  MapPinIcon as MapPin,
   MagnifyingGlassIcon,
   TvIcon,
   PlusIcon,
