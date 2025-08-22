@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { ArrowLeft, MapPin, Clock, Star, Users, Trophy, Coins, Target, Camera, Share, Bookmark, Timer, CheckCircle } from '@phosphor-icons/react';
+import { ArrowLeftIcon, MapPinIcon, ClockIcon, StarIcon, UsersIcon, TrophyIcon, CurrencyDollarIcon, ViewfinderCircleIcon, CameraIcon, ShareIcon, BookmarkIcon, CheckCircleIcon } from '@heroicons/react/24/outline';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
@@ -147,7 +147,7 @@ export function BountyDetailsPage({ bountyId, onBack, onShowRestaurantProfile, o
             onClick={onBack}
             className="text-gray-600 hover:text-gray-900"
           >
-            <ArrowLeft className="w-5 h-5" />
+            <ArrowLeftIcon className="w-5 h-5" />
           </Button>
           <h1 className="font-bold text-lg nav-rum-raisin text-gray-900">Bounty Details</h1>
           <div className="flex items-center gap-2">

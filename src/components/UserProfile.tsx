@@ -9,21 +9,21 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Badge } from '@/components/ui/badge';
 import { Input } from '@/components/ui/input';
 import { 
-  Grid3X3, 
-  Heart, 
-  MessageCircle, 
-  ArrowLeft,
-  Plus, 
-  CheckCircle,
-  ShareNetwork,
-  BookBookmark,
-  MagnifyingGlass,
-  SlidersHorizontal,
-  Medal,
-  UserPlus,
-  DotsThree,
-  MapPin
-} from '@phosphor-icons/react';
+  Squares2X2Icon, 
+  HeartIcon, 
+  ChatBubbleOvalLeftIcon, 
+  ArrowLeftIcon,
+  PlusIcon, 
+  CheckCircleIcon,
+  ShareIcon,
+  BookmarkIcon,
+  MagnifyingGlassIcon,
+  AdjustmentsHorizontalIcon,
+  TrophyIcon,
+  UserPlusIcon,
+  EllipsisHorizontalIcon,
+  MapPinIcon
+} from '@heroicons/react/24/outline';
 import { useDevice } from '@/hooks/use-device';
 import { cn } from '@/lib/utils';
 import { toast } from 'sonner';
@@ -221,7 +221,7 @@ export function UserProfile({ userId, onBack }: UserProfileProps) {
       <div className="flex flex-col h-screen bg-background">
         <div className="flex items-center justify-between p-4 border-b">
           <Button variant="ghost" size="sm" onClick={onBack}>
-            <ArrowLeft className="w-5 h-5" />
+            <ArrowLeftIcon className="w-5 h-5" />
           </Button>
           <span className="font-medium">User Not Found</span>
           <div className="w-10" />
@@ -270,18 +270,18 @@ export function UserProfile({ userId, onBack }: UserProfileProps) {
       {/* Whimsical Header */}
       <div className="flex items-center justify-between p-6 bg-gradient-to-r from-pink-100/90 via-background/95 to-purple-100/90 backdrop-blur-sm border-b border-pink-200/30">
         <Button variant="ghost" size="sm" onClick={onBack} className="p-2.5 h-10 w-10 rounded-full bg-gradient-to-r from-gray-100 to-slate-100 hover:from-gray-200 hover:to-slate-200 shadow-sm">
-          <ArrowLeft className="w-5 h-5 text-gray-600" />
+          <ArrowLeftIcon className="w-5 h-5 text-gray-600" />
         </Button>
         <div className="flex items-center space-x-3">
           <span className="font-bold text-gray-800 nav-rum-raisin text-lg">{user.username}</span>
           {user.isVerified && (
             <div className="bg-gradient-to-r from-blue-500 to-cyan-500 p-1 rounded-full">
-              <CheckCircle className="w-4 h-4 text-white" weight="fill" />
+              <CheckCircleIcon className="w-4 h-4 text-white fill-current" />
             </div>
           )}
         </div>
         <Button variant="ghost" size="sm" className="p-2.5 h-10 w-10 rounded-full bg-gradient-to-r from-gray-100 to-slate-100 hover:from-gray-200 hover:to-slate-200 shadow-sm">
-          <DotsThree className="w-5 h-5 text-gray-600" />
+          <EllipsisHorizontalIcon className="w-5 h-5 text-gray-600" />
         </Button>
       </div>
 
@@ -342,7 +342,7 @@ export function UserProfile({ userId, onBack }: UserProfileProps) {
                   {user.location && (
                     <div className="flex items-center gap-2 bg-white/60 rounded-full px-3 py-1 w-fit shadow-sm">
                       <div className="bg-gradient-to-r from-green-400 to-blue-500 p-0.5 rounded-full">
-                        <MapPin className="w-2.5 h-2.5 text-white" />
+                        <MapPinIcon className="w-2.5 h-2.5 text-white" />
                       </div>
                       <span className="text-xs text-gray-700 nav-rum-raisin">{user.location}</span>
                     </div>
@@ -421,7 +421,7 @@ export function UserProfile({ userId, onBack }: UserProfileProps) {
                       : "bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white"
                   )}
                 >
-                  <UserPlus className="w-3 h-3 mr-1.5" />
+                  <UserPlusIcon className="w-3 h-3 mr-1.5" />
                   {user.isFollowing ? 'Following' : 'Follow'}
                 </Button>
                 <Button 
@@ -429,7 +429,7 @@ export function UserProfile({ userId, onBack }: UserProfileProps) {
                   onClick={handleShare}
                   className="p-2 h-9 w-9 rounded-full bg-gradient-to-r from-blue-100 to-cyan-100 hover:from-blue-200 hover:to-cyan-200 border-blue-200 shadow-sm"
                 >
-                  <ShareNetwork className="w-4 h-4 text-blue-600" />
+                  <ShareIcon className="w-4 h-4 text-blue-600" />
                 </Button>
               </div>
             </div>
@@ -440,7 +440,7 @@ export function UserProfile({ userId, onBack }: UserProfileProps) {
             <div className="fixed inset-0 bg-gradient-to-br from-pink-50 via-background to-purple-50 z-50 flex flex-col">
               <div className="flex items-center justify-between p-4 bg-gradient-to-r from-pink-100/90 via-background/95 to-purple-100/90 backdrop-blur-sm border-b border-pink-200/30">
                 <Button variant="ghost" size="sm" onClick={() => setShowBio(false)} className="p-2 h-8 w-8 rounded-full bg-gradient-to-r from-gray-100 to-slate-100 hover:from-gray-200 hover:to-slate-200 shadow-sm">
-                  <ArrowLeft className="w-4 h-4 text-gray-600" />
+                  <ArrowLeftIcon className="w-4 h-4 text-gray-600" />
                 </Button>
                 <span className="font-bold text-gray-800 nav-rum-raisin text-lg">About</span>
                 <div className="w-8" />
@@ -554,28 +554,28 @@ export function UserProfile({ userId, onBack }: UserProfileProps) {
                   value="posts" 
                   className="flex flex-col items-center gap-0.5 h-full rounded-lg data-[state=active]:bg-gradient-to-br data-[state=active]:from-pink-200 data-[state=active]:to-purple-200 data-[state=active]:shadow-sm nav-rum-raisin font-medium text-gray-600 data-[state=active]:text-gray-800 text-xs"
                 >
-                  <Grid3X3 className="w-4 h-4" />
+                  <Squares2X2Icon className="w-4 h-4" />
                   <span className="text-xs">Posts</span>
                 </TabsTrigger>
                 <TabsTrigger 
                   value="likes" 
                   className="flex flex-col items-center gap-0.5 h-full rounded-lg data-[state=active]:bg-gradient-to-br data-[state=active]:from-red-200 data-[state=active]:to-pink-200 data-[state=active]:shadow-sm nav-rum-raisin font-medium text-gray-600 data-[state=active]:text-gray-800 text-xs"
                 >
-                  <Heart className="w-4 h-4" />
+                  <HeartIcon className="w-4 h-4" />
                   <span className="text-xs">Likes</span>
                 </TabsTrigger>
                 <TabsTrigger 
                   value="favorites" 
                   className="flex flex-col items-center gap-0.5 h-full rounded-lg data-[state=active]:bg-gradient-to-br data-[state=active]:from-yellow-200 data-[state=active]:to-orange-200 data-[state=active]:shadow-sm nav-rum-raisin font-medium text-gray-600 data-[state=active]:text-gray-800 text-xs"
                 >
-                  <BookBookmark className="w-4 h-4" />
+                  <BookmarkIcon className="w-4 h-4" />
                   <span className="text-xs">Saved</span>
                 </TabsTrigger>
                 <TabsTrigger 
                   value="guides" 
                   className="flex flex-col items-center gap-0.5 h-full rounded-lg data-[state=active]:bg-gradient-to-br data-[state=active]:from-green-200 data-[state=active]:to-emerald-200 data-[state=active]:shadow-sm nav-rum-raisin font-medium text-gray-600 data-[state=active]:text-gray-800 text-xs"
                 >
-                  <Medal className="w-4 h-4" />
+                  <TrophyIcon className="w-4 h-4" />
                   <span className="text-xs">Guides</span>
                 </TabsTrigger>
               </TabsList>
@@ -585,7 +585,7 @@ export function UserProfile({ userId, onBack }: UserProfileProps) {
           {/* Compact Search and Filter */}
           <div className="px-4 mb-4">
             <div className="relative">
-              <MagnifyingGlass className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-500" />
+              <MagnifyingGlassIcon className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-500" />
               <Input
                 placeholder={`🔍 Search ${activeTab}...`}
                 value={searchQuery}
@@ -597,7 +597,7 @@ export function UserProfile({ userId, onBack }: UserProfileProps) {
                 size="sm" 
                 className="absolute right-1 top-1/2 transform -translate-y-1/2 h-7 w-7 rounded-full bg-gradient-to-r from-pink-200 to-purple-200 hover:from-pink-300 hover:to-purple-300"
               >
-                <SlidersHorizontal size={12} className="text-gray-600" />
+                <AdjustmentsHorizontalIcon className="w-3 h-3 text-gray-600" />
               </Button>
             </div>
           </div>

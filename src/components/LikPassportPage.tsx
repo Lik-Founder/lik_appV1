@@ -3,7 +3,7 @@ import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Progress } from '@/components/ui/progress';
 import { Badge } from '@/components/ui/badge';
-import { ArrowLeft, Crown, Flame, Coins, Heart, Map, Trophy, BarChart3, Star, Lock, Share, Users, MapPin, Calendar, Filter } from '@phosphor-icons/react';
+import { ArrowLeftIcon, CrownIcon, FireIcon, CurrencyDollarIcon, HeartIcon, MapIcon, TrophyIcon, ChartBarIcon, StarIcon, LockClosedIcon, ShareIcon, UsersIcon, MapPinIcon, CalendarIcon, FunnelIcon } from '@heroicons/react/24/outline';
 import { cn } from '@/lib/utils';
 
 interface LikPassportPageProps {
@@ -241,14 +241,14 @@ export function LikPassportPage({ onBack }: LikPassportPageProps) {
           onClick={onBack}
           className="absolute top-6 left-6 p-2 rounded-full bg-black/20 backdrop-blur-sm text-white hover:bg-black/30 transition-all"
         >
-          <ArrowLeft size={20} />
+          <ArrowLeftIcon className="w-5 h-5" />
         </button>
 
         {/* Rank badge */}
         <div className="text-center mb-6">
           <div className="relative inline-block mb-4">
             <div className="w-24 h-24 rounded-full bg-gradient-to-br from-yellow-300 to-orange-500 flex items-center justify-center text-4xl shadow-2xl">
-              <Crown size={40} className="text-white drop-shadow-lg" />
+              <CrownIcon className="w-10 h-10 text-white drop-shadow-lg" />
             </div>
             <div className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 bg-white text-black px-3 py-1 rounded-full text-sm font-bold shadow-lg">
               {userRank.level}
@@ -278,21 +278,21 @@ export function LikPassportPage({ onBack }: LikPassportPageProps) {
         <div className="flex justify-center space-x-8">
           <div className="text-center">
             <div className="flex items-center justify-center mb-1">
-              <Flame size={20} className="text-orange-400 mr-1" />
+              <FireIcon className="w-5 h-5 text-orange-400 mr-1" />
               <span className="text-white font-bold">{userStats.streakCount}</span>
             </div>
             <span className="text-white/80 text-xs">Streak</span>
           </div>
           <div className="text-center">
             <div className="flex items-center justify-center mb-1">
-              <Coins size={20} className="text-yellow-400 mr-1" />
+              <CurrencyDollarIcon className="w-5 h-5 text-yellow-400 mr-1" />
               <span className="text-white font-bold">{userStats.likCoins.toLocaleString()}</span>
             </div>
             <span className="text-white/80 text-xs">Coins</span>
           </div>
           <div className="text-center">
             <div className="flex items-center justify-center mb-1">
-              <Heart size={20} className="text-red-400 mr-1" />
+              <HeartIcon className="w-5 h-5 text-red-400 mr-1" />
               <span className="text-white font-bold">{userStats.hearts.toLocaleString()}</span>
             </div>
             <span className="text-white/80 text-xs">Hearts</span>
@@ -304,9 +304,9 @@ export function LikPassportPage({ onBack }: LikPassportPageProps) {
       <div className="px-6 py-4 bg-background border-b border-border">
         <div className="flex space-x-3">
           {[
-            { id: 'map', label: 'Map', icon: Map },
-            { id: 'achievements', label: 'Achievements', icon: Trophy },
-            { id: 'stats', label: 'Stats', icon: BarChart3 }
+            { id: 'map', label: 'Map', icon: MapIcon },
+            { id: 'achievements', label: 'Achievements', icon: TrophyIcon },
+            { id: 'stats', label: 'Stats', icon: ChartBarIcon }
           ].map((tab) => (
             <button
               key={tab.id}
@@ -358,7 +358,7 @@ export function LikPassportPage({ onBack }: LikPassportPageProps) {
                   showHeatmap ? "bg-primary text-primary-foreground" : "bg-muted text-muted-foreground"
                 )}
               >
-                <Filter size={16} />
+                <FunnelIcon className="w-4 h-4" />
               </button>
             </div>
 
@@ -368,7 +368,7 @@ export function LikPassportPage({ onBack }: LikPassportPageProps) {
                 {/* Simulated map with restaurant stamps */}
                 <div className="absolute inset-0 flex items-center justify-center">
                   <div className="text-center">
-                    <MapPin size={32} className="text-primary mx-auto mb-2" />
+                    <MapPinIcon className="w-8 h-8 text-primary mx-auto mb-2" />
                     <p className="text-sm text-muted-foreground">Interactive Culinary Journey Map</p>
                     <p className="text-xs text-muted-foreground mt-1">{restaurantStamps.length} restaurants visited</p>
                   </div>
@@ -417,7 +417,7 @@ export function LikPassportPage({ onBack }: LikPassportPageProps) {
                     <p className="text-sm text-muted-foreground">{selectedStamp.cuisine} • {selectedStamp.visitDate}</p>
                   </div>
                   <div className="flex items-center space-x-1">
-                    <Star size={16} className="text-yellow-500 fill-current" />
+                    <StarIcon className="w-4 h-4 text-yellow-500 fill-current" />
                     <span className="text-sm font-medium">{selectedStamp.rating}</span>
                   </div>
                 </div>
@@ -472,7 +472,7 @@ export function LikPassportPage({ onBack }: LikPassportPageProps) {
               <div className="flex items-center justify-between mb-4">
                 <h2 className="text-xl font-bold nav-rum-raisin">All Achievements</h2>
                 <Button variant="outline" size="sm">
-                  <Share size={16} className="mr-2" />
+                  <ShareIcon className="w-4 h-4 mr-2" />
                   Share
                 </Button>
               </div>
@@ -493,7 +493,7 @@ export function LikPassportPage({ onBack }: LikPassportPageProps) {
                   >
                     {!achievement.earned && (
                       <div className="absolute top-2 right-2">
-                        <Lock size={16} className="text-muted-foreground" />
+                        <LockClosedIcon className="w-4 h-4 text-muted-foreground" />
                       </div>
                     )}
                     
@@ -632,7 +632,7 @@ export function LikPassportPage({ onBack }: LikPassportPageProps) {
                       <div className="text-sm text-muted-foreground">{dish.restaurant}</div>
                     </div>
                     <div className="flex items-center space-x-1">
-                      <Star size={14} className="text-yellow-500 fill-current" />
+                      <StarIcon className="w-3.5 h-3.5 text-yellow-500 fill-current" />
                       <span className="text-sm font-medium">{dish.rating}</span>
                     </div>
                   </div>
@@ -645,7 +645,7 @@ export function LikPassportPage({ onBack }: LikPassportPageProps) {
               <div className="flex items-center justify-between mb-4">
                 <h2 className="text-xl font-bold nav-rum-raisin">Social Stats</h2>
                 <Button variant="outline" size="sm">
-                  <Users size={16} className="mr-2" />
+                  <UsersIcon className="w-4 h-4 mr-2" />
                   Compare with Friends
                 </Button>
               </div>

@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { ArrowLeft, Mic, QrCode, RotateCcw, TrendingUp, Users, Video, UtensilsCrossed, Search as SearchIcon } from '@phosphor-icons/react';
+import { ArrowLeftIcon, MicrophoneIcon, QrCodeIcon, ArrowPathIcon, TrendingUpIcon, UsersIcon, VideoCameraIcon, ClockIcon, MagnifyingGlassIcon } from '@heroicons/react/24/outline';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { cn } from '@/lib/utils';
@@ -171,7 +171,7 @@ export function TrendingSearchPage({
           onClick={onBack}
           className="h-9 w-9 flex-shrink-0"
         >
-          <ArrowLeft size={20} />
+          <ArrowLeftIcon className="w-5 h-5" />
         </Button>
         
         {/* Search Bar */}
@@ -190,10 +190,10 @@ export function TrendingSearchPage({
           />
           <div className="absolute right-2 top-1/2 -translate-y-1/2 flex items-center gap-1">
             <Button variant="ghost" size="icon" className="h-7 w-7 text-muted-foreground hover:text-foreground">
-              <Mic size={16} />
+              <MicrophoneIcon className="w-4 h-4" />
             </Button>
             <Button variant="ghost" size="icon" className="h-7 w-7 text-muted-foreground hover:text-foreground">
-              <QrCode size={16} />
+              <QrCodeIcon className="w-4 h-4" />
             </Button>
           </div>
         </div>
@@ -221,9 +221,9 @@ export function TrendingSearchPage({
             <div className="flex items-center justify-center p-4 bg-white border-b border-border/50">
               <div className="bg-gray-100 rounded-full p-1 flex">
                 {[
-                  { key: 'people' as SearchTab, label: 'People', icon: Users },
-                  { key: 'videos' as SearchTab, label: 'Videos', icon: Video },
-                  { key: 'restaurants' as SearchTab, label: 'Restaurants', icon: UtensilsCrossed },
+                  { key: 'people' as SearchTab, label: 'People', icon: UsersIcon },
+                  { key: 'videos' as SearchTab, label: 'Videos', icon: VideoCameraIcon },
+                  { key: 'restaurants' as SearchTab, label: 'Restaurants', icon: ClockIcon },
                 ].map(({ key, label, icon: Icon }) => (
                   <Button
                     key={key}
@@ -270,7 +270,7 @@ export function TrendingSearchPage({
                   size="sm"
                   className="text-muted-foreground hover:text-foreground"
                 >
-                  <RotateCcw size={16} className="mr-1" />
+                  <ArrowPathIcon className="w-4 h-4 mr-1" />
                   Refresh
                 </Button>
               </div>
@@ -287,7 +287,7 @@ export function TrendingSearchPage({
                       {suggestion.text}
                     </div>
                     <div className="flex items-center gap-2 text-sm text-muted-foreground ml-auto">
-                      <TrendingUp size={12} className={cn("transition-colors", getTrendColor(suggestion.trend))} />
+                      <TrendingUpIcon className={cn("w-3 h-3 transition-colors", getTrendColor(suggestion.trend))} />
                       <span className={cn("text-xs font-medium", getTrendColor(suggestion.trend))}>
                         {suggestion.trend === 'hot' ? 'Trending' : 
                          suggestion.trend === 'gaining' ? 'Trending' : 'Trending'}
@@ -367,7 +367,7 @@ export function TrendingSearchPage({
                     )}
                     {result.type === 'video' && (
                       <Button size="sm" variant="ghost" className="text-primary h-8 w-8 p-0">
-                        <Video size={16} />
+                        <VideoCameraIcon className="w-4 h-4" />
                       </Button>
                     )}
                   </div>
@@ -378,7 +378,7 @@ export function TrendingSearchPage({
             {filteredResults.length === 0 && (
               <div className="text-center py-16">
                 <div className="w-20 h-20 mx-auto mb-4 bg-gray-100 rounded-full flex items-center justify-center">
-                  <SearchIcon size={32} className="text-muted-foreground" />
+                  <MagnifyingGlassIcon className="w-8 h-8 text-muted-foreground" />
                 </div>
                 <h3 className="font-semibold text-lg mb-2 nav-rum-raisin">No results found</h3>
                 <p className="text-muted-foreground mb-4">
