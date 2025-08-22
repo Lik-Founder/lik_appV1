@@ -1,4 +1,4 @@
-import { PuzzlePieceIcon, TrendingUpIcon, UserIcon } from '@heroicons/react/24/outline';
+import { PuzzlePieceIcon, UserIcon } from '@heroicons/react/24/outline';
 import { TabType } from '@/lib/types';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
@@ -25,7 +25,7 @@ export function Navigation({ activeTab, onTabChange, deviceType, orientation }: 
     { id: 'home' as TabType, label: 'Home' },
     { id: 'search' as TabType, label: 'Explore' },
     { id: 'lik' as TabType, icon: PuzzlePieceIcon, label: 'Lik' },
-    { id: 'trending' as TabType, icon: TrendingUpIcon, label: 'Trending' },
+    { id: 'trending' as TabType, label: 'Trending' },
     { id: 'profile' as TabType, icon: UserIcon, label: 'Profile' },
   ];
 
