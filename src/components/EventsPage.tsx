@@ -4,20 +4,20 @@ import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent } from '@/components/ui/card';
 import { 
-  ArrowLeft, 
-  MapPin, 
-  Search, 
-  Share, 
-  Bookmark, 
-  Calendar, 
-  Clock,
-  Users,
-  Heart,
-  Map,
-  ChevronLeft,
-  ChevronRight,
-  Flame
-} from '@phosphor-icons/react';
+  ArrowLeftIcon, 
+  MapPinIcon, 
+  MagnifyingGlassIcon, 
+  ShareIcon, 
+  BookmarkIcon, 
+  CalendarIcon, 
+  ClockIcon,
+  UsersIcon,
+  HeartIcon,
+  MapIcon,
+  ChevronLeftIcon,
+  ChevronRightIcon,
+  FireIcon
+} from '@heroicons/react/24/outline';
 import { cn } from '@/lib/utils';
 
 interface EventsPageProps {
@@ -169,7 +169,7 @@ export function EventsPage({ onBack, onShowEventDetails, onShowRestaurantProfile
       <div className="sticky top-0 z-50 bg-background/95 backdrop-blur-sm border-b flex-shrink-0">
         <div className="flex items-center justify-between p-4">
         <Button variant="ghost" size="icon" onClick={onBack}>
-          <ArrowLeft className="h-6 w-6" />
+          <ArrowLeftIcon className="h-6 w-6" />
         </Button>
         
         <div className="relative">
@@ -178,7 +178,7 @@ export function EventsPage({ onBack, onShowEventDetails, onShowRestaurantProfile
             onClick={() => setShowCityPicker(!showCityPicker)}
             className="flex items-center gap-2"
           >
-            <MapPin className="h-4 w-4" />
+            <MapPinIcon className="h-4 w-4" />
             <span className="font-medium">{selectedCity}</span>
           </Button>
           
@@ -209,7 +209,7 @@ export function EventsPage({ onBack, onShowEventDetails, onShowRestaurantProfile
             size="icon"
             onClick={() => setViewMode(viewMode === 'list' ? 'map' : 'list')}
           >
-            <Map className="h-5 w-5" />
+            <MapIcon className="h-5 w-5" />
           </Button>
         </div>
       </div>
@@ -242,7 +242,7 @@ export function EventsPage({ onBack, onShowEventDetails, onShowRestaurantProfile
                     <p className="text-white/90 mb-2">{event.subtitle}</p>
                   )}
                   <div className="flex items-center gap-2 text-sm text-white/80">
-                    <MapPin className="h-4 w-4" />
+                    <MapPinIcon className="h-4 w-4" />
                     <span>{event.location}</span>
                   </div>
                 </div>
@@ -251,11 +251,11 @@ export function EventsPage({ onBack, onShowEventDetails, onShowRestaurantProfile
               {/* Hero Actions */}
               <div className="absolute top-4 right-4 flex gap-2">
                 <Button size="sm" variant="secondary" className="backdrop-blur-sm">
-                  <Bookmark className="h-4 w-4 mr-1" />
+                  <BookmarkIcon className="h-4 w-4 mr-1" />
                   Save
                 </Button>
                 <Button size="sm" variant="secondary" className="backdrop-blur-sm">
-                  <Share className="h-4 w-4 mr-1" />
+                  <ShareIcon className="h-4 w-4 mr-1" />
                   Share
                 </Button>
               </div>
@@ -285,7 +285,7 @@ export function EventsPage({ onBack, onShowEventDetails, onShowRestaurantProfile
           )}
           className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-black/30 backdrop-blur-sm rounded-full p-2 text-white"
         >
-          <ChevronLeft className="h-5 w-5" />
+          <ChevronLeftIcon className="h-5 w-5" />
         </button>
 
         <button
@@ -294,7 +294,7 @@ export function EventsPage({ onBack, onShowEventDetails, onShowRestaurantProfile
           )}
           className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-black/30 backdrop-blur-sm rounded-full p-2 text-white"
         >
-          <ChevronRight className="h-5 w-5" />
+          <ChevronRightIcon className="h-5 w-5" />
         </button>
       </div>
 
@@ -302,7 +302,7 @@ export function EventsPage({ onBack, onShowEventDetails, onShowRestaurantProfile
         <div className="p-4 space-y-4">
           {/* Search Bar */}
           <div className="relative">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+            <MagnifyingGlassIcon className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
             <Input
               placeholder="Search for Event"
               value={searchQuery}
@@ -361,11 +361,11 @@ export function EventsPage({ onBack, onShowEventDetails, onShowRestaurantProfile
                         <h3 className="font-semibold text-lg line-clamp-1">{event.title}</h3>
                         <div className="flex items-center gap-4 text-sm text-muted-foreground mt-1">
                           <div className="flex items-center gap-1">
-                            <Calendar className="h-4 w-4" />
+                            <CalendarIcon className="h-4 w-4" />
                             <span>{event.date}</span>
                           </div>
                           <div className="flex items-center gap-1">
-                            <Clock className="h-4 w-4" />
+                            <ClockIcon className="h-4 w-4" />
                             <span>{event.time}</span>
                           </div>
                         </div>
@@ -386,20 +386,20 @@ export function EventsPage({ onBack, onShowEventDetails, onShowRestaurantProfile
 
                       <div className="flex items-center justify-between">
                         <div className="flex items-center gap-1 text-sm text-muted-foreground">
-                          <Flame className="h-4 w-4 text-orange-500" />
+                          <FireIcon className="h-4 w-4 text-orange-500" />
                           <span>{formatInterested(event.interested)} Interested</span>
                         </div>
                         
                         <div className="flex gap-2">
                           <Button size="sm" variant="outline">
-                            <Users className="h-4 w-4 mr-1" />
+                            <UsersIcon className="h-4 w-4 mr-1" />
                             RSVP
                           </Button>
                           <Button size="sm" variant="ghost">
-                            <Share className="h-4 w-4" />
+                            <ShareIcon className="h-4 w-4" />
                           </Button>
                           <Button size="sm" variant="ghost">
-                            <Bookmark className="h-4 w-4" />
+                            <BookmarkIcon className="h-4 w-4" />
                           </Button>
                         </div>
                       </div>
@@ -410,7 +410,7 @@ export function EventsPage({ onBack, onShowEventDetails, onShowRestaurantProfile
             ) : (
               <div className="text-center py-12">
                 <div className="w-24 h-24 mx-auto mb-4 bg-muted rounded-full flex items-center justify-center">
-                  <Calendar className="h-12 w-12 text-muted-foreground" />
+                  <CalendarIcon className="h-12 w-12 text-muted-foreground" />
                 </div>
                 <h3 className="text-lg font-semibold mb-2">No Events Found</h3>
                 <p className="text-muted-foreground mb-4">
@@ -432,7 +432,7 @@ export function EventsPage({ onBack, onShowEventDetails, onShowRestaurantProfile
             <div className="px-4">
               <div className="bg-muted rounded-lg h-96 flex items-center justify-center">
                 <div className="text-center">
-                  <Map className="h-12 w-12 mx-auto mb-2 text-muted-foreground" />
+                  <MapIcon className="h-12 w-12 mx-auto mb-2 text-muted-foreground" />
                   <p className="text-muted-foreground">Map view coming soon</p>
                 </div>
               </div>

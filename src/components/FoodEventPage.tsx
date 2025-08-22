@@ -4,20 +4,20 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { 
-  ArrowLeft, 
-  Bookmark, 
-  Share, 
-  MapPin, 
-  Calendar, 
-  Clock, 
-  Users, 
-  Camera, 
-  QrCode,
-  Navigation,
-  Star,
-  Heart,
-  Play
-} from '@phosphor-icons/react';
+  ArrowLeftIcon, 
+  BookmarkIcon, 
+  ShareIcon, 
+  MapPinIcon, 
+  CalendarIcon, 
+  ClockIcon, 
+  UsersIcon, 
+  CameraIcon, 
+  QrCodeIcon,
+  NavigationIcon,
+  StarIcon,
+  HeartIcon,
+  PlayIcon
+} from '@heroicons/react/24/outline';
 import { cn } from '@/lib/utils';
 
 interface FoodEventPageProps {
@@ -117,11 +117,12 @@ export function FoodEventPage({ eventId, onBack, onShowRestaurantProfile, onShow
 
   const renderStars = (rating: number) => {
     return Array.from({ length: 5 }, (_, i) => (
-      <Star
+      <StarIcon
         key={i}
-        size={14}
-        weight={i < rating ? 'fill' : 'regular'}
-        className={i < rating ? 'text-yellow-500' : 'text-gray-300'}
+        className={cn(
+          "h-3.5 w-3.5",
+          i < rating ? "text-yellow-500 fill-current" : "text-gray-300"
+        )}
       />
     ));
   };
@@ -132,7 +133,7 @@ export function FoodEventPage({ eventId, onBack, onShowRestaurantProfile, onShow
       <div className="sticky top-0 z-50 bg-background/95 backdrop-blur-sm border-b flex-shrink-0">
         <div className="flex items-center justify-between p-4">
           <Button variant="ghost" size="sm" onClick={onBack} className="rounded-full">
-            <ArrowLeft size={20} />
+            <ArrowLeftIcon className="h-5 w-5" />
           </Button>
           <h1 className="font-semibold text-lg">Food Events</h1>
           <div className="w-8" />
@@ -158,7 +159,7 @@ export function FoodEventPage({ eventId, onBack, onShowRestaurantProfile, onShow
             onClick={handleBookmark}
             className="absolute top-4 right-4 bg-black/20 backdrop-blur-sm rounded-full text-white hover:bg-black/40"
           >
-            <Bookmark size={20} weight={isBookmarked ? 'fill' : 'regular'} />
+            <BookmarkIcon className={cn("h-5 w-5", isBookmarked && "fill-current")} />
           </Button>
 
           {/* Event Info Overlay */}
@@ -173,12 +174,12 @@ export function FoodEventPage({ eventId, onBack, onShowRestaurantProfile, onShow
             {/* Date & Time Pill */}
             <div className="bg-white/20 backdrop-blur-sm rounded-full px-4 py-2 inline-flex items-center gap-3">
               <div className="flex items-center gap-1">
-                <Calendar size={16} />
+                <CalendarIcon className="h-4 w-4" />
                 <span className="text-sm font-medium">{mockEvent.date}</span>
               </div>
               <div className="w-1 h-1 bg-white/60 rounded-full" />
               <div className="flex items-center gap-1">
-                <Clock size={16} />
+                <ClockIcon className="h-4 w-4" />
                 <span className="text-sm font-medium">{mockEvent.time}</span>
               </div>
             </div>
@@ -192,7 +193,7 @@ export function FoodEventPage({ eventId, onBack, onShowRestaurantProfile, onShow
             <div className="h-32 bg-gradient-to-br from-green-100 to-blue-100 relative rounded-t-lg">
               {/* Simple map placeholder */}
               <div className="absolute inset-0 flex items-center justify-center">
-                <MapPin size={32} className="text-green-600" />
+                <MapPinIcon className="h-8 w-8 text-green-600" />
               </div>
             </div>
             <CardContent className="p-4">
@@ -200,7 +201,7 @@ export function FoodEventPage({ eventId, onBack, onShowRestaurantProfile, onShow
               <div className="flex items-center justify-between">
                 <span className="text-sm text-muted-foreground">{mockEvent.distance} away</span>
                 <Button size="sm" variant="outline" className="rounded-full">
-                  <Navigation size={16} className="mr-2" />
+                  <NavigationIcon className="h-4 w-4 mr-2" />
                   Navigate
                 </Button>
               </div>
@@ -218,11 +219,11 @@ export function FoodEventPage({ eventId, onBack, onShowRestaurantProfile, onShow
                   : "bg-primary hover:bg-primary/90"
               )}
             >
-              <Users size={20} className="mr-2" />
+              <UsersIcon className="h-5 w-5 mr-2" />
               {isAttending ? "Going!" : "I'm Going"} ({attendeeCount})
             </Button>
             <Button variant="outline" size="icon" onClick={handleShare} className="rounded-full">
-              <Share size={20} />
+            <ShareIcon className="h-5 w-5" />
             </Button>
           </div>
         </div>
@@ -278,7 +279,7 @@ export function FoodEventPage({ eventId, onBack, onShowRestaurantProfile, onShow
           <div className="flex items-center justify-between mb-4">
             <h3 className="text-lg font-semibold nav-rum-raisin">Event Photos</h3>
             <Button variant="ghost" size="sm" className="rounded-full text-primary">
-              <Camera size={16} className="mr-2" />
+              <CameraIcon className="h-4 w-4 mr-2" />
               Upload Photos
             </Button>
           </div>
@@ -387,7 +388,7 @@ export function FoodEventPage({ eventId, onBack, onShowRestaurantProfile, onShow
                 </div>
               </div>
               <Button className="w-full rounded-full">
-                <QrCode size={20} className="mr-2" />
+                <QrCodeIcon className="h-5 w-5 mr-2" />
                 Generate Check-in QR
               </Button>
             </CardContent>
@@ -408,10 +409,10 @@ export function FoodEventPage({ eventId, onBack, onShowRestaurantProfile, onShow
                   <div>
                     <h4 className="font-medium">{restaurant.name}</h4>
                     <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                      <MapPin size={14} />
+                      <MapPinIcon className="h-3.5 w-3.5" />
                       <span>{restaurant.distance}</span>
                       <div className="flex items-center gap-1">
-                        <Star size={14} weight="fill" className="text-yellow-500" />
+                        <StarIcon className="h-3.5 w-3.5 text-yellow-500 fill-current" />
                         <span>{restaurant.rating}</span>
                       </div>
                     </div>

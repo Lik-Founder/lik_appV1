@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { ConsistentAvatar } from '@/components/ui/consistent-avatar';
-import { ArrowLeft, Search, SlidersHorizontal, Plus, Crown, Trophy, MapPin, MessageCircle, Users, Gear } from '@phosphor-icons/react';
+import { ArrowLeftIcon, MagnifyingGlassIcon, AdjustmentsHorizontalIcon, PlusIcon, CrownIcon, TrophyIcon, MapPinIcon, ChatBubbleLeftIcon, UsersIcon, CogIcon } from '@heroicons/react/24/outline';
 import { cn } from '@/lib/utils';
 import { CreateGroupChatModal } from '@/components/CreateGroupChatModal';
 import { AddMembersModal } from '@/components/AddMembersModal';
@@ -183,9 +183,9 @@ export function MessagesPage({ onBack, onOpenChat, onShowUserProfile, onShowRest
   const getMessageTypeIcon = (messageType?: string) => {
     switch (messageType) {
       case 'location':
-        return <MapPin className="w-4 h-4 text-blue-500" />;
+        return <MapPinIcon className="w-4 h-4 text-blue-500" />;
       case 'quest':
-        return <Trophy className="w-4 h-4 text-orange-500" />;
+        return <TrophyIcon className="w-4 h-4 text-orange-500" />;
       default:
         return null;
     }
@@ -259,7 +259,7 @@ export function MessagesPage({ onBack, onOpenChat, onShowUserProfile, onShowRest
             onClick={onBack}
             className="p-2 hover:bg-muted rounded-full"
           >
-            <ArrowLeft className="w-5 h-5" />
+            <ArrowLeftIcon className="w-5 h-5" />
           </Button>
           <h1 className="text-xl font-bold nav-rum-raisin">Messages</h1>
         </div>
@@ -270,7 +270,7 @@ export function MessagesPage({ onBack, onOpenChat, onShowUserProfile, onShowRest
             size="sm"
             className="p-2 hover:bg-muted rounded-full"
           >
-            <Search className="w-5 h-5" />
+            <MagnifyingGlassIcon className="w-5 h-5" />
           </Button>
           <Button
             variant="ghost"
@@ -278,7 +278,7 @@ export function MessagesPage({ onBack, onOpenChat, onShowUserProfile, onShowRest
             onClick={() => setShowFilter(!showFilter)}
             className="p-2 hover:bg-muted rounded-full"
           >
-            <SlidersHorizontal className="w-5 h-5" />
+            <AdjustmentsHorizontalIcon className="w-5 h-5" />
           </Button>
           <Button
             variant="ghost"
@@ -286,7 +286,7 @@ export function MessagesPage({ onBack, onOpenChat, onShowUserProfile, onShowRest
             onClick={handleStartGroupCreation}
             className="p-2 hover:bg-muted rounded-full"
           >
-            <Plus className="w-5 h-5" />
+            <PlusIcon className="w-5 h-5" />
           </Button>
         </div>
       </div>
@@ -339,13 +339,13 @@ export function MessagesPage({ onBack, onOpenChat, onShowUserProfile, onShowRest
       <div className="flex-1 overflow-y-auto">
         {filteredChats.length === 0 ? (
           <div className="flex flex-col items-center justify-center py-16 px-4 text-center">
-            <MessageCircle className="w-16 h-16 text-muted-foreground mb-4" />
+            <ChatBubbleLeftIcon className="w-16 h-16 text-muted-foreground mb-4" />
             <h3 className="text-lg font-semibold mb-2">No messages found</h3>
             <p className="text-muted-foreground mb-6">
               {searchQuery ? "Try adjusting your search" : "Start a conversation with fellow foodies!"}
             </p>
             <Button className="rounded-full" onClick={handleStartGroupCreation}>
-              <Plus className="w-4 h-4 mr-2" />
+              <PlusIcon className="w-4 h-4 mr-2" />
               Start New Chat
             </Button>
           </div>
@@ -373,7 +373,7 @@ export function MessagesPage({ onBack, onOpenChat, onShowUserProfile, onShowRest
                       level={chat.memberCount}
                     >
                       <div className="absolute inset-0 bg-gradient-to-br from-purple-500 to-pink-500 rounded-full flex items-center justify-center">
-                        <Users className="w-6 h-6 text-white" />
+                        <UsersIcon className="w-6 h-6 text-white" />
                       </div>
                     </ConsistentAvatar>
                   ) : (
@@ -391,7 +391,7 @@ export function MessagesPage({ onBack, onOpenChat, onShowUserProfile, onShowRest
                   {/* Verification Badge */}
                   {chat.isVerified && (
                     <div className="absolute -top-1 -right-1">
-                      <Crown className="w-4 h-4 text-yellow-500 fill-yellow-500" />
+                      <CrownIcon className="w-4 h-4 text-yellow-500 fill-yellow-500" />
                     </div>
                   )}
                 </div>
@@ -460,7 +460,7 @@ export function MessagesPage({ onBack, onOpenChat, onShowUserProfile, onShowRest
                         }}
                         className="opacity-0 group-hover:opacity-100 transition-opacity p-1 h-auto"
                       >
-                        <Gear className="w-4 h-4" />
+                        <CogIcon className="w-4 h-4" />
                       </Button>
                     )}
                   </div>
@@ -496,7 +496,7 @@ export function MessagesPage({ onBack, onOpenChat, onShowUserProfile, onShowRest
           onClick={handleStartGroupCreation}
           className="fab w-14 h-14 rounded-full shadow-lg"
         >
-          <Plus className="w-6 h-6" />
+          <PlusIcon className="w-6 h-6" />
         </Button>
       </div>
 
