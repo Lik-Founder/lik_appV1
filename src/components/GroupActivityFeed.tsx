@@ -6,7 +6,7 @@ import {
   XMarkIcon as X, 
   UsersIcon as Users, 
   UserPlusIcon as UserPlus,
-  CrownIcon as Crown,
+  StarIcon as Crown,
   TrophyIcon as Trophy,
   MapPinIcon as MapPin,
   ChatBubbleLeftIcon as MessageCircle,

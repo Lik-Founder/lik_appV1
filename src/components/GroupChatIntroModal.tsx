@@ -5,7 +5,7 @@ import {
   XMarkIcon as X, 
   UsersIcon as Users, 
   PlusIcon as Plus, 
-  CrownIcon as Crown,
+  StarIcon as Crown,
   GlobeAltIcon as Globe,
   LockClosedIcon as Lock,
   ShieldCheckIcon as Shield,

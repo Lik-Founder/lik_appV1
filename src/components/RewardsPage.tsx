@@ -14,7 +14,7 @@ import {
   Square3Stack3DIcon as Cookie,
   Square3Stack3DIcon as IceCream,
   BeakerIcon as Wine,
-  CrownIcon as Crown,
+  StarIcon as Crown,
   BoltIcon as Lightning,
   SparklesIcon as Sparkle,
   TrophyIcon as Medal,

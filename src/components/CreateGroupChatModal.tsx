@@ -12,7 +12,7 @@ import {
   MagnifyingGlassIcon as Search, 
   CameraIcon as Camera, 
   UsersIcon as Users, 
-  CrownIcon as Crown, 
+  StarIcon as Crown, 
   MapPinIcon as MapPin,
   Square3Stack3DIcon as Utensils,
   GlobeAltIcon as Globe,

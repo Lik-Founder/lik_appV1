@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { ConsistentAvatar } from '@/components/ui/consistent-avatar';
-import { ArrowLeftIcon, MagnifyingGlassIcon, AdjustmentsHorizontalIcon, PlusIcon, CrownIcon, TrophyIcon, MapPinIcon, ChatBubbleLeftIcon, UsersIcon, CogIcon } from '@heroicons/react/24/outline';
+import { ArrowLeftIcon, MagnifyingGlassIcon, AdjustmentsHorizontalIcon, PlusIcon, StarIcon as CrownIcon, TrophyIcon, MapPinIcon, ChatBubbleLeftIcon, UsersIcon, CogIcon } from '@heroicons/react/24/outline';
 import { cn } from '@/lib/utils';
 import { CreateGroupChatModal } from '@/components/CreateGroupChatModal';
 import { AddMembersModal } from '@/components/AddMembersModal';

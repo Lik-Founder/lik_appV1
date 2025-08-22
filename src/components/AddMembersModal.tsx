@@ -9,7 +9,7 @@ import {
   XMarkIcon as X, 
   MagnifyingGlassIcon as Search, 
   PlusIcon as Plus,
-  CrownIcon as Crown, 
+  StarIcon as Crown, 
   UserPlusIcon as UserPlus,
   ShareIcon as Share,
   LinkIcon,

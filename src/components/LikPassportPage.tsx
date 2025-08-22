@@ -3,7 +3,7 @@ import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Progress } from '@/components/ui/progress';
 import { Badge } from '@/components/ui/badge';
-import { ArrowLeftIcon, CrownIcon, FireIcon, CurrencyDollarIcon, HeartIcon, MapIcon, TrophyIcon, ChartBarIcon, StarIcon, LockClosedIcon, ShareIcon, UsersIcon, MapPinIcon, CalendarIcon, FunnelIcon } from '@heroicons/react/24/outline';
+import { ArrowLeftIcon, StarIcon as CrownIcon, FireIcon, CurrencyDollarIcon, HeartIcon, MapIcon, TrophyIcon, ChartBarIcon, StarIcon, LockClosedIcon, ShareIcon, UsersIcon, MapPinIcon, CalendarIcon, FunnelIcon } from '@heroicons/react/24/outline';
 import { cn } from '@/lib/utils';
 
 interface LikPassportPageProps {

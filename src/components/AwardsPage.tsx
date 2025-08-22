@@ -14,7 +14,7 @@ import {
   TrendingDownIcon as TrendDown,
   CalendarIcon as Calendar,
   MapPinIcon as MapPin,
-  CrownIcon as Crown,
+  StarIcon as Crown,
   TrophyIcon as Medal,
   TrophyIcon as Award,
   HeartIcon as Heart,

@@ -10,7 +10,7 @@ import { Switch } from '@/components/ui/switch';
 import { 
   XMarkIcon as X, 
   CameraIcon as Camera,
-  CrownIcon as Crown,
+  StarIcon as Crown,
   ShieldCheckIcon as Shield,
   UserMinusIcon as UserMinus,
   Cog6ToothIcon as Settings,
