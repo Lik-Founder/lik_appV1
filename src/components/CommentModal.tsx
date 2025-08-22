@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
-import { X, Heart, ArrowBendUpLeft, PaperPlaneTilt, MessageCircle, SortAscending, ThumbsUp, Clock } from '@phosphor-icons/react';
+import { XMarkIcon, HeartIcon, ArrowUturnLeftIcon, PaperAirplaneIcon, ChatBubbleOvalLeftIcon, BarsArrowUpIcon, HandThumbUpIcon, ClockIcon } from '@heroicons/react/24/outline';
 import { Comment, User } from '@/lib/types';
 import { useKV } from '@github/spark/hooks';
 import { DeviceType } from '@/hooks/use-device';

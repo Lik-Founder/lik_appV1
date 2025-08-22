@@ -1,5 +1,5 @@
 import { useState, useRef } from 'react';
-import { Heart, MessageCircle, DotsThree, Bookmark, PaperPlaneTilt } from '@phosphor-icons/react';
+import { HeartIcon, ChatBubbleOvalLeftIcon, EllipsisHorizontalIcon, BookmarkIcon, PaperAirplaneIcon } from '@heroicons/react/24/outline';
 import { Post as PostType, User, Comment } from '@/lib/types';
 import { DeviceType, Orientation } from '@/hooks/use-device';
 import { useSwipe } from '@/hooks/use-swipe';
@@ -154,7 +154,7 @@ export function Post({ post, user, onLike, onComment, onUserClick, deviceType, o
             size="sm" 
             className="touch-target active:scale-90 transition-transform duration-150"
           >
-            <DotsThree size={iconSize} />
+            <EllipsisHorizontalIcon style={{ width: iconSize, height: iconSize }} />
           </Button>
         </div>
 
@@ -174,7 +174,7 @@ export function Post({ post, user, onLike, onComment, onUserClick, deviceType, o
           {/* Swipe action indicators */}
           {swipeOffset > 20 && (
             <div className="absolute left-4 top-1/2 transform -translate-y-1/2 z-10 bg-red-500 text-white rounded-full p-2">
-              <Heart size={20} weight="fill" />
+              <HeartIcon className="w-5 h-5 fill-current" />
             </div>
           )}
           {swipeOffset < -20 && (

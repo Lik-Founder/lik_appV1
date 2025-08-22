@@ -11,22 +11,22 @@ import { OrderHistory } from '@/components/OrderHistory';
 import { MapView } from '@/components/MapView';
 import { getCurrentUser } from '@/lib/mockData';
 import { 
-  Search as SearchIcon, 
-  SlidersHorizontal as FilterIcon,
-  ArrowsClockwise as SwipeIcon,
-  Heart as FavoritesIcon,
-  Heart,
-  Star,
-  DotsThree,
-  MapPin,
-  Clock,
-  Truck,
-  Lightning,
-  Plus,
-  Minus,
-  ShoppingCart,
-  ClockCounterClockwise
-} from '@phosphor-icons/react';
+  MagnifyingGlassIcon as SearchIcon, 
+  AdjustmentsHorizontalIcon as FilterIcon,
+  ArrowPathIcon as SwipeIcon,
+  HeartIcon as FavoritesIcon,
+  HeartIcon,
+  StarIcon,
+  EllipsisHorizontalIcon,
+  MapPinIcon,
+  ClockIcon,
+  TruckIcon,
+  BoltIcon as LightningIcon,
+  PlusIcon,
+  MinusIcon,
+  ShoppingCartIcon,
+  ArrowPathIcon as ClockCounterClockwiseIcon
+} from '@heroicons/react/24/outline';
 import { toast } from 'sonner';
 import { cn } from '@/lib/utils';
 import LikLogoHeart from '@/assets/images/Lik_Logo_Heart_1.0.png';

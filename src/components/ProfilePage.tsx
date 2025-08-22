@@ -8,23 +8,23 @@ import { ScrollArea } from '@/components/ui/scroll-area';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Input } from '@/components/ui/input';
 import { 
-  Heart, 
-  Settings, 
-  Plus, 
-  Bell,
-  MapPin,
-  CheckCircle,
-  ShareNetwork,
-  BookBookmark,
-  ForkKnife,
-  MagnifyingGlass,
-  SlidersHorizontal,
-  Export,
-  Medal,
-  Certificate,
-  DotsThree,
-  Gift
-} from '@phosphor-icons/react';
+  HeartIcon, 
+  Cog6ToothIcon, 
+  PlusIcon, 
+  BellIcon,
+  MapPinIcon,
+  CheckCircleIcon,
+  ShareIcon,
+  BookmarkIcon,
+  SparklesIcon,
+  MagnifyingGlassIcon,
+  AdjustmentsHorizontalIcon,
+  ArrowUpTrayIcon,
+  StarIcon,
+  DocumentCheckIcon,
+  EllipsisHorizontalIcon,
+  GiftIcon
+} from '@heroicons/react/24/outline';
 import { CreatePostModal } from '@/components/CreatePostModal';
 import { CreateStoryModal } from '@/components/CreateStoryModal';
 import { useDevice } from '@/hooks/use-device';

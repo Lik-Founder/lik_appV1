@@ -1,4 +1,4 @@
-import { GameController, TrendUp, User } from '@phosphor-icons/react';
+import { PuzzlePieceIcon, TrendingUpIcon, UserIcon } from '@heroicons/react/24/outline';
 import { TabType } from '@/lib/types';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
@@ -24,9 +24,9 @@ export function Navigation({ activeTab, onTabChange, deviceType, orientation }: 
   const navItems = [
     { id: 'home' as TabType, label: 'Home' },
     { id: 'search' as TabType, label: 'Explore' },
-    { id: 'lik' as TabType, icon: GameController, label: 'Lik' },
-    { id: 'trending' as TabType, icon: TrendUp, label: 'Trending' },
-    { id: 'profile' as TabType, icon: User, label: 'Profile' },
+    { id: 'lik' as TabType, icon: PuzzlePieceIcon, label: 'Lik' },
+    { id: 'trending' as TabType, icon: TrendingUpIcon, label: 'Trending' },
+    { id: 'profile' as TabType, icon: UserIcon, label: 'Profile' },
   ];
 
   // Icon size based on device type
@@ -106,9 +106,11 @@ export function Navigation({ activeTab, onTabChange, deviceType, orientation }: 
               />
             ) : Icon ? (
               <Icon 
-                size={iconSize} 
-                weight={isActive ? "fill" : "regular"}
-                className="transition-transform duration-200"
+                className={cn(
+                  "transition-transform duration-200",
+                  isActive ? "fill-current" : "stroke-current fill-none"
+                )}
+                style={{ width: iconSize, height: iconSize }}
               />
             ) : null}
             {showLabels && (

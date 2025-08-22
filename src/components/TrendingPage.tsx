@@ -4,18 +4,18 @@ import { Badge } from '@/components/ui/badge';
 import { ConsistentAvatar } from '@/components/ui/consistent-avatar';
 import { CommentModal } from '@/components/CommentModal';
 import { 
-  ChatCircle, 
-  MapPin,
-  MagnifyingGlass,
-  Television,
-  Plus,
-  Star,
-  Timer,
-  GameController,
-  ShoppingCart,
-  Medal,
-  CheckCircle
-} from '@phosphor-icons/react';
+  ChatBubbleLeftIcon, 
+  MapPinIcon,
+  MagnifyingGlassIcon,
+  TvIcon,
+  PlusIcon,
+  StarIcon,
+  ClockIcon,
+  PuzzlePieceIcon,
+  ShoppingCartIcon,
+  StarIcon as MedalIcon,
+  CheckCircleIcon
+} from '@heroicons/react/24/outline';
 import { cn } from '@/lib/utils';
 import { useKV } from '@github/spark/hooks';
 import { UserPost, RestaurantPost, AdPost, User, Comment } from '@/lib/types';
@@ -355,13 +355,13 @@ export function TrendingPage({ onShowRestaurantProfile, onShowUserProfile, onSho
                 >
                   {post.restaurant.name}
                 </span>
-                <Star size={10} className="text-yellow-400 fill-current" />
+                <StarIcon className="w-2.5 h-2.5 text-yellow-400 fill-current" />
                 <span className="font-rum-raisin">{post.restaurant.rating}</span>
               </div>
             </div>
             {!post.user.isFollowing && (
               <Button size="sm" className="glossy-red-pill text-white text-xs px-3 py-1 h-7 font-rum-raisin">
-                <Plus size={10} className="mr-1" />
+                <PlusIcon className="w-2.5 h-2.5 mr-1" />
                 Follow
               </Button>
             )}
@@ -432,7 +432,7 @@ export function TrendingPage({ onShowRestaurantProfile, onShowUserProfile, onSho
               />
               <div className="absolute -bottom-1 -right-1 bg-red-600 rounded-full px-2 py-0.5">
                 <div className="flex items-center gap-1">
-                  <Star size={8} className="text-yellow-400 fill-current" />
+                  <StarIcon className="w-2 h-2 text-yellow-400 fill-current" />
                   <span className="text-white text-xs font-bold font-rum-raisin">{post.restaurant.rating}</span>
                 </div>
               </div>

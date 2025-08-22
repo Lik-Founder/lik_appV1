@@ -10,26 +10,26 @@ import { AwardsPage } from '@/components/AwardsPage';
 import { ReservationSystem } from '@/components/ReservationSystem';
 import { AvailabilityWidget } from '@/components/AvailabilityWidget';
 import { 
-  ArrowLeft,
-  Trophy,
-  Share,
-  Heart,
-  Eye,
-  MapPin,
-  Star,
-  Phone,
-  MessageCircle,
-  Calendar,
-  Play,
-  DotsThree,
-  Camera,
-  Plus,
-  X,
-  Images,
-  ArrowRight,
-  ArrowLeft as ArrowLeftIcon,
-  Storefront
-} from '@phosphor-icons/react';
+  ArrowLeftIcon,
+  TrophyIcon,
+  ShareIcon,
+  HeartIcon,
+  EyeIcon,
+  MapPinIcon,
+  StarIcon,
+  PhoneIcon,
+  ChatBubbleOvalLeftIcon,
+  CalendarIcon,
+  PlayIcon,
+  EllipsisHorizontalIcon,
+  CameraIcon,
+  PlusIcon,
+  XMarkIcon,
+  PhotoIcon,
+  ArrowRightIcon,
+  ArrowLeftIcon as BackArrowIcon,
+  BuildingStorefrontIcon
+} from '@heroicons/react/24/outline';
 import { toast } from 'sonner';
 import { cn } from '@/lib/utils';
 

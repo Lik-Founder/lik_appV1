@@ -14,18 +14,18 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent } from '@/components/ui/card';
 import { 
-  GameController, 
-  Play, 
-  ChatCircle, 
-  CaretRight,
-  Star,
-  Heart,
-  Users,
-  MapPin,
-  CalendarBlank,
-  Clock,
-  ArrowRight
-} from '@phosphor-icons/react';
+  PuzzlePieceIcon, 
+  PlayIcon, 
+  ChatBubbleLeftIcon, 
+  ChevronRightIcon,
+  StarIcon,
+  HeartIcon,
+  UsersIcon,
+  MapPinIcon,
+  CalendarIcon,
+  ClockIcon,
+  ArrowRightIcon
+} from '@heroicons/react/24/outline';
 import likLogo from '@/assets/images/lik.png';
 import ad1 from '@/assets/images/ad1.png';
 import ad2 from '@/assets/images/ad2.png';
@@ -403,10 +403,10 @@ export function HomeFeed({ onShowUserProfile, onShowRestaurantProfile, onShowLea
               <GameController size={20} />
             </Button>
             <Button variant="ghost" size="icon" className="w-9 h-9" onClick={onShowLikTV}>
-              <Play size={20} />
+              <PlayIcon className="w-5 h-5" />
             </Button>
             <Button variant="ghost" size="icon" className="w-9 h-9" onClick={onShowMessagesPage}>
-              <ChatCircle size={20} />
+              <ChatBubbleLeftIcon className="w-5 h-5" />
             </Button>
             <Button variant="ghost" size="icon" className="w-9 h-9" onClick={onShowLeaderboard}>
               <span className="text-xl">🏆</span>
@@ -516,7 +516,7 @@ export function HomeFeed({ onShowUserProfile, onShowRestaurantProfile, onShowLea
                         <span className="text-white font-semibold text-sm">{review.rating}</span>
                       ) : (
                         <>
-                          <Star size={12} className="fill-yellow-400 text-yellow-400" />
+                          <StarIcon className="w-3 h-3 fill-yellow-400 text-yellow-400" />
                           <span className="text-white font-semibold text-sm">{review.rating}</span>
                         </>
                       )}
@@ -526,7 +526,7 @@ export function HomeFeed({ onShowUserProfile, onShowRestaurantProfile, onShowLea
                   {/* Like Count Overlay */}
                   <div className="absolute bottom-3 right-3">
                     <div className="bg-black/50 backdrop-blur-sm rounded-full px-2 py-1 flex items-center gap-1">
-                      <Heart size={12} className="text-red-500 fill-red-500" />
+                      <HeartIcon className="w-3 h-3 text-red-500 fill-red-500" />
                       <span className="text-white font-semibold text-sm">{review.likes}</span>
                     </div>
                   </div>
@@ -560,7 +560,7 @@ export function HomeFeed({ onShowUserProfile, onShowRestaurantProfile, onShowLea
                     <div className="absolute top-3 left-3 right-3 flex items-start justify-between">
                       <div className="flex items-center gap-2">
                         <div className="flex items-center gap-1 bg-black/50 backdrop-blur-sm rounded-full px-2 py-1">
-                          <Star size={14} className="fill-red-500 text-red-500" />
+                          <StarIcon className="w-3.5 h-3.5 fill-red-500 text-red-500" />
                           <span className="text-white font-semibold text-sm">{pick.rating}</span>
                         </div>
                         <h3 
@@ -668,7 +668,7 @@ export function HomeFeed({ onShowUserProfile, onShowRestaurantProfile, onShowLea
           <div className="flex items-center justify-between mb-4">
             <h2 className="text-xl font-bold nav-rum-raisin">Food Events</h2>
             <Button variant="ghost" size="icon" onClick={onShowEventsPage}>
-              <ArrowRight size={20} />
+              <ArrowRightIcon className="w-5 h-5" />
             </Button>
           </div>
           <HorizontalCarousel 
@@ -687,13 +687,13 @@ export function HomeFeed({ onShowUserProfile, onShowRestaurantProfile, onShowLea
                   <div className="p-4">
                     <h3 className="font-bold mb-2">{event.title}</h3>
                     <div className="flex items-center gap-2 mb-1">
-                      <CalendarBlank size={14} className="text-muted-foreground" />
+                      <CalendarIcon className="w-3.5 h-3.5 text-muted-foreground" />
                       <span className="text-sm text-muted-foreground">{event.date}</span>
-                      <Clock size={14} className="text-muted-foreground" />
+                      <ClockIcon className="w-3.5 h-3.5 text-muted-foreground" />
                       <span className="text-sm text-muted-foreground">{event.time}</span>
                     </div>
                     <div className="flex items-center gap-1 mb-3">
-                      <MapPin size={14} className="text-muted-foreground" />
+                      <MapPinIcon className="w-3.5 h-3.5 text-muted-foreground" />
                       <span className="text-sm text-muted-foreground">{event.location}</span>
                     </div>
                     <div className="flex gap-2">
@@ -716,7 +716,7 @@ export function HomeFeed({ onShowUserProfile, onShowRestaurantProfile, onShowLea
           <div className="flex items-center justify-between mb-4">
             <h2 className="text-xl font-bold nav-rum-raisin">Guides</h2>
             <Button variant="ghost" size="icon" onClick={onShowGuidePage}>
-              <ArrowRight size={20} />
+              <ArrowRightIcon className="w-5 h-5" />
             </Button>
           </div>
           <HorizontalCarousel 
@@ -736,7 +736,7 @@ export function HomeFeed({ onShowUserProfile, onShowRestaurantProfile, onShowLea
                     <h3 className="font-bold mb-2">{guide.title}</h3>
                     <p className="text-sm text-muted-foreground mb-2">by {guide.author}</p>
                     <div className="flex items-center gap-1">
-                      <MapPin size={14} className="text-muted-foreground" />
+                      <MapPinIcon className="w-3.5 h-3.5 text-muted-foreground" />
                       <span className="text-sm text-muted-foreground">{guide.spots} spots</span>
                     </div>
                   </div>

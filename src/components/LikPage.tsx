@@ -8,28 +8,28 @@ import { ProfileDropdown } from '@/components/ProfileDropdown';
 import { BountyCardModal } from '@/components/BountyCardModal';
 import { QuestCardModal } from '@/components/QuestCardModal';
 import { 
-  Flame, 
-  Ticket, 
-  Coins, 
-  ChartBar, 
-  Gift, 
-  MagnifyingGlass,
-  MapPin,
-  Clock,
-  Star,
-  Users,
-  ForkKnife,
-  Timer,
-  Lightning,
-  Trophy,
-  Crown,
-  Confetti,
-  Target,
-  Sword,
-  Shield,
-  Sparkle,
-  RotateCcw
-} from '@phosphor-icons/react';
+  FireIcon, 
+  DocumentIcon as TicketIcon, 
+  CurrencyDollarIcon as CoinsIcon, 
+  ChartBarIcon, 
+  GiftIcon, 
+  MagnifyingGlassIcon,
+  MapPinIcon,
+  ClockIcon,
+  StarIcon,
+  UsersIcon,
+  SparklesIcon as ForkKnifeIcon,
+  ClockIcon as TimerIcon,
+  BoltIcon as LightningIcon,
+  TrophyIcon,
+  StarIcon as CrownIcon,
+  GiftIcon as ConfettiIcon,
+  StarIcon as TargetIcon,
+  StarIcon as SwordIcon,
+  ShieldCheckIcon,
+  SparklesIcon,
+  ArrowPathIcon as RotateCcwIcon
+} from '@heroicons/react/24/outline';
 import { cn } from '@/lib/utils';
 import { UserProgress, Bounty, Quest } from '@/lib/types';
 
