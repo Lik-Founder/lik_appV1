@@ -6,7 +6,7 @@ import {
   ChevronDownIcon, 
   StarIcon, 
   HeartIcon, 
-  TrendingUpIcon, 
+  ArrowTrendingUpIcon, 
   ChevronRightIcon, 
   FunnelIcon, 
   ArrowPathIcon 
@@ -571,7 +571,7 @@ function LeaderboardCard({
                   </div>
                   {item.reviews && (
                     <div className="hidden sm:flex items-center gap-1 text-pink-600 text-xs font-medium bg-white/80 px-2 py-1 rounded-full shadow-sm">
-                      <TrendingUpIcon className="w-3 h-3" />
+                      <ArrowTrendingUpIcon className="w-3 h-3" />
                       {item.reviews >= 1000 
                         ? `${(item.reviews / 1000).toFixed(1)}K`
                         : item.reviews

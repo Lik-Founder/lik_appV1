@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { ArrowLeftIcon, MicrophoneIcon, QrCodeIcon, ArrowPathIcon, TrendingUpIcon, UsersIcon, VideoCameraIcon, ClockIcon, MagnifyingGlassIcon } from '@heroicons/react/24/outline';
+import { ArrowLeftIcon, MicrophoneIcon, QrCodeIcon, ArrowPathIcon, ArrowTrendingUpIcon, UsersIcon, VideoCameraIcon, ClockIcon, MagnifyingGlassIcon } from '@heroicons/react/24/outline';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { cn } from '@/lib/utils';
@@ -287,7 +287,7 @@ export function TrendingSearchPage({
                       {suggestion.text}
                     </div>
                     <div className="flex items-center gap-2 text-sm text-muted-foreground ml-auto">
-                      <TrendingUpIcon className={cn("w-3 h-3 transition-colors", getTrendColor(suggestion.trend))} />
+                      <ArrowTrendingUpIcon className={cn("w-3 h-3 transition-colors", getTrendColor(suggestion.trend))} />
                       <span className={cn("text-xs font-medium", getTrendColor(suggestion.trend))}>
                         {suggestion.trend === 'hot' ? 'Trending' : 
                          suggestion.trend === 'gaining' ? 'Trending' : 'Trending'}

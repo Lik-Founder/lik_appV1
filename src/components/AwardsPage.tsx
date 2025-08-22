@@ -10,7 +10,7 @@ import {
   TrophyIcon as Trophy,
   ShareIcon as Share,
   StarIcon as Star,
-  TrendingUpIcon as TrendUp,
+  ArrowTrendingUpIcon as TrendUp,
   TrendingDownIcon as TrendDown,
   CalendarIcon as Calendar,
   MapPinIcon as MapPin,

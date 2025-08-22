@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { CalendarIcon as Calendar, ClockIcon as Clock, UsersIcon as Users, StarIcon as Star, TrendingUpIcon as TrendingUp, FireIcon as Fire, TrophyIcon as Award } from '@heroicons/react/24/outline';
+import { CalendarIcon as Calendar, ClockIcon as Clock, UsersIcon as Users, StarIcon as Star, ArrowTrendingUpIcon as TrendingUp, FireIcon as Fire, TrophyIcon as Award } from '@heroicons/react/24/outline';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 

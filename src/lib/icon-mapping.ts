@@ -80,8 +80,8 @@ export const ICON_MAPPING = {
   'VolumeHigh': 'SpeakerWaveIcon',
   
   // Trend and progress
-  'TrendingUp': 'TrendingUpIcon',
-  'TrendUp': 'TrendingUpIcon',
+  'TrendingUp': 'ArrowTrendingUpIcon',
+  'TrendUp': 'ArrowTrendingUpIcon',
   'BarChart3': 'ChartBarIcon',
   'CircleNotch': 'ArrowPathIcon', // Loading spinner equivalent
   
