@@ -92,7 +92,7 @@ export function CreatePostModal({ open, onOpenChange }: CreatePostModalProps) {
           <Card>
             <CardHeader className="pb-4">
               <CardTitle className="flex items-center gap-2 text-base">
-                <Camera size={20} />
+                <Camera className="w-5 h-5" />
                 Select Photo
               </CardTitle>
             </CardHeader>
@@ -110,12 +110,12 @@ export function CreatePostModal({ open, onOpenChange }: CreatePostModalProps) {
                     onClick={() => setSelectedImage('')}
                     className="absolute top-2 right-2"
                   >
-                    <X size={16} />
+                    <X className="w-4 h-4" />
                   </Button>
                 </div>
               ) : (
                 <div className="border-2 border-dashed border-muted-foreground/25 rounded-lg p-6 text-center">
-                  <ImageIcon size={32} className="mx-auto mb-2 text-muted-foreground" />
+                  <ImageIcon className="w-8 h-8 mx-auto mb-2 text-muted-foreground" />
                   <p className="text-sm text-muted-foreground mb-3">Select a photo to share</p>
                 </div>
               )}

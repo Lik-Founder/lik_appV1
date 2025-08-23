@@ -416,7 +416,7 @@ export function CommentModal({ isOpen, onClose, postId, postAuthor, deviceType, 
                       sortFilter === 'mostLiked' && "bg-muted"
                     )}
                   >
-                    <ThumbsUp size={16} />
+                    <HandThumbUpIcon className="w-4 h-4" />
                     <span>Most Liked</span>
                   </DropdownMenuItem>
                   <DropdownMenuItem
@@ -429,7 +429,7 @@ export function CommentModal({ isOpen, onClose, postId, postAuthor, deviceType, 
                       sortFilter === 'newest' && "bg-muted"
                     )}
                   >
-                    <Clock size={16} />
+                    <ClockIcon className="w-4 h-4" />
                     <span>Newest First</span>
                   </DropdownMenuItem>
                   <DropdownMenuItem
@@ -442,7 +442,7 @@ export function CommentModal({ isOpen, onClose, postId, postAuthor, deviceType, 
                       sortFilter === 'oldest' && "bg-muted"
                     )}
                   >
-                    <Clock size={16} className="rotate-180" />
+                    <ClockIcon className="w-4 h-4 rotate-180" />
                     <span>Oldest First</span>
                   </DropdownMenuItem>
                 </DropdownMenuContent>
@@ -454,7 +454,7 @@ export function CommentModal({ isOpen, onClose, postId, postAuthor, deviceType, 
                 onClick={onClose}
                 className="touch-target"
               >
-                <X size={iconSize} />
+                <XMarkIcon style={{ width: iconSize, height: iconSize }} />
               </Button>
             </div>
           </div>
@@ -481,7 +481,7 @@ export function CommentModal({ isOpen, onClose, postId, postAuthor, deviceType, 
           )}>
             {threadedComments.length === 0 ? (
               <div className="text-center py-12">
-                <MessageCircle size={48} className="mx-auto text-muted-foreground mb-4" />
+                <ChatBubbleOvalLeftIcon className="w-12 h-12 mx-auto text-muted-foreground mb-4" />
                 <p className="text-muted-foreground text-sm mb-2">
                   No comments yet
                 </p>
@@ -530,7 +530,7 @@ export function CommentModal({ isOpen, onClose, postId, postAuthor, deviceType, 
         <div className="border-t border-border p-4 bg-background">
           {replyingTo && (
             <div className="flex items-center gap-2 mb-2 px-3 py-2 bg-muted rounded-lg">
-              <ArrowBendUpLeft size={14} className="text-muted-foreground" />
+              <ArrowUturnLeftIcon className="w-3.5 h-3.5 text-muted-foreground" />
               <span className="text-sm text-muted-foreground">
                 Replying to @{getReplyingToUsername()}
               </span>
@@ -538,7 +538,7 @@ export function CommentModal({ isOpen, onClose, postId, postAuthor, deviceType, 
                 onClick={cancelReply}
                 className="ml-auto text-muted-foreground hover:text-foreground"
               >
-                <X size={14} />
+                <XMarkIcon className="w-3.5 h-3.5" />
               </button>
             </div>
           )}

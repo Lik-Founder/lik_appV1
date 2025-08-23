@@ -292,7 +292,7 @@ export function RestaurantProfile({ restaurantId, onBack }: RestaurantProfilePro
             size="sm"
             className="bg-black/50 hover:bg-black/70 text-white h-10 w-10 p-0 rounded-full backdrop-blur-sm"
           >
-            <ArrowLeft size={18} />
+            <ArrowLeftIcon className="w-[18px] h-[18px]" />
           </Button>
           
           <div className="flex items-center gap-2">
@@ -302,7 +302,7 @@ export function RestaurantProfile({ restaurantId, onBack }: RestaurantProfilePro
               size="sm"
               className="bg-black/50 hover:bg-black/70 text-white h-10 w-10 p-0 rounded-full backdrop-blur-sm"
             >
-              <Store size={18} />
+              <BuildingStorefrontIcon className="w-[18px] h-[18px]" />
             </Button>
             <Button
               onClick={handleShowAwards}
@@ -310,7 +310,7 @@ export function RestaurantProfile({ restaurantId, onBack }: RestaurantProfilePro
               size="sm"
               className="bg-black/50 hover:bg-black/70 text-white h-10 w-10 p-0 rounded-full backdrop-blur-sm"
             >
-              <Trophy size={18} />
+              <Trophy className="w-[18px] h-[18px]" />
             </Button>
             <Button
               onClick={handleShare}
@@ -318,7 +318,7 @@ export function RestaurantProfile({ restaurantId, onBack }: RestaurantProfilePro
               size="sm"
               className="bg-black/50 hover:bg-black/70 text-white h-10 w-10 p-0 rounded-full backdrop-blur-sm"
             >
-              <Share size={18} />
+              <Share className="w-[18px] h-[18px]" />
             </Button>
           </div>
         </div>
@@ -378,11 +378,11 @@ export function RestaurantProfile({ restaurantId, onBack }: RestaurantProfilePro
             {/* Quick Stats */}
             <div className="flex items-center gap-6 mt-3 text-sm text-muted-foreground">
               <div className="flex items-center gap-1">
-                <Eye size={16} />
+                <Eye className="w-4 h-4" />
                 <span>{restaurant.views.toLocaleString()}</span>
               </div>
               <div className="flex items-center gap-1">
-                <Heart size={16} />
+                <Heart className="w-4 h-4" />
                 <span>{restaurant.likes.toLocaleString()}</span>
               </div>
               <div className="flex items-center gap-1">
@@ -393,7 +393,7 @@ export function RestaurantProfile({ restaurantId, onBack }: RestaurantProfilePro
 
             {/* Location */}
             <div className="flex items-center gap-1 mt-2 text-sm text-muted-foreground">
-              <MapPin size={16} />
+              <MapPin className="w-4 h-4" />
               <span>{restaurant.location}</span>
             </div>
 
@@ -605,7 +605,7 @@ function ReviewsSection({ reviews, onLikeReview, padding }: ReviewsSectionProps)
                 </div>
               </div>
               <Button variant="ghost" size="sm" className="h-8 w-8 p-0">
-                <MoreHorizontal size={16} />
+                <EllipsisHorizontalIcon className="w-4 h-4" />
               </Button>
             </div>
 
@@ -622,7 +622,7 @@ function ReviewsSection({ reviews, onLikeReview, padding }: ReviewsSectionProps)
             {/* Bottom Actions */}
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-1 text-sm text-muted-foreground">
-                <MapPin size={12} />
+                <MapPin className="w-3 h-3" />
                 <span>{review.location}</span>
               </div>
               
@@ -651,9 +651,8 @@ function ReviewsSection({ reviews, onLikeReview, padding }: ReviewsSectionProps)
                   className="h-8 p-2"
                 >
                   <Heart
-                    size={16}
                     className={cn(
-                      "transition-colors",
+                      "w-4 h-4 transition-colors",
                       review.isLiked ? "text-red-500 fill-current" : "text-muted-foreground"
                     )}
                   />
@@ -739,9 +738,8 @@ function PostsSection({ posts, onLikePost, padding }: PostsSectionProps) {
                   className="h-8 p-2 flex items-center gap-1"
                 >
                   <Heart
-                    size={16}
                     className={cn(
-                      "transition-colors",
+                      "w-4 h-4 transition-colors",
                       post.isLiked ? "text-red-500 fill-current" : "text-muted-foreground"
                     )}
                   />
@@ -749,7 +747,7 @@ function PostsSection({ posts, onLikePost, padding }: PostsSectionProps) {
                 </Button>
                 
                 <div className="flex items-center gap-1 text-sm text-muted-foreground">
-                  <MessageCircle size={16} />
+                  <ChatBubbleLeftIcon className="w-4 h-4" />
                   <span>{post.comments}</span>
                 </div>
               </div>
@@ -849,8 +847,8 @@ function GallerySection({ images, onLikeImage, onImageClick, padding }: GalleryS
                   </Badge>
                   <div className="flex items-center gap-1 text-white">
                     <Heart 
-                      size={14} 
                       className={cn(
+                        "w-3.5 h-3.5",
                         image.isLiked ? "fill-current text-red-400" : ""
                       )}
                     />
@@ -900,7 +898,7 @@ function ImageViewer({ images, currentIndex, onClose, onNavigate, onLike }: Imag
             size="sm"
             className="text-white hover:bg-white/20 h-10 w-10 p-0 rounded-full"
           >
-            <X size={20} />
+            <XMarkIcon className="w-5 h-5" />
           </Button>
           
           <div className="text-center text-white">
@@ -916,8 +914,8 @@ function ImageViewer({ images, currentIndex, onClose, onNavigate, onLike }: Imag
             className="text-white hover:bg-white/20 h-10 w-10 p-0 rounded-full"
           >
             <Heart 
-              size={20} 
               className={cn(
+                "w-5 h-5",
                 currentImage.isLiked ? "fill-current text-red-400" : ""
               )}
             />
@@ -942,7 +940,7 @@ function ImageViewer({ images, currentIndex, onClose, onNavigate, onLike }: Imag
               size="lg"
               className="absolute left-4 top-1/2 -translate-y-1/2 text-white hover:bg-white/20 h-12 w-12 p-0 rounded-full"
             >
-              <ArrowLeft size={24} />
+              <ArrowLeftIcon className="w-6 h-6" />
             </Button>
             
             <Button
@@ -951,7 +949,7 @@ function ImageViewer({ images, currentIndex, onClose, onNavigate, onLike }: Imag
               size="lg"
               className="absolute right-4 top-1/2 -translate-y-1/2 text-white hover:bg-white/20 h-12 w-12 p-0 rounded-full"
             >
-              <ArrowRight size={24} />
+              <ArrowRightIcon className="w-6 h-6" />
             </Button>
           </>
         )}
@@ -966,7 +964,7 @@ function ImageViewer({ images, currentIndex, onClose, onNavigate, onLike }: Imag
               {currentImage.category}
             </Badge>
             <div className="flex items-center gap-1">
-              <Heart size={14} />
+              <Heart className="w-3.5 h-3.5" />
               <span>{currentImage.likes} likes</span>
             </div>
             <span>{new Date(currentImage.timestamp).toLocaleDateString()}</span>
@@ -1476,7 +1474,7 @@ function RestaurantDeliveryPage({ restaurantId, restaurant, onBack }: Restaurant
             size="sm"
             className="h-10 w-10 p-0 rounded-full"
           >
-            <ArrowLeft size={18} />
+            <ArrowLeftIcon className="w-[18px] h-[18px]" />
           </Button>
           
           <div className="text-center">

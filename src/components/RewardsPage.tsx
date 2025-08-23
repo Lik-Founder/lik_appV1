@@ -234,7 +234,7 @@ export function RewardsPage({ onBack }: RewardsPageProps) {
                     : "bg-white/70 text-gray-600 hover:bg-white/90"
                 )}
               >
-                <IconComponent size={16} className="mr-2" />
+                <IconComponent className="w-4 h-4 mr-2" />
                 {category.name}
               </Button>
             );
@@ -247,7 +247,7 @@ export function RewardsPage({ onBack }: RewardsPageProps) {
         <div className="flex items-center gap-2 mb-4">
           {selectedCategoryData && (
             <>
-              <selectedCategoryData.icon size={20} className="text-orange-600" />
+              <selectedCategoryData.icon className="w-5 h-5 text-orange-600" />
               <h2 className="text-xl font-bold font-rum-raisin text-gray-800">
                 {selectedCategoryData.name}
               </h2>
@@ -284,7 +284,7 @@ export function RewardsPage({ onBack }: RewardsPageProps) {
                         "p-3 rounded-full bg-gradient-to-br shadow-lg",
                         rarityColors[reward.rarity as keyof typeof rarityColors]
                       )}>
-                        <IconComponent size={24} className="text-white" />
+                        <IconComponent className="w-6 h-6 text-white" />
                       </div>
                       <div>
                         <h3 className="font-bold text-lg font-rum-raisin text-gray-800">
@@ -311,7 +311,7 @@ export function RewardsPage({ onBack }: RewardsPageProps) {
                   <div className="space-y-2 mb-4">
                     {reward.redeemableAt && (
                       <div className="flex items-center gap-2 text-sm text-gray-600">
-                        <MapPin size={14} />
+                        <MapPinIcon className="w-3.5 h-3.5" />
                         <span>Available at: {reward.redeemableAt.slice(0, 2).join(', ')}</span>
                         {reward.redeemableAt.length > 2 && (
                           <span className="text-orange-600">+{reward.redeemableAt.length - 2} more</span>
@@ -321,14 +321,14 @@ export function RewardsPage({ onBack }: RewardsPageProps) {
                     
                     {reward.expiresIn && (
                       <div className="flex items-center gap-2 text-sm text-gray-600">
-                        <Clock size={14} />
+                        <ClockIcon className="w-3.5 h-3.5" />
                         <span>Expires in {reward.expiresIn}</span>
                       </div>
                     )}
 
                     {reward.duration && (
                       <div className="flex items-center gap-2 text-sm text-gray-600">
-                        <Zap size={14} />
+                        <BoltIcon className="w-3.5 h-3.5" />
                         <span>Duration: {reward.duration}</span>
                       </div>
                     )}
@@ -337,7 +337,7 @@ export function RewardsPage({ onBack }: RewardsPageProps) {
                   {/* Cost and Action */}
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-2">
-                      <Coins size={20} fill="currentColor" className="text-yellow-500" />
+                      <CoinsIcon className="w-5 h-5 text-yellow-500 fill-current" />
                       <span className="font-bold text-lg font-rum-raisin text-gray-800">
                         {reward.cost.toLocaleString()}
                       </span>
@@ -359,7 +359,7 @@ export function RewardsPage({ onBack }: RewardsPageProps) {
                               disabled={!canAfford}
                               className="rounded-full border-orange-300 text-orange-600 hover:bg-orange-50"
                             >
-                              <ShoppingCart size={14} className="mr-1" />
+                              <ShoppingCartIcon className="w-3.5 h-3.5 mr-1" />
                               Add
                             </Button>
                           ) : (
@@ -368,7 +368,7 @@ export function RewardsPage({ onBack }: RewardsPageProps) {
                               variant="outline"
                               className="rounded-full border-green-300 text-green-600 bg-green-50"
                             >
-                              <Check size={14} className="mr-1" />
+                              <CheckIcon className="w-3.5 h-3.5 mr-1" />
                               Added
                             </Button>
                           )}
@@ -384,7 +384,7 @@ export function RewardsPage({ onBack }: RewardsPageProps) {
                                 : "from-gray-300 to-gray-400 text-gray-500 cursor-not-allowed"
                             )}
                           >
-                            <Gift size={14} className="mr-1" />
+                            <GiftIcon className="w-3.5 h-3.5 mr-1" />
                             Redeem
                           </Button>
                         </>
@@ -396,7 +396,7 @@ export function RewardsPage({ onBack }: RewardsPageProps) {
                           disabled 
                           className="rounded-full bg-green-100 text-green-600 font-bold"
                         >
-                          <Check size={14} className="mr-1" />
+                          <CheckIcon className="w-3.5 h-3.5 mr-1" />
                           Redeemed
                         </Button>
                       )}
@@ -428,7 +428,7 @@ export function RewardsPage({ onBack }: RewardsPageProps) {
               
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2">
-                  <Coins size={16} fill="currentColor" className="text-yellow-500" />
+                  <CoinsIcon className="w-4 h-4 text-yellow-500 fill-current" />
                   <span className="font-medium">
                     Total: {cart.reduce((total, itemId) => {
                       const reward = rewardCategories
@@ -455,7 +455,7 @@ export function RewardsPage({ onBack }: RewardsPageProps) {
                     setCart([]);
                   }}
                 >
-                  <Gift size={14} className="mr-1" />
+                  <GiftIcon className="w-3.5 h-3.5 mr-1" />
                   Redeem All
                 </Button>
               </div>
