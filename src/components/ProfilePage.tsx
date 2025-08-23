@@ -374,7 +374,7 @@ export function ProfilePage({ onShowLeaderboard, onShowLikPassport, onShowNotifi
                   {/* Compact Search Bar */}
                   <div className="px-4 pb-3">
                     <div className="relative">
-                      <MagnifyingGlass size={16} className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500" />
+                      <MagnifyingGlassIcon className="h-4 w-4 absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500" />
                       <Input 
                         placeholder="🔍 Search posts..."
                         value={searchTerm}

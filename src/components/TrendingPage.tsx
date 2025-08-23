@@ -16,7 +16,7 @@ import {
   StarIcon as MedalIcon,
   CheckCircleIcon
 } from '@heroicons/react/24/outline';
-import { Television } from '@phosphor-icons/react';
+
 import { cn } from '@/lib/utils';
 import { useKV } from '@github/spark/hooks';
 import { UserPost, RestaurantPost, AdPost, User, Comment } from '@/lib/types';
@@ -619,10 +619,10 @@ export function TrendingPage({ onShowRestaurantProfile, onShowUserProfile, onSho
               <MapPin size={18} />
             </Button>
             <Button variant="ghost" size="sm" className="text-white p-2 hover:bg-white/10 rounded-full" onClick={onShowLikTV}>
-              <Television size={18} />
+              <TvIcon className="h-[18px] w-[18px]" />
             </Button>
             <Button variant="ghost" size="sm" className="text-white p-2 hover:bg-white/10 rounded-full" onClick={onShowSearch}>
-              <MagnifyingGlass size={18} />
+              <MagnifyingGlassIcon className="h-[18px] w-[18px]" />
             </Button>
           </div>
         </div>
