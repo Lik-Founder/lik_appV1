@@ -168,18 +168,11 @@ const getQuestModalData = (quest: Quest) => ({
 });
 
 interface LikPageProps {
-  onShowRestaurantProfile?: (restaurantId: string) => void;
-  onShowLikPassport?: () => void;
-  onShowMessagesPage?: () => void;
-  onShowNotifications?: () => void;
-  onShowBountyDetails?: (bountyId: string) => void;
-  onShowReservationManager?: () => void;
-  onShowRewards?: () => void;
-  onShowLeaderboard?: () => void;
-  onShowBountyQuestMap?: () => void;
+  onNavigate: (page: string) => void;
+  onSelectBounty: (bounty: any) => void;
 }
 
-export function LikPage({ onShowRestaurantProfile, onShowLikPassport, onShowMessagesPage, onShowNotifications, onShowBountyDetails, onShowReservationManager, onShowRewards, onShowLeaderboard, onShowBountyQuestMap }: LikPageProps) {
+export function LikPage({ onNavigate, onSelectBounty }: LikPageProps) {
   const [userProgress] = useKV('user-progress', mockUserProgress);
   const [bounties] = useKV('bounties', mockBounties);
   const [quests] = useKV('quests', mockQuests);
@@ -213,16 +206,16 @@ export function LikPage({ onShowRestaurantProfile, onShowLikPassport, onShowMess
     
     switch (destination) {
       case 'passport':
-        onShowLikPassport?.();
+        onNavigate('lik-passport');
         break;
       case 'reservations':
-        onShowReservationManager?.();
+        onNavigate('reservation-manager');
         break;
       case 'messages':
-        onShowMessagesPage?.();
+        onNavigate('messages');
         break;
       case 'notifications':
-        onShowNotifications?.();
+        onNavigate('notifications');
         break;
       default:
         console.log('Navigate to:', destination);
@@ -357,7 +350,7 @@ export function LikPage({ onShowRestaurantProfile, onShowLikPassport, onShowMess
               <Button 
                 variant="ghost" 
                 size="sm" 
-                onClick={() => onShowLeaderboard?.()}
+                onClick={() => onNavigate('leaderboard')}
                 className="relative bg-white/60 hover:bg-white/80 backdrop-blur-sm rounded-full p-2 sm:p-3 shadow-[0_0_12px_rgba(255,165,0,0.3)] border border-orange-500/20 transition-all duration-300 hover:shadow-[0_0_20px_rgba(255,165,0,0.5)] hover:scale-105"
               >
                 <TrophyIcon className="w-4 h-4 text-red-600 drop-shadow-sm" />
@@ -415,7 +408,7 @@ export function LikPage({ onShowRestaurantProfile, onShowLikPassport, onShowMess
               <Button 
                 variant="ghost" 
                 size="sm" 
-                onClick={() => onShowRewards?.()}
+                onClick={() => onNavigate('rewards')}
                 className="relative bg-white/60 hover:bg-white/80 backdrop-blur-sm rounded-full p-2 sm:p-3 shadow-[0_0_12px_rgba(245,158,11,0.3)] border border-amber-500/20 transition-all duration-300 hover:shadow-[0_0_20px_rgba(245,158,11,0.5)] hover:scale-105"
               >
                 <GiftIcon className="w-4 h-4 text-red-600 drop-shadow-sm" />
@@ -508,7 +501,6 @@ export function LikPage({ onShowRestaurantProfile, onShowLikPassport, onShowMess
         {activeView === 'bounties' ? (
           <BountiesView 
             bounties={bounties} 
-            onShowRestaurantProfile={onShowRestaurantProfile} 
             onBountyClick={(bounty) => setSelectedBounty(getBountyModalData(bounty))}
           />
         ) : (
@@ -533,7 +525,7 @@ export function LikPage({ onShowRestaurantProfile, onShowLikPassport, onShowMess
           <Button 
             size="sm" 
             className="glossy-red-pill relative px-4 sm:px-6 py-2 sm:py-3 rounded-full text-sm sm:text-base shadow-[0_0_24px_rgba(255,165,0,0.6)] hover:shadow-[0_0_32px_rgba(255,165,0,0.8)] transition-all duration-300 hover:scale-110"
-            onClick={onShowBountyQuestMap}
+            onClick={() => onNavigate('bounty-quest-map')}
           >
             <MapPin className="w-3.5 h-3.5 mr-1 sm:mr-2 text-white drop-shadow-sm" />
             <span className="font-bold hidden xs:inline text-white">Explore Map</span>
@@ -564,10 +556,6 @@ export function LikPage({ onShowRestaurantProfile, onShowLikPassport, onShowMess
             console.log('Accepted bounty:', selectedBounty.id);
             setSelectedBounty(null);
           }}
-          onShowRestaurantProfile={(restaurantId) => {
-            setSelectedBounty(null);
-            onShowRestaurantProfile?.(restaurantId);
-          }}
         />
       )}
 
@@ -581,19 +569,14 @@ export function LikPage({ onShowRestaurantProfile, onShowLikPassport, onShowMess
             console.log('Accepted quest:', selectedQuest.id);
             setSelectedQuest(null);
           }}
-          onShowRestaurantProfile={(restaurantId) => {
-            setSelectedQuest(null);
-            onShowRestaurantProfile?.(restaurantId);
-          }}
         />
       )}
     </div>
   );
 }
 
-function BountiesView({ bounties, onShowRestaurantProfile, onBountyClick }: { 
+function BountiesView({ bounties, onBountyClick }: { 
   bounties: Bounty[], 
-  onShowRestaurantProfile?: (restaurantId: string) => void,
   onBountyClick?: (bounty: Bounty) => void 
 }) {
   const [flippedCards, setFlippedCards] = useState<Set<string>>(new Set());
@@ -730,7 +713,7 @@ function BountiesView({ bounties, onShowRestaurantProfile, onBountyClick }: {
                         className="text-sm sm:text-base opacity-90 cursor-pointer hover:underline mb-3 line-clamp-1 font-medium"
                         onClick={(e) => {
                           e.stopPropagation();
-                          onShowRestaurantProfile?.(bounty.restaurantId);
+                          // Restaurant profile navigation removed
                         }}
                       >
                         {bounty.restaurantName}
@@ -856,7 +839,7 @@ function BountiesView({ bounties, onShowRestaurantProfile, onBountyClick }: {
               
               <div 
                 className="relative h-40 sm:h-48 cursor-pointer group"
-                onClick={() => onShowBountyDetails?.(bounty.id)}
+                onClick={() => onBountyClick?.(bounty)}
               >
                 {/* Front Side */}
                 <div className="absolute inset-0 backface-hidden">
@@ -897,7 +880,7 @@ function BountiesView({ bounties, onShowRestaurantProfile, onBountyClick }: {
                         className="text-xs sm:text-sm opacity-90 cursor-pointer hover:underline mb-2 line-clamp-1"
                         onClick={(e) => {
                           e.stopPropagation();
-                          onShowRestaurantProfile?.(bounty.restaurantId);
+                          // Restaurant profile navigation removed
                         }}
                       >
                         {bounty.restaurantName}

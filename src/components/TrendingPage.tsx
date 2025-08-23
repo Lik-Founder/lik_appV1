@@ -201,15 +201,12 @@ const mockContent: (UserPost | RestaurantPost | AdPost)[] = [
 ];
 
 interface TrendingPageProps {
-  onShowRestaurantProfile?: (restaurantId: string) => void;
-  onShowUserProfile?: (userId: string) => void;
-  onShowSearch?: () => void;
-  onShowLeaderboard?: () => void;
-  onShowLikTV?: () => void;
-  onShowMap?: () => void;
+  onNavigate: (page: string) => void;
+  onSelectUser: (userId: string) => void;
+  onSelectRestaurant: (restaurantId: string) => void;
 }
 
-export function TrendingPage({ onShowRestaurantProfile, onShowUserProfile, onShowSearch, onShowLeaderboard, onShowLikTV, onShowMap }: TrendingPageProps) {
+export function TrendingPage({ onNavigate, onSelectUser, onSelectRestaurant }: TrendingPageProps) {
   const [activeTab, setActiveTab] = useState<'following' | 'trending' | 'foryou'>('trending');
   const [currentIndex, setCurrentIndex] = useState(0);
   const [content, setContent] = useKV('trending-content', mockContent);
@@ -336,13 +333,13 @@ export function TrendingPage({ onShowRestaurantProfile, onShowUserProfile, onSho
               variant="xp-ring"
               level={post.user.level}
               xpProgress={0.75}
-              onClick={() => onShowUserProfile?.(post.user.id)}
+              onClick={() => onSelectUser?.(post.user.id)}
             />
             <div className="flex-1 min-w-0">
               <div className="flex items-center gap-2">
                 <span 
                   className="text-white font-semibold text-sm font-rum-raisin cursor-pointer hover:underline truncate" 
-                  onClick={() => onShowUserProfile?.(post.user.id)}
+                  onClick={() => onSelectUser?.(post.user.id)}
                 >
                   {post.user.displayName}
                 </span>
@@ -359,7 +356,7 @@ export function TrendingPage({ onShowRestaurantProfile, onShowUserProfile, onSho
               <div className="flex items-center gap-1 text-white/90 text-xs mt-1">
                 <span 
                   className="cursor-pointer hover:underline font-rum-raisin" 
-                  onClick={() => onShowRestaurantProfile?.(post.restaurant.id)}
+                  onClick={() => onSelectRestaurant?.(post.restaurant.id)}
                 >
                   {post.restaurant.name}
                 </span>
@@ -430,7 +427,7 @@ export function TrendingPage({ onShowRestaurantProfile, onShowUserProfile, onSho
                 fallback={post.restaurant.name[0]}
                 size="sm"
                 variant="default"
-                onClick={() => onShowRestaurantProfile?.(post.restaurant.id)}
+                onClick={() => onSelectRestaurant?.(post.restaurant.id)}
               />
               <div className="absolute -bottom-1 -right-1 bg-red-600 rounded-full px-2 py-0.5">
                 <div className="flex items-center gap-1">
@@ -443,7 +440,7 @@ export function TrendingPage({ onShowRestaurantProfile, onShowUserProfile, onSho
               <div className="flex items-center gap-2">
                 <span 
                   className="text-white font-semibold text-sm font-rum-raisin cursor-pointer hover:underline truncate" 
-                  onClick={() => onShowRestaurantProfile?.(post.restaurant.id)}
+                  onClick={() => onSelectRestaurant?.(post.restaurant.id)}
                 >
                   {post.restaurant.name}
                 </span>
@@ -520,13 +517,13 @@ export function TrendingPage({ onShowRestaurantProfile, onShowUserProfile, onSho
               fallback={post.restaurant.name[0]}
               size="sm"
               variant="default"
-              onClick={() => onShowRestaurantProfile?.(post.restaurant.id)}
+              onClick={() => onSelectRestaurant?.(post.restaurant.id)}
             />
             <div className="flex-1 min-w-0">
               <div className="flex items-center gap-2">
                 <span 
                   className="text-white font-semibold text-sm font-rum-raisin cursor-pointer hover:underline truncate" 
-                  onClick={() => onShowRestaurantProfile?.(post.restaurant.id)}
+                  onClick={() => onSelectRestaurant?.(post.restaurant.id)}
                 >
                   {post.restaurant.name}
                 </span>
@@ -616,13 +613,13 @@ export function TrendingPage({ onShowRestaurantProfile, onShowUserProfile, onSho
           
           {/* Right icons */}
           <div className="flex items-center gap-2">
-            <Button variant="ghost" size="sm" className="text-white p-2 hover:bg-white/10 rounded-full" onClick={onShowMap}>
+            <Button variant="ghost" size="sm" className="text-white p-2 hover:bg-white/10 rounded-full" onClick={() => onNavigate('map')}>
               <MapPin className="w-4.5 h-4.5" />
             </Button>
-            <Button variant="ghost" size="sm" className="text-white p-2 hover:bg-white/10 rounded-full" onClick={onShowLikTV}>
+            <Button variant="ghost" size="sm" className="text-white p-2 hover:bg-white/10 rounded-full" onClick={() => onNavigate('liktv')}>
               <TvIcon className="h-[18px] w-[18px]" />
             </Button>
-            <Button variant="ghost" size="sm" className="text-white p-2 hover:bg-white/10 rounded-full" onClick={onShowSearch}>
+            <Button variant="ghost" size="sm" className="text-white p-2 hover:bg-white/10 rounded-full" onClick={() => onNavigate('trending-search')}>
               <MagnifyingGlassIcon className="h-[18px] w-[18px]" />
             </Button>
           </div>
@@ -647,7 +644,7 @@ export function TrendingPage({ onShowRestaurantProfile, onShowUserProfile, onSho
                   <Button 
                     variant="ghost" 
                     size="sm" 
-                    onClick={() => onShowLeaderboard?.()}
+                    onClick={() => onNavigate('leaderboard')}
                     className="w-11 h-11 rounded-full touch-feedback text-white bg-black/40 backdrop-blur-sm hover:bg-black/60"
                   >
                     <img 
@@ -731,7 +728,7 @@ export function TrendingPage({ onShowRestaurantProfile, onShowUserProfile, onSho
                           size="xs"
                           variant="default"
                           className="border border-white cursor-pointer hover:scale-110 transition-transform"
-                          onClick={() => onShowUserProfile?.(user.id)}
+                          onClick={() => onSelectUser?.(user.id)}
                         />
                       ))}
                       {post.likedBy.length > 2 && (
@@ -770,7 +767,7 @@ export function TrendingPage({ onShowRestaurantProfile, onShowUserProfile, onSho
           postId={selectedPostId}
           postAuthor={mockUsers[0]}
           deviceType="phone"
-          onUserClick={onShowUserProfile}
+          onUserClick={onSelectUser}
         />
       )}
     </div>

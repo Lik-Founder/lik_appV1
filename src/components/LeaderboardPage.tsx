@@ -22,8 +22,7 @@ import likLogo from '@/assets/images/Lik_Logo_Heart_1.0.png';
 
 interface LeaderboardPageProps {
   onBack: () => void;
-  onShowRestaurantProfile?: (restaurantId: string) => void;
-  onShowUserProfile?: (userId: string) => void;
+  onNavigate: (page: string) => void;
 }
 
 type TabType = 'foods' | 'restaurants' | 'likers';
@@ -391,25 +390,25 @@ function LeaderboardCard({
   item, 
   isFirst, 
   activeTab, 
-  onShowRestaurantProfile, 
-  onShowUserProfile 
+  () => {}, 
+  () => {} 
 }: { 
   item: LeaderboardItem; 
   isFirst: boolean;
   activeTab: TabType;
-  onShowRestaurantProfile?: (restaurantId: string) => void;
-  onShowUserProfile?: (userId: string) => void;
+  () => {}?: (restaurantId: string) => void;
+  () => {}?: (userId: string) => void;
 }) {
   const isTopThree = item.rank <= 3;
   const [isPressed, setIsPressed] = useState(false);
   
   const handleClick = () => {
-    if (activeTab === 'restaurants' && onShowRestaurantProfile) {
+    if (activeTab === 'restaurants' && () => {}) {
       toast.success(`Opening ${item.name} profile! 🏪✨`);
-      onShowRestaurantProfile(item.id);
-    } else if (activeTab === 'likers' && onShowUserProfile) {
+      () => {}(item.id);
+    } else if (activeTab === 'likers' && () => {}) {
       toast.success(`Opening ${item.name} profile! 👨‍🍳✨`);
-      onShowUserProfile(item.id);
+      () => {}(item.id);
     }
     // For foods tab, we could navigate to a food detail page in the future
     // For now, foods don't have a specific navigation target
@@ -604,7 +603,7 @@ function LeaderboardCard({
   );
 }
 
-export function LeaderboardPage({ onBack, onShowRestaurantProfile, onShowUserProfile }: LeaderboardPageProps) {
+export function LeaderboardPage({ onBack, onNavigate }: LeaderboardPageProps) {
   const [activeTab, setActiveTab] = useState<TabType>('restaurants');
   const [searchQuery, setSearchQuery] = useState('');
   const [sortPeriod, setSortPeriod] = useState<SortPeriod>('week');
@@ -1065,8 +1064,8 @@ export function LeaderboardPage({ onBack, onShowRestaurantProfile, onShowUserPro
                       item={item} 
                       isFirst={index === 0}
                       activeTab={activeTab}
-                      onShowRestaurantProfile={onShowRestaurantProfile}
-                      onShowUserProfile={onShowUserProfile}
+                      () => {}={() => {}}
+                      () => {}={() => {}}
                     />
                   </div>
                 ))}

@@ -26,7 +26,6 @@ import {
   GiftIcon,
   AcademicCapIcon
 } from '@heroicons/react/24/outline';
-import { CreatePostModal } from '@/components/CreatePostModal';
 import { CreateStoryModal } from '@/components/CreateStoryModal';
 import { useDevice } from '@/hooks/use-device';
 import { cn } from '@/lib/utils';
@@ -34,16 +33,12 @@ import { toast } from 'sonner';
 import bronzeRankIcon from '@/assets/images/Bronze_Rank.png';
 
 interface ProfilePageProps {
-  onShowLeaderboard?: () => void;
-  onShowLikPassport?: () => void;
-  onShowNotifications?: () => void;
-  onShowRewards?: () => void;
+  onNavigate: (page: string) => void;
 }
 
-export function ProfilePage({ onShowLeaderboard, onShowLikPassport, onShowNotifications, onShowRewards }: ProfilePageProps = {}) {
+export function ProfilePage({ onNavigate }: ProfilePageProps) {
   const [currentUser, setCurrentUser] = useKV<User>('currentUser', getCurrentUser());
   const [posts] = useKV<PostType[]>('posts', generateMockPosts());
-  const [isCreatePostOpen, setIsCreatePostOpen] = useState(false);
   const [isCreateStoryOpen, setIsCreateStoryOpen] = useState(false);
   const [activeTab, setActiveTab] = useState('posts');
   const [searchTerm, setSearchTerm] = useState('');
@@ -83,35 +78,19 @@ export function ProfilePage({ onShowLeaderboard, onShowLikPassport, onShowNotifi
   };
 
   const handleNotifications = () => {
-    if (onShowNotifications) {
-      onShowNotifications();
-    } else {
-      toast.info('Notifications coming soon!');
-    }
+    onNavigate('notifications');
   };
 
   const handlePassport = () => {
-    if (onShowLikPassport) {
-      onShowLikPassport();
-    } else {
-      toast.info('Lik Passport coming soon!');
-    }
+    onNavigate('lik-passport');
   };
 
   const handleRewards = () => {
-    if (onShowRewards) {
-      onShowRewards();
-    } else {
-      toast.info('Rewards coming soon!');
-    }
+    onNavigate('my-rewards');
   };
 
   const handleLeaderboard = () => {
-    if (onShowLeaderboard) {
-      onShowLeaderboard();
-    } else {
-      toast.info('Leaderboard coming soon!');
-    }
+    onNavigate('leaderboard');
   };
 
   const handleShareProfile = () => {
@@ -401,7 +380,7 @@ export function ProfilePage({ onShowLeaderboard, onShowLikPassport, onShowNotifi
                           <p className="text-sm text-gray-600 mb-6 nav-rum-raisin">Start sharing your foodie journey!</p>
                           <Button 
                             className="bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white border-0 h-10 px-6 text-sm rounded-full shadow-lg nav-rum-raisin font-medium"
-                            onClick={() => setIsCreatePostOpen(true)}
+                            onClick={() => onNavigate('create-post')}
                           >
                             ✨ Create Post
                           </Button>
@@ -586,7 +565,7 @@ export function ProfilePage({ onShowLeaderboard, onShowLikPassport, onShowNotifi
         <Button
           size="lg"
           className="w-16 h-16 bg-gradient-to-br from-pink-500 via-purple-500 to-indigo-600 hover:from-pink-600 hover:via-purple-600 hover:to-indigo-700 text-white border-0 rounded-full shadow-xl hover:shadow-2xl transition-all duration-300"
-          onClick={() => setIsCreatePostOpen(true)}
+          onClick={() => onNavigate('create-post')}
         >
           <div className="flex flex-col items-center">
             <Plus className="w-6 h-6 mb-0.5" />
@@ -594,11 +573,6 @@ export function ProfilePage({ onShowLeaderboard, onShowLikPassport, onShowNotifi
           </div>
         </Button>
       </div>
-      {/* Create Post Modal */}
-      <CreatePostModal 
-        open={isCreatePostOpen} 
-        onOpenChange={setIsCreatePostOpen}
-      />
       {/* Create Story Modal */}
       <CreateStoryModal 
         open={isCreateStoryOpen} 

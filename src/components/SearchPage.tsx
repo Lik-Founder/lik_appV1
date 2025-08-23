@@ -75,15 +75,12 @@ interface MenuItem {
 }
 
 interface SearchPageProps {
-  onShowRestaurantProfile?: (restaurantId: string) => void;
-  onShowSwipeDiscovery?: () => void;
-  onShowLikPassport?: () => void;
-  onShowLeaderboard?: () => void;
-  onShowLikTV?: () => void;
-  onShowMessagesPage?: () => void;
+  onNavigate: (page: string) => void;
+  onSelectUser: (userId: string) => void;
+  onSelectRestaurant: (restaurantId: string) => void;
 }
 
-export function SearchPage({ onShowRestaurantProfile, onShowSwipeDiscovery, onShowLikPassport, onShowLeaderboard, onShowLikTV, onShowMessagesPage }: SearchPageProps) {
+export function SearchPage({ onNavigate, onSelectUser, onSelectRestaurant }: SearchPageProps) {
   const [searchQuery, setSearchQuery] = useState('');
   const [isDeliveryMode, setIsDeliveryMode] = useState(false);
   const [showMapView, setShowMapView] = useState(false);
@@ -222,7 +219,7 @@ export function SearchPage({ onShowRestaurantProfile, onShowSwipeDiscovery, onSh
   };
 
   const openSwipeMode = () => {
-    onShowSwipeDiscovery?.();
+    onNavigate('swipe-discovery');
   };
 
   const openFavorites = () => {
@@ -319,7 +316,7 @@ export function SearchPage({ onShowRestaurantProfile, onShowSwipeDiscovery, onSh
       <MapView
         restaurants={restaurants}
         onBack={() => setShowMapView(false)}
-        onShowRestaurantProfile={onShowRestaurantProfile}
+        onSelectRestaurant={onSelectRestaurant}
         searchQuery={searchQuery}
         onSearchChange={setSearchQuery}
       />
@@ -480,7 +477,7 @@ export function SearchPage({ onShowRestaurantProfile, onShowSwipeDiscovery, onSh
                   key={post.id}
                   post={post}
                   onLike={handleLike}
-                  onShowRestaurantProfile={onShowRestaurantProfile}
+                  onSelectRestaurant={onSelectRestaurant}
                   deviceType={device.type}
                 />
               ))}
@@ -528,7 +525,7 @@ export function SearchPage({ onShowRestaurantProfile, onShowSwipeDiscovery, onSh
         isOpen={showCart}
         onClose={handleCartClose}
         onCheckout={handleCheckoutOpen}
-        onShowRestaurantProfile={onShowRestaurantProfile}
+        onSelectRestaurant={onSelectRestaurant}
       />
       
       <Checkout
@@ -541,13 +538,13 @@ export function SearchPage({ onShowRestaurantProfile, onShowSwipeDiscovery, onSh
       <FavoritesPage
         isOpen={showFavorites}
         onClose={() => setShowFavorites(false)}
-        onShowRestaurantProfile={onShowRestaurantProfile}
+        onSelectRestaurant={onSelectRestaurant}
       />
 
       <OrderHistory
         isOpen={showOrderHistory}
         onClose={() => setShowOrderHistory(false)}
-        onShowRestaurantProfile={onShowRestaurantProfile}
+        onSelectRestaurant={onSelectRestaurant}
       />
     </div>
   );
@@ -556,11 +553,11 @@ export function SearchPage({ onShowRestaurantProfile, onShowSwipeDiscovery, onSh
 interface FoodCardProps {
   post: FoodPost;
   onLike: (postId: string) => void;
-  onShowRestaurantProfile?: (restaurantId: string) => void;
+  onSelectRestaurant?: (restaurantId: string) => void;
   deviceType: 'phone' | 'tablet';
 }
 
-function FoodCard({ post, onLike, onShowRestaurantProfile, deviceType }: FoodCardProps) {
+function FoodCard({ post, onLike, onSelectRestaurant, deviceType }: FoodCardProps) {
   // Random heights for staggered effect
   const heights = ['h-64', 'h-72', 'h-80', 'h-96', 'h-[22rem]', 'h-[26rem]'];
   const randomHeight = heights[Math.floor(Math.random() * heights.length)];
@@ -621,12 +618,12 @@ function FoodCard({ post, onLike, onShowRestaurantProfile, deviceType }: FoodCar
           <div className="flex items-center gap-3 mb-3">
             <div 
               className="w-8 h-8 bg-gradient-to-r from-orange-400 to-pink-600 rounded-full flex-shrink-0 cursor-pointer hover:scale-110 transition-transform" 
-              onClick={() => post.type === 'restaurant' && onShowRestaurantProfile?.(post.id)}
+              onClick={() => post.type === 'restaurant' && onSelectRestaurant?.(post.id)}
             />
             <div className="flex items-center gap-2 flex-1 min-w-0">
               <span 
                 className="text-white text-sm font-semibold truncate cursor-pointer hover:underline"
-                onClick={() => post.type === 'restaurant' && onShowRestaurantProfile?.(post.id)}
+                onClick={() => post.type === 'restaurant' && onSelectRestaurant?.(post.id)}
               >
                 {post.displayName}
               </span>

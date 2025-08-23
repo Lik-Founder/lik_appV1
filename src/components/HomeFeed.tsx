@@ -32,19 +32,12 @@ import ad2 from '@/assets/images/ad2.png';
 import ad3 from '@/assets/images/ad3.png';
 
 interface HomeFeedProps {
-  onShowUserProfile?: (userId: string) => void;
-  onShowRestaurantProfile?: (restaurantId: string) => void;
-  onShowLeaderboard?: () => void;
-  onShowLikTV?: () => void;
-  onShowGuidePage?: () => void;
-  onShowEventsPage?: () => void;
-  onShowMessagesPage?: () => void;
-  onShowLikPassport?: () => void;
-  onShowNotifications?: () => void;
-  onShowReservationManager?: () => void;
+  onNavigate: (page: string) => void;
+  onSelectUser: (userId: string) => void;
+  onSelectRestaurant: (restaurantId: string) => void;
 }
 
-export function HomeFeed({ onShowUserProfile, onShowRestaurantProfile, onShowLeaderboard, onShowLikTV, onShowGuidePage, onShowEventsPage, onShowMessagesPage, onShowLikPassport, onShowNotifications, onShowReservationManager }: HomeFeedProps) {
+export function HomeFeed({ onNavigate, onSelectUser, onSelectRestaurant }: HomeFeedProps) {
   const [stories, setStories] = useKV<StoryType[]>('stories', generateMockStories());
   const [users, setUsers] = useKV<User[]>('users', generateMockUsers());
   const [currentUser] = useKV<User>('currentUser', getCurrentUser());
@@ -78,26 +71,26 @@ export function HomeFeed({ onShowUserProfile, onShowRestaurantProfile, onShowLea
     
     switch (destination) {
       case 'passport':
-        onShowLikPassport?.();
+        onNavigate('lik-passport');
         break;
       case 'quests':
       case 'lik':
         // Navigate to Lik page (could add this to props if needed)
         break;
       case 'reservations':
-        onShowReservationManager?.();
+        onNavigate('reservation-manager');
         break;
       case 'leaderboard':
-        onShowLeaderboard?.();
+        onNavigate('leaderboard');
         break;
       case 'messages':
-        onShowMessagesPage?.();
+        onNavigate('messages');
         break;
       case 'liktv':
-        onShowLikTV?.();
+        onNavigate('liktv');
         break;
       case 'notifications':
-        onShowNotifications?.();
+        onNavigate('notifications');
         break;
       default:
         console.log(`Navigate to: ${destination}`);
@@ -402,13 +395,13 @@ export function HomeFeed({ onShowUserProfile, onShowRestaurantProfile, onShowLea
             <Button variant="ghost" size="icon" className="w-9 h-9">
               <PuzzlePieceIcon className="w-5 h-5" />
             </Button>
-            <Button variant="ghost" size="icon" className="w-9 h-9" onClick={onShowLikTV}>
+            <Button variant="ghost" size="icon" className="w-9 h-9" onClick={() => onNavigate('liktv')}>
               <PlayIcon className="w-5 h-5" />
             </Button>
-            <Button variant="ghost" size="icon" className="w-9 h-9" onClick={onShowMessagesPage}>
+            <Button variant="ghost" size="icon" className="w-9 h-9" onClick={() => onNavigate('messages')}>
               <ChatBubbleLeftIcon className="w-5 h-5" />
             </Button>
-            <Button variant="ghost" size="icon" className="w-9 h-9" onClick={onShowLeaderboard}>
+            <Button variant="ghost" size="icon" className="w-9 h-9" onClick={() => onNavigate('leaderboard')}>
               <span className="text-xl">🏆</span>
             </Button>
           </div>
@@ -452,7 +445,7 @@ export function HomeFeed({ onShowUserProfile, onShowRestaurantProfile, onShowLea
           users={users}
           currentUser={currentUser}
           onStoryClick={handleStoryClick}
-          onUserClick={onShowUserProfile}
+          onUserClick={onSelectUser}
           onAddStory={handleAddStory}
           deviceType={device.type}
         />
@@ -488,7 +481,7 @@ export function HomeFeed({ onShowUserProfile, onShowRestaurantProfile, onShowLea
                 <div className="flex items-center justify-between mb-2">
                   <span 
                     className="font-medium text-sm cursor-pointer hover:underline" 
-                    onClick={() => onShowUserProfile?.(review.userId)}
+                    onClick={() => onSelectUser?.(review.userId)}
                   >
                     {review.reviewer}
                   </span>
@@ -565,7 +558,7 @@ export function HomeFeed({ onShowUserProfile, onShowRestaurantProfile, onShowLea
                         </div>
                         <h3 
                           className="text-white font-bold text-lg cursor-pointer hover:underline text-shadow-lg"
-                          onClick={() => onShowRestaurantProfile?.(pick.restaurantId)}
+                          onClick={() => onSelectRestaurant?.(pick.restaurantId)}
                         >
                           {pick.restaurant}
                         </h3>
@@ -667,7 +660,7 @@ export function HomeFeed({ onShowUserProfile, onShowRestaurantProfile, onShowLea
         <div className="p-4">
           <div className="flex items-center justify-between mb-4">
             <h2 className="text-xl font-bold nav-rum-raisin">Food Events</h2>
-            <Button variant="ghost" size="icon" onClick={onShowEventsPage}>
+            <Button variant="ghost" size="icon" onClick={() => onNavigate('events')}>
               <ArrowRightIcon className="w-5 h-5" />
             </Button>
           </div>
@@ -715,7 +708,7 @@ export function HomeFeed({ onShowUserProfile, onShowRestaurantProfile, onShowLea
         <div className="p-4 pb-8">
           <div className="flex items-center justify-between mb-4">
             <h2 className="text-xl font-bold nav-rum-raisin">Guides</h2>
-            <Button variant="ghost" size="icon" onClick={onShowGuidePage}>
+            <Button variant="ghost" size="icon" onClick={() => onNavigate('guide')}>
               <ArrowRightIcon className="w-5 h-5" />
             </Button>
           </div>
