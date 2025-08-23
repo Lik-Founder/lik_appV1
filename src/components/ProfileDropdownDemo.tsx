@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import { useState, useRef } from 'react';
 import { ProfileDropdown } from '@/components/ProfileDropdown';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';

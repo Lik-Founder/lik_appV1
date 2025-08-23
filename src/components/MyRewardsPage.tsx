@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { ArrowLeftIcon, GiftIcon, TicketIcon, StarIcon, ClockIcon, MapPinIcon, CurrencyDollarIcon as CoinsIcon, HeartIcon, UsersIcon, TrophyIcon, FireIcon } from '@heroicons/react/24/outline';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';

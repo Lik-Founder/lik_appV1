@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { ArrowLeftIcon, MicrophoneIcon, QrCodeIcon, ArrowPathIcon, ArrowTrendingUpIcon, UsersIcon, VideoCameraIcon, ClockIcon, MagnifyingGlassIcon } from '@heroicons/react/24/outline';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';

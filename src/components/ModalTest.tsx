@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { BountyCardModal } from './BountyCardModal';
 import { QuestCardModal } from './QuestCardModal';
 import { Button } from './ui/button';

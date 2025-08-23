@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { CalendarIcon as Calendar, ClockIcon as Clock, UsersIcon as Users, StarIcon as Star, MapPinIcon as MapPin, PhoneIcon as Phone, CheckIcon as Check, XMarkIcon as X, ExclamationCircleIcon as AlertCircle } from '@heroicons/react/24/outline';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
