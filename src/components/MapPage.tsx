@@ -58,7 +58,7 @@ interface MapLocation {
     url: string;
     duration?: number;
   };
-  timestamp?: Date;
+  timestamp?: Date | string | number;
   isActive?: boolean;
   viewCount?: number;
   heatLevel?: number;
@@ -296,7 +296,7 @@ export function MapPage({ onBack, onShowUserProfile, onShowRestaurantProfile }: 
   // Get location icon based on type
   const getLocationIcon = (location: MapLocation) => {
     const isActive = location.isActive && location.timestamp && 
-      (Date.now() - location.timestamp.getTime()) < 24 * 60 * 60 * 1000; // 24 hours
+      (Date.now() - new Date(location.timestamp).getTime()) < 24 * 60 * 60 * 1000; // 24 hours
 
     switch (location.type) {
       case 'friend':
@@ -374,9 +374,10 @@ export function MapPage({ onBack, onShowUserProfile, onShowRestaurantProfile }: 
   };
 
   // Get time ago string
-  const getTimeAgo = (timestamp: Date) => {
+  const getTimeAgo = (timestamp: Date | string | number) => {
     const now = new Date();
-    const diff = now.getTime() - timestamp.getTime();
+    const timestampDate = new Date(timestamp);
+    const diff = now.getTime() - timestampDate.getTime();
     const minutes = Math.floor(diff / 60000);
     const hours = Math.floor(diff / 3600000);
     const days = Math.floor(diff / 86400000);
