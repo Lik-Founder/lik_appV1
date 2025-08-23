@@ -10,7 +10,7 @@ import { Input } from '@/components/ui/input';
 import { 
   HeartIcon, 
   Cog6ToothIcon, 
-  PlusIcon, 
+  PlusIcon as Plus, 
   BellIcon,
   MapPinIcon as MapPin,
   CheckCircleIcon,

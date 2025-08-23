@@ -22,7 +22,7 @@ import {
   ClockIcon,
   TruckIcon,
   BoltIcon as LightningIcon,
-  PlusIcon,
+  PlusIcon as Plus,
   MinusIcon,
   ShoppingCartIcon,
   ArrowPathIcon as ClockCounterClockwiseIcon
