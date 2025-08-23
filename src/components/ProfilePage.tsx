@@ -344,7 +344,7 @@ export function ProfilePage({ onShowLeaderboard, onShowLikPassport, onShowNotifi
                         value="posts" 
                         className="flex flex-col items-center gap-0.5 h-full rounded-lg data-[state=active]:bg-gradient-to-br data-[state=active]:from-pink-200 data-[state=active]:to-purple-200 data-[state=active]:shadow-sm nav-rum-raisin font-medium text-gray-600 data-[state=active]:text-gray-800 text-xs"
                       >
-                        <ForkKnife size={14} />
+                        <DocumentCheckIcon className="h-3.5 w-3.5" />
                         <span className="text-xs">Posts</span>
                       </TabsTrigger>
                       <TabsTrigger 

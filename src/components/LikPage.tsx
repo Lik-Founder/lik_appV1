@@ -18,7 +18,7 @@ import {
   ClockIcon,
   StarIcon,
   UsersIcon,
-  SparklesIcon as ForkKnifeIcon,
+  SparklesIcon,
   ClockIcon as TimerIcon,
   BoltIcon as LightningIcon,
   TrophyIcon,
@@ -27,7 +27,6 @@ import {
   StarIcon as TargetIcon,
   StarIcon as SwordIcon,
   ShieldCheckIcon,
-  SparklesIcon,
   ArrowPathIcon as RotateCcwIcon
 } from '@heroicons/react/24/outline';
 import { cn } from '@/lib/utils';
