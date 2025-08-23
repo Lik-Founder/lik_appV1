@@ -1,7 +1,7 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
-import { ChefHatIcon, MapPinIcon, TrophyIcon, HeartIcon, SparklesIcon, CakeIcon as UtensilsIcon, StarIcon, UsersIcon } from '@heroicons/react/24/outline';
+import { ChefHatIcon, MapPinIcon, TrophyIcon, HeartIcon, SparklesIcon, StarIcon, UsersIcon } from '@heroicons/react/24/outline';
 import LikLogo from '@/assets/images/Lik_Logo_Heart_1.0.png';
 
 interface OnboardingPageProps {
@@ -73,7 +73,7 @@ export function OnboardingPage({ onGetStarted }: OnboardingPageProps) {
           <ChefHatIcon className="w-8 h-8 text-white/20" />
         </div>
         <div className="absolute top-20 right-20 animate-float delay-1000">
-          <UtensilsIcon className="w-6 h-6 text-white/20" />
+          <ChefHatIcon className="w-6 h-6 text-white/20" />
         </div>
         <div className="absolute bottom-32 left-20 animate-float delay-2000">
           <StarIcon className="w-10 h-10 text-white/20" />

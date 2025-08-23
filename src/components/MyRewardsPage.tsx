@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ArrowLeftIcon, GiftIcon, TicketIcon, StarIcon, ClockIcon, MapPinIcon, SparklesIcon, CurrencyDollarIcon as CoinsIcon, CupIcon as CoffeeIcon, UserIcon as PizzaIcon, HeartIcon, UsersIcon, TrophyIcon, FireIcon } from '@heroicons/react/24/outline';
+import { ArrowLeftIcon, GiftIcon, TicketIcon, StarIcon, ClockIcon, MapPinIcon, SparklesIcon, CurrencyDollarIcon as CoinsIcon, HeartIcon, UsersIcon, TrophyIcon, FireIcon } from '@heroicons/react/24/outline';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Progress } from '@/components/ui/progress';

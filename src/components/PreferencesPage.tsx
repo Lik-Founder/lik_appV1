@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { CheckIcon, XMarkIcon, ChefHatIcon, CubeIcon as LeafIcon, CakeIcon as WheatIcon, CupIcon as MilkIcon, EggIcon, FishIcon, CubeIcon as NutIcon, HeartIcon, ExclamationTriangleIcon } from '@heroicons/react/24/outline';
+import { CheckIcon, XMarkIcon, ChefHatIcon, CubeIcon, HeartIcon, ExclamationTriangleIcon } from '@heroicons/react/24/outline';
 import { useAuth } from '@/contexts/AuthContext';
 import { toast } from 'sonner';
 
@@ -34,25 +34,25 @@ export function PreferencesPage({ onComplete }: PreferencesPageProps) {
   ];
 
   const diets = [
-    { id: 'vegetarian', name: 'Vegetarian', icon: <LeafIcon className="w-4 h-4" />, color: 'bg-green-100 text-green-700' },
-    { id: 'vegan', name: 'Vegan', icon: <LeafIcon className="w-4 h-4" />, color: 'bg-emerald-100 text-emerald-700' },
+    { id: 'vegetarian', name: 'Vegetarian', icon: <CubeIcon className="w-4 h-4" />, color: 'bg-green-100 text-green-700' },
+    { id: 'vegan', name: 'Vegan', icon: <CubeIcon className="w-4 h-4" />, color: 'bg-emerald-100 text-emerald-700' },
     { id: 'halal', name: 'Halal', icon: <HeartIcon className="w-4 h-4" />, color: 'bg-blue-100 text-blue-700' },
     { id: 'kosher', name: 'Kosher', icon: <HeartIcon className="w-4 h-4" />, color: 'bg-purple-100 text-purple-700' },
     { id: 'keto', name: 'Keto', icon: <ChefHatIcon className="w-4 h-4" />, color: 'bg-orange-100 text-orange-700' },
     { id: 'paleo', name: 'Paleo', icon: <ChefHatIcon className="w-4 h-4" />, color: 'bg-amber-100 text-amber-700' },
-    { id: 'gluten-free', name: 'Gluten-Free', icon: <WheatIcon className="w-4 h-4" />, color: 'bg-yellow-100 text-yellow-700' },
-    { id: 'dairy-free', name: 'Dairy-Free', icon: <MilkIcon className="w-4 h-4" />, color: 'bg-cyan-100 text-cyan-700' }
+    { id: 'gluten-free', name: 'Gluten-Free', icon: <CubeIcon className="w-4 h-4" />, color: 'bg-yellow-100 text-yellow-700' },
+    { id: 'dairy-free', name: 'Dairy-Free', icon: <CubeIcon className="w-4 h-4" />, color: 'bg-cyan-100 text-cyan-700' }
   ];
 
   const allergies = [
-    { id: 'peanuts', name: 'Peanuts', icon: <NutIcon className="w-4 h-4" />, color: 'bg-red-100 text-red-700' },
-    { id: 'tree-nuts', name: 'Tree Nuts', icon: <NutIcon className="w-4 h-4" />, color: 'bg-orange-100 text-orange-700' },
-    { id: 'shellfish', name: 'Shellfish', icon: <FishIcon className="w-4 h-4" />, color: 'bg-blue-100 text-blue-700' },
-    { id: 'fish', name: 'Fish', icon: <FishIcon className="w-4 h-4" />, color: 'bg-cyan-100 text-cyan-700' },
-    { id: 'eggs', name: 'Eggs', icon: <EggIcon className="w-4 h-4" />, color: 'bg-yellow-100 text-yellow-700' },
-    { id: 'dairy', name: 'Dairy', icon: <MilkIcon className="w-4 h-4" />, color: 'bg-purple-100 text-purple-700' },
-    { id: 'soy', name: 'Soy', icon: <LeafIcon className="w-4 h-4" />, color: 'bg-green-100 text-green-700' },
-    { id: 'wheat', name: 'Wheat/Gluten', icon: <WheatIcon className="w-4 h-4" />, color: 'bg-amber-100 text-amber-700' }
+    { id: 'peanuts', name: 'Peanuts', icon: <CubeIcon className="w-4 h-4" />, color: 'bg-red-100 text-red-700' },
+    { id: 'tree-nuts', name: 'Tree Nuts', icon: <CubeIcon className="w-4 h-4" />, color: 'bg-orange-100 text-orange-700' },
+    { id: 'shellfish', name: 'Shellfish', icon: <CubeIcon className="w-4 h-4" />, color: 'bg-blue-100 text-blue-700' },
+    { id: 'fish', name: 'Fish', icon: <CubeIcon className="w-4 h-4" />, color: 'bg-cyan-100 text-cyan-700' },
+    { id: 'eggs', name: 'Eggs', icon: <CubeIcon className="w-4 h-4" />, color: 'bg-yellow-100 text-yellow-700' },
+    { id: 'dairy', name: 'Dairy', icon: <CubeIcon className="w-4 h-4" />, color: 'bg-purple-100 text-purple-700' },
+    { id: 'soy', name: 'Soy', icon: <CubeIcon className="w-4 h-4" />, color: 'bg-green-100 text-green-700' },
+    { id: 'wheat', name: 'Wheat/Gluten', icon: <CubeIcon className="w-4 h-4" />, color: 'bg-amber-100 text-amber-700' }
   ];
 
   const steps = [
