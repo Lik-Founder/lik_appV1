@@ -1,6 +1,5 @@
 import { useState, useRef } from 'react';
-import { ChatBubbleOvalLeftIcon, EllipsisHorizontalIcon, PaperAirplaneIcon } from '@heroicons/react/24/outline';
-import { BookmarkIcon, HeartIcon, ChatBubbleLeftIcon, PaperAirplaneIcon } from '@heroicons/react/24/outline';
+import { ChatBubbleOvalLeftIcon, EllipsisHorizontalIcon, PaperAirplaneIcon, BookmarkIcon, HeartIcon, ChatBubbleLeftIcon } from '@heroicons/react/24/outline';
 import { Post as PostType, User, Comment } from '@/lib/types';
 import { DeviceType, Orientation } from '@/hooks/use-device';
 import { useSwipe } from '@/hooks/use-swipe';
