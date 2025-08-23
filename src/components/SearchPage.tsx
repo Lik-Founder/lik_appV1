@@ -25,10 +25,7 @@ import {
   PlusIcon,
   MinusIcon,
   ShoppingCartIcon,
-  ArrowPathIcon as ClockCounterClockwiseIcon,
-  EllipsisHorizontalIcon,
-  HeartIcon,
-  StarIcon
+  ArrowPathIcon as ClockCounterClockwiseIcon
 } from '@heroicons/react/24/outline';
 import { toast } from 'sonner';
 import { cn } from '@/lib/utils';

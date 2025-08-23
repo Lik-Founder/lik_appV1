@@ -24,9 +24,7 @@ import {
   DocumentCheckIcon,
   EllipsisHorizontalIcon,
   GiftIcon,
-  HeartIcon,
-  AcademicCapIcon,
-  BellIcon
+  AcademicCapIcon
 } from '@heroicons/react/24/outline';
 import { CreatePostModal } from '@/components/CreatePostModal';
 import { CreateStoryModal } from '@/components/CreateStoryModal';

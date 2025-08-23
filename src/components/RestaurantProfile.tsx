@@ -9,15 +9,25 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { AwardsPage } from '@/components/AwardsPage';
 import { ReservationSystem } from '@/components/ReservationSystem';
 import { AvailabilityWidget } from '@/components/AvailabilityWidget';
-import { ArrowLeftIcon, BuildingStorefrontIcon, TrophyIcon, ShareIcon, EllipsisHorizontalIcon, HeartIcon, EyeIcon, ChatBubbleLeftIcon, PlusIcon, CalendarIcon, PhoneIcon, PlayIcon, XMarkIcon, ArrowRightIcon, CameraIcon, PhotoIcon } from '@heroicons/react/24/outline';
 import { 
-  TrophyIcon as Trophy,
-  ShareIcon as Share,
-  HeartIcon as Heart,
-  EyeIcon as Eye,
+  ArrowLeftIcon, 
+  BuildingStorefrontIcon, 
+  TrophyIcon as Trophy, 
+  ShareIcon as Share, 
+  EllipsisHorizontalIcon, 
+  HeartIcon as Heart, 
+  EyeIcon as Eye, 
+  ChatBubbleLeftIcon, 
+  PlusIcon, 
+  CalendarIcon, 
+  PhoneIcon as Phone, 
+  PlayIcon, 
+  XMarkIcon, 
+  ArrowRightIcon, 
+  CameraIcon, 
+  PhotoIcon,
   MapPinIcon as MapPin,
   StarIcon,
-  PhoneIcon as Phone,
   ChatBubbleOvalLeftIcon
 } from '@heroicons/react/24/outline';
 import { toast } from 'sonner';
