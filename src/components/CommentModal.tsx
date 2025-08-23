@@ -1,6 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
-import { XMarkIcon, HeartIcon, ArrowUturnLeftIcon, PaperAirplaneIcon, ChatBubbleOvalLeftIcon, BarsArrowUpIcon, HandThumbUpIcon, ClockIcon } from '@heroicons/react/24/outline';
-import { PaperAirplaneIcon, ArrowsUpDownIcon } from '@heroicons/react/24/outline';
+import { XMarkIcon, HeartIcon, ArrowUturnLeftIcon, PaperAirplaneIcon, ChatBubbleOvalLeftIcon, BarsArrowUpIcon, HandThumbUpIcon, ClockIcon, ArrowsUpDownIcon } from '@heroicons/react/24/outline';
 import { Comment, User } from '@/lib/types';
 import { useKV } from '@github/spark/hooks';
 import { DeviceType } from '@/hooks/use-device';
