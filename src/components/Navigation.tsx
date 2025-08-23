@@ -16,11 +16,18 @@ import home3Icon from '@/assets/images/home_(3).png';
 interface NavigationProps {
   activeTab: TabType;
   onTabChange: (tab: TabType) => void;
-  deviceType: DeviceType;
-  orientation: Orientation;
+  deviceType?: DeviceType;
+  orientation?: Orientation;
+  className?: string;
 }
 
-export function Navigation({ activeTab, onTabChange, deviceType, orientation }: NavigationProps) {
+export function Navigation({ 
+  activeTab, 
+  onTabChange, 
+  deviceType = 'phone', 
+  orientation = 'portrait',
+  className 
+}: NavigationProps) {
   const navItems = [
     { id: 'home' as TabType, label: 'Home' },
     { id: 'search' as TabType, label: 'Explore' },
@@ -44,7 +51,8 @@ export function Navigation({ activeTab, onTabChange, deviceType, orientation }: 
       "flex items-center justify-around backdrop-blur-sm",
       "touch-target safe-bottom",
       isOnTrendingPage ? "bg-black/95" : "bg-background/95",
-      orientation === 'landscape' && deviceType === 'phone' ? "px-2 py-1" : "px-4 py-2"
+      orientation === 'landscape' && deviceType === 'phone' ? "px-2 py-1" : "px-4 py-2",
+      className
     )}>
       {navItems.map((item) => {
         const Icon = item.icon;

@@ -53,7 +53,7 @@ function App() {
     swipeDirection,
     isSwipeIndicatorVisible
   } = useTabSwipe({
-    tabs: ['home', 'explore', 'lik', 'trending', 'profile'] as TabType[],
+    tabs: ['home', 'search', 'lik', 'trending', 'profile'] as TabType[],
     onTabChange: setActiveTab,
     currentTab: activeTab
   });
@@ -112,7 +112,7 @@ function App() {
       switch (activeTab) {
         case 'home':
           return <HomeFeed onNavigate={setCurrentPage} onSelectUser={setSelectedUser} onSelectRestaurant={setSelectedRestaurant} />;
-        case 'explore':
+        case 'search':
           return <SearchPage onNavigate={setCurrentPage} onSelectUser={setSelectedUser} onSelectRestaurant={setSelectedRestaurant} />;
         case 'lik':
           return <LikPage onNavigate={setCurrentPage} onSelectBounty={setSelectedBounty} />;
