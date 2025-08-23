@@ -26,7 +26,7 @@ import { RewardsPage } from '@/components/RewardsPage';
 import { ReservationManager } from '@/components/ReservationManager';
 import { CreatePostPage } from '@/components/CreatePostPage';
 import { MapPage } from '@/components/MapPage';
-import { BountyQuestMapPage } from '@/components/BountyQuestMapPage';
+import { BountyQuestMap } from '@/components/BountyQuestMap';
 import { useDevice, useSafeArea } from '@/hooks/use-device';
 import { useTabSwipe } from '@/hooks/use-tab-swipe';
 import { Toaster } from '@/components/ui/sonner';
@@ -75,10 +75,10 @@ function App() {
   // Define renderActiveTab function
   const renderActiveTab = () => {
     try {
-      // Show Bounty Quest Map if requested
+      // Show BountyQuestMap if requested
       if (showBountyQuestMap) {
         return (
-          <BountyQuestMapPage 
+          <BountyQuestMap 
             onBack={() => setShowBountyQuestMap(false)}
             onShowUserProfile={(userId) => {
               setShowBountyQuestMap(false);
