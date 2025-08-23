@@ -26,6 +26,7 @@ import { RewardsPage } from '@/components/RewardsPage';
 import { ReservationManager } from '@/components/ReservationManager';
 import { CreatePostPage } from '@/components/CreatePostPage';
 import { MapPage } from '@/components/MapPage';
+import { BountyQuestMapPage } from '@/components/BountyQuestMapPage';
 import { useDevice, useSafeArea } from '@/hooks/use-device';
 import { useTabSwipe } from '@/hooks/use-tab-swipe';
 import { Toaster } from '@/components/ui/sonner';
@@ -53,12 +54,13 @@ function App() {
   const [showReservationManager, setShowReservationManager] = useState(false);
   const [showCreatePost, setShowCreatePost] = useState(false);
   const [showMap, setShowMap] = useState(false);
+  const [showBountyQuestMap, setShowBountyQuestMap] = useState(false);
   
   const device = useDevice();
   const safeArea = useSafeArea();
 
   // Set up swipe gestures for tab navigation (disabled when showing modals)
-  const swipeDisabled = !!(showRestaurantProfile || showUserProfile || showLeaderboard || showLikTV || showLikPassport || showGuidePage || showEventsPage || showEventDetails || showMessagesPage || showMessageThread || showTrendingSearch || showSwipeDiscovery || showNotifications || showBountyDetails || showRewards || showLikRewards || showReservationManager || showCreatePost || showMap);
+  const swipeDisabled = !!(showRestaurantProfile || showUserProfile || showLeaderboard || showLikTV || showLikPassport || showGuidePage || showEventsPage || showEventDetails || showMessagesPage || showMessageThread || showTrendingSearch || showSwipeDiscovery || showNotifications || showBountyDetails || showRewards || showLikRewards || showReservationManager || showCreatePost || showMap || showBountyQuestMap);
   
   const tabSwipeHandlers = useTabSwipe({
     activeTab,
@@ -73,6 +75,23 @@ function App() {
   // Define renderActiveTab function
   const renderActiveTab = () => {
     try {
+      // Show Bounty Quest Map if requested
+      if (showBountyQuestMap) {
+        return (
+          <BountyQuestMapPage 
+            onBack={() => setShowBountyQuestMap(false)}
+            onShowUserProfile={(userId) => {
+              setShowBountyQuestMap(false);
+              setShowUserProfile(userId);
+            }}
+            onShowRestaurantProfile={(restaurantId) => {
+              setShowBountyQuestMap(false);
+              setShowRestaurantProfile(restaurantId);
+            }}
+          />
+        );
+      }
+
       // Show Map if requested
       if (showMap) {
         return (
@@ -379,6 +398,7 @@ function App() {
               onShowReservationManager={() => setShowReservationManager(true)}
               onShowRewards={() => setShowLikRewards(true)}
               onShowLeaderboard={() => setShowLeaderboard(true)}
+              onShowBountyQuestMap={() => setShowBountyQuestMap(true)}
             />
           );
         case 'trending':
@@ -433,7 +453,7 @@ function App() {
       </div>
 
       {/* Swipe Indicator */}
-      {!showRestaurantProfile && !showUserProfile && !showLeaderboard && !showLikTV && !showLikPassport && !showGuidePage && !showEventsPage && !showEventDetails && !showMessagesPage && !showMessageThread && !showTrendingSearch && !showSwipeDiscovery && !showNotifications && !showBountyDetails && !showRewards && !showLikRewards && !showReservationManager && !showCreatePost && !showMap && (
+      {!showRestaurantProfile && !showUserProfile && !showLeaderboard && !showLikTV && !showLikPassport && !showGuidePage && !showEventsPage && !showEventDetails && !showMessagesPage && !showMessageThread && !showTrendingSearch && !showSwipeDiscovery && !showNotifications && !showBountyDetails && !showRewards && !showLikRewards && !showReservationManager && !showCreatePost && !showMap && !showBountyQuestMap && (
         <SwipeIndicator 
           activeTab={activeTab} 
           isVisible={showSwipeIndicator}
@@ -441,7 +461,7 @@ function App() {
       )}
 
       {/* Bottom Navigation */}
-      {!showRestaurantProfile && !showUserProfile && !showLeaderboard && !showLikTV && !showLikPassport && !showGuidePage && !showEventsPage && !showEventDetails && !showMessagesPage && !showMessageThread && !showTrendingSearch && !showSwipeDiscovery && !showNotifications && !showBountyDetails && !showRewards && !showLikRewards && !showReservationManager && !showCreatePost && !showMap && (
+      {!showRestaurantProfile && !showUserProfile && !showLeaderboard && !showLikTV && !showLikPassport && !showGuidePage && !showEventsPage && !showEventDetails && !showMessagesPage && !showMessageThread && !showTrendingSearch && !showSwipeDiscovery && !showNotifications && !showBountyDetails && !showRewards && !showLikRewards && !showReservationManager && !showCreatePost && !showMap && !showBountyQuestMap && (
         <div 
           className={cn(
             "border-t backdrop-blur-sm",

@@ -176,9 +176,10 @@ interface LikPageProps {
   onShowReservationManager?: () => void;
   onShowRewards?: () => void;
   onShowLeaderboard?: () => void;
+  onShowBountyQuestMap?: () => void;
 }
 
-export function LikPage({ onShowRestaurantProfile, onShowLikPassport, onShowMessagesPage, onShowNotifications, onShowBountyDetails, onShowReservationManager, onShowRewards, onShowLeaderboard }: LikPageProps) {
+export function LikPage({ onShowRestaurantProfile, onShowLikPassport, onShowMessagesPage, onShowNotifications, onShowBountyDetails, onShowReservationManager, onShowRewards, onShowLeaderboard, onShowBountyQuestMap }: LikPageProps) {
   const [userProgress] = useKV('user-progress', mockUserProgress);
   const [bounties] = useKV('bounties', mockBounties);
   const [quests] = useKV('quests', mockQuests);
@@ -585,6 +586,23 @@ export function LikPage({ onShowRestaurantProfile, onShowLikPassport, onShowMess
           }}
         />
       )}
+      
+      {/* Floating Map Button */}
+      <div className="fixed bottom-32 right-4 z-20">
+        <div className="relative">
+          <div className="absolute inset-0 bg-gradient-to-r from-[#FF7BAA] via-[#FF1A75] to-[#B30026] rounded-full blur-lg opacity-60"></div>
+          <Button 
+            size="sm"
+            onClick={() => onShowBountyQuestMap?.()}
+            className="relative glossy-red-pill w-14 h-14 rounded-full shadow-[0_0_20px_rgba(255,26,117,0.6)] hover:shadow-[0_0_28px_rgba(255,26,117,0.8)] transition-all duration-300 hover:scale-105"
+          >
+            <MapPin className="w-6 h-6 text-white drop-shadow-sm" />
+          </Button>
+          <div className="absolute -top-1 -right-1">
+            <div className="w-3 h-3 bg-gradient-to-r from-orange-500 to-red-500 rounded-full shadow-[0_0_8px_rgba(255,165,0,0.8)] animate-pulse"></div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
