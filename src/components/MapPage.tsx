@@ -34,7 +34,6 @@ import {
   HandRaisedIcon,
   TrophyIcon,
   BoltIcon,
-  BoltIcon,
   GiftIcon,
   BeakerIcon,
   MusicalNoteIcon,
