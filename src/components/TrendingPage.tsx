@@ -206,9 +206,10 @@ interface TrendingPageProps {
   onShowSearch?: () => void;
   onShowLeaderboard?: () => void;
   onShowLikTV?: () => void;
+  onShowMap?: () => void;
 }
 
-export function TrendingPage({ onShowRestaurantProfile, onShowUserProfile, onShowSearch, onShowLeaderboard, onShowLikTV }: TrendingPageProps) {
+export function TrendingPage({ onShowRestaurantProfile, onShowUserProfile, onShowSearch, onShowLeaderboard, onShowLikTV, onShowMap }: TrendingPageProps) {
   const [activeTab, setActiveTab] = useState<'following' | 'trending' | 'foryou'>('trending');
   const [currentIndex, setCurrentIndex] = useState(0);
   const [content, setContent] = useKV('trending-content', mockContent);
@@ -615,7 +616,7 @@ export function TrendingPage({ onShowRestaurantProfile, onShowUserProfile, onSho
           
           {/* Right icons */}
           <div className="flex items-center gap-2">
-            <Button variant="ghost" size="sm" className="text-white p-2 hover:bg-white/10 rounded-full">
+            <Button variant="ghost" size="sm" className="text-white p-2 hover:bg-white/10 rounded-full" onClick={onShowMap}>
               <MapPin className="w-4.5 h-4.5" />
             </Button>
             <Button variant="ghost" size="sm" className="text-white p-2 hover:bg-white/10 rounded-full" onClick={onShowLikTV}>

@@ -25,6 +25,7 @@ import { MyRewardsPage } from '@/components/MyRewardsPage';
 import { RewardsPage } from '@/components/RewardsPage';
 import { ReservationManager } from '@/components/ReservationManager';
 import { CreatePostPage } from '@/components/CreatePostPage';
+import { MapPage } from '@/components/MapPage';
 import { useDevice, useSafeArea } from '@/hooks/use-device';
 import { useTabSwipe } from '@/hooks/use-tab-swipe';
 import { Toaster } from '@/components/ui/sonner';
@@ -51,12 +52,13 @@ function App() {
   const [showLikRewards, setShowLikRewards] = useState(false);
   const [showReservationManager, setShowReservationManager] = useState(false);
   const [showCreatePost, setShowCreatePost] = useState(false);
+  const [showMap, setShowMap] = useState(false);
   
   const device = useDevice();
   const safeArea = useSafeArea();
 
   // Set up swipe gestures for tab navigation (disabled when showing modals)
-  const swipeDisabled = !!(showRestaurantProfile || showUserProfile || showLeaderboard || showLikTV || showLikPassport || showGuidePage || showEventsPage || showEventDetails || showMessagesPage || showMessageThread || showTrendingSearch || showSwipeDiscovery || showNotifications || showBountyDetails || showRewards || showLikRewards || showReservationManager || showCreatePost);
+  const swipeDisabled = !!(showRestaurantProfile || showUserProfile || showLeaderboard || showLikTV || showLikPassport || showGuidePage || showEventsPage || showEventDetails || showMessagesPage || showMessageThread || showTrendingSearch || showSwipeDiscovery || showNotifications || showBountyDetails || showRewards || showLikRewards || showReservationManager || showCreatePost || showMap);
   
   const tabSwipeHandlers = useTabSwipe({
     activeTab,
@@ -70,6 +72,23 @@ function App() {
 
   // Define renderActiveTab function
   const renderActiveTab = () => {
+    // Show Map if requested
+    if (showMap) {
+      return (
+        <MapPage 
+          onBack={() => setShowMap(false)}
+          onShowUserProfile={(userId) => {
+            setShowMap(false);
+            setShowUserProfile(userId);
+          }}
+          onShowRestaurantProfile={(restaurantId) => {
+            setShowMap(false);
+            setShowRestaurantProfile(restaurantId);
+          }}
+        />
+      );
+    }
+
     // Show Create Post Page if requested
     if (showCreatePost) {
       return (
@@ -369,6 +388,7 @@ function App() {
             onShowSearch={() => setShowTrendingSearch(true)}
             onShowLeaderboard={() => setShowLeaderboard(true)}
             onShowLikTV={() => setShowLikTV(true)}
+            onShowMap={() => setShowMap(true)}
           />
         );
       case 'profile':
@@ -395,7 +415,7 @@ function App() {
       </div>
 
       {/* Swipe Indicator */}
-      {!showRestaurantProfile && !showUserProfile && !showLeaderboard && !showLikTV && !showLikPassport && !showGuidePage && !showEventsPage && !showEventDetails && !showMessagesPage && !showMessageThread && !showTrendingSearch && !showSwipeDiscovery && !showNotifications && !showBountyDetails && !showRewards && !showLikRewards && !showReservationManager && !showCreatePost && (
+      {!showRestaurantProfile && !showUserProfile && !showLeaderboard && !showLikTV && !showLikPassport && !showGuidePage && !showEventsPage && !showEventDetails && !showMessagesPage && !showMessageThread && !showTrendingSearch && !showSwipeDiscovery && !showNotifications && !showBountyDetails && !showRewards && !showLikRewards && !showReservationManager && !showCreatePost && !showMap && (
         <SwipeIndicator 
           activeTab={activeTab} 
           isVisible={showSwipeIndicator}
@@ -403,7 +423,7 @@ function App() {
       )}
 
       {/* Bottom Navigation */}
-      {!showRestaurantProfile && !showUserProfile && !showLeaderboard && !showLikTV && !showLikPassport && !showGuidePage && !showEventsPage && !showEventDetails && !showMessagesPage && !showMessageThread && !showTrendingSearch && !showSwipeDiscovery && !showNotifications && !showBountyDetails && !showRewards && !showLikRewards && !showReservationManager && !showCreatePost && (
+      {!showRestaurantProfile && !showUserProfile && !showLeaderboard && !showLikTV && !showLikPassport && !showGuidePage && !showEventsPage && !showEventDetails && !showMessagesPage && !showMessageThread && !showTrendingSearch && !showSwipeDiscovery && !showNotifications && !showBountyDetails && !showRewards && !showLikRewards && !showReservationManager && !showCreatePost && !showMap && (
         <div 
           className={cn(
             "border-t backdrop-blur-sm",
