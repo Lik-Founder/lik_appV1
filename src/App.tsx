@@ -72,329 +72,347 @@ function App() {
 
   // Define renderActiveTab function
   const renderActiveTab = () => {
-    // Show Map if requested
-    if (showMap) {
-      return (
-        <MapPage 
-          onBack={() => setShowMap(false)}
-          onShowUserProfile={(userId) => {
-            setShowMap(false);
-            setShowUserProfile(userId);
-          }}
-          onShowRestaurantProfile={(restaurantId) => {
-            setShowMap(false);
-            setShowRestaurantProfile(restaurantId);
-          }}
-        />
-      );
-    }
-
-    // Show Create Post Page if requested
-    if (showCreatePost) {
-      return (
-        <CreatePostPage 
-          onBack={() => setShowCreatePost(false)}
-        />
-      );
-    }
-
-    // Show Reservation Manager if requested
-    if (showReservationManager) {
-      return (
-        <ReservationManager 
-          onBack={() => setShowReservationManager(false)}
-          onShowReservationSystem={(restaurantId) => {
-            setShowReservationManager(false);
-            setShowRestaurantProfile(restaurantId);
-          }}
-        />
-      );
-    }
-
-    // Show Lik Rewards if requested
-    if (showLikRewards) {
-      return (
-        <RewardsPage 
-          onBack={() => setShowLikRewards(false)}
-        />
-      );
-    }
-
-    // Show Rewards if requested
-    if (showRewards) {
-      return (
-        <MyRewardsPage 
-          onBack={() => setShowRewards(false)}
-        />
-      );
-    }
-
-    // Show Bounty Details if requested
-    if (showBountyDetails) {
-      return (
-        <BountyDetailsPage 
-          bountyId={showBountyDetails}
-          onBack={() => setShowBountyDetails(null)}
-          onShowRestaurantProfile={(restaurantId) => {
-            setShowBountyDetails(null);
-            setShowRestaurantProfile(restaurantId);
-          }}
-          onShowUserProfile={(userId) => {
-            setShowBountyDetails(null);
-            setShowUserProfile(userId);
-          }}
-        />
-      );
-    }
-
-    // Show Notifications if requested
-    if (showNotifications) {
-      return (
-        <NotificationsPage 
-          onBack={() => setShowNotifications(false)}
-        />
-      );
-    }
-
-    // Show Swipe Discovery if requested
-    if (showSwipeDiscovery) {
-      return (
-        <SwipeDiscoveryPage 
-          onBack={() => setShowSwipeDiscovery(false)}
-          onShowRestaurantProfile={(restaurantId) => {
-            setShowSwipeDiscovery(false);
-            setShowRestaurantProfile(restaurantId);
-          }}
-        />
-      );
-    }
-
-    // Show Trending Search if requested
-    if (showTrendingSearch) {
-      return (
-        <TrendingSearchPage 
-          onBack={() => setShowTrendingSearch(false)}
-          onShowUserProfile={(userId) => {
-            setShowTrendingSearch(false);
-            setShowUserProfile(userId);
-          }}
-          onShowRestaurantProfile={(restaurantId) => {
-            setShowTrendingSearch(false);
-            setShowRestaurantProfile(restaurantId);
-          }}
-          onShowVideoDetails={(videoId) => {
-            setShowTrendingSearch(false);
-            // Could add video details page navigation here
-          }}
-        />
-      );
-    }
-
-    // Show Message Thread if requested
-    if (showMessageThread) {
-      return (
-        <MessageThread 
-          chatId={showMessageThread}
-          onBack={() => setShowMessageThread(null)}
-          onShowRestaurantProfile={(restaurantId) => {
-            setShowMessageThread(null);
-            setShowRestaurantProfile(restaurantId);
-          }}
-          onShowUserProfile={(userId) => {
-            setShowMessageThread(null);
-            setShowUserProfile(userId);
-          }}
-        />
-      );
-    }
-
-    // Show Messages page if requested
-    if (showMessagesPage) {
-      return (
-        <MessagesPage 
-          onBack={() => setShowMessagesPage(false)}
-          onOpenChat={(chatId) => {
-            setShowMessagesPage(false);
-            setShowMessageThread(chatId);
-          }}
-          onShowRestaurantProfile={(restaurantId) => {
-            setShowMessagesPage(false);
-            setShowRestaurantProfile(restaurantId);
-          }}
-          onShowUserProfile={(userId) => {
-            setShowMessagesPage(false);
-            setShowUserProfile(userId);
-          }}
-        />
-      );
-    }
-
-    // Show Event Details if requested
-    if (showEventDetails) {
-      return (
-        <FoodEventPage 
-          eventId={showEventDetails}
-          onBack={() => setShowEventDetails(null)}
-          onShowRestaurantProfile={(restaurantId) => {
-            setShowEventDetails(null);
-            setShowRestaurantProfile(restaurantId);
-          }}
-          onShowUserProfile={(userId) => {
-            setShowEventDetails(null);
-            setShowUserProfile(userId);
-          }}
-        />
-      );
-    }
-
-    // Show Events page if requested
-    if (showEventsPage) {
-      return (
-        <EventsPage 
-          onBack={() => setShowEventsPage(false)}
-          onShowEventDetails={(eventId) => {
-            setShowEventsPage(false);
-            setShowEventDetails(eventId);
-          }}
-          onShowRestaurantProfile={(restaurantId) => {
-            setShowEventsPage(false);
-            setShowRestaurantProfile(restaurantId);
-          }}
-          onShowUserProfile={(userId) => {
-            setShowEventsPage(false);
-            setShowUserProfile(userId);
-          }}
-        />
-      );
-    }
-
-    // Show Guide page if requested
-    if (showGuidePage) {
-      return (
-        <GuidePage 
-          onBack={() => setShowGuidePage(false)}
-          onShowUserProfile={(userId) => {
-            setShowGuidePage(false);
-            setShowUserProfile(userId);
-          }}
-          onShowRestaurantProfile={(restaurantId) => {
-            setShowGuidePage(false);
-            setShowRestaurantProfile(restaurantId);
-          }}
-        />
-      );
-    }
-
-    // Show LikPassport if requested
-    if (showLikPassport) {
-      return (
-        <LikPassportPage 
-          onBack={() => setShowLikPassport(false)}
-        />
-      );
-    }
-
-    // Show LikTV if requested
-    if (showLikTV) {
-      return (
-        <LikTVPage 
-          onBack={() => setShowLikTV(false)}
-        />
-      );
-    }
-
-    // Show leaderboard if requested
-    if (showLeaderboard) {
-      return (
-        <LeaderboardPage 
-          onBack={() => setShowLeaderboard(false)}
-          onShowRestaurantProfile={(restaurantId) => {
-            setShowLeaderboard(false);
-            setShowRestaurantProfile(restaurantId);
-          }}
-          onShowUserProfile={(userId) => {
-            setShowLeaderboard(false);
-            setShowUserProfile(userId);
-          }}
-        />
-      );
-    }
-
-    // Show restaurant profile if requested
-    if (showRestaurantProfile) {
-      return (
-        <RestaurantProfile 
-          restaurantId={showRestaurantProfile}
-          onBack={() => setShowRestaurantProfile(null)}
-        />
-      );
-    }
-
-    // Show user profile if requested
-    if (showUserProfile) {
-      return (
-        <UserProfile 
-          userId={showUserProfile}
-          onBack={() => setShowUserProfile(null)}
-        />
-      );
-    }
-
-    switch (activeTab) {
-      case 'home':
+    try {
+      // Show Map if requested
+      if (showMap) {
         return (
-          <HomeFeed 
-            onShowUserProfile={(userId) => setShowUserProfile(userId)}
-            onShowRestaurantProfile={(restaurantId) => setShowRestaurantProfile(restaurantId)}
-            onShowLeaderboard={() => setShowLeaderboard(true)}
-            onShowLikTV={() => setShowLikTV(true)}
-            onShowGuidePage={() => setShowGuidePage(true)}
-            onShowEventsPage={() => setShowEventsPage(true)}
-            onShowMessagesPage={() => setShowMessagesPage(true)}
-            onShowLikPassport={() => setShowLikPassport(true)}
-            onShowNotifications={() => setShowNotifications(true)}
-            onShowReservationManager={() => setShowReservationManager(true)}
+          <MapPage 
+            onBack={() => setShowMap(false)}
+            onShowUserProfile={(userId) => {
+              setShowMap(false);
+              setShowUserProfile(userId);
+            }}
+            onShowRestaurantProfile={(restaurantId) => {
+              setShowMap(false);
+              setShowRestaurantProfile(restaurantId);
+            }}
           />
         );
-      case 'search':
+      }
+
+      // Show Create Post Page if requested
+      if (showCreatePost) {
         return (
-          <SearchPage 
-            onShowRestaurantProfile={(restaurantId) => setShowRestaurantProfile(restaurantId)}
-            onShowSwipeDiscovery={() => setShowSwipeDiscovery(true)}
-            onShowLikPassport={() => setShowLikPassport(true)}
-            onShowLeaderboard={() => setShowLeaderboard(true)}
-            onShowLikTV={() => setShowLikTV(true)}
-            onShowMessagesPage={() => setShowMessagesPage(true)}
+          <CreatePostPage 
+            onBack={() => setShowCreatePost(false)}
           />
         );
-      case 'lik':
+      }
+
+      // Show Reservation Manager if requested
+      if (showReservationManager) {
         return (
-          <LikPage 
-            onShowRestaurantProfile={(restaurantId) => setShowRestaurantProfile(restaurantId)}
-            onShowLikPassport={() => setShowLikPassport(true)}
-            onShowMessagesPage={() => setShowMessagesPage(true)}
-            onShowNotifications={() => setShowNotifications(true)}
-            onShowBountyDetails={(bountyId) => setShowBountyDetails(bountyId)}
-            onShowReservationManager={() => setShowReservationManager(true)}
-            onShowRewards={() => setShowLikRewards(true)}
-            onShowLeaderboard={() => setShowLeaderboard(true)}
+          <ReservationManager 
+            onBack={() => setShowReservationManager(false)}
+            onShowReservationSystem={(restaurantId) => {
+              setShowReservationManager(false);
+              setShowRestaurantProfile(restaurantId);
+            }}
           />
         );
-      case 'trending':
+      }
+
+      // Show Lik Rewards if requested
+      if (showLikRewards) {
         return (
-          <TrendingPage 
-            onShowRestaurantProfile={(restaurantId) => setShowRestaurantProfile(restaurantId)}
-            onShowUserProfile={(userId) => setShowUserProfile(userId)}
-            onShowSearch={() => setShowTrendingSearch(true)}
-            onShowLeaderboard={() => setShowLeaderboard(true)}
-            onShowLikTV={() => setShowLikTV(true)}
-            onShowMap={() => setShowMap(true)}
+          <RewardsPage 
+            onBack={() => setShowLikRewards(false)}
           />
         );
-      case 'profile':
-        return <ProfilePage onShowLeaderboard={() => setShowLeaderboard(true)} onShowLikPassport={() => setShowLikPassport(true)} onShowNotifications={() => setShowNotifications(true)} onShowRewards={() => setShowRewards(true)} />;
-      default:
-        return <HomeFeed onShowUserProfile={(userId) => setShowUserProfile(userId)} />;
+      }
+
+      // Show Rewards if requested
+      if (showRewards) {
+        return (
+          <MyRewardsPage 
+            onBack={() => setShowRewards(false)}
+          />
+        );
+      }
+
+      // Show Bounty Details if requested
+      if (showBountyDetails) {
+        return (
+          <BountyDetailsPage 
+            bountyId={showBountyDetails}
+            onBack={() => setShowBountyDetails(null)}
+            onShowRestaurantProfile={(restaurantId) => {
+              setShowBountyDetails(null);
+              setShowRestaurantProfile(restaurantId);
+            }}
+            onShowUserProfile={(userId) => {
+              setShowBountyDetails(null);
+              setShowUserProfile(userId);
+            }}
+          />
+        );
+      }
+
+      // Show Notifications if requested
+      if (showNotifications) {
+        return (
+          <NotificationsPage 
+            onBack={() => setShowNotifications(false)}
+          />
+        );
+      }
+
+      // Show Swipe Discovery if requested
+      if (showSwipeDiscovery) {
+        return (
+          <SwipeDiscoveryPage 
+            onBack={() => setShowSwipeDiscovery(false)}
+            onShowRestaurantProfile={(restaurantId) => {
+              setShowSwipeDiscovery(false);
+              setShowRestaurantProfile(restaurantId);
+            }}
+          />
+        );
+      }
+
+      // Show Trending Search if requested
+      if (showTrendingSearch) {
+        return (
+          <TrendingSearchPage 
+            onBack={() => setShowTrendingSearch(false)}
+            onShowUserProfile={(userId) => {
+              setShowTrendingSearch(false);
+              setShowUserProfile(userId);
+            }}
+            onShowRestaurantProfile={(restaurantId) => {
+              setShowTrendingSearch(false);
+              setShowRestaurantProfile(restaurantId);
+            }}
+            onShowVideoDetails={(videoId) => {
+              setShowTrendingSearch(false);
+              // Could add video details page navigation here
+            }}
+          />
+        );
+      }
+
+      // Show Message Thread if requested
+      if (showMessageThread) {
+        return (
+          <MessageThread 
+            chatId={showMessageThread}
+            onBack={() => setShowMessageThread(null)}
+            onShowRestaurantProfile={(restaurantId) => {
+              setShowMessageThread(null);
+              setShowRestaurantProfile(restaurantId);
+            }}
+            onShowUserProfile={(userId) => {
+              setShowMessageThread(null);
+              setShowUserProfile(userId);
+            }}
+          />
+        );
+      }
+
+      // Show Messages page if requested
+      if (showMessagesPage) {
+        return (
+          <MessagesPage 
+            onBack={() => setShowMessagesPage(false)}
+            onOpenChat={(chatId) => {
+              setShowMessagesPage(false);
+              setShowMessageThread(chatId);
+            }}
+            onShowRestaurantProfile={(restaurantId) => {
+              setShowMessagesPage(false);
+              setShowRestaurantProfile(restaurantId);
+            }}
+            onShowUserProfile={(userId) => {
+              setShowMessagesPage(false);
+              setShowUserProfile(userId);
+            }}
+          />
+        );
+      }
+
+      // Show Event Details if requested
+      if (showEventDetails) {
+        return (
+          <FoodEventPage 
+            eventId={showEventDetails}
+            onBack={() => setShowEventDetails(null)}
+            onShowRestaurantProfile={(restaurantId) => {
+              setShowEventDetails(null);
+              setShowRestaurantProfile(restaurantId);
+            }}
+            onShowUserProfile={(userId) => {
+              setShowEventDetails(null);
+              setShowUserProfile(userId);
+            }}
+          />
+        );
+      }
+
+      // Show Events page if requested
+      if (showEventsPage) {
+        return (
+          <EventsPage 
+            onBack={() => setShowEventsPage(false)}
+            onShowEventDetails={(eventId) => {
+              setShowEventsPage(false);
+              setShowEventDetails(eventId);
+            }}
+            onShowRestaurantProfile={(restaurantId) => {
+              setShowEventsPage(false);
+              setShowRestaurantProfile(restaurantId);
+            }}
+            onShowUserProfile={(userId) => {
+              setShowEventsPage(false);
+              setShowUserProfile(userId);
+            }}
+          />
+        );
+      }
+
+      // Show Guide page if requested
+      if (showGuidePage) {
+        return (
+          <GuidePage 
+            onBack={() => setShowGuidePage(false)}
+            onShowUserProfile={(userId) => {
+              setShowGuidePage(false);
+              setShowUserProfile(userId);
+            }}
+            onShowRestaurantProfile={(restaurantId) => {
+              setShowGuidePage(false);
+              setShowRestaurantProfile(restaurantId);
+            }}
+          />
+        );
+      }
+
+      // Show LikPassport if requested
+      if (showLikPassport) {
+        return (
+          <LikPassportPage 
+            onBack={() => setShowLikPassport(false)}
+          />
+        );
+      }
+
+      // Show LikTV if requested
+      if (showLikTV) {
+        return (
+          <LikTVPage 
+            onBack={() => setShowLikTV(false)}
+          />
+        );
+      }
+
+      // Show leaderboard if requested
+      if (showLeaderboard) {
+        return (
+          <LeaderboardPage 
+            onBack={() => setShowLeaderboard(false)}
+            onShowRestaurantProfile={(restaurantId) => {
+              setShowLeaderboard(false);
+              setShowRestaurantProfile(restaurantId);
+            }}
+            onShowUserProfile={(userId) => {
+              setShowLeaderboard(false);
+              setShowUserProfile(userId);
+            }}
+          />
+        );
+      }
+
+      // Show restaurant profile if requested
+      if (showRestaurantProfile) {
+        return (
+          <RestaurantProfile 
+            restaurantId={showRestaurantProfile}
+            onBack={() => setShowRestaurantProfile(null)}
+          />
+        );
+      }
+
+      // Show user profile if requested
+      if (showUserProfile) {
+        return (
+          <UserProfile 
+            userId={showUserProfile}
+            onBack={() => setShowUserProfile(null)}
+          />
+        );
+      }
+
+      switch (activeTab) {
+        case 'home':
+          return (
+            <HomeFeed 
+              onShowUserProfile={(userId) => setShowUserProfile(userId)}
+              onShowRestaurantProfile={(restaurantId) => setShowRestaurantProfile(restaurantId)}
+              onShowLeaderboard={() => setShowLeaderboard(true)}
+              onShowLikTV={() => setShowLikTV(true)}
+              onShowGuidePage={() => setShowGuidePage(true)}
+              onShowEventsPage={() => setShowEventsPage(true)}
+              onShowMessagesPage={() => setShowMessagesPage(true)}
+              onShowLikPassport={() => setShowLikPassport(true)}
+              onShowNotifications={() => setShowNotifications(true)}
+              onShowReservationManager={() => setShowReservationManager(true)}
+            />
+          );
+        case 'search':
+          return (
+            <SearchPage 
+              onShowRestaurantProfile={(restaurantId) => setShowRestaurantProfile(restaurantId)}
+              onShowSwipeDiscovery={() => setShowSwipeDiscovery(true)}
+              onShowLikPassport={() => setShowLikPassport(true)}
+              onShowLeaderboard={() => setShowLeaderboard(true)}
+              onShowLikTV={() => setShowLikTV(true)}
+              onShowMessagesPage={() => setShowMessagesPage(true)}
+            />
+          );
+        case 'lik':
+          return (
+            <LikPage 
+              onShowRestaurantProfile={(restaurantId) => setShowRestaurantProfile(restaurantId)}
+              onShowLikPassport={() => setShowLikPassport(true)}
+              onShowMessagesPage={() => setShowMessagesPage(true)}
+              onShowNotifications={() => setShowNotifications(true)}
+              onShowBountyDetails={(bountyId) => setShowBountyDetails(bountyId)}
+              onShowReservationManager={() => setShowReservationManager(true)}
+              onShowRewards={() => setShowLikRewards(true)}
+              onShowLeaderboard={() => setShowLeaderboard(true)}
+            />
+          );
+        case 'trending':
+          return (
+            <TrendingPage 
+              onShowRestaurantProfile={(restaurantId) => setShowRestaurantProfile(restaurantId)}
+              onShowUserProfile={(userId) => setShowUserProfile(userId)}
+              onShowSearch={() => setShowTrendingSearch(true)}
+              onShowLeaderboard={() => setShowLeaderboard(true)}
+              onShowLikTV={() => setShowLikTV(true)}
+              onShowMap={() => setShowMap(true)}
+            />
+          );
+        case 'profile':
+          return <ProfilePage onShowLeaderboard={() => setShowLeaderboard(true)} onShowLikPassport={() => setShowLikPassport(true)} onShowNotifications={() => setShowNotifications(true)} onShowRewards={() => setShowRewards(true)} />;
+        default:
+          return <HomeFeed onShowUserProfile={(userId) => setShowUserProfile(userId)} />;
+      }
+    } catch (error) {
+      console.error('Error rendering active tab:', error);
+      return (
+        <div className="h-full flex items-center justify-center">
+          <div className="text-center">
+            <h1 className="text-2xl font-bold text-foreground">Lik App</h1>
+            <p className="text-muted-foreground">Something went wrong. Refreshing...</p>
+            <button 
+              className="mt-4 px-4 py-2 bg-primary text-primary-foreground rounded"
+              onClick={() => window.location.reload()}
+            >
+              Refresh
+            </button>
+          </div>
+        </div>
+      );
     }
   };
 
