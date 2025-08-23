@@ -16,7 +16,7 @@ import {
   CheckCircleIcon,
   ShareIcon,
   BookmarkIcon,
-  SparklesIcon,
+  StarIcon as SparklesIcon,
   MagnifyingGlassIcon,
   AdjustmentsHorizontalIcon as SlidersHorizontal,
   ArrowUpTrayIcon,

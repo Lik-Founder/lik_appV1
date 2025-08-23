@@ -18,7 +18,7 @@ import {
   ClockIcon,
   StarIcon,
   UsersIcon,
-  SparklesIcon,
+  StarIcon as SparklesIcon,
   ClockIcon as TimerIcon,
   BoltIcon as LightningIcon,
   TrophyIcon,

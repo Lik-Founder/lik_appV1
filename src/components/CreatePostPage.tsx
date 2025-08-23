@@ -1,5 +1,5 @@
 import { useState, useRef } from 'react';
-import { ArrowLeftIcon as ArrowLeft, CameraIcon as Camera, PhotoIcon as Image, EllipsisHorizontalIcon as MoreHorizontal, MapPinIcon as MapPin, SparklesIcon as Sparkles, HeartIcon as Heart, ChatBubbleLeftIcon as MessageCircle, ShareIcon as Share, PlusIcon as Plus } from '@heroicons/react/24/outline';
+import { ArrowLeftIcon as ArrowLeft, CameraIcon as Camera, PhotoIcon as Image, EllipsisHorizontalIcon as MoreHorizontal, MapPinIcon as MapPin, StarIcon as Sparkles, HeartIcon as Heart, ChatBubbleLeftIcon as MessageCircle, ShareIcon as Share, PlusIcon as Plus } from '@heroicons/react/24/outline';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';

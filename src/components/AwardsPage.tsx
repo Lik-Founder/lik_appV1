@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { ArrowLeftIcon, TrophyIcon, ShareIcon, StarIcon, ArrowTrendingUpIcon, ArrowTrendingDownIcon, CalendarIcon, MapPinIcon, ShieldCheckIcon, TrophyIcon as AwardIcon, HeartIcon, EyeIcon, XMarkIcon } from '@heroicons/react/24/outline';
+import { ArrowLeftIcon, TrophyIcon, ShareIcon, StarIcon, ArrowTrendingUpIcon, ArrowTrendingDownIcon, CalendarIcon, MapPinIcon, ShieldCheckIcon, HeartIcon, EyeIcon, XMarkIcon } from '@heroicons/react/24/outline';
 import { toast } from 'sonner';
 import { cn } from '@/lib/utils';
 

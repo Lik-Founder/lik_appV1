@@ -17,7 +17,7 @@ import {
   UsersIcon as Users,
   AdjustmentsHorizontalIcon as Filter,
   ArrowPathIcon as RotateCcw,
-  SparklesIcon as Sparkles,
+  StarIcon as Sparkles,
   TrophyIcon as Trophy,
   BoltIcon as Zap,
   ViewfinderCircleIcon as Target,

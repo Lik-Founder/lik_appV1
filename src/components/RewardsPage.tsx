@@ -3,13 +3,13 @@ import { useKV } from '@github/spark/hooks';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { CurrencyDollarIcon as CoinsIcon, ArrowLeftIcon, FaceSmileIcon as PartyPopperIcon, SparklesIcon, MapPinIcon, ClockIcon, BoltIcon, StarIcon, GiftIcon, TrophyIcon, HeartIcon, FireIcon, ShoppingCartIcon, CheckIcon, UsersIcon } from '@heroicons/react/24/outline';
+import { CurrencyDollarIcon as CoinsIcon, ArrowLeftIcon, FaceSmileIcon as PartyPopperIcon, MapPinIcon, ClockIcon, BoltIcon, StarIcon, GiftIcon, TrophyIcon, HeartIcon, FireIcon, ShoppingCartIcon, CheckIcon, UsersIcon } from '@heroicons/react/24/outline';
 import { 
-  Square3Stack3DIcon as Coffee,
-  Square2StackIcon as Hamburger,
-  CircleStackIcon as Pizza,
-  Square3Stack3DIcon as Cookie,
-  Square3Stack3DIcon as IceCream,
+  BuildingStorefrontIcon as Coffee,
+  BuildingStorefrontIcon as Hamburger,
+  BuildingStorefrontIcon as Pizza,
+  BuildingStorefrontIcon as Cookie,
+  BuildingStorefrontIcon as IceCream,
   BeakerIcon as Wine,
 } from '@heroicons/react/24/outline';
 import { cn } from '@/lib/utils';
@@ -212,7 +212,7 @@ export function RewardsPage({ onBack }: RewardsPageProps) {
         <div className="bg-gradient-to-r from-green-500 to-emerald-500 text-white p-3 text-center font-medium relative">
           <PartyPopperIcon className="h-4 w-4 inline mr-2" />
           Reward redeemed successfully! Check your profile for details.
-          <SparklesIcon className="h-4 w-4 inline ml-2" />
+          <StarIcon className="h-4 w-4 inline ml-2" />
         </div>
       )}
 

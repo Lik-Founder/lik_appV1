@@ -1,7 +1,7 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
-import { ChefHatIcon, MapPinIcon, TrophyIcon, HeartIcon, SparklesIcon, StarIcon, UsersIcon } from '@heroicons/react/24/outline';
+import { ChefHatIcon, MapPinIcon, TrophyIcon, HeartIcon, StarIcon, UsersIcon } from '@heroicons/react/24/outline';
 import LikLogo from '@/assets/images/Lik_Logo_Heart_1.0.png';
 
 interface OnboardingPageProps {
@@ -41,7 +41,7 @@ export function OnboardingPage({ onGetStarted }: OnboardingPageProps) {
       gradient: "from-purple-400 via-pink-500 to-rose-500"
     },
     {
-      icon: <SparklesIcon className="w-24 h-24 mx-auto text-pink-400 animate-spin-slow" />,
+      icon: <StarIcon className="w-24 h-24 mx-auto text-pink-400 animate-spin-slow" />,
       title: "Ready to Start? ✨",
       subtitle: "Your Food Adventure Begins Now",
       description: "Join thousands of food explorers on the most epic culinary journey ever created. Are you ready to become a Lik Legend?",
@@ -85,7 +85,7 @@ export function OnboardingPage({ onGetStarted }: OnboardingPageProps) {
           <TrophyIcon className="w-5 h-5 text-white/20" />
         </div>
         <div className="absolute top-1/3 right-5 animate-float delay-1500">
-          <SparklesIcon className="w-9 h-9 text-white/20" />
+          <StarIcon className="w-9 h-9 text-white/20" />
         </div>
       </div>
 

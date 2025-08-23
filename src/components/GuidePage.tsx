@@ -19,7 +19,7 @@ import {
   HeartIcon,
   UsersIcon,
   TrophyIcon,
-  SparklesIcon
+  StarIcon as SparklesIcon
 } from '@heroicons/react/24/outline';
 
 interface GuidePageProps {

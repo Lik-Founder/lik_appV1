@@ -27,7 +27,7 @@ import {
   GlobeAltIcon,
   BuildingStorefrontIcon,
   CameraIcon,
-  VideoIcon,
+  PlayIcon,
   PhotoIcon,
   MicrophoneIcon,
   SpeakerWaveIcon,
@@ -657,7 +657,7 @@ export function MapPage({ onBack, onShowUserProfile, onShowRestaurantProfile }: 
                   {selectedLocation.media.type === 'video' && (
                     <div className="absolute inset-0 flex items-center justify-center">
                       <div className="bg-black/50 backdrop-blur-sm rounded-full p-3">
-                        <VideoIcon className="w-8 h-8 text-white" />
+                        <PlayIcon className="w-8 h-8 text-white" />
                       </div>
                     </div>
                   )}

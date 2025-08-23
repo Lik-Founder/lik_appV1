@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ArrowLeftIcon, GiftIcon, TicketIcon, StarIcon, ClockIcon, MapPinIcon, SparklesIcon, CurrencyDollarIcon as CoinsIcon, HeartIcon, UsersIcon, TrophyIcon, FireIcon } from '@heroicons/react/24/outline';
+import { ArrowLeftIcon, GiftIcon, TicketIcon, StarIcon, ClockIcon, MapPinIcon, CurrencyDollarIcon as CoinsIcon, HeartIcon, UsersIcon, TrophyIcon, FireIcon } from '@heroicons/react/24/outline';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Progress } from '@/components/ui/progress';
@@ -354,7 +354,7 @@ export function MyRewardsPage({ onBack }: MyRewardsPageProps) {
                 {/* Sparkle effect for earned rewards */}
                 {reward.earned && (
                   <div className="absolute top-2 right-2">
-                    <SparklesIcon className="h-4 w-4 text-yellow-500" />
+                    <StarIcon className="h-4 w-4 text-yellow-500" />
                   </div>
                 )}
                 

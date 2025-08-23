@@ -13,7 +13,7 @@ import {
   PhotoIcon, 
   XMarkIcon, 
   ArrowsRightLeftIcon,
-  CircleStackIcon,
+  PlayCircleIcon as CircleStackIcon,
   PlayIcon,
   PauseIcon,
   StopCircleIcon,
@@ -21,7 +21,7 @@ import {
   LanguageIcon,
   SwatchIcon,
   ExclamationTriangleIcon,
-  SparklesIcon,
+  StarIcon as SparklesIcon,
   ArrowLeftIcon
 } from '@heroicons/react/24/outline';
 import { toast } from 'sonner';
