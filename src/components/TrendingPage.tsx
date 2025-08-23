@@ -616,7 +616,7 @@ export function TrendingPage({ onShowRestaurantProfile, onShowUserProfile, onSho
           {/* Right icons */}
           <div className="flex items-center gap-2">
             <Button variant="ghost" size="sm" className="text-white p-2 hover:bg-white/10 rounded-full">
-              <MapPin size={18} />
+              <MapPin className="w-4.5 h-4.5" />
             </Button>
             <Button variant="ghost" size="sm" className="text-white p-2 hover:bg-white/10 rounded-full" onClick={onShowLikTV}>
               <TvIcon className="h-[18px] w-[18px]" />
@@ -714,7 +714,7 @@ export function TrendingPage({ onShowRestaurantProfile, onShowUserProfile, onSho
               <div className="absolute bottom-2 left-3 right-16 z-10">
                 <div className="flex items-center justify-between bg-black/40 backdrop-blur-sm rounded-full px-3 py-2">
                   <div className="flex items-center gap-2 text-white/90 text-xs min-w-0">
-                    <MapPin size={12} className="flex-shrink-0" />
+                    <MapPin className="w-3 h-3 flex-shrink-0" />
                     <span className="truncate font-rum-raisin">{post.location}</span>
                   </div>
                   <div className="flex items-center gap-2 flex-shrink-0">

@@ -18,7 +18,7 @@ import {
   BookmarkIcon,
   SparklesIcon,
   MagnifyingGlassIcon,
-  AdjustmentsHorizontalIcon,
+  AdjustmentsHorizontalIcon as SlidersHorizontal,
   ArrowUpTrayIcon,
   StarIcon,
   DocumentCheckIcon,
@@ -262,7 +262,7 @@ export function ProfilePage({ onShowLeaderboard, onShowLikPassport, onShowNotifi
                   {/* Compact Location */}
                   <div className="flex items-center gap-2 bg-white/60 rounded-full px-4 py-2 shadow-sm border border-gray-200">
                     <div className="bg-gradient-to-r from-green-400 to-blue-500 p-1 rounded-full">
-                      <MapPin size={12} className="text-white" />
+                      <MapPin className="w-3 h-3 text-white" />
                     </div>
                     <span className="text-xs text-gray-700 nav-rum-raisin">{mockLocation}</span>
                   </div>
@@ -316,7 +316,7 @@ export function ProfilePage({ onShowLeaderboard, onShowLikPassport, onShowNotifi
                         </div>
                       </div>
                       <div className="absolute -bottom-0.5 -right-0.5 bg-white rounded-full p-0.5 shadow-sm">
-                        <Plus size={8} className="text-pink-500" />
+                        <Plus className="w-2 h-2 text-pink-500" />
                       </div>
                     </div>
                     <span className="text-xs text-gray-600 nav-rum-raisin font-medium">Pizza</span>
@@ -365,7 +365,7 @@ export function ProfilePage({ onShowLeaderboard, onShowLikPassport, onShowNotifi
                         value="guides" 
                         className="flex flex-col items-center gap-0.5 h-full rounded-lg data-[state=active]:bg-gradient-to-br data-[state=active]:from-green-200 data-[state=active]:to-emerald-200 data-[state=active]:shadow-sm nav-rum-raisin font-medium text-gray-600 data-[state=active]:text-gray-800 text-xs"
                       >
-                        <Export size={14} />
+                        <ArrowUpTrayIcon className="w-3.5 h-3.5" />
                         <span className="text-xs">Guides</span>
                       </TabsTrigger>
                     </TabsList>
@@ -386,7 +386,7 @@ export function ProfilePage({ onShowLeaderboard, onShowLikPassport, onShowNotifi
                         size="sm" 
                         className="absolute right-1 top-1/2 transform -translate-y-1/2 h-7 w-7 rounded-full bg-gradient-to-r from-pink-200 to-purple-200 hover:from-pink-300 hover:to-purple-300"
                       >
-                        <SlidersHorizontal size={12} className="text-gray-600" />
+                        <SlidersHorizontal className="w-3 h-3 text-gray-600" />
                       </Button>
                     </div>
                   </div>
@@ -589,7 +589,7 @@ export function ProfilePage({ onShowLeaderboard, onShowLikPassport, onShowNotifi
           onClick={() => setIsCreatePostOpen(true)}
         >
           <div className="flex flex-col items-center">
-            <Plus size={24} className="mb-0.5" />
+            <Plus className="w-6 h-6 mb-0.5" />
             <span className="text-xs font-medium">Post</span>
           </div>
         </Button>

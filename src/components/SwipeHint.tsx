@@ -33,7 +33,7 @@ export function SwipeHint() {
             onClick={dismissHint}
             className="p-1 rounded-full hover:bg-muted transition-colors"
           >
-            <X size={20} />
+            <X className="w-5 h-5" />
           </button>
         </div>
         
@@ -44,7 +44,7 @@ export function SwipeHint() {
         <div className="flex items-center justify-center gap-4 mb-6">
           <div className="flex items-center gap-2 text-sm">
             <div className="p-2 bg-muted rounded-full">
-              <ChevronLeft size={16} />
+              <ChevronLeft className="w-4 h-4" />
             </div>
             <span>Previous</span>
           </div>
@@ -54,7 +54,7 @@ export function SwipeHint() {
           <div className="flex items-center gap-2 text-sm">
             <span>Next</span>
             <div className="p-2 bg-muted rounded-full">
-              <ChevronRight size={16} />
+              <ChevronRight className="w-4 h-4" />
             </div>
           </div>
         </div>

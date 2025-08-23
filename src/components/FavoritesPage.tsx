@@ -360,11 +360,11 @@ function RestaurantFavoriteCard({ restaurant, onRemove, onShowRestaurantProfile,
             />
             {restaurant.isPartner && (
               <div className="absolute top-1 left-1 bg-blue-500 text-white p-1 rounded-full">
-                <Lightning size={8} className="fill-current" />
+                <Lightning className="w-2 h-2 fill-current" />
               </div>
             )}
             <div className="absolute top-1 right-1">
-              <Heart size={12} className="text-red-500 fill-current" />
+              <Heart className="w-3 h-3 text-red-500 fill-current" />
             </div>
           </div>
           <div className="flex-1 p-3">
@@ -379,7 +379,7 @@ function RestaurantFavoriteCard({ restaurant, onRemove, onShowRestaurantProfile,
                 <p className="text-sm text-muted-foreground truncate">{restaurant.categories.join(', ')}</p>
                 <div className="flex items-center gap-2 mt-1">
                   <div className="flex items-center gap-1">
-                    <Star size={12} className="text-yellow-400 fill-current" />
+                    <Star className="w-3 h-3 text-yellow-400 fill-current" />
                     <span className="text-sm font-medium">{restaurant.rating}</span>
                     <span className="text-sm text-muted-foreground">({restaurant.reviewCount})</span>
                   </div>
@@ -387,11 +387,11 @@ function RestaurantFavoriteCard({ restaurant, onRemove, onShowRestaurantProfile,
                 </div>
                 <div className="flex items-center gap-4 mt-2 text-xs text-muted-foreground">
                   <div className="flex items-center gap-1">
-                    <Clock size={12} />
+                    <Clock className="w-3 h-3" />
                     <span>{restaurant.deliveryTime}</span>
                   </div>
                   <div className="flex items-center gap-1">
-                    <Truck size={12} />
+                    <Truck className="w-3 h-3" />
                     <span>{restaurant.deliveryFee === 0 ? 'Free' : `$${restaurant.deliveryFee}`}</span>
                   </div>
                 </div>
@@ -402,7 +402,7 @@ function RestaurantFavoriteCard({ restaurant, onRemove, onShowRestaurantProfile,
                 onClick={onRemove}
                 className="h-8 w-8 p-0 text-red-500 hover:text-red-700 hover:bg-red-50"
               >
-                <Trash size={16} />
+                <Trash className="w-4 h-4" />
               </Button>
             </div>
           </div>
@@ -432,7 +432,7 @@ function DishFavoriteCard({ dish, onRemove, onReorder, onShowRestaurantProfile, 
               className="w-full h-full object-cover"
             />
             <div className="absolute top-1 right-1">
-              <Heart size={12} className="text-red-500 fill-current" />
+              <Heart className="w-3 h-3 text-red-500 fill-current" />
             </div>
           </div>
           <div className="flex-1 p-3">
@@ -450,7 +450,7 @@ function DishFavoriteCard({ dish, onRemove, onReorder, onShowRestaurantProfile, 
                   <p className="text-lg font-bold">${dish.price.toFixed(2)}</p>
                   {dish.rating && (
                     <div className="flex items-center gap-1">
-                      <Star size={12} className="text-yellow-400 fill-current" />
+                      <Star className="w-3 h-3 text-yellow-400 fill-current" />
                       <span className="text-sm font-medium">{dish.rating}</span>
                     </div>
                   )}
@@ -463,7 +463,7 @@ function DishFavoriteCard({ dish, onRemove, onReorder, onShowRestaurantProfile, 
                   onClick={onRemove}
                   className="h-8 w-8 p-0 text-red-500 hover:text-red-700 hover:bg-red-50"
                 >
-                  <Trash size={16} />
+                  <Trash className="w-4 h-4" />
                 </Button>
                 <Button
                   variant="default"
@@ -471,7 +471,7 @@ function DishFavoriteCard({ dish, onRemove, onReorder, onShowRestaurantProfile, 
                   onClick={onReorder}
                   className="h-8 w-8 p-0 bg-primary hover:bg-primary/90"
                 >
-                  <ShoppingCart size={14} />
+                  <ShoppingCart className="w-3.5 h-3.5" />
                 </Button>
               </div>
             </div>

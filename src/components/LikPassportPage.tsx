@@ -318,7 +318,7 @@ export function LikPassportPage({ onBack }: LikPassportPageProps) {
                   : "bg-muted text-muted-foreground hover:bg-muted/80"
               )}
             >
-              <tab.icon size={16} />
+              <tab.icon className="w-4 h-4" />
               <span className="nav-rum-raisin">{tab.label}</span>
             </button>
           ))}

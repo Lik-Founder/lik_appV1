@@ -127,7 +127,7 @@ export function StoryViewer({ stories, users, initialStoryIndex, onClose, device
     }
   };
 
-  const iconSize = deviceType === 'tablet' ? 28 : 24;
+  const iconClass = deviceType === 'tablet' ? 'w-7 h-7' : 'w-6 h-6';
 
   if (!currentStory || !currentUser) return null;
 
@@ -173,7 +173,7 @@ export function StoryViewer({ stories, users, initialStoryIndex, onClose, device
           onClick={() => setIsPaused(!isPaused)}
           className="text-white hover:bg-white/10 touch-target"
         >
-          {isPaused ? <Play size={iconSize} /> : <Pause size={iconSize} />}
+          {isPaused ? <Play className={iconClass} /> : <Pause className={iconClass} />}
         </Button>
         
         <Button
@@ -182,7 +182,7 @@ export function StoryViewer({ stories, users, initialStoryIndex, onClose, device
           onClick={() => setIsMuted(!isMuted)}
           className="text-white hover:bg-white/10 touch-target"
         >
-          {isMuted ? <VolumeMute size={iconSize} /> : <VolumeHigh size={iconSize} />}
+          {isMuted ? <VolumeMute className={iconClass} /> : <VolumeHigh className={iconClass} />}
         </Button>
         
         <Button
@@ -191,7 +191,7 @@ export function StoryViewer({ stories, users, initialStoryIndex, onClose, device
           onClick={onClose}
           className="text-white hover:bg-white/10 touch-target"
         >
-          <X size={iconSize} />
+          <X className={iconClass} />
         </Button>
       </div>
 
@@ -247,7 +247,7 @@ export function StoryViewer({ stories, users, initialStoryIndex, onClose, device
                 onClick={goToPrevious}
                 className="absolute left-4 top-1/2 transform -translate-y-1/2 text-white hover:bg-white/10 touch-target"
               >
-                <ArrowLeft size={iconSize} />
+                <ArrowLeft className={iconClass} />
               </Button>
             )}
             {currentIndex < stories.length - 1 && (
@@ -257,7 +257,7 @@ export function StoryViewer({ stories, users, initialStoryIndex, onClose, device
                 onClick={goToNext}
                 className="absolute right-4 top-1/2 transform -translate-y-1/2 text-white hover:bg-white/10 touch-target"
               >
-                <ArrowRight size={iconSize} />
+                <ArrowRight className={iconClass} />
               </Button>
             )}
           </>

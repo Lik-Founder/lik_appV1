@@ -93,7 +93,7 @@ export function CreatePostPage({ onBack }: CreatePostPageProps) {
           onClick={onBack}
           className="text-white hover:bg-white/10"
         >
-          <ArrowLeft size={24} />
+          <ArrowLeft className="w-6 h-6" />
         </Button>
         
         <h1 className="text-lg font-semibold font-rum-raisin">Create Post</h1>
@@ -103,7 +103,7 @@ export function CreatePostPage({ onBack }: CreatePostPageProps) {
           size="sm"
           className="text-white hover:bg-white/10"
         >
-          <MoreHorizontal size={24} />
+          <MoreHorizontal className="w-6 h-6" />
         </Button>
       </div>
 
@@ -165,7 +165,7 @@ export function CreatePostPage({ onBack }: CreatePostPageProps) {
               size="sm"
               className="text-white hover:bg-white/10 w-12 h-12 rounded-full"
             >
-              <Heart size={28} />
+              <Heart className="w-7 h-7" />
             </Button>
             <span className="text-white text-xs mt-1">{currentStoryData.likes}</span>
           </div>
@@ -176,7 +176,7 @@ export function CreatePostPage({ onBack }: CreatePostPageProps) {
               size="sm"
               className="text-white hover:bg-white/10 w-12 h-12 rounded-full"
             >
-              <MessageCircle size={28} />
+              <MessageCircle className="w-7 h-7" />
             </Button>
             <span className="text-white text-xs mt-1">{currentStoryData.comments}</span>
           </div>
@@ -186,7 +186,7 @@ export function CreatePostPage({ onBack }: CreatePostPageProps) {
             size="sm"
             className="text-white hover:bg-white/10 w-12 h-12 rounded-full"
           >
-            <Share size={28} />
+            <Share className="w-7 h-7" />
           </Button>
         </div>
 
@@ -194,7 +194,7 @@ export function CreatePostPage({ onBack }: CreatePostPageProps) {
         <div className="absolute bottom-20 left-4 right-20 z-10">
           <div className="bg-black/40 backdrop-blur-sm rounded-2xl p-4">
             <div className="flex items-center gap-2 mb-2">
-              <MapPin size={16} className="text-white/70" />
+              <MapPin className="w-4 h-4 text-white/70" />
               <span className="text-white/70 text-sm">{currentStoryData.location}</span>
             </div>
             <p className="text-white text-sm leading-relaxed">{currentStoryData.caption}</p>
@@ -213,7 +213,7 @@ export function CreatePostPage({ onBack }: CreatePostPageProps) {
               onClick={handleImageSelect}
               className="flex-1 bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white border-0 h-12 rounded-2xl font-rum-raisin"
             >
-              <Camera size={20} className="mr-2" />
+              <Camera className="w-5 h-5 mr-2" />
               {selectedImage ? 'Change Photo' : 'Add Photo'}
             </Button>
             
@@ -221,7 +221,7 @@ export function CreatePostPage({ onBack }: CreatePostPageProps) {
               variant="outline"
               className="h-12 w-12 rounded-2xl border-white/20 text-white hover:bg-white/10"
             >
-              <Image size={20} />
+              <Image className="w-5 h-5" />
             </Button>
           </div>
 
@@ -255,7 +255,7 @@ export function CreatePostPage({ onBack }: CreatePostPageProps) {
 
           {/* Location Input */}
           <div className="relative">
-            <MapPin size={20} className="absolute left-3 top-1/2 transform -translate-y-1/2 text-white/50" />
+            <MapPin className="w-5 h-5 absolute left-3 top-1/2 transform -translate-y-1/2 text-white/50" />
             <Input
               placeholder="Add location..."
               value={location}
@@ -277,7 +277,7 @@ export function CreatePostPage({ onBack }: CreatePostPageProps) {
               </div>
             ) : (
               <div className="flex items-center gap-2">
-                <Sparkles size={20} />
+                <Sparkles className="w-5 h-5" />
                 Share Post
               </div>
             )}

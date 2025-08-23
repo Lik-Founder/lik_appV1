@@ -247,7 +247,7 @@ export function OrderHistory({ isOpen, onClose, onShowRestaurantProfile }: Order
                     onClick={() => handleReorderSingleItem(item, selectedOrder)}
                     className="h-8 w-8 p-0 rounded-full flex-shrink-0"
                   >
-                    <Plus size={14} />
+                    <Plus className="w-3.5 h-3.5" />
                   </Button>
                 </div>
               ))}
@@ -292,7 +292,7 @@ export function OrderHistory({ isOpen, onClose, onShowRestaurantProfile }: Order
             className="w-full"
             onClick={() => handleReorder(selectedOrder)}
           >
-            <ShoppingCart size={16} className="mr-2" />
+            <ShoppingCart className="w-4 h-4 mr-2" />
             Reorder All Items
           </Button>
           {selectedOrder.status === 'delivered' && (
@@ -374,7 +374,7 @@ export function OrderHistory({ isOpen, onClose, onShowRestaurantProfile }: Order
                         }}
                         className="text-xs"
                       >
-                        <Plus size={12} className="mr-1" />
+                        <Plus className="w-3 h-3 mr-1" />
                         Reorder
                       </Button>
                     </div>

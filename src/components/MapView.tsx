@@ -102,14 +102,13 @@ export function MapView({ restaurants, onBack, onShowRestaurantProfile, searchQu
             onClick={onBack}
             className="h-8 w-8 p-0 rounded-full"
           >
-            <ArrowLeft size={18} />
+            <ArrowLeft className="w-4.5 h-4.5" />
           </Button>
 
           {/* Search Bar */}
           <div className="relative flex-1">
             <SearchIcon 
-              className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground" 
-              size={16} 
+              className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-4 h-4" 
             />
             <Input
               placeholder="Search restaurants & cuisines"
@@ -131,7 +130,7 @@ export function MapView({ restaurants, onBack, onShowRestaurantProfile, searchQu
             size="sm"
             className="h-8 w-8 p-0 rounded-full"
           >
-            <Navigation size={18} />
+            <Navigation className="w-4.5 h-4.5" />
           </Button>
         </div>
 
@@ -266,14 +265,14 @@ export function MapView({ restaurants, onBack, onShowRestaurantProfile, searchQu
             size="sm"
             className="h-10 w-10 p-0 bg-white shadow-lg rounded-full border-2"
           >
-            <Plus size={18} />
+            <Plus className="w-4.5 h-4.5" />
           </Button>
           <Button
             variant="outline"
             size="sm"
             className="h-10 w-10 p-0 bg-white shadow-lg rounded-full border-2"
           >
-            <Minus size={18} />
+            <Minus className="w-4.5 h-4.5" />
           </Button>
         </div>
       </div>
@@ -313,7 +312,7 @@ export function MapView({ restaurants, onBack, onShowRestaurantProfile, searchQu
                       </p>
                       
                       <div className="flex items-center gap-1 mt-1">
-                        <Star size={14} className="text-yellow-400 fill-current" />
+                        <Star className="w-3.5 h-3.5 text-yellow-400 fill-current" />
                         <span className="text-sm font-medium">{selectedRestaurant.rating}</span>
                         <span className="text-sm text-muted-foreground">
                           ({selectedRestaurant.reviewCount}) • {selectedRestaurant.distance}
@@ -322,11 +321,11 @@ export function MapView({ restaurants, onBack, onShowRestaurantProfile, searchQu
                       
                       <div className="flex items-center gap-4 mt-2 text-xs text-muted-foreground">
                         <div className="flex items-center gap-1">
-                          <Clock size={12} />
+                          <Clock className="w-3 h-3" />
                           <span>{selectedRestaurant.deliveryTime}</span>
                         </div>
                         <div className="flex items-center gap-1">
-                          <Truck size={12} />
+                          <Truck className="w-3 h-3" />
                           <span>
                             {selectedRestaurant.deliveryFee === 0 ? 'Free delivery' : `$${selectedRestaurant.deliveryFee} delivery`}
                           </span>
@@ -343,7 +342,7 @@ export function MapView({ restaurants, onBack, onShowRestaurantProfile, searchQu
                       }}
                       className="h-8 w-8 p-0 rounded-full"
                     >
-                      <X size={16} />
+                      <X className="w-4 h-4" />
                     </Button>
                   </div>
                 </div>

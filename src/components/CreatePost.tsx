@@ -77,7 +77,7 @@ export function CreatePost() {
       <Card>
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
-            <Camera size={20} />
+            <Camera className="w-5 h-5" />
             Select Photo
           </CardTitle>
         </CardHeader>
@@ -95,7 +95,7 @@ export function CreatePost() {
                 onClick={() => setSelectedImage('')}
                 className="absolute top-2 right-2"
               >
-                <X size={16} />
+                <X className="w-4 h-4" />
               </Button>
             </div>
           ) : (

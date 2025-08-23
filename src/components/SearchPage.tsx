@@ -19,13 +19,13 @@ import {
   StarIcon,
   EllipsisHorizontalIcon,
   MapPinIcon as MapPin,
-  ClockIcon,
-  TruckIcon,
+  ClockIcon as Clock,
+  TruckIcon as Truck,
   BoltIcon as LightningIcon,
   PlusIcon as Plus,
-  MinusIcon,
+  MinusIcon as Minus,
   ShoppingCartIcon,
-  ArrowPathIcon as ClockCounterClockwiseIcon
+  ArrowPathIcon as ClockCounterClockwise
 } from '@heroicons/react/24/outline';
 import { toast } from 'sonner';
 import { cn } from '@/lib/utils';
@@ -353,8 +353,7 @@ export function SearchPage({ onShowRestaurantProfile, onShowSwipeDiscovery, onSh
           {/* Search Bar */}
           <div className="relative flex-1">
             <SearchIcon 
-              className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground" 
-              size={16} 
+              className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-4 h-4" 
             />
             <Input
               placeholder={isDeliveryMode ? "Search restaurants & cuisines" : "Search for restaurants, dishes, or tags"}
@@ -399,7 +398,7 @@ export function SearchPage({ onShowRestaurantProfile, onShowSwipeDiscovery, onSh
               onClick={handleCartOpen}
               className="h-8 w-8 p-0 rounded-full relative"
             >
-              <ShoppingCart size={18} />
+              <ShoppingCartIcon className="w-4.5 h-4.5" />
               {totalCartItems > 0 && (
                 <Badge
                   variant="destructive"
@@ -421,7 +420,7 @@ export function SearchPage({ onShowRestaurantProfile, onShowSwipeDiscovery, onSh
               onClick={openOrderHistory}
               className="h-8 px-3 rounded-full text-xs"
             >
-              <ClockCounterClockwise size={14} className="mr-1" />
+              <ClockCounterClockwise className="mr-1 w-3.5 h-3.5" />
               Orders
             </Button>
             <Button
@@ -501,7 +500,7 @@ export function SearchPage({ onShowRestaurantProfile, onShowSwipeDiscovery, onSh
             device.type === 'tablet' ? "h-12 px-6" : "h-10 px-4"
           )}
         >
-          <MapPin size={16} className="mr-2" />
+          <MapPin className="mr-2 w-4 h-4" />
           <span className="text-sm font-medium">Map</span>
         </Button>
       )}
@@ -517,7 +516,7 @@ export function SearchPage({ onShowRestaurantProfile, onShowSwipeDiscovery, onSh
             device.type === 'tablet' ? "h-12 px-6" : "h-10 px-4"
           )}
         >
-          <ShoppingCart size={16} className="mr-2" />
+          <ShoppingCartIcon className="mr-2 w-4 h-4" />
           <span className="text-sm font-medium">
             {totalCartItems} items • ${cartItemsDetailed.reduce((sum, item) => sum + (item.price * item.quantity), 0).toFixed(2)}
           </span>
@@ -911,11 +910,11 @@ function FeaturedRestaurantCard({ restaurant, onClick, onAddToFavorites, deviceT
         <p className="text-sm text-muted-foreground truncate">{restaurant.categories.join(', ')}</p>
         <div className="flex items-center justify-between mt-2 text-xs text-muted-foreground">
           <div className="flex items-center gap-1">
-            <Clock size={12} />
+            <Clock className="w-3 h-3" />
             <span>{restaurant.deliveryTime}</span>
           </div>
           <div className="flex items-center gap-1">
-            <Truck size={12} />
+            <Truck className="w-3 h-3" />
             <span>${restaurant.deliveryFee === 0 ? 'Free' : restaurant.deliveryFee}</span>
           </div>
         </div>
@@ -954,7 +953,7 @@ function RestaurantCard({ restaurant, onClick, onAddToFavorites, deviceType }: R
           />
           {restaurant.isPartner && (
             <div className="absolute top-1 left-1 bg-blue-500 text-white p-1 rounded-full">
-              <Lightning size={8} className="fill-current" />
+              <LightningIcon className="w-2 h-2 fill-current" />
             </div>
           )}
         </div>
@@ -989,11 +988,11 @@ function RestaurantCard({ restaurant, onClick, onAddToFavorites, deviceType }: R
           <div className="flex items-center justify-between mt-2">
             <div className="flex items-center gap-4 text-xs text-muted-foreground">
               <div className="flex items-center gap-1">
-                <Clock size={12} />
+                <Clock className="w-3 h-3" />
                 <span>{restaurant.deliveryTime}</span>
               </div>
               <div className="flex items-center gap-1">
-                <Truck size={12} />
+                <Truck className="w-3 h-3" />
                 <span>{restaurant.deliveryFee === 0 ? 'Free delivery' : `$${restaurant.deliveryFee} delivery`}</span>
               </div>
             </div>
@@ -1069,11 +1068,11 @@ function RestaurantMenu({
           </div>
           <div className="flex items-center gap-4 mt-2 text-white/80 text-sm">
             <div className="flex items-center gap-1">
-              <Clock size={12} />
+              <Clock className="w-3 h-3" />
               <span>{restaurant.deliveryTime}</span>
             </div>
             <div className="flex items-center gap-1">
-              <Truck size={12} />
+              <Truck className="w-3 h-3" />
               <span>{restaurant.deliveryFee === 0 ? 'Free delivery' : `$${restaurant.deliveryFee} delivery`}</span>
             </div>
           </div>
@@ -1165,7 +1164,7 @@ function MenuItem({
                   size="sm"
                   className="h-8 w-8 p-0 rounded-full"
                 >
-                  <Minus size={14} />
+                  <Minus className="w-3.5 h-3.5" />
                 </Button>
               )}
               {cartCount > 0 && (
@@ -1177,7 +1176,7 @@ function MenuItem({
                 size="sm"
                 className="h-8 w-8 p-0 rounded-full bg-primary hover:bg-primary/90"
               >
-                <Plus size={14} />
+                <Plus className="w-3.5 h-3.5" />
               </Button>
             </div>
           </div>
