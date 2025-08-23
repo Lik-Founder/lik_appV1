@@ -16,6 +16,7 @@ import {
   StarIcon as MedalIcon,
   CheckCircleIcon
 } from '@heroicons/react/24/outline';
+import { Television } from '@phosphor-icons/react';
 import { cn } from '@/lib/utils';
 import { useKV } from '@github/spark/hooks';
 import { UserPost, RestaurantPost, AdPost, User, Comment } from '@/lib/types';
