@@ -68,7 +68,7 @@ const mockContent: (UserPost | RestaurantPost | AdPost)[] = [
     isSaved: false,
     location: '123 Main St, Downtown',
     likedBy: mockUsers.slice(0, 3),
-    user: { ...mockUsers[0], level: 12 },
+    user: { ...mockUsers[0], level: 12, isFollowing: false },
     restaurant: {
       id: 'rest6',
       name: 'Gourmet Bistro',
@@ -156,7 +156,7 @@ const mockContent: (UserPost | RestaurantPost | AdPost)[] = [
     isSaved: false,
     location: '321 Taco Lane, Westside',
     likedBy: mockUsers.slice(0, 2),
-    user: { ...mockUsers[1], level: 8 },
+    user: { ...mockUsers[1], level: 8, isFollowing: false },
     restaurant: {
       name: 'La Cantina',
       rating: 4.5
@@ -348,6 +348,12 @@ export function TrendingPage({ onShowRestaurantProfile, onShowUserProfile, onSho
                 <div className="bg-black/60 px-2 py-1 rounded-full">
                   <span className="text-white text-xs font-rum-raisin">Level {post.user.level}</span>
                 </div>
+                {!post.user.isFollowing && (
+                  <Button size="sm" className="glossy-red-pill text-white text-xs px-3 py-1 h-7 font-rum-raisin ml-1">
+                    <PlusIcon className="w-2.5 h-2.5 mr-1" />
+                    Follow
+                  </Button>
+                )}
               </div>
               <div className="flex items-center gap-1 text-white/90 text-xs mt-1">
                 <span 
@@ -360,12 +366,6 @@ export function TrendingPage({ onShowRestaurantProfile, onShowUserProfile, onSho
                 <span className="font-rum-raisin">{post.restaurant.rating}</span>
               </div>
             </div>
-            {!post.user.isFollowing && (
-              <Button size="sm" className="glossy-red-pill text-white text-xs px-3 py-1 h-7 font-rum-raisin">
-                <PlusIcon className="w-2.5 h-2.5 mr-1" />
-                Follow
-              </Button>
-            )}
           </div>
           
           {/* Review info section */}
