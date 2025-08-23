@@ -18,16 +18,7 @@ import {
   MapPinIcon as MapPin,
   StarIcon,
   PhoneIcon as Phone,
-  ChatBubbleOvalLeftIcon,
-  CalendarIcon,
-  PlayIcon,
-  EllipsisHorizontalIcon,
-  CameraIcon,
-  PlusIcon,
-  XMarkIcon,
-  PhotoIcon,
-  ArrowRightIcon,
-  BuildingStorefrontIcon
+  ChatBubbleOvalLeftIcon
 } from '@heroicons/react/24/outline';
 import { toast } from 'sonner';
 import { cn } from '@/lib/utils';

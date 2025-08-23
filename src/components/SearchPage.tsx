@@ -25,9 +25,11 @@ import {
   PlusIcon,
   MinusIcon,
   ShoppingCartIcon,
-  ArrowPathIcon as ClockCounterClockwiseIcon
+  ArrowPathIcon as ClockCounterClockwiseIcon,
+  EllipsisHorizontalIcon,
+  HeartIcon,
+  StarIcon
 } from '@heroicons/react/24/outline';
-import { EllipsisHorizontalIcon, HeartIcon, StarIcon } from '@heroicons/react/24/outline';
 import { toast } from 'sonner';
 import { cn } from '@/lib/utils';
 import LikLogoHeart from '@/assets/images/Lik_Logo_Heart_1.0.png';

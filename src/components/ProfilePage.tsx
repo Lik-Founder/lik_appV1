@@ -23,9 +23,11 @@ import {
   StarIcon,
   DocumentCheckIcon,
   EllipsisHorizontalIcon,
-  GiftIcon
+  GiftIcon,
+  HeartIcon,
+  AcademicCapIcon,
+  BellIcon
 } from '@heroicons/react/24/outline';
-import { EllipsisHorizontalIcon, HeartIcon, AcademicCapIcon, GiftIcon, BellIcon } from '@heroicons/react/24/outline';
 import { CreatePostModal } from '@/components/CreatePostModal';
 import { CreateStoryModal } from '@/components/CreateStoryModal';
 import { useDevice } from '@/hooks/use-device';
