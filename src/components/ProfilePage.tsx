@@ -358,7 +358,7 @@ export function ProfilePage({ onShowLeaderboard, onShowLikPassport, onShowNotifi
                         value="favorites" 
                         className="flex flex-col items-center gap-0.5 h-full rounded-lg data-[state=active]:bg-gradient-to-br data-[state=active]:from-yellow-200 data-[state=active]:to-orange-200 data-[state=active]:shadow-sm nav-rum-raisin font-medium text-gray-600 data-[state=active]:text-gray-800 text-xs"
                       >
-                        <BookBookmark size={14} />
+                        <BookmarkIcon className="w-3.5 h-3.5" />
                         <span className="text-xs">Saved</span>
                       </TabsTrigger>
                       <TabsTrigger 
