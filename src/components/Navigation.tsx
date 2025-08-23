@@ -107,10 +107,9 @@ export function Navigation({ activeTab, onTabChange, deviceType, orientation }: 
             ) : Icon ? (
               <Icon 
                 className={cn(
-                  "transition-transform duration-200",
+                  "w-6 h-6 transition-transform duration-200",
                   isActive ? "fill-current" : "stroke-current fill-none"
                 )}
-                style={{ width: iconSize, height: iconSize }}
               />
             ) : null}
             {showLabels && (

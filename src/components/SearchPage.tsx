@@ -367,7 +367,7 @@ export function SearchPage({ onShowRestaurantProfile, onShowSwipeDiscovery, onSh
               size="sm"
               className="absolute right-1 top-1/2 transform -translate-y-1/2 h-7 w-7 p-0 rounded-full"
             >
-              <FilterIcon size={14} />
+              <FilterIcon className="w-3.5 h-3.5" />
             </Button>
           </div>
 
@@ -380,7 +380,7 @@ export function SearchPage({ onShowRestaurantProfile, onShowSwipeDiscovery, onSh
                 onClick={openSwipeMode}
                 className="h-8 w-8 p-0 rounded-full"
               >
-                <SwipeIcon size={18} />
+                <SwipeIcon className="w-4.5 h-4.5" />
               </Button>
               
               <Button
@@ -389,7 +389,7 @@ export function SearchPage({ onShowRestaurantProfile, onShowSwipeDiscovery, onSh
                 onClick={openFavorites}
                 className="h-8 w-8 p-0 rounded-full"
               >
-                <FavoritesIcon size={18} />
+                <FavoritesIcon className="w-4.5 h-4.5" />
               </Button>
             </>
           ) : (
@@ -430,7 +430,7 @@ export function SearchPage({ onShowRestaurantProfile, onShowSwipeDiscovery, onSh
               onClick={openFavorites}
               className="h-8 px-3 rounded-full text-xs"
             >
-              <FavoritesIcon size={14} className="mr-1" />
+              <FavoritesIcon className="w-3.5 h-3.5 mr-1" />
               Favorites
             </Button>
           </div>

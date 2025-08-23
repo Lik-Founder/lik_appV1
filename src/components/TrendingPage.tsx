@@ -14,7 +14,7 @@ import {
   PuzzlePieceIcon,
   ShoppingCartIcon,
   StarIcon as MedalIcon,
-  CheckCircleIcon
+  CheckCircleIcon as CheckCircle
 } from '@heroicons/react/24/outline';
 
 import { cn } from '@/lib/utils';
@@ -447,7 +447,7 @@ export function TrendingPage({ onShowRestaurantProfile, onShowUserProfile, onSho
                   {post.restaurant.name}
                 </span>
                 {post.restaurant.isVerified && (
-                  <CheckCircle size={12} className="text-blue-400 fill-current flex-shrink-0" />
+                  <CheckCircle className="w-3 h-3 text-blue-400 fill-current flex-shrink-0" />
                 )}
               </div>
               <div className="flex items-center gap-1 text-white/90 text-xs mt-1">
@@ -530,11 +530,11 @@ export function TrendingPage({ onShowRestaurantProfile, onShowUserProfile, onSho
                   {post.restaurant.name}
                 </span>
                 {post.restaurant.isVerified && (
-                  <CheckCircle size={12} className="text-blue-400 fill-current flex-shrink-0" />
+                  <CheckCircle className="w-3 h-3 text-blue-400 fill-current flex-shrink-0" />
                 )}
               </div>
               <div className="flex items-center gap-1 text-white/90 text-xs mt-1">
-                <Star size={10} className="text-yellow-400 fill-current" />
+                <StarIcon className="w-2.5 h-2.5 text-yellow-400 fill-current" />
                 <span className="font-rum-raisin">{post.restaurant.rating}</span>
               </div>
             </div>

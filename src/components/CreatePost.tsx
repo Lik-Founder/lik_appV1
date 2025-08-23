@@ -100,7 +100,7 @@ export function CreatePost() {
             </div>
           ) : (
             <div className="border-2 border-dashed border-muted-foreground/25 rounded-lg p-8 text-center">
-              <ImageIcon size={48} className="mx-auto mb-4 text-muted-foreground" />
+              <ImageIcon className="w-12 h-12 mx-auto mb-4 text-muted-foreground" />
               <p className="text-muted-foreground mb-4">Select a photo to share</p>
               <p className="text-sm text-muted-foreground mb-4">Choose from sample images below:</p>
             </div>

@@ -122,7 +122,7 @@ export function MapView({ restaurants, onBack, onShowRestaurantProfile, searchQu
               size="sm"
               className="absolute right-1 top-1/2 transform -translate-y-1/2 h-7 w-7 p-0 rounded-full"
             >
-              <FilterIcon size={14} />
+              <FilterIcon className="w-3.5 h-3.5" />
             </Button>
           </div>
 

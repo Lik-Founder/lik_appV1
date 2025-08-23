@@ -237,7 +237,7 @@ export function TrendingSearchPage({
                         : "text-muted-foreground hover:text-foreground"
                     )}
                   >
-                    <Icon size={16} className="mr-1" />
+                    <Icon className="w-4 h-4 mr-1" />
                     {label}
                   </Button>
                 ))}
