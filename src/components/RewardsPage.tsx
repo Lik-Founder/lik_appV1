@@ -3,7 +3,7 @@ import { useKV } from '@github/spark/hooks';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { CurrencyDollarIcon as CoinsIcon, ArrowLeftIcon, FaceSmileIcon as PartyPopperIcon, SparklesIcon, MapPinIcon, ClockIcon, BoltIcon, StarIcon, GiftIcon, TrophyIcon, HeartIcon, FireIcon, ShoppingCartIcon, CheckIcon, CrownIcon, UsersIcon } from '@heroicons/react/24/outline';
+import { CurrencyDollarIcon as CoinsIcon, ArrowLeftIcon, FaceSmileIcon as PartyPopperIcon, SparklesIcon, MapPinIcon, ClockIcon, BoltIcon, StarIcon, GiftIcon, TrophyIcon, HeartIcon, FireIcon, ShoppingCartIcon, CheckIcon, UsersIcon } from '@heroicons/react/24/outline';
 import { 
   Square3Stack3DIcon as Coffee,
   Square2StackIcon as Hamburger,
@@ -60,7 +60,7 @@ const rewardCategories = [
   {
     id: 'experiences',
     name: 'Dining Experiences',
-    icon: CrownIcon,
+    icon: StarIcon,
     gradient: 'from-purple-500 to-pink-500',
     rewards: [
       {
@@ -68,7 +68,7 @@ const rewardCategories = [
         name: 'Chef\'s Table',
         description: 'Exclusive 5-course tasting menu',
         cost: 1000,
-        icon: CrownIcon,
+        icon: StarIcon,
         rarity: 'legendary',
         category: 'experience',
         redeemableAt: ['Le Bernardin', 'Eleven Madison Park'],

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ArrowLeftIcon, GiftIcon, TicketIcon, CrownIcon, StarIcon, ClockIcon, MapPinIcon, SparklesIcon, CurrencyDollarIcon as CoinsIcon, CupIcon as CoffeeIcon, UserIcon as PizzaIcon, HeartIcon, UsersIcon, TrophyIcon, FireIcon } from '@heroicons/react/24/outline';
+import { ArrowLeftIcon, GiftIcon, TicketIcon, StarIcon, ClockIcon, MapPinIcon, SparklesIcon, CurrencyDollarIcon as CoinsIcon, CupIcon as CoffeeIcon, UserIcon as PizzaIcon, HeartIcon, UsersIcon, TrophyIcon, FireIcon } from '@heroicons/react/24/outline';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Progress } from '@/components/ui/progress';
@@ -212,7 +212,7 @@ export function MyRewardsPage({ onBack }: MyRewardsPageProps) {
         <div className="flex bg-white/80 rounded-2xl p-1">
           {[
             { id: 'coupons', label: 'Coupons', icon: TicketIcon },
-            { id: 'loyalty', label: 'Loyalty', icon: CrownIcon },
+            { id: 'loyalty', label: 'Loyalty', icon: StarIcon },
             { id: 'rewards', label: 'Rewards', icon: TrophyIcon }
           ].map(tab => {
             const Icon = tab.icon;

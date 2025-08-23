@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { ArrowLeftIcon, TrophyIcon, ShareIcon, StarIcon, ArrowTrendingUpIcon, ArrowTrendingDownIcon, CalendarIcon, MapPinIcon, CrownIcon, ShieldCheckIcon, TrophyIcon as AwardIcon, HeartIcon, EyeIcon, XMarkIcon } from '@heroicons/react/24/outline';
+import { ArrowLeftIcon, TrophyIcon, ShareIcon, StarIcon, ArrowTrendingUpIcon, ArrowTrendingDownIcon, CalendarIcon, MapPinIcon, ShieldCheckIcon, TrophyIcon as AwardIcon, HeartIcon, EyeIcon, XMarkIcon } from '@heroicons/react/24/outline';
 import { toast } from 'sonner';
 import { cn } from '@/lib/utils';
 
@@ -153,7 +153,7 @@ export function AwardsPage({ restaurantId, onBack }: AwardsPageProps) {
             <CardContent className="p-4">
               <div className="flex items-center justify-between text-white">
                 <div className="flex items-center gap-3">
-                  <CrownIcon className="h-6 w-6 text-yellow-400" />
+                  <StarIcon className="h-6 w-6 text-yellow-400" />
                   <div>
                     <p className="font-bold text-lg">#3 Italian in NYC</p>
                     <p className="text-sm opacity-80">Current Global Ranking</p>
