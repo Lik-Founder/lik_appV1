@@ -339,6 +339,26 @@ export function UserProfile({ userId, onBack }: UserProfileProps) {
                     <p className="text-gray-600 nav-rum-raisin text-sm">@{user.username}</p>
                   </div>
                   
+                  {/* Level badge and follow button row */}
+                  <div className="flex items-center gap-3">
+                    <div className="bg-gradient-to-r from-orange-400 to-red-500 text-white px-3 py-1 rounded-full text-xs font-bold shadow-sm">
+                      Level {user.level}
+                    </div>
+                    <Button 
+                      onClick={handleFollow}
+                      size="sm"
+                      className={cn(
+                        "h-7 px-3 rounded-full font-medium nav-rum-raisin shadow-sm text-xs",
+                        user.isFollowing 
+                          ? "bg-gradient-to-r from-gray-200 to-slate-200 hover:from-gray-300 hover:to-slate-300 text-gray-700" 
+                          : "bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white"
+                      )}
+                    >
+                      <UserPlusIcon className="w-3 h-3 mr-1" />
+                      {user.isFollowing ? 'Following' : 'Follow'}
+                    </Button>
+                  </div>
+                  
                   {user.location && (
                     <div className="flex items-center gap-2 bg-white/60 rounded-full px-3 py-1 w-fit shadow-sm">
                       <div className="bg-gradient-to-r from-green-400 to-blue-500 p-0.5 rounded-full">
@@ -410,20 +430,8 @@ export function UserProfile({ userId, onBack }: UserProfileProps) {
                 </div>
               </div>
 
-              {/* Compact Action Buttons */}
-              <div className="flex space-x-3">
-                <Button 
-                  onClick={handleFollow}
-                  className={cn(
-                    "flex-1 h-9 rounded-full font-medium nav-rum-raisin shadow-sm text-sm",
-                    user.isFollowing 
-                      ? "bg-gradient-to-r from-gray-200 to-slate-200 hover:from-gray-300 hover:to-slate-300 text-gray-700" 
-                      : "bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white"
-                  )}
-                >
-                  <UserPlusIcon className="w-3 h-3 mr-1.5" />
-                  {user.isFollowing ? 'Following' : 'Follow'}
-                </Button>
+              {/* Share Button */}
+              <div className="flex justify-end">
                 <Button 
                   variant="outline" 
                   onClick={handleShare}
