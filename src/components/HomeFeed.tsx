@@ -393,7 +393,7 @@ export function HomeFeed({ onShowUserProfile, onShowRestaurantProfile, onShowLea
             <img 
               src={likLogo} 
               alt="Lik" 
-              className="h-12 w-auto object-contain max-w-[140px] ml-[-20px]"
+              className="h-12 w-auto object-contain max-w-[140px] ml-[-90px]"
             />
           </div>
 
