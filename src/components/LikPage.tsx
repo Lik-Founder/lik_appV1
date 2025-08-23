@@ -175,9 +175,10 @@ interface LikPageProps {
   onShowBountyDetails?: (bountyId: string) => void;
   onShowReservationManager?: () => void;
   onShowRewards?: () => void;
+  onShowLeaderboard?: () => void;
 }
 
-export function LikPage({ onShowRestaurantProfile, onShowLikPassport, onShowMessagesPage, onShowNotifications, onShowBountyDetails, onShowReservationManager, onShowRewards }: LikPageProps) {
+export function LikPage({ onShowRestaurantProfile, onShowLikPassport, onShowMessagesPage, onShowNotifications, onShowBountyDetails, onShowReservationManager, onShowRewards, onShowLeaderboard }: LikPageProps) {
   const [userProgress] = useKV('user-progress', mockUserProgress);
   const [bounties] = useKV('bounties', mockBounties);
   const [quests] = useKV('quests', mockQuests);
@@ -355,10 +356,10 @@ export function LikPage({ onShowRestaurantProfile, onShowLikPassport, onShowMess
               <Button 
                 variant="ghost" 
                 size="sm" 
+                onClick={() => onShowLeaderboard?.()}
                 className="relative bg-white/60 hover:bg-white/80 backdrop-blur-sm rounded-full p-2 sm:p-3 shadow-[0_0_12px_rgba(255,165,0,0.3)] border border-orange-500/20 transition-all duration-300 hover:shadow-[0_0_20px_rgba(255,165,0,0.5)] hover:scale-105"
               >
                 <TrophyIcon className="w-4 h-4 text-red-600 drop-shadow-sm" />
-                <div className="absolute -top-0.5 -right-0.5 w-2 h-2 sm:w-3 sm:h-3 bg-gradient-to-br from-orange-500 to-red-500 rounded-full shadow-[0_0_6px_rgba(255,165,0,0.8)]"></div>
               </Button>
             </div>
 

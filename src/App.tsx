@@ -358,6 +358,7 @@ function App() {
             onShowBountyDetails={(bountyId) => setShowBountyDetails(bountyId)}
             onShowReservationManager={() => setShowReservationManager(true)}
             onShowRewards={() => setShowLikRewards(true)}
+            onShowLeaderboard={() => setShowLeaderboard(true)}
           />
         );
       case 'trending':

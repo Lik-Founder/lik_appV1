@@ -345,15 +345,15 @@ export function TrendingPage({ onShowRestaurantProfile, onShowUserProfile, onSho
                 >
                   {post.user.displayName}
                 </span>
-                <div className="bg-black/60 px-2 py-1 rounded-full">
-                  <span className="text-white text-xs font-rum-raisin">Level {post.user.level}</span>
-                </div>
                 {!post.user.isFollowing && (
-                  <Button size="sm" className="glossy-red-pill text-white text-xs px-3 py-1 h-7 font-rum-raisin ml-1">
+                  <Button size="sm" className="glossy-red-pill text-white text-xs px-3 py-1 h-7 font-rum-raisin">
                     <PlusIcon className="w-2.5 h-2.5 mr-1" />
                     Follow
                   </Button>
                 )}
+                <div className="bg-black/60 px-2 py-1 rounded-full">
+                  <span className="text-white text-xs font-rum-raisin">Level {post.user.level}</span>
+                </div>
               </div>
               <div className="flex items-center gap-1 text-white/90 text-xs mt-1">
                 <span 
