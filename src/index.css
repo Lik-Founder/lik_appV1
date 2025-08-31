@@ -2423,6 +2423,69 @@ input, textarea, select {
   border-width: 3px;
 }
 
+/* Gamified Candy-Glass Navigation Styles */
+.nav-candy-glass {
+  background: linear-gradient(135deg, 
+    rgba(255, 123, 170, 0.9) 0%,   /* #FF7BAA with transparency */
+    rgba(255, 26, 117, 0.95) 50%,  /* #FF1A75 with transparency */
+    rgba(179, 0, 38, 1) 100%       /* #B30026 solid */
+  );
+  border: 3px solid rgba(255, 255, 255, 0.9);
+  box-shadow: 
+    inset 0 0 30px rgba(255, 255, 255, 0.3),
+    0 8px 32px rgba(255, 123, 170, 0.4),
+    0 4px 16px rgba(0, 0, 0, 0.2);
+}
+
+.nav-icon-candy-glass {
+  background: linear-gradient(135deg, 
+    rgba(255, 255, 255, 0.4) 0%,
+    rgba(255, 255, 255, 0.2) 50%,
+    rgba(255, 255, 255, 0.1) 100%
+  );
+  border: 2px solid rgba(255, 255, 255, 0.8);
+  box-shadow: 
+    inset 0 2px 4px rgba(255, 255, 255, 0.6),
+    inset 0 -2px 4px rgba(0, 0, 0, 0.2),
+    0 4px 12px rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
+
+.nav-label-candy-badge {
+  background: linear-gradient(135deg, 
+    rgba(255, 255, 255, 0.3) 0%,
+    rgba(255, 255, 255, 0.2) 50%,
+    rgba(255, 255, 255, 0.1) 100%
+  );
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  box-shadow: 
+    inset 0 1px 2px rgba(255, 255, 255, 0.4),
+    0 2px 6px rgba(0, 0, 0, 0.25);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
+
+.nav-active-glow {
+  background: linear-gradient(135deg, #fbbf24, #f59e0b, #fbbf24);
+  filter: blur(12px);
+  opacity: 0.8;
+}
+
+/* Breaking border glow effects */
+.nav-glow-active {
+  box-shadow: 
+    0 0 20px rgba(255, 193, 7, 0.6),
+    0 0 40px rgba(255, 152, 0, 0.4),
+    inset 0 0 20px rgba(255, 255, 255, 0.2);
+}
+
+.nav-glow-inactive {
+  box-shadow: 
+    0 0 10px rgba(255, 255, 255, 0.2),
+    inset 0 0 10px rgba(255, 255, 255, 0.1);
+}
+
 .text-shadow {
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
 }
