@@ -75,69 +75,35 @@ export function Navigation({
                     )} />
                   )}
                   
-                  {/* Chunky Candy-Glass Icon Container */}
-                  <div className={cn(
-                    "relative rounded-2xl overflow-hidden",
-                    // Candy-glass style with beveled edges
-                    "bg-gradient-to-br from-white/40 via-white/20 to-white/10",
-                    // White enamel outline
-                    "border-2 border-white/80",
-                    // Soft reflections and glass effect
-                    "shadow-[inset_0_2px_4px_rgba(255,255,255,0.6),inset_0_-2px_4px_rgba(0,0,0,0.2)]",
-                    // Outer shadow for depth
-                    "drop-shadow-[0_4px_12px_rgba(0,0,0,0.3)]",
-                    // Backdrop blur for glass effect
-                    "backdrop-blur-sm",
-                    // Padding for chunky look
-                    isCenter ? "p-3.5" : "p-3"
-                  )}>
-                    {/* Top highlight for glass effect */}
-                    <div className={cn(
-                      "absolute top-0 left-0 right-0 h-1/3 rounded-t-xl",
-                      "bg-gradient-to-b from-white/60 to-transparent"
-                    )} />
-                    
-                    <img 
-                      src={item.icon} 
-                      alt={item.label}
-                      className={cn(
-                        "relative z-10",
-                        // Icon sizes
-                        isCenter ? "w-8 h-8" : "w-7 h-7",
-                        // Enhanced brightness for chunky look
-                        "filter brightness-110 contrast-120 drop-shadow-sm"
-                      )}
-                    />
-                  </div>
+                  {/* Clean Icon - No Container */}
+                  <img 
+                    src={item.icon} 
+                    alt={item.label}
+                    className={cn(
+                      "relative z-10",
+                      // Bigger icon sizes - matching reference image
+                      isCenter ? "w-12 h-12" : "w-10 h-10",
+                      // Clean look with subtle shadow
+                      "filter drop-shadow-lg"
+                    )}
+                  />
                 </button>
                 
-                {/* Candy Badge Label */}
+                {/* Clean Text Label - No Background */}
                 <div className={cn(
-                  "relative mt-[-12px] z-10",
-                  // Translucent glass background
-                  "bg-gradient-to-br from-white/30 via-white/20 to-white/10",
-                  // Rounded candy badge shape
-                  "rounded-full px-2.5 py-1",
-                  // Outline stroke for gamified feel
-                  "border border-white/60",
-                  // Glass effect
-                  "backdrop-blur-sm",
-                  // Soft shadow
-                  "drop-shadow-[0_2px_6px_rgba(0,0,0,0.25)]",
-                  // Inner glow
-                  "shadow-[inset_0_1px_2px_rgba(255,255,255,0.4)]"
+                  "relative mt-[-12px] z-10"
                 )}>
                   <span className={cn(
-                    "font-rum-raisin text-xs font-bold leading-none",
+                    "font-rum-raisin text-sm font-bold leading-none",
                     "text-center whitespace-nowrap",
                     // All caps styling
                     "uppercase tracking-wide",
-                    // White text with shadow for readability
-                    "text-white drop-shadow-[0_1px_2px_rgba(0,0,0,0.8)]",
+                    // White text with strong shadow for readability on the candy background
+                    "text-white drop-shadow-[0_2px_4px_rgba(0,0,0,0.9)]",
                     // Active state styling
                     isActive 
-                      ? "text-yellow-100 drop-shadow-[0_1px_2px_rgba(0,0,0,0.9)]" 
-                      : "text-white/90"
+                      ? "text-yellow-100 drop-shadow-[0_2px_4px_rgba(0,0,0,1)]" 
+                      : "text-white"
                   )}>
                     {item.label}
                   </span>
