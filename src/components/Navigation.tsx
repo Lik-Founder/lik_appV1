@@ -23,91 +23,80 @@ export function Navigation({
   className 
 }: NavigationProps) {
   const navItems = [
-    { id: 'home' as TabType, label: 'HOME', icon: homeIcon },
-    { id: 'search' as TabType, label: 'SEARCH', icon: exploreIcon },
-    { id: 'lik' as TabType, label: 'MAP', icon: mapIcon },
-    { id: 'trending' as TabType, label: 'FLAME', icon: trendingIcon },
-    { id: 'profile' as TabType, label: 'PROFILE', icon: profileIcon },
+    { id: 'home' as TabType, label: 'Home', icon: homeIcon },
+    { id: 'search' as TabType, label: 'Explore', icon: exploreIcon },
+    { id: 'lik' as TabType, label: 'Lik', icon: mapIcon },
+    { id: 'trending' as TabType, label: 'Trending', icon: trendingIcon },
+    { id: 'profile' as TabType, label: 'Profile', icon: profileIcon },
   ];
 
   return (
-    <div className={cn("relative", className)}>
-      {/* Breaking Border Container */}
+    <div className={cn("relative overflow-visible pb-2", className)}>
+      {/* Breaking Border Navigation Container */}
       <div className={cn(
-        "relative mx-2 mb-2 md:mx-4",
-        "bg-gradient-to-r from-pink-400/90 via-purple-400/90 to-pink-400/90",
-        "rounded-3xl p-1",
-        "backdrop-blur-md",
-        "border-4 border-white/30",
-        "shadow-2xl shadow-pink-500/30"
+        "relative mx-3 mb-2",
+        "bg-gradient-to-r from-slate-800 via-slate-900 to-slate-800",
+        "rounded-3xl border-2 border-slate-600",
+        "shadow-2xl shadow-slate-900/50 backdrop-blur-sm",
+        "overflow-visible"
       )}>
-        {/* Inner Container with Rounded Background */}
-        <div className="bg-white/20 rounded-2xl backdrop-blur-lg">
-          <nav className="flex items-end justify-around relative px-1 py-2 md:px-2 md:py-3">
-            {navItems.map((item, index) => {
-              const isActive = activeTab === item.id;
-              
-              return (
+        {/* Navigation Content */}
+        <nav className="flex items-center justify-around relative px-2 py-3 overflow-visible">
+          {navItems.map((item, index) => {
+            const isActive = activeTab === item.id;
+            
+            return (
+              <div key={item.id} className="relative flex flex-col items-center flex-1 overflow-visible">
+                {/* Breaking Border Icon Container */}
                 <button
-                  key={item.id}
                   onClick={() => onTabChange(item.id)}
                   className={cn(
-                    "relative flex flex-col items-center transition-all duration-300",
-                    "touch-target group min-w-0 flex-1",
-                    isActive ? "z-10" : "z-0"
+                    "relative flex items-center justify-center touch-target",
+                    "overflow-visible z-20 mb-1",
+                    // Active icons exceed the container boundary - breaking border effect
+                    isActive 
+                      ? "transform -translate-y-5" 
+                      : "transform translate-y-0"
                   )}
                 >
-                  {/* Pop-out Icon Container */}
-                  <div className={cn(
-                    "relative flex items-center justify-center transition-all duration-300",
-                    "mb-1",
-                    isActive 
-                      ? "transform md:-translate-y-6 -translate-y-5 scale-105 md:scale-110" 
-                      : "transform translate-y-0 scale-100 group-active:scale-95"
-                  )}>
-                    {/* Glow Background for Active Icon */}
-                    {isActive && (
-                      <div className="absolute inset-0 bg-gradient-to-br from-yellow-300 to-orange-400 rounded-full blur-lg scale-150 opacity-60" />
-                    )}
-                    
-                    {/* Icon Background Circle */}
-                    <div className={cn(
-                      "relative rounded-full border-3 transition-all duration-300",
-                      "p-2 md:p-3",
-                      isActive 
-                        ? "bg-gradient-to-br from-yellow-300 to-orange-400 border-white shadow-xl scale-105 md:scale-110" 
-                        : "bg-gradient-to-br from-white/40 to-white/20 border-white/50 shadow-md hover:scale-105"
-                    )}>
-                      <img 
-                        src={item.icon} 
-                        alt={item.label}
-                        className={cn(
-                          "transition-all duration-300",
-                          "w-6 h-6 md:w-8 md:h-8",
-                          isActive 
-                            ? "filter brightness-110 drop-shadow-lg" 
-                            : "filter brightness-90"
-                        )}
-                      />
-                    </div>
-                  </div>
+                  {/* Glow Background for Active State */}
+                  {isActive && (
+                    <div className="absolute inset-0 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-2xl blur-lg scale-150 opacity-50 -z-10" />
+                  )}
                   
-                  {/* Label */}
-                  <span className={cn(
-                    "font-bold tracking-wider transition-all duration-300 font-rum-raisin",
-                    "text-center leading-tight whitespace-nowrap",
-                    "text-xs md:text-xs",
+                  {/* Icon Container with Breaking Border Design */}
+                  <div className={cn(
+                    "relative rounded-2xl border-2 p-2.5",
+                    "shadow-lg backdrop-blur-sm",
                     isActive 
-                      ? "text-white text-shadow-lg scale-105 drop-shadow-md" 
-                      : "text-white/80 text-shadow"
+                      ? "bg-gradient-to-br from-yellow-400 to-orange-500 border-yellow-200 shadow-yellow-500/70" 
+                      : "bg-slate-700/90 border-slate-500 shadow-slate-800/70"
                   )}>
-                    {item.label}
-                  </span>
+                    <img 
+                      src={item.icon} 
+                      alt={item.label}
+                      className={cn(
+                        "w-6 h-6",
+                        isActive ? "filter brightness-110 contrast-110" : "filter brightness-90"
+                      )}
+                    />
+                  </div>
                 </button>
-              );
-            })}
-          </nav>
-        </div>
+                
+                {/* Navigation Label with Rum Raisin Font */}
+                <span className={cn(
+                  "font-rum-raisin text-xs font-medium leading-none",
+                  "text-center whitespace-nowrap mt-1 px-1",
+                  isActive 
+                    ? "text-white font-bold text-shadow" 
+                    : "text-slate-300"
+                )}>
+                  {item.label}
+                </span>
+              </div>
+            );
+          })}
+        </nav>
       </div>
     </div>
   );

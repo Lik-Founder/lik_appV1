@@ -154,13 +154,13 @@ function App() {
     >
       <div className={cn(
         "flex-1 flex flex-col overflow-hidden",
-        currentPage === 'main' ? "pb-20" : ""
+        currentPage === 'main' ? "pb-28" : ""
       )}>
         {renderPage()}
       </div>
       
       {currentPage === 'main' && (
-        <div className="absolute bottom-0 left-0 right-0 z-50 safe-bottom">
+        <div className="absolute bottom-0 left-0 right-0 z-50 safe-bottom overflow-visible">
           <Navigation 
             activeTab={activeTab} 
             onTabChange={setActiveTab}
