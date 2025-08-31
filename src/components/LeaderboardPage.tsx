@@ -390,25 +390,25 @@ function LeaderboardCard({
   item, 
   isFirst, 
   activeTab, 
-  () => {}, 
-  () => {} 
+  onSelectRestaurant, 
+  onSelectUser 
 }: { 
   item: LeaderboardItem; 
   isFirst: boolean;
   activeTab: TabType;
-  () => {}?: (restaurantId: string) => void;
-  () => {}?: (userId: string) => void;
+  onSelectRestaurant?: (restaurantId: string) => void;
+  onSelectUser?: (userId: string) => void;
 }) {
   const isTopThree = item.rank <= 3;
   const [isPressed, setIsPressed] = useState(false);
   
   const handleClick = () => {
-    if (activeTab === 'restaurants' && () => {}) {
+    if (activeTab === 'restaurants' && onSelectRestaurant) {
       toast.success(`Opening ${item.name} profile! 🏪✨`);
-      () => {}(item.id);
-    } else if (activeTab === 'likers' && () => {}) {
+      onSelectRestaurant(item.id);
+    } else if (activeTab === 'likers' && onSelectUser) {
       toast.success(`Opening ${item.name} profile! 👨‍🍳✨`);
-      () => {}(item.id);
+      onSelectUser(item.id);
     }
     // For foods tab, we could navigate to a food detail page in the future
     // For now, foods don't have a specific navigation target
@@ -1064,8 +1064,8 @@ export function LeaderboardPage({ onBack, onNavigate }: LeaderboardPageProps) {
                       item={item} 
                       isFirst={index === 0}
                       activeTab={activeTab}
-                      () => {}={() => {}}
-                      () => {}={() => {}}
+                      onSelectRestaurant={() => {}}
+                      onSelectUser={() => {}}
                     />
                   </div>
                 ))}
