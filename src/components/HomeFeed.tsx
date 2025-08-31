@@ -386,7 +386,7 @@ export function HomeFeed({ onNavigate, onSelectUser, onSelectRestaurant }: HomeF
             <img 
               src={likLogo} 
               alt="Lik" 
-              className="h-12 w-auto object-contain max-w-[140px] ml-[-90px]"
+              className="h-12 w-auto object-contain max-w-[140px] ml-[-80px]"
             />
           </div>
 
