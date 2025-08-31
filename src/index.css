@@ -2437,6 +2437,40 @@ input, textarea, select {
     0 4px 16px rgba(0, 0, 0, 0.2);
 }
 
+/* Enhanced glossy translucent navigation background */
+.nav-glossy-gradient {
+  background: linear-gradient(135deg, 
+    rgba(255, 123, 170, 0.85) 0%,   /* #FF7BAA with 85% opacity */
+    rgba(255, 26, 117, 0.90) 50%,   /* #FF1A75 with 90% opacity */
+    rgba(179, 0, 38, 0.95) 100%     /* #B30026 with 95% opacity */
+  );
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 
+    inset 0 1px 0 rgba(255, 255, 255, 0.25),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.15),
+    0 -4px 20px rgba(255, 123, 170, 0.3),
+    0 -8px 32px rgba(0, 0, 0, 0.15);
+  /* Glass reflection effect */
+  position: relative;
+}
+
+.nav-glossy-gradient::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 50%;
+  background: linear-gradient(to bottom, 
+    rgba(255, 255, 255, 0.15) 0%, 
+    rgba(255, 255, 255, 0.08) 50%,
+    transparent 100%);
+  pointer-events: none;
+  border-radius: inherit;
+}
+
 .nav-icon-candy-glass {
   background: linear-gradient(135deg, 
     rgba(255, 255, 255, 0.4) 0%,
@@ -2615,6 +2649,30 @@ input, textarea, select {
     font-size: 0.75rem !important;
     line-height: 1 !important;
     font-weight: 600 !important;
+  }
+  
+  /* Ensure navigation bar is always visible on mobile */
+  .nav-glossy-gradient {
+    position: relative;
+    z-index: 50;
+    width: 100%;
+    min-height: 64px;
+    display: block !important;
+    visibility: visible !important;
+  }
+  
+  /* Mobile safe area navigation */
+  .mobile-nav-safe-area {
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+  
+  /* Enhanced mobile navigation visibility */
+  .mobile-nav-container {
+    bottom: 0;
+    left: 0;
+    right: 0;
+    position: fixed;
+    z-index: 9999;
   }
 }
 
