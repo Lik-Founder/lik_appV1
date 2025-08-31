@@ -83,7 +83,7 @@ export function Navigation({
                 
                 {/* Clean Text Label - No Background */}
                 <div className={cn(
-                  "relative mt-[-12px] z-10"
+                  "relative mt-[-24px] z-10"
                 )}>
                   <span className={cn(
                     "font-rum-raisin text-sm font-bold leading-none",
