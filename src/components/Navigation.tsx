@@ -31,23 +31,15 @@ export function Navigation({
   ];
 
   return (
-    <div className={cn("relative overflow-visible pb-2", className)}>
-      {/* Gamified Candy-Glass Navigation Container */}
+    <div className={cn("relative overflow-visible", className)}>
+      {/* Navigation Container - Red Gradient Background */}
       <div className={cn(
-        "relative mx-3 mb-2 rounded-full overflow-visible",
-        // Pill-shaped container with candy-glass gradient
-        "bg-gradient-to-r from-[#FF7BAA] via-[#FF1A75] to-[#B30026]",
-        // Bright white outline with soft inner glow
-        "border-3 border-white/90 shadow-2xl",
-        // Inner glow effect
-        "shadow-[inset_0_0_30px_rgba(255,255,255,0.3)]",
-        // Outer glow
-        "drop-shadow-[0_8px_32px_rgba(255,123,170,0.4)]",
-        // Glass effect
-        "backdrop-blur-sm"
+        "relative w-full overflow-visible",
+        // Red gradient background - no pill shape
+        "bg-gradient-to-r from-red-500 via-red-600 to-red-700"
       )}>
-        {/* Navigation Content */}
-        <nav className="flex items-center justify-around relative px-3 py-4 overflow-visible">
+        {/* Navigation Content - Reduced height by 50px */}
+        <nav className="flex items-center justify-around relative px-3 py-2 overflow-visible h-16">
           {navItems.map((item, index) => {
             const isActive = activeTab === item.id;
             const isCenter = item.isCenter;
@@ -98,7 +90,7 @@ export function Navigation({
                     "text-center whitespace-nowrap",
                     // All caps styling
                     "uppercase tracking-wide",
-                    // White text with strong shadow for readability on the candy background
+                    // White text with strong shadow for readability on the red background
                     "text-white drop-shadow-[0_2px_4px_rgba(0,0,0,0.9)]",
                     // Active state styling
                     isActive 
