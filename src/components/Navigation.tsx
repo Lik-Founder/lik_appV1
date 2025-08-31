@@ -1,17 +1,11 @@
-import { PuzzlePieceIcon, UserIcon } from '@heroicons/react/24/outline';
 import { TabType } from '@/lib/types';
-import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import { DeviceType, Orientation } from '@/hooks/use-device';
-import unselectedFireIcon from '@/assets/images/unselected_fire_icon.png';
-import selectedTrendingIcon from '@/assets/images/selected_trending_icon.png';
-import likLogoHeart from '@/assets/images/Lik_Logo_Heart_1.0.png';
-import searchIcon from '@/assets/images/search_icon.png';
-import selectedIcon from '@/assets/images/selected_icon.png';
-import unselectedHomeIcon from '@/assets/images/unselected_home_icon.png';
-import selectedHomeIcon from '@/assets/images/selected_home.png';
-import searchPng from '@/assets/images/search.png';
-import home3Icon from '@/assets/images/home_(3).png';
+import homeIcon from '@/assets/images/home_icon.png';
+import exploreIcon from '@/assets/images/explore_icon.png';
+import mapIcon from '@/assets/images/map_icon.png';
+import trendingIcon from '@/assets/images/trending_icon.png';
+import profileIcon from '@/assets/images/profile_icon.png';
 
 interface NavigationProps {
   activeTab: TabType;
@@ -29,108 +23,92 @@ export function Navigation({
   className 
 }: NavigationProps) {
   const navItems = [
-    { id: 'home' as TabType, label: 'Home' },
-    { id: 'search' as TabType, label: 'Explore' },
-    { id: 'lik' as TabType, icon: PuzzlePieceIcon, label: 'Lik' },
-    { id: 'trending' as TabType, label: 'Trending' },
-    { id: 'profile' as TabType, icon: UserIcon, label: 'Profile' },
+    { id: 'home' as TabType, label: 'HOME', icon: homeIcon },
+    { id: 'search' as TabType, label: 'SEARCH', icon: exploreIcon },
+    { id: 'lik' as TabType, label: 'MAP', icon: mapIcon },
+    { id: 'trending' as TabType, label: 'FLAME', icon: trendingIcon },
+    { id: 'profile' as TabType, label: 'PROFILE', icon: profileIcon },
   ];
 
-  // Icon size based on device type
-  const iconSize = deviceType === 'tablet' ? 28 : 24;
-  
-  // Show labels on tablets or landscape phones
-  const showLabels = deviceType === 'tablet' || 
-    (deviceType === 'phone' && orientation === 'landscape');
-
-  // Determine if we're on trending page for styling
-  const isOnTrendingPage = activeTab === 'trending';
-
   return (
-    <nav className={cn(
-      "flex items-center justify-around backdrop-blur-sm",
-      "touch-target safe-bottom",
-      isOnTrendingPage ? "bg-black/95" : "bg-background/95",
-      orientation === 'landscape' && deviceType === 'phone' ? "px-2 py-1" : "px-4 py-2",
-      className
-    )}>
-      {navItems.map((item) => {
-        const Icon = item.icon;
-        const isActive = activeTab === item.id;
-        
-        return (
-          <Button
-            key={item.id}
-            variant="ghost"
-            size="sm"
-            onClick={() => onTabChange(item.id)}
-            className={cn(
-              "flex flex-col items-center gap-1 touch-target transition-all duration-200",
-              "active:scale-95",
-              showLabels ? "p-3" : "p-2",
-              isOnTrendingPage 
-                ? cn(
-                    "active:bg-white/10",
-                    isActive && "text-white",
-                    !isActive && "text-white/60 hover:text-white"
-                  )
-                : cn(
-                    "active:bg-muted/50",
-                    isActive && "text-foreground",
-                    !isActive && "text-muted-foreground hover:text-foreground"
-                  )
-            )}
-          >
-            {item.id === 'home' ? (
-              <img 
-                src={isActive ? selectedHomeIcon : (isOnTrendingPage ? home3Icon : unselectedHomeIcon)} 
-                alt="Home" 
-                className="transition-transform duration-200"
-                style={{ width: iconSize, height: iconSize }}
-              />
-            ) : item.id === 'search' ? (
-              <img 
-                src={isOnTrendingPage ? searchPng : (isActive ? selectedIcon : searchIcon)} 
-                alt="Explore" 
-                className="transition-transform duration-200"
-                style={{ width: iconSize, height: iconSize }}
-              />
-            ) : item.id === 'trending' ? (
-              <img 
-                src={isActive ? selectedTrendingIcon : unselectedFireIcon} 
-                alt="Trending" 
-                className="transition-transform duration-200"
-                style={{ width: iconSize, height: iconSize }}
-              />
-            ) : item.id === 'lik' ? (
-              <img 
-                src={likLogoHeart} 
-                alt="Lik" 
-                className={cn(
-                  "transition-transform duration-200",
-                  isActive && "brightness-110"
-                )}
-                style={{ width: iconSize, height: iconSize }}
-              />
-            ) : Icon ? (
-              <Icon 
-                className={cn(
-                  "w-6 h-6 transition-transform duration-200",
-                  isActive ? "fill-current" : "stroke-current fill-none"
-                )}
-              />
-            ) : null}
-            {showLabels && (
-              <span className={cn(
-                "transition-opacity duration-200 nav-rum-raisin",
-                deviceType === 'tablet' ? "text-sm" : "text-xs"
-              )}>
-                {item.label}
-              </span>
-            )}
-          </Button>
-        );
-      })}
-    </nav>
+    <div className={cn("relative", className)}>
+      {/* Breaking Border Container */}
+      <div className={cn(
+        "relative mx-2 mb-2 md:mx-4",
+        "bg-gradient-to-r from-pink-400/90 via-purple-400/90 to-pink-400/90",
+        "rounded-3xl p-1",
+        "backdrop-blur-md",
+        "border-4 border-white/30",
+        "shadow-2xl shadow-pink-500/30"
+      )}>
+        {/* Inner Container with Rounded Background */}
+        <div className="bg-white/20 rounded-2xl backdrop-blur-lg">
+          <nav className="flex items-end justify-around relative px-1 py-2 md:px-2 md:py-3">
+            {navItems.map((item, index) => {
+              const isActive = activeTab === item.id;
+              
+              return (
+                <button
+                  key={item.id}
+                  onClick={() => onTabChange(item.id)}
+                  className={cn(
+                    "relative flex flex-col items-center transition-all duration-300",
+                    "touch-target group min-w-0 flex-1",
+                    isActive ? "z-10" : "z-0"
+                  )}
+                >
+                  {/* Pop-out Icon Container */}
+                  <div className={cn(
+                    "relative flex items-center justify-center transition-all duration-300",
+                    "mb-1",
+                    isActive 
+                      ? "transform md:-translate-y-6 -translate-y-5 scale-105 md:scale-110" 
+                      : "transform translate-y-0 scale-100 group-active:scale-95"
+                  )}>
+                    {/* Glow Background for Active Icon */}
+                    {isActive && (
+                      <div className="absolute inset-0 bg-gradient-to-br from-yellow-300 to-orange-400 rounded-full blur-lg scale-150 opacity-60" />
+                    )}
+                    
+                    {/* Icon Background Circle */}
+                    <div className={cn(
+                      "relative rounded-full border-3 transition-all duration-300",
+                      "p-2 md:p-3",
+                      isActive 
+                        ? "bg-gradient-to-br from-yellow-300 to-orange-400 border-white shadow-xl scale-105 md:scale-110" 
+                        : "bg-gradient-to-br from-white/40 to-white/20 border-white/50 shadow-md hover:scale-105"
+                    )}>
+                      <img 
+                        src={item.icon} 
+                        alt={item.label}
+                        className={cn(
+                          "transition-all duration-300",
+                          "w-6 h-6 md:w-8 md:h-8",
+                          isActive 
+                            ? "filter brightness-110 drop-shadow-lg" 
+                            : "filter brightness-90"
+                        )}
+                      />
+                    </div>
+                  </div>
+                  
+                  {/* Label */}
+                  <span className={cn(
+                    "font-bold tracking-wider transition-all duration-300 font-rum-raisin",
+                    "text-center leading-tight whitespace-nowrap",
+                    "text-xs md:text-xs",
+                    isActive 
+                      ? "text-white text-shadow-lg scale-105 drop-shadow-md" 
+                      : "text-white/80 text-shadow"
+                  )}>
+                    {item.label}
+                  </span>
+                </button>
+              );
+            })}
+          </nav>
+        </div>
+      </div>
+    </div>
   );
 }

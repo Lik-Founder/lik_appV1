@@ -2418,17 +2418,130 @@ input, textarea, select {
   }
 }
 
-/* High contrast mode support for bounty cards */
-@media (prefers-contrast: high) {
-  .bounty-card-shine::before {
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.5), transparent);
+/* Enhanced breaking border navigation styles */
+.border-3 {
+  border-width: 3px;
+}
+
+.text-shadow {
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+.text-shadow-lg {
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8), 0 0 8px rgba(0, 0, 0, 0.3);
+}
+
+/* Breaking border glow effects */
+.nav-glow-active {
+  box-shadow: 
+    0 0 20px rgba(255, 193, 7, 0.6),
+    0 0 40px rgba(255, 152, 0, 0.4),
+    inset 0 0 20px rgba(255, 255, 255, 0.2);
+}
+
+.nav-glow-inactive {
+  box-shadow: 
+    0 0 10px rgba(255, 255, 255, 0.2),
+    inset 0 0 10px rgba(255, 255, 255, 0.1);
+}
+
+/* Pop-out animation keyframes */
+@keyframes navIconPopOut {
+  0% {
+    transform: translateY(0) scale(1);
+  }
+  50% {
+    transform: translateY(-8px) scale(1.1);
+  }
+  100% {
+    transform: translateY(-24px) scale(1.1);
+  }
+}
+
+@keyframes navIconPopIn {
+  0% {
+    transform: translateY(-24px) scale(1.1);
+  }
+  50% {
+    transform: translateY(-8px) scale(1.05);
+  }
+  100% {
+    transform: translateY(0) scale(1);
+  }
+}
+
+.nav-icon-pop-out {
+  animation: navIconPopOut 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.nav-icon-pop-in {
+  animation: navIconPopIn 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Gamified button hover effects */
+.nav-button-hover:hover {
+  transform: translateY(-2px);
+  transition: transform 0.2s ease;
+}
+
+.nav-button-hover:active {
+  transform: translateY(0) scale(0.95);
+  transition: transform 0.1s ease;
+}
+
+/* Enhanced gradient backgrounds for navigation */
+.nav-gradient-pink {
+  background: linear-gradient(135deg, 
+    rgba(236, 72, 153, 0.9) 0%, 
+    rgba(168, 85, 247, 0.9) 50%, 
+    rgba(236, 72, 153, 0.9) 100%);
+}
+
+.nav-gradient-yellow {
+  background: linear-gradient(135deg, 
+    rgba(253, 224, 71, 1) 0%, 
+    rgba(251, 146, 60, 1) 100%);
+}
+
+/* Mobile optimizations for breaking border nav */
+@media (max-width: 480px) {
+  .nav-container-mobile {
+    margin: 0 0.5rem 0.5rem 0.5rem;
   }
   
-  .difficulty-easy,
-  .difficulty-medium,
-  .difficulty-hard {
-    box-shadow: none;
-    border: 2px solid currentColor;
+  .nav-icon-size-mobile {
+    width: 1.75rem;
+    height: 1.75rem;
+  }
+  
+  .nav-text-mobile {
+    font-size: 0.65rem;
+  }
+  
+  .nav-pop-distance-mobile {
+    transform: translateY(-20px);
+  }
+  
+  /* Smaller pop-out distance on mobile */
+  .mobile-pop-out {
+    transform: translateY(-20px) scale(1.05) !important;
+  }
+  
+  /* Smaller padding on mobile */
+  .mobile-nav-padding {
+    padding: 0.5rem;
+  }
+  
+  /* Mobile icon size */
+  .mobile-nav-icon {
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+  
+  /* Mobile text size */
+  .mobile-nav-text {
+    font-size: 0.7rem;
+    line-height: 1;
   }
 }
 

@@ -152,16 +152,20 @@ function App() {
         maxHeight: '100vh'
       }}
     >
-      <div className="flex-1 flex flex-col overflow-hidden">
+      <div className={cn(
+        "flex-1 flex flex-col overflow-hidden",
+        currentPage === 'main' ? "pb-20" : ""
+      )}>
         {renderPage()}
       </div>
       
       {currentPage === 'main' && (
-        <Navigation 
-          activeTab={activeTab} 
-          onTabChange={setActiveTab}
-          className="flex-shrink-0"
-        />
+        <div className="absolute bottom-0 left-0 right-0 z-50 safe-bottom">
+          <Navigation 
+            activeTab={activeTab} 
+            onTabChange={setActiveTab}
+          />
+        </div>
       )}
 
       {isSwipeIndicatorVisible && (
