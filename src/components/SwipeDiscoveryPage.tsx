@@ -29,7 +29,7 @@ import {
   ShieldCheckIcon as Shield
 } from '@heroicons/react/24/outline';
 import { cn } from '@/lib/utils';
-import likLogo from '@/assets/Lik_Logo_Heart_1.0.png';
+import likLogo from '@/assets/images/Lik_Logo_Heart_1.0.png';
 
 interface Restaurant {
   id: string;
