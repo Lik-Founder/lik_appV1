@@ -12,11 +12,11 @@ interface NavigationProps {
 }
 
 const tabs = [
-  { id: 'home' as TabType, label: 'HOME', icon: homeIcon },
-  { id: 'search' as TabType, label: 'EXPLORE', icon: exploreIcon },
-  { id: 'lik' as TabType, label: 'LIK', icon: mapIcon },
-  { id: 'trending' as TabType, label: 'TRENDING', icon: trendingIcon },
-  { id: 'profile' as TabType, label: 'PROFILE', icon: profileIcon },
+  { id: 'home' as TabType, label: 'Home', icon: homeIcon },
+  { id: 'search' as TabType, label: 'Explore', icon: exploreIcon },
+  { id: 'lik' as TabType, label: 'Lik', icon: mapIcon },
+  { id: 'trending' as TabType, label: 'Trending', icon: trendingIcon },
+  { id: 'profile' as TabType, label: 'Profile', icon: profileIcon },
 ];
 
 export function Navigation({ activeTab, onTabChange }: NavigationProps) {
@@ -33,7 +33,7 @@ export function Navigation({ activeTab, onTabChange }: NavigationProps) {
         `,
         backdropFilter: 'blur(16px)',
         WebkitBackdropFilter: 'blur(16px)',
-        minHeight: '54px'
+        minHeight: '49px'
       }}
     >
       {/* Glass reflection effect */}
@@ -70,8 +70,8 @@ export function Navigation({ activeTab, onTabChange }: NavigationProps) {
                   style={{
                     width: isCenter ? '77px' : '69px',
                     height: isCenter ? '77px' : '69px',
-                    background: 'radial-gradient(circle, rgba(255, 215, 0, 0.8) 0%, rgba(255, 193, 7, 0.6) 40%, rgba(255, 152, 0, 0.4) 70%, transparent 100%)',
-                    filter: 'blur(8px)',
+                    background: 'radial-gradient(circle, rgba(255, 215, 0, 0.3) 0%, rgba(255, 193, 7, 0.2) 40%, rgba(255, 152, 0, 0.1) 70%, transparent 100%)',
+                    filter: 'blur(6px)',
                     top: '-40px',
                     left: '50%',
                     transform: 'translateX(-50%)',
@@ -84,9 +84,9 @@ export function Navigation({ activeTab, onTabChange }: NavigationProps) {
               <div 
                 className="relative"
                 style={{
-                  transform: 'translateY(-21px)',
+                  transform: 'translateY(-23px)',
                   zIndex: 10,
-                  marginBottom: '-10px' // Reduced spacing by 12px
+                  marginBottom: '-12px' // Moved icons 2px higher and adjusted spacing
                 }}
               >
                 {/* Icon */}
@@ -98,7 +98,7 @@ export function Navigation({ activeTab, onTabChange }: NavigationProps) {
                     width: isCenter ? '45px' : '37px', // Reduced by 3px
                     height: isCenter ? '45px' : '37px', // Reduced by 3px
                     filter: isActive 
-                      ? 'drop-shadow(0 2px 8px rgba(0, 0, 0, 0.6)) drop-shadow(0 0 12px rgba(255, 215, 0, 0.6)) brightness(1.1)'
+                      ? 'drop-shadow(0 2px 8px rgba(0, 0, 0, 0.6)) drop-shadow(0 0 6px rgba(255, 215, 0, 0.3)) brightness(1.05)'
                       : 'drop-shadow(0 2px 6px rgba(0, 0, 0, 0.5)) brightness(0.95)'
                   }}
                 />
@@ -106,15 +106,15 @@ export function Navigation({ activeTab, onTabChange }: NavigationProps) {
               
               {/* Text label */}
               <div 
-                className="font-rum-raisin font-bold text-white uppercase tracking-wide"
+                className="font-rum-raisin font-bold text-white tracking-wide"
                 style={{
                   fontSize: '0.65rem',
                   lineHeight: '1',
                   fontWeight: '700',
                   textShadow: isActive
-                    ? '0 1px 3px rgba(0, 0, 0, 0.8), 0 0 12px rgba(255, 215, 0, 0.4)'
+                    ? '0 1px 3px rgba(0, 0, 0, 0.8), 0 0 6px rgba(255, 215, 0, 0.2)'
                     : '0 1px 3px rgba(0, 0, 0, 0.8)',
-                  transform: 'translateY(-4px)'
+                  transform: 'translateY(-6px)' // Moved labels 2px further from icons
                 }}
               >
                 {tab.label}
