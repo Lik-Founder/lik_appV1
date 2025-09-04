@@ -253,7 +253,7 @@ export function LikTVPage({ onBack }: LikTVPageProps) {
   const sortOptions = ['Latest', 'Popular', 'Trending', 'Top Rated', 'Duration'];
 
   return (
-    <div className="flex flex-col h-full min-h-screen bg-background">
+    <div className="flex flex-col h-full min-h-screen bg-black">
       
       {/* App Bar */}
       <div className="sticky top-0 z-30 bg-background/95 backdrop-blur-lg border-b border-border">
