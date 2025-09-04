@@ -37,17 +37,7 @@ export function Navigation({ activeTab, onTabChange }: NavigationProps) {
         minHeight: '49px'
       }}
     >
-      {/* Glass reflection effect */}
-      <div 
-        className="absolute pointer-events-none"
-        style={{
-          top: '0%',
-          left: '0',
-          right: '0',
-          height: '40%',
-          background: 'linear-gradient(to bottom, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0.08) 50%, transparent 100%)'
-        }}
-      />
+
       
       {/* Navigation items */}
       <div className="flex items-end justify-around px-4 py-2 relative">
@@ -85,9 +75,9 @@ export function Navigation({ activeTab, onTabChange }: NavigationProps) {
               <div 
                 className="relative"
                 style={{
-                  transform: 'translateY(-23px)',
+                  transform: 'translateY(-26px)', // Moved icons up 3 pixels (from -23px to -26px)
                   zIndex: 10,
-                  marginBottom: '-12px' // Moved icons 2px higher and adjusted spacing
+                  marginBottom: '-12px'
                 }}
               >
                 {/* Icon */}
@@ -109,13 +99,13 @@ export function Navigation({ activeTab, onTabChange }: NavigationProps) {
               <div 
                 className="font-rum-raisin font-bold text-white tracking-wide"
                 style={{
-                  fontSize: '0.68rem', // Increased by 3 pixels (from 0.65rem)
+                  fontSize: '0.68rem',
                   lineHeight: '1',
                   fontWeight: '700',
                   textShadow: isActive
                     ? '0 1px 3px rgba(0, 0, 0, 0.8), 0 0 6px rgba(255, 215, 0, 0.2)'
                     : '0 1px 3px rgba(0, 0, 0, 0.8)',
-                  transform: 'translateY(-9px)' // Increased space by 3 pixels (from -6px to -9px)
+                  transform: 'translateY(-7px)' // Moved labels down 2 pixels (from -9px to -7px)
                 }}
               >
                 {tab.label}
