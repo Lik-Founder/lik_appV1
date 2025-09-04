@@ -2436,16 +2436,18 @@ input, textarea, select {
     0 4px 16px rgba(0, 0, 0, 0.2);
 }
 
-/* Enhanced glossy translucent navigation background */
+/* Enhanced glossy translucent navigation background with transparent top */
 .nav-glossy-gradient {
-  background: linear-gradient(135deg, 
-    rgba(229, 40, 40, 0.85) 0%,     /* #E52828 with 85% opacity */
-    rgba(255, 26, 117, 0.90) 50%,   /* #FF1A75 with 90% opacity */
-    rgba(179, 0, 38, 0.95) 100%     /* #B30026 with 95% opacity */
+  background: linear-gradient(to bottom,
+    transparent 0%,                 /* Transparent top area for overhanging icons */
+    transparent 43.75%,             /* Transparent up to 28px from 64px total height */
+    rgba(229, 40, 40, 0.85) 43.75%, /* Start gradient where content begins */
+    rgba(255, 26, 117, 0.90) 71.875%, /* Mid-point of visible area */
+    rgba(179, 0, 38, 0.95) 100%     /* End gradient */
   );
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  border-top: 1px solid rgba(255, 255, 255, 0.2);
+  border-top: 1px solid transparent; /* Remove border from transparent area */
   box-shadow: 
     inset 0 1px 0 rgba(255, 255, 255, 0.25),
     inset 0 -1px 0 rgba(0, 0, 0, 0.15),
@@ -2464,10 +2466,10 @@ input, textarea, select {
 .nav-glossy-gradient::before {
   content: '';
   position: absolute;
-  top: 0;
+  top: 43.75%; /* Start reflection where background begins */
   left: 0;
   right: 0;
-  height: 50%;
+  height: 28%; /* Reduced height for just the visible background area */
   background: linear-gradient(to bottom, 
     rgba(255, 255, 255, 0.15) 0%, 
     rgba(255, 255, 255, 0.08) 50%,
