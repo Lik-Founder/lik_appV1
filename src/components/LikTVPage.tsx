@@ -253,10 +253,10 @@ export function LikTVPage({ onBack }: LikTVPageProps) {
   const sortOptions = ['Latest', 'Popular', 'Trending', 'Top Rated', 'Duration'];
 
   return (
-    <div className="flex flex-col h-full min-h-screen bg-black">
+    <div className="flex flex-col h-full min-h-screen bg-background">
       
       {/* App Bar */}
-      <div className="sticky top-0 z-30 bg-black/95 backdrop-blur-lg border-b border-white/10">
+      <div className="sticky top-0 z-30 bg-background/95 backdrop-blur-lg border-b border-border">
         <div className="flex items-center justify-between px-4 py-3">
           {/* Left Side - Back Button & Logo */}
           <div className="flex items-center space-x-3">
@@ -264,13 +264,13 @@ export function LikTVPage({ onBack }: LikTVPageProps) {
               variant="ghost"
               size="sm"
               onClick={onBack}
-              className="p-2 hover:bg-white/10 text-white rounded-xl"
+              className="p-2 hover:bg-muted text-foreground rounded-xl"
             >
               <ChevronLeftIcon className="w-5 h-5" />
             </Button>
             <div className="flex items-center space-x-2">
               <img src={likLogo} alt="Lik" className="w-6 h-6" />
-              <h1 className="text-xl font-rum-raisin font-bold text-white">
+              <h1 className="text-xl font-rum-raisin font-bold text-foreground">
                 LikTV
               </h1>
             </div>
@@ -282,14 +282,14 @@ export function LikTVPage({ onBack }: LikTVPageProps) {
               variant="ghost"
               size="sm"
               onClick={() => setIsSearchOpen(!isSearchOpen)}
-              className="p-2 hover:bg-white/10 text-white rounded-xl"
+              className="p-2 hover:bg-muted text-foreground rounded-xl"
             >
               <MagnifyingGlassIcon className="w-5 h-5" />
             </Button>
             <Button
               variant="ghost"
               size="sm"
-              className="p-2 hover:bg-white/10 text-white rounded-xl"
+              className="p-2 hover:bg-muted text-foreground rounded-xl"
             >
               <AdjustmentsHorizontalIcon className="w-5 h-5" />
             </Button>
@@ -300,12 +300,12 @@ export function LikTVPage({ onBack }: LikTVPageProps) {
         {isSearchOpen && (
           <div className="px-4 pb-3 animate-slideUp">
             <div className="relative">
-              <MagnifyingGlassIcon className="w-4 h-4 absolute left-3 top-1/2 transform -translate-y-1/2 text-white/70" />
+              <MagnifyingGlassIcon className="w-4 h-4 absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground" />
               <Input
                 placeholder="Search food shows and creators..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="pl-10 bg-white/10 border-white/20 text-white placeholder:text-white/70 rounded-xl focus:bg-white/20 focus:border-white/40"
+                className="pl-10 bg-muted border-border text-foreground placeholder:text-muted-foreground rounded-xl focus:bg-card focus:border-primary"
                 autoFocus
               />
             </div>
@@ -325,8 +325,8 @@ export function LikTVPage({ onBack }: LikTVPageProps) {
                 className={cn(
                   "px-4 py-2 rounded-full whitespace-nowrap text-sm font-medium transition-all",
                   selectedFilter === filter
-                    ? "bg-red-500/80 text-white border border-red-400/50"
-                    : "bg-white/10 text-white/80 hover:bg-white/20 border border-white/20"
+                    ? "bg-primary text-primary-foreground border border-primary/50"
+                    : "bg-muted text-muted-foreground hover:bg-primary/10 hover:text-primary border border-border"
                 )}
               >
                 {filter}
@@ -334,18 +334,18 @@ export function LikTVPage({ onBack }: LikTVPageProps) {
             ))}
             
             {/* Divider */}
-            <div className="w-px h-6 bg-white/20 mx-2" />
+            <div className="w-px h-6 bg-border mx-2" />
             
             {/* Sort Filter */}
             <div className="flex items-center space-x-2">
-              <ClockIcon className="w-4 h-4 text-white/60" />
+              <ClockIcon className="w-4 h-4 text-muted-foreground" />
               <select
                 value={sortBy}
                 onChange={(e) => setSortBy(e.target.value)}
-                className="bg-white/10 border border-white/20 text-white text-sm rounded-full px-3 py-2 focus:bg-white/20 focus:border-white/40 appearance-none"
+                className="bg-muted border border-border text-foreground text-sm rounded-full px-3 py-2 focus:bg-card focus:border-primary appearance-none"
               >
                 {sortOptions.map((option) => (
-                  <option key={option} value={option} className="bg-black text-white">
+                  <option key={option} value={option} className="bg-background text-foreground">
                     {option}
                   </option>
                 ))}
@@ -356,7 +356,7 @@ export function LikTVPage({ onBack }: LikTVPageProps) {
             <Button
               variant="ghost"
               size="sm"
-              className="px-4 py-2 rounded-full whitespace-nowrap text-sm font-medium bg-orange-500/20 text-orange-300 hover:bg-orange-500/30 border border-orange-400/30"
+              className="px-4 py-2 rounded-full whitespace-nowrap text-sm font-medium bg-accent/20 text-accent-foreground hover:bg-accent/30 border border-accent/30"
             >
               <FireIcon className="w-4 h-4 mr-1" />
               Trending
@@ -370,7 +370,7 @@ export function LikTVPage({ onBack }: LikTVPageProps) {
         {/* Hero Carousel Section */}
         <div className="relative mx-4 mb-6 mt-4">
           <div 
-            className="liktv-carousel relative h-[300px] overflow-hidden bg-black/20 cursor-grab active:cursor-grabbing select-none rounded-2xl border-2 border-white/20"
+            className="liktv-carousel relative h-[300px] overflow-hidden bg-card/50 cursor-grab active:cursor-grabbing select-none rounded-2xl border-2 border-border"
             {...enhancedSwipeHandlers}
             style={{
               backdropFilter: 'blur(10px)',
@@ -394,7 +394,7 @@ export function LikTVPage({ onBack }: LikTVPageProps) {
                   style={{ backgroundImage: `url(${show.thumbnail})` }}
                 >
                   {/* Overlay */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-background/30 to-transparent" />
                   
                   {/* New Badge */}
                   {show.new && (
@@ -405,9 +405,9 @@ export function LikTVPage({ onBack }: LikTVPageProps) {
 
                   {/* Trending Badge */}
                   {show.trending && !show.new && (
-                    <div className="absolute top-4 left-4 flex items-center space-x-1 bg-red-500/90 px-3 py-1 rounded-full">
-                      <FireIcon className="w-4 h-4 text-white" />
-                      <span className="text-white text-xs font-bold">TRENDING</span>
+                    <div className="absolute top-4 left-4 flex items-center space-x-1 bg-primary/90 px-3 py-1 rounded-full">
+                      <FireIcon className="w-4 h-4 text-primary-foreground" />
+                      <span className="text-primary-foreground text-xs font-bold">TRENDING</span>
                     </div>
                   )}
 
@@ -419,31 +419,31 @@ export function LikTVPage({ onBack }: LikTVPageProps) {
                   )}
                   
                   {/* Content */}
-                  <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
+                  <div className="absolute bottom-0 left-0 right-0 p-6 text-foreground">
                     <div className="flex items-center space-x-2 mb-2">
                       <span className="text-lg">{getCategoryIcon(show.category)}</span>
-                      <span className="text-sm font-medium bg-white/20 px-2 py-1 rounded-full">
+                      <span className="text-sm font-medium bg-card/60 text-card-foreground px-2 py-1 rounded-full">
                         {show.category}
                       </span>
                       {show.network && (
-                        <span className="text-sm font-medium bg-blue-500/20 px-2 py-1 rounded-full">
+                        <span className="text-sm font-medium bg-blue-500/20 text-blue-200 px-2 py-1 rounded-full">
                           {show.network}
                         </span>
                       )}
                     </div>
                     
-                    <h2 className="text-2xl font-rum-raisin font-bold mb-2 text-shadow-lg">
+                    <h2 className="text-2xl font-rum-raisin font-bold mb-2 text-shadow-lg text-foreground">
                       {show.title}
                     </h2>
                     
-                    <p className="text-sm mb-3 max-w-md opacity-90 line-clamp-2 text-shadow">
+                    <p className="text-sm mb-3 max-w-md opacity-90 line-clamp-2 text-shadow text-muted-foreground">
                       {show.description}
                     </p>
 
                     <div className="flex items-center justify-between">
                       <div className="flex items-center space-x-4">
                         <Button 
-                          className="glossy-red-pill font-rum-raisin text-white px-6 py-2"
+                          className="glossy-red-pill font-rum-raisin text-primary-foreground px-6 py-2"
                         >
                           <PlayIcon className="w-4 h-4 mr-2" />
                           Watch Now
@@ -452,8 +452,8 @@ export function LikTVPage({ onBack }: LikTVPageProps) {
                         {/* Show Details */}
                         <div className="flex items-center space-x-2">
                           {show.duration && (
-                            <div className="flex items-center space-x-1 bg-white/20 px-2 py-1 rounded-full">
-                              <span className="text-white/80 text-xs">{show.duration}</span>
+                            <div className="flex items-center space-x-1 bg-card/60 text-card-foreground px-2 py-1 rounded-full">
+                              <span className="text-xs">{show.duration}</span>
                             </div>
                           )}
                           {show.rating && (
@@ -480,10 +480,10 @@ export function LikTVPage({ onBack }: LikTVPageProps) {
                 <button
                   key={index}
                   className={cn(
-                    "w-3 h-3 rounded-full transition-all border border-white/50",
+                    "w-3 h-3 rounded-full transition-all border border-border",
                     index === currentSlide 
-                      ? "bg-white scale-110" 
-                      : "bg-white/30 hover:bg-white/50"
+                      ? "bg-primary scale-110" 
+                      : "bg-muted hover:bg-muted-foreground/50"
                   )}
                   onClick={() => setCurrentSlide(index)}
                 />
@@ -497,13 +497,13 @@ export function LikTVPage({ onBack }: LikTVPageProps) {
           {/* For You Section */}
           <div>
             <div className="flex items-center justify-between mb-4">
-              <h3 className="text-xl font-rum-raisin font-bold text-white text-shadow-lg flex items-center">
+              <h3 className="text-xl font-rum-raisin font-bold text-foreground text-shadow-lg flex items-center">
                 <span className="text-2xl mr-2">🎯</span>
                 For You
               </h3>
               <Button 
                 variant="ghost" 
-                className="text-white/80 hover:text-white hover:bg-white/10 rounded-xl"
+                className="text-muted-foreground hover:text-foreground hover:bg-muted rounded-xl"
               >
                 View All
               </Button>
@@ -513,7 +513,7 @@ export function LikTVPage({ onBack }: LikTVPageProps) {
               {forYouShows.map((show) => (
                 <div
                   key={show.id}
-                  className="relative rounded-2xl overflow-hidden border-2 border-white/20 hover:scale-[1.02] transition-all duration-300 cursor-pointer group"
+                  className="relative rounded-2xl overflow-hidden border-2 border-border hover:scale-[1.02] transition-all duration-300 cursor-pointer group"
                   style={{
                     background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0.05) 100%)',
                     backdropFilter: 'blur(10px)',
@@ -526,9 +526,9 @@ export function LikTVPage({ onBack }: LikTVPageProps) {
                       className="w-40 bg-cover bg-center relative"
                       style={{ backgroundImage: `url(${show.thumbnail})` }}
                     >
-                      <div className="absolute inset-0 bg-black/30 group-hover:bg-black/20 transition-colors" />
+                      <div className="absolute inset-0 bg-background/30 group-hover:bg-background/20 transition-colors" />
                       <div className="absolute inset-0 flex items-center justify-center">
-                        <PlayIcon className="w-8 h-8 text-white opacity-80 group-hover:opacity-100 transition-opacity" />
+                        <PlayIcon className="w-8 h-8 text-foreground opacity-80 group-hover:opacity-100 transition-opacity" />
                       </div>
                       
                       {show.new && (
@@ -539,7 +539,7 @@ export function LikTVPage({ onBack }: LikTVPageProps) {
                     </div>
 
                     {/* Content */}
-                    <div className="flex-1 p-4 text-white">
+                    <div className="flex-1 p-4 text-foreground">
                       <div className="flex items-center justify-between mb-1">
                         <span className="text-lg">{getCategoryIcon(show.category)}</span>
                         <div className="flex items-center space-x-1">
@@ -552,17 +552,17 @@ export function LikTVPage({ onBack }: LikTVPageProps) {
                         </div>
                       </div>
                       
-                      <h4 className="font-rum-raisin font-bold text-sm mb-1 line-clamp-1 text-shadow">
+                      <h4 className="font-rum-raisin font-bold text-sm mb-1 line-clamp-1 text-shadow text-foreground">
                         {show.title}
                       </h4>
                       
-                      <p className="text-xs text-white/80 mb-1">{show.creator}</p>
+                      <p className="text-xs text-muted-foreground mb-1">{show.creator}</p>
                       {show.channel && (
                         <p className="text-xs text-blue-300 mb-2">{show.channel}</p>
                       )}
                       
                       <div className="flex items-center justify-between">
-                        <div className="flex items-center space-x-2 text-xs text-white/80">
+                        <div className="flex items-center space-x-2 text-xs text-muted-foreground">
                           {show.duration && <span>{show.duration}</span>}
                           {show.viewCount && (
                             <>
@@ -576,8 +576,8 @@ export function LikTVPage({ onBack }: LikTVPageProps) {
                   </div>
 
                   {show.trending && (
-                    <div className="absolute top-2 right-2 bg-red-500/90 px-2 py-1 rounded-full">
-                      <span className="text-white text-xs font-bold">🔥</span>
+                    <div className="absolute top-2 right-2 bg-primary/90 px-2 py-1 rounded-full">
+                      <span className="text-primary-foreground text-xs font-bold">🔥</span>
                     </div>
                   )}
                 </div>
@@ -588,13 +588,13 @@ export function LikTVPage({ onBack }: LikTVPageProps) {
           {/* Popular Series Section */}
           <div className="pb-8">
             <div className="flex items-center justify-between mb-4">
-              <h3 className="text-xl font-rum-raisin font-bold text-white text-shadow-lg flex items-center">
+              <h3 className="text-xl font-rum-raisin font-bold text-foreground text-shadow-lg flex items-center">
                 <span className="text-2xl mr-2">📺</span>
                 Popular Series
               </h3>
               <Button 
                 variant="ghost" 
-                className="text-white/80 hover:text-white hover:bg-white/10 rounded-xl"
+                className="text-muted-foreground hover:text-foreground hover:bg-muted rounded-xl"
               >
                 View All
               </Button>
@@ -604,7 +604,7 @@ export function LikTVPage({ onBack }: LikTVPageProps) {
               {popularSeries.map((show) => (
                 <div
                   key={show.id}
-                  className="rounded-2xl overflow-hidden border-2 border-white/20 hover:scale-[1.02] transition-all duration-300 cursor-pointer group"
+                  className="rounded-2xl overflow-hidden border-2 border-border hover:scale-[1.02] transition-all duration-300 cursor-pointer group"
                   style={{
                     background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0.05) 100%)',
                     backdropFilter: 'blur(10px)',
@@ -617,12 +617,12 @@ export function LikTVPage({ onBack }: LikTVPageProps) {
                       alt={show.title}
                       className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-background/20 to-transparent" />
                     
                     {/* Play Button Overlay */}
                     <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
-                      <div className="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center border border-white/30">
-                        <PlayIcon className="w-6 h-6 text-white" />
+                      <div className="w-12 h-12 bg-card/60 text-card-foreground rounded-full flex items-center justify-center border border-border">
+                        <PlayIcon className="w-6 h-6" />
                       </div>
                     </div>
 
@@ -633,22 +633,22 @@ export function LikTVPage({ onBack }: LikTVPageProps) {
                     )}
 
                     {show.trending && (
-                      <div className="absolute top-2 left-2 bg-red-500/90 px-2 py-1 rounded-full">
-                        <span className="text-white text-xs font-bold">🔥</span>
+                      <div className="absolute top-2 left-2 bg-primary/90 px-2 py-1 rounded-full">
+                        <span className="text-primary-foreground text-xs font-bold">🔥</span>
                       </div>
                     )}
 
                     <div className="absolute bottom-2 left-2 right-2">
-                      <p className="text-white font-rum-raisin font-bold text-sm line-clamp-1 text-shadow mb-1">
+                      <p className="text-foreground font-rum-raisin font-bold text-sm line-clamp-1 text-shadow mb-1">
                         {show.title}
                       </p>
                       <div className="flex items-center justify-between mb-1">
-                        <p className="text-white/80 text-xs">{show.network || show.creator}</p>
-                        <div className="flex items-center space-x-1 text-xs text-white/80">
+                        <p className="text-muted-foreground text-xs">{show.network || show.creator}</p>
+                        <div className="flex items-center space-x-1 text-xs text-muted-foreground">
                           {show.rating && <span>⭐ {show.rating}</span>}
                         </div>
                       </div>
-                      <div className="flex items-center justify-between text-xs text-white/70">
+                      <div className="flex items-center justify-between text-xs text-muted-foreground">
                         <span>{show.viewCount} views</span>
                         {show.season && show.episode && (
                           <span>S{show.season} • {show.episode} episodes</span>
