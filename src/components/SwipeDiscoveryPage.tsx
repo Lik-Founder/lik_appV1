@@ -26,7 +26,8 @@ import {
   LightBulbIcon as Lightbulb,
   SparklesIcon as Sparkles,
   RocketLaunchIcon as Rocket,
-  ShieldCheckIcon as Shield
+  ShieldCheckIcon as Shield,
+  TagIcon as Tag
 } from '@heroicons/react/24/outline';
 import { cn } from '@/lib/utils';
 import likLogo from '@/assets/images/Lik_Logo_Heart_1.0.png';
@@ -239,6 +240,239 @@ const foodMoods = [
     icon: '💕', 
     color: 'from-red-500 to-rose-500',
     description: 'Romantic ambiance & intimate dining'
+  },
+  { 
+    id: 'quick', 
+    label: 'Quick Bite', 
+    icon: '⚡', 
+    color: 'from-yellow-500 to-orange-500',
+    description: 'Fast, delicious, on-the-go'
+  },
+  { 
+    id: 'fancy', 
+    label: 'Fine Dining', 
+    icon: '🥂', 
+    color: 'from-violet-500 to-purple-500',
+    description: 'Sophisticated, upscale experiences'
+  },
+  { 
+    id: 'spicy', 
+    label: 'Heat Seeker', 
+    icon: '🌶️', 
+    color: 'from-red-500 to-orange-500',
+    description: 'Bring on the fire!'
+  },
+  { 
+    id: 'sweet', 
+    label: 'Sweet Tooth', 
+    icon: '🍭', 
+    color: 'from-pink-400 to-rose-400',
+    description: 'Desserts and sweet treats'
+  },
+  { 
+    id: 'late-night', 
+    label: 'Night Owl', 
+    icon: '🌙', 
+    color: 'from-indigo-500 to-blue-500',
+    description: 'Late night cravings satisfied'
+  },
+  { 
+    id: 'brunch', 
+    label: 'Brunch Vibes', 
+    icon: '🥞', 
+    color: 'from-yellow-400 to-amber-500',
+    description: 'Weekend breakfast perfection'
+  }
+];
+
+const cuisinePreferences = [
+  { 
+    id: 'american', 
+    label: 'American', 
+    icon: '🍔', 
+    color: 'from-red-400 to-blue-400',
+    description: 'Classic comfort food'
+  },
+  { 
+    id: 'italian', 
+    label: 'Italian', 
+    icon: '🍝', 
+    color: 'from-green-500 to-red-500',
+    description: 'Pasta, pizza, perfection'
+  },
+  { 
+    id: 'asian', 
+    label: 'Asian Fusion', 
+    icon: '🍜', 
+    color: 'from-red-500 to-yellow-500',
+    description: 'Bold flavors, fresh ingredients'
+  },
+  { 
+    id: 'mexican', 
+    label: 'Mexican', 
+    icon: '🌮', 
+    color: 'from-green-500 to-red-500',
+    description: 'Vibrant, spicy, authentic'
+  },
+  { 
+    id: 'indian', 
+    label: 'Indian', 
+    icon: '🍛', 
+    color: 'from-orange-500 to-red-500',
+    description: 'Rich spices and curries'
+  },
+  { 
+    id: 'mediterranean', 
+    label: 'Mediterranean', 
+    icon: '🫒', 
+    color: 'from-blue-500 to-green-500',
+    description: 'Fresh, healthy, flavorful'
+  },
+  { 
+    id: 'japanese', 
+    label: 'Japanese', 
+    icon: '🍣', 
+    color: 'from-red-500 to-pink-500',
+    description: 'Sushi, ramen, precision'
+  },
+  { 
+    id: 'french', 
+    label: 'French', 
+    icon: '🥐', 
+    color: 'from-blue-500 to-red-500',
+    description: 'Elegant, refined, classic'
+  },
+  { 
+    id: 'thai', 
+    label: 'Thai', 
+    icon: '🍛', 
+    color: 'from-green-500 to-orange-500',
+    description: 'Sweet, sour, spicy harmony'
+  },
+  { 
+    id: 'chinese', 
+    label: 'Chinese', 
+    icon: '🥟', 
+    color: 'from-red-500 to-yellow-500',
+    description: 'Traditional and modern'
+  },
+  { 
+    id: 'bbq', 
+    label: 'BBQ & Grill', 
+    icon: '🔥', 
+    color: 'from-orange-500 to-red-500',
+    description: 'Smoky, grilled perfection'
+  },
+  { 
+    id: 'seafood', 
+    label: 'Seafood', 
+    icon: '🦞', 
+    color: 'from-blue-400 to-teal-500',
+    description: 'Fresh catch daily'
+  }
+];
+
+const dietaryPreferences = [
+  { 
+    id: 'vegetarian', 
+    label: 'Vegetarian', 
+    icon: '🌱', 
+    color: 'from-green-400 to-emerald-500',
+    description: 'Plant-based goodness'
+  },
+  { 
+    id: 'vegan', 
+    label: 'Vegan', 
+    icon: '🥬', 
+    color: 'from-green-500 to-lime-500',
+    description: 'Completely plant-based'
+  },
+  { 
+    id: 'gluten-free', 
+    label: 'Gluten-Free', 
+    icon: '🌾', 
+    color: 'from-yellow-400 to-amber-500',
+    description: 'Safe for celiac diets'
+  },
+  { 
+    id: 'keto', 
+    label: 'Keto-Friendly', 
+    icon: '🥑', 
+    color: 'from-green-400 to-teal-500',
+    description: 'Low-carb, high-fat options'
+  },
+  { 
+    id: 'halal', 
+    label: 'Halal', 
+    icon: '☪️', 
+    color: 'from-emerald-500 to-green-600',
+    description: 'Halal-certified cuisine'
+  },
+  { 
+    id: 'kosher', 
+    label: 'Kosher', 
+    icon: '✡️', 
+    color: 'from-blue-500 to-indigo-500',
+    description: 'Kosher-certified options'
+  },
+  { 
+    id: 'paleo', 
+    label: 'Paleo', 
+    icon: '🦴', 
+    color: 'from-orange-400 to-red-500',
+    description: 'Whole foods, no processed'
+  },
+  { 
+    id: 'low-sodium', 
+    label: 'Low Sodium', 
+    icon: '🧂', 
+    color: 'from-blue-400 to-cyan-500',
+    description: 'Heart-healthy choices'
+  }
+];
+
+const ambientPreferences = [
+  { 
+    id: 'quiet', 
+    label: 'Quiet & Cozy', 
+    icon: '🤫', 
+    color: 'from-slate-400 to-gray-500',
+    description: 'Peaceful dining atmosphere'
+  },
+  { 
+    id: 'lively', 
+    label: 'Lively & Fun', 
+    icon: '🎉', 
+    color: 'from-orange-500 to-pink-500',
+    description: 'Energetic, buzzing vibe'
+  },
+  { 
+    id: 'romantic', 
+    label: 'Romantic', 
+    icon: '💝', 
+    color: 'from-rose-400 to-pink-500',
+    description: 'Perfect for couples'
+  },
+  { 
+    id: 'family', 
+    label: 'Family-Friendly', 
+    icon: '👨‍👩‍👧‍👦', 
+    color: 'from-blue-400 to-green-400',
+    description: 'Great for kids and families'
+  },
+  { 
+    id: 'trendy', 
+    label: 'Trendy & Hip', 
+    icon: '✨', 
+    color: 'from-purple-500 to-pink-500',
+    description: 'Instagram-worthy spots'
+  },
+  { 
+    id: 'outdoor', 
+    label: 'Outdoor Seating', 
+    icon: '🌳', 
+    color: 'from-green-400 to-emerald-500',
+    description: 'Al fresco dining'
   }
 ];
 
@@ -280,8 +514,12 @@ export function SwipeDiscoveryPage({ onBack }: SwipeDiscoveryPageProps) {
   const [isFlipped, setIsFlipped] = useState(false);
   const [showMoodSelector, setShowMoodSelector] = useState(false);
   const [showModeSelector, setShowModeSelector] = useState(false);
-  const [selectedMood, setSelectedMood] = useState<string | null>(null);
+  const [selectedMood, setSelectedMood] = useKV('selected-mood', null as string | null);
+  const [selectedCuisine, setSelectedCuisine] = useKV('selected-cuisine', [] as string[]);
+  const [selectedDietary, setSelectedDietary] = useKV('selected-dietary', [] as string[]);
+  const [selectedAmbient, setSelectedAmbient] = useKV('selected-ambient', [] as string[]);
   const [selectedMode, setSelectedMode] = useState<string>('bounty-hunter');
+  const [activePreferenceTab, setActivePreferenceTab] = useState<'mood' | 'cuisine' | 'dietary' | 'ambient'>('mood');
   const [discoveryStreak, setDiscoveryStreak] = useKV('discovery-streak', 0);
   const [totalDiscoveries, setTotalDiscoveries] = useKV('total-discoveries', 0);
   const [savedRestaurants, setSavedRestaurants] = useKV('saved-restaurants', [] as string[]);
@@ -390,8 +628,46 @@ export function SwipeDiscoveryPage({ onBack }: SwipeDiscoveryPageProps) {
 
   const selectMood = (moodId: string) => {
     setSelectedMood(moodId);
-    setShowMoodSelector(false);
     setXpPoints(prev => prev + 10);
+  };
+
+  const toggleCuisine = (cuisineId: string) => {
+    setSelectedCuisine(prev => 
+      prev.includes(cuisineId) 
+        ? prev.filter(id => id !== cuisineId)
+        : [...prev, cuisineId]
+    );
+    setXpPoints(prev => prev + 5);
+  };
+
+  const toggleDietary = (dietaryId: string) => {
+    setSelectedDietary(prev => 
+      prev.includes(dietaryId) 
+        ? prev.filter(id => id !== dietaryId)
+        : [...prev, dietaryId]
+    );
+    setXpPoints(prev => prev + 5);
+  };
+
+  const toggleAmbient = (ambientId: string) => {
+    setSelectedAmbient(prev => 
+      prev.includes(ambientId) 
+        ? prev.filter(id => id !== ambientId)
+        : [...prev, ambientId]
+    );
+    setXpPoints(prev => prev + 5);
+  };
+
+  const clearAllPreferences = () => {
+    setSelectedMood(null);
+    setSelectedCuisine([]);
+    setSelectedDietary([]);
+    setSelectedAmbient([]);
+  };
+
+  const applyPreferences = () => {
+    setShowMoodSelector(false);
+    setXpPoints(prev => prev + 25); // Bonus for applying preferences
   };
 
   const selectMode = (modeId: string) => {
@@ -513,6 +789,40 @@ export function SwipeDiscoveryPage({ onBack }: SwipeDiscoveryPageProps) {
             </div>
           </div>
         </div>
+
+        {/* Active Preferences Display */}
+        {(selectedMood || selectedCuisine.length > 0 || selectedDietary.length > 0 || selectedAmbient.length > 0) && (
+          <div className="px-4 pb-3">
+            <div className="bg-gradient-to-r from-blue-50 to-purple-50 rounded-2xl p-3 border border-blue-200">
+              <div className="flex items-center gap-2 mb-2">
+                <Target className="h-3 w-3 text-blue-600" />
+                <span className="text-xs font-medium text-blue-600">Active Preferences</span>
+              </div>
+              <div className="flex flex-wrap gap-1">
+                {selectedMood && (
+                  <Badge className="bg-primary/10 text-primary border-0 text-xs">
+                    {foodMoods.find(m => m.id === selectedMood)?.icon} {foodMoods.find(m => m.id === selectedMood)?.label}
+                  </Badge>
+                )}
+                {selectedCuisine.map(id => (
+                  <Badge key={id} className="bg-orange-100 text-orange-600 border-0 text-xs">
+                    {cuisinePreferences.find(c => c.id === id)?.icon} {cuisinePreferences.find(c => c.id === id)?.label}
+                  </Badge>
+                ))}
+                {selectedDietary.map(id => (
+                  <Badge key={id} className="bg-green-100 text-green-600 border-0 text-xs">
+                    {dietaryPreferences.find(d => d.id === id)?.icon} {dietaryPreferences.find(d => d.id === id)?.label}
+                  </Badge>
+                ))}
+                {selectedAmbient.map(id => (
+                  <Badge key={id} className="bg-purple-100 text-purple-600 border-0 text-xs">
+                    {ambientPreferences.find(a => a.id === id)?.icon} {ambientPreferences.find(a => a.id === id)?.label}
+                  </Badge>
+                ))}
+              </div>
+            </div>
+          </div>
+        )}
       </div>
 
       {/* Main Adventure Card */}
@@ -835,10 +1145,18 @@ export function SwipeDiscoveryPage({ onBack }: SwipeDiscoveryPageProps) {
       <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex items-center gap-4">
         <Button
           onClick={() => setShowMoodSelector(true)}
-          className="bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white px-6 py-3 rounded-2xl font-bold text-sm shadow-xl border-2 border-white/40"
+          className={cn(
+            "bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white px-6 py-3 rounded-2xl font-bold text-sm shadow-xl border-2 border-white/40 relative",
+            (selectedMood || selectedCuisine.length > 0 || selectedDietary.length > 0 || selectedAmbient.length > 0) && "ring-2 ring-yellow-400"
+          )}
         >
           <Lightbulb className="h-4 w-4 mr-2" />
-          Mood Filter
+          Preferences
+          {(selectedMood || selectedCuisine.length > 0 || selectedDietary.length > 0 || selectedAmbient.length > 0) && (
+            <div className="absolute -top-1 -right-1 w-3 h-3 bg-yellow-400 rounded-full border border-white flex items-center justify-center">
+              <div className="w-1.5 h-1.5 bg-white rounded-full" />
+            </div>
+          )}
         </Button>
         
         <Button
@@ -883,53 +1201,216 @@ export function SwipeDiscoveryPage({ onBack }: SwipeDiscoveryPageProps) {
         </div>
       )}
 
-      {/* Enhanced Mood Selector Modal */}
+      {/* Enhanced Multi-Category Preference Selector Modal */}
       {showMoodSelector && (
         <div className="absolute inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 p-4">
-          <Card className="w-full max-w-md bg-white/95 backdrop-blur-md border-2 border-white/60 shadow-2xl rounded-3xl overflow-hidden">
+          <Card className="w-full max-w-lg bg-white/95 backdrop-blur-md border-2 border-white/60 shadow-2xl rounded-3xl overflow-hidden max-h-[90vh]">
             <div className="p-6">
               <div className="text-center mb-6">
-                <div className="text-4xl mb-3">🍽️</div>
+                <div className="text-4xl mb-3">🎯</div>
                 <h3 className="text-2xl font-bold font-rum-raisin bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
-                  What's Your Food Mood?
+                  Customize Your Adventure
                 </h3>
                 <p className="text-muted-foreground text-sm mt-2">
-                  Discover restaurants that match your current craving
+                  Tell us what you're craving and we'll match you perfectly
                 </p>
               </div>
-              
-              <div className="grid grid-cols-2 gap-3 mb-6">
-                {foodMoods.map((mood) => (
+
+              {/* Preference Category Tabs */}
+              <div className="flex mb-6 bg-gray-100 rounded-2xl p-1">
+                {[
+                  { id: 'mood', label: 'Mood', icon: '😋' },
+                  { id: 'cuisine', label: 'Cuisine', icon: '🍽️' },
+                  { id: 'dietary', label: 'Dietary', icon: '🌱' },
+                  { id: 'ambient', label: 'Vibe', icon: '✨' }
+                ].map((tab) => (
                   <Button
-                    key={mood.id}
-                    variant="outline"
+                    key={tab.id}
+                    variant={activePreferenceTab === tab.id ? "default" : "ghost"}
+                    size="sm"
                     className={cn(
-                      "h-28 flex-col gap-2 border-2 border-white/60 bg-white/80 hover:bg-white/90 transition-all duration-300 hover:scale-105 rounded-2xl p-4",
-                      selectedMood === mood.id && "ring-2 ring-primary ring-offset-2"
+                      "flex-1 rounded-xl transition-all duration-200",
+                      activePreferenceTab === tab.id 
+                        ? "bg-white shadow-md font-bold" 
+                        : "hover:bg-white/50"
                     )}
-                    onClick={() => selectMood(mood.id)}
+                    onClick={() => setActivePreferenceTab(tab.id as any)}
                   >
-                    <span className="text-3xl mb-1">{mood.icon}</span>
-                    <span className="text-xs font-bold text-center">{mood.label}</span>
-                    <span className="text-xs text-muted-foreground text-center leading-tight">{mood.description}</span>
+                    <span className="mr-1">{tab.icon}</span>
+                    <span className="text-xs">{tab.label}</span>
                   </Button>
                 ))}
               </div>
+
+              {/* Scrollable Content Area */}
+              <div className="max-h-80 overflow-y-auto scrollbar-hide mb-6">
+                {/* Food Mood Tab */}
+                {activePreferenceTab === 'mood' && (
+                  <div className="grid grid-cols-2 gap-3">
+                    {foodMoods.map((mood) => (
+                      <Button
+                        key={mood.id}
+                        variant="outline"
+                        className={cn(
+                          "h-24 flex-col gap-2 border-2 border-white/60 bg-white/80 hover:bg-white/90 transition-all duration-300 hover:scale-105 rounded-2xl p-3",
+                          selectedMood === mood.id && "ring-2 ring-primary ring-offset-2 bg-primary/5"
+                        )}
+                        onClick={() => selectMood(mood.id)}
+                      >
+                        <span className="text-2xl mb-1">{mood.icon}</span>
+                        <span className="text-xs font-bold text-center leading-tight">{mood.label}</span>
+                        <span className="text-xs text-muted-foreground text-center leading-tight">{mood.description}</span>
+                      </Button>
+                    ))}
+                  </div>
+                )}
+
+                {/* Cuisine Preferences Tab */}
+                {activePreferenceTab === 'cuisine' && (
+                  <div className="grid grid-cols-2 gap-3">
+                    {cuisinePreferences.map((cuisine) => (
+                      <Button
+                        key={cuisine.id}
+                        variant="outline"
+                        className={cn(
+                          "h-20 flex-col gap-1 border-2 border-white/60 bg-white/80 hover:bg-white/90 transition-all duration-300 hover:scale-105 rounded-2xl p-3",
+                          selectedCuisine.includes(cuisine.id) && "ring-2 ring-primary ring-offset-2 bg-primary/10"
+                        )}
+                        onClick={() => toggleCuisine(cuisine.id)}
+                      >
+                        <span className="text-xl mb-1">{cuisine.icon}</span>
+                        <span className="text-xs font-bold text-center leading-tight">{cuisine.label}</span>
+                        <span className="text-xs text-muted-foreground text-center leading-tight">{cuisine.description}</span>
+                        {selectedCuisine.includes(cuisine.id) && (
+                          <div className="absolute top-1 right-1 w-5 h-5 bg-primary rounded-full flex items-center justify-center">
+                            <Check className="h-3 w-3 text-white" />
+                          </div>
+                        )}
+                      </Button>
+                    ))}
+                  </div>
+                )}
+
+                {/* Dietary Preferences Tab */}
+                {activePreferenceTab === 'dietary' && (
+                  <div className="grid grid-cols-2 gap-3">
+                    {dietaryPreferences.map((dietary) => (
+                      <Button
+                        key={dietary.id}
+                        variant="outline"
+                        className={cn(
+                          "h-20 flex-col gap-1 border-2 border-white/60 bg-white/80 hover:bg-white/90 transition-all duration-300 hover:scale-105 rounded-2xl p-3 relative",
+                          selectedDietary.includes(dietary.id) && "ring-2 ring-primary ring-offset-2 bg-primary/10"
+                        )}
+                        onClick={() => toggleDietary(dietary.id)}
+                      >
+                        <span className="text-xl mb-1">{dietary.icon}</span>
+                        <span className="text-xs font-bold text-center leading-tight">{dietary.label}</span>
+                        <span className="text-xs text-muted-foreground text-center leading-tight">{dietary.description}</span>
+                        {selectedDietary.includes(dietary.id) && (
+                          <div className="absolute top-1 right-1 w-5 h-5 bg-primary rounded-full flex items-center justify-center">
+                            <Check className="h-3 w-3 text-white" />
+                          </div>
+                        )}
+                      </Button>
+                    ))}
+                  </div>
+                )}
+
+                {/* Ambient Preferences Tab */}
+                {activePreferenceTab === 'ambient' && (
+                  <div className="grid grid-cols-2 gap-3">
+                    {ambientPreferences.map((ambient) => (
+                      <Button
+                        key={ambient.id}
+                        variant="outline"
+                        className={cn(
+                          "h-20 flex-col gap-1 border-2 border-white/60 bg-white/80 hover:bg-white/90 transition-all duration-300 hover:scale-105 rounded-2xl p-3 relative",
+                          selectedAmbient.includes(ambient.id) && "ring-2 ring-primary ring-offset-2 bg-primary/10"
+                        )}
+                        onClick={() => toggleAmbient(ambient.id)}
+                      >
+                        <span className="text-xl mb-1">{ambient.icon}</span>
+                        <span className="text-xs font-bold text-center leading-tight">{ambient.label}</span>
+                        <span className="text-xs text-muted-foreground text-center leading-tight">{ambient.description}</span>
+                        {selectedAmbient.includes(ambient.id) && (
+                          <div className="absolute top-1 right-1 w-5 h-5 bg-primary rounded-full flex items-center justify-center">
+                            <Check className="h-3 w-3 text-white" />
+                          </div>
+                        )}
+                      </Button>
+                    ))}
+                  </div>
+                )}
+              </div>
+
+              {/* Selected Preferences Summary */}
+              <div className="mb-4 p-3 bg-gradient-to-r from-blue-50 to-purple-50 rounded-2xl border border-blue-200">
+                <div className="text-xs font-medium text-center text-blue-600 mb-2">Your Selections</div>
+                <div className="flex flex-wrap gap-1 justify-center">
+                  {selectedMood && (
+                    <Badge className="bg-primary/10 text-primary border-0 text-xs">
+                      {foodMoods.find(m => m.id === selectedMood)?.label}
+                    </Badge>
+                  )}
+                  {selectedCuisine.map(id => (
+                    <Badge key={id} className="bg-orange-100 text-orange-600 border-0 text-xs">
+                      {cuisinePreferences.find(c => c.id === id)?.label}
+                    </Badge>
+                  ))}
+                  {selectedDietary.map(id => (
+                    <Badge key={id} className="bg-green-100 text-green-600 border-0 text-xs">
+                      {dietaryPreferences.find(d => d.id === id)?.label}
+                    </Badge>
+                  ))}
+                  {selectedAmbient.map(id => (
+                    <Badge key={id} className="bg-purple-100 text-purple-600 border-0 text-xs">
+                      {ambientPreferences.find(a => a.id === id)?.label}
+                    </Badge>
+                  ))}
+                  {!selectedMood && selectedCuisine.length === 0 && selectedDietary.length === 0 && selectedAmbient.length === 0 && (
+                    <span className="text-xs text-muted-foreground">No preferences selected</span>
+                  )}
+                </div>
+              </div>
               
+              {/* Action Buttons */}
               <div className="flex gap-3">
                 <Button 
                   variant="outline" 
-                  className="flex-1 rounded-2xl border-2 border-gray-200 hover:bg-gray-50" 
+                  className="flex-1 rounded-2xl border-2 border-gray-200 hover:bg-gray-50 text-xs" 
                   onClick={() => setShowMoodSelector(false)}
                 >
-                  Skip for Now
+                  Cancel
                 </Button>
                 <Button
+                  variant="ghost"
+                  className="rounded-2xl hover:bg-red-50 text-red-600 text-xs"
+                  onClick={clearAllPreferences}
+                >
+                  Clear All
+                </Button>
+                <Button
+                  onClick={applyPreferences}
+                  className="glossy-red-pill flex-1 text-xs"
+                >
+                  <Sparkles className="h-3 w-3 mr-1" />
+                  Apply & Discover
+                </Button>
+              </div>
+
+              {/* Swipe Together Mode Toggle */}
+              <div className="mt-4 pt-4 border-t border-gray-200">
+                <Button
                   onClick={() => setSwipeTogetherMode(!swipeTogetherMode)}
-                  className="glossy-red-pill flex-1"
+                  variant={swipeTogetherMode ? "default" : "outline"}
+                  className={cn(
+                    "w-full rounded-2xl",
+                    swipeTogetherMode ? "glossy-red-pill" : "border-2 border-purple-200 hover:bg-purple-50"
+                  )}
                 >
                   <Users className="h-4 w-4 mr-2" />
-                  Swipe with Friends
+                  {swipeTogetherMode ? "Squad Mode Active" : "Swipe with Friends"}
                 </Button>
               </div>
             </div>
