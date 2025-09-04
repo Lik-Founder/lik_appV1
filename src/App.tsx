@@ -154,7 +154,7 @@ function App() {
     >
       <div className={cn(
         "flex-1 flex flex-col overflow-hidden",
-        currentPage === 'main' ? "pb-20" : ""
+        currentPage === 'main' ? "pb-16" : ""
       )}>
         {renderPage()}
       </div>

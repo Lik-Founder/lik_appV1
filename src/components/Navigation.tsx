@@ -23,25 +23,20 @@ export function Navigation({ activeTab, onTabChange }: NavigationProps) {
   return (
     <nav className="fixed bottom-0 left-0 right-0 z-50 mobile-nav-safe-area">
       <div className="relative px-2 pb-2">
-        {/* Gamified candy-glass container with breaking border transparent top */}
+        {/* Gamified candy-glass container */}
         <div 
           className="relative mx-auto overflow-visible"
           style={{
-            height: '72px',
+            height: '52px',
             background: `
               linear-gradient(to bottom,
-                transparent 0%,
-                transparent 30%,
-                rgba(255, 123, 170, 0.9) 30%,
-                rgba(255, 26, 117, 0.95) 65%,
+                rgba(255, 123, 170, 0.9) 0%,
+                rgba(255, 26, 117, 0.95) 50%,
                 rgba(179, 0, 38, 1) 100%
               )
             `,
-            border: '3px solid rgba(255, 255, 255, 0.9)',
-            borderTop: 'none',
             borderRadius: '0 0 32px 32px',
             boxShadow: `
-              inset 0 0 30px rgba(255, 255, 255, 0.3),
               0 8px 32px rgba(255, 123, 170, 0.4),
               0 4px 16px rgba(0, 0, 0, 0.2)
             `,
@@ -49,11 +44,11 @@ export function Navigation({ activeTab, onTabChange }: NavigationProps) {
             WebkitBackdropFilter: 'blur(16px)'
           }}
         >
-          {/* Glass reflection effect - only on visible background area */}
+          {/* Glass reflection effect */}
           <div 
             className="absolute pointer-events-none"
             style={{
-              top: '30%',
+              top: '0%',
               left: '12px',
               right: '12px',
               height: '40%',
@@ -98,7 +93,7 @@ export function Navigation({ activeTab, onTabChange }: NavigationProps) {
                   <div 
                     className="relative mb-2"
                     style={{
-                      transform: 'translateY(-28px)',
+                      transform: 'translateY(-20px)',
                       zIndex: 10
                     }}
                   >
