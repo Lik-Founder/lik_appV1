@@ -247,10 +247,7 @@ export function LikTVPage({ onBack }: LikTVPageProps) {
   };
 
   return (
-    <div className="flex flex-col h-full min-h-screen" 
-         style={{
-           background: 'linear-gradient(135deg, #FF7BAA 0%, #FF1A75 50%, #B30026 100%)'
-         }}>
+    <div className="flex flex-col h-full min-h-screen bg-black">
       
       {/* Floating Navigation Bar */}
       <div className="relative z-20 mx-4 mt-4 mb-2">
