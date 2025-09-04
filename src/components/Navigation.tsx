@@ -33,7 +33,7 @@ export function Navigation({ activeTab, onTabChange }: NavigationProps) {
         `,
         backdropFilter: 'blur(16px)',
         WebkitBackdropFilter: 'blur(16px)',
-        minHeight: '60px'
+        minHeight: '54px'
       }}
     >
       {/* Glass reflection effect */}
@@ -84,7 +84,7 @@ export function Navigation({ activeTab, onTabChange }: NavigationProps) {
               <div 
                 className="relative"
                 style={{
-                  transform: 'translateY(-20px)',
+                  transform: 'translateY(-21px)',
                   zIndex: 10,
                   marginBottom: '-10px' // Reduced spacing by 12px
                 }}
