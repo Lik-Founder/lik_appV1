@@ -16,147 +16,172 @@ interface FoodShow {
   description: string;
   thumbnail: string;
   creator?: string;
-  restaurant?: string;
+  channel?: string;
+  network?: string;
   location?: string;
   viewCount?: string;
   likes?: string;
-  difficulty?: 'Easy' | 'Medium' | 'Hard';
-  category?: 'Challenge' | 'Tutorial' | 'Review' | 'Behind Scenes';
-  coins?: number;
-  xp?: number;
+  duration?: string;
+  category?: 'Series' | 'Documentary' | 'Tutorial' | 'Behind Scenes' | 'Review' | 'Travel';
+  season?: number;
+  episode?: number;
+  rating?: number;
   trending?: boolean;
   verified?: boolean;
+  new?: boolean;
+  featured?: boolean;
 }
 
 const featuredShows: FoodShow[] = [
   {
     id: '1',
-    title: 'Ultimate Ramen Battle 2024',
-    description: '10 master chefs compete in the most epic ramen cooking challenge. Watch as they create mind-blowing bowls for the ultimate prize of 10,000 Lik Coins!',
-    thumbnail: 'https://images.unsplash.com/photo-1569718212165-3a8278d5f624?w=800&h=600&fit=crop',
-    creator: 'Chef Master Series',
-    category: 'Challenge',
-    coins: 500,
-    xp: 250,
+    title: 'Chef\'s Table: BBQ Masters',
+    description: 'An intimate look at the world\'s most talented BBQ pitmasters and their unique techniques. Follow their journeys from humble beginnings to culinary stardom.',
+    thumbnail: 'https://images.unsplash.com/photo-1529692236671-f1f6cf9683ba?w=800&h=600&fit=crop',
+    creator: 'David Gelb',
+    network: 'Food Network',
+    category: 'Series',
+    season: 2,
+    episode: 6,
+    duration: '52 min',
+    rating: 4.8,
     trending: true,
-    verified: true
+    verified: true,
+    featured: true
   },
   {
     id: '2',
-    title: 'Secret Pizza Recipe Revealed',
-    description: 'The legendary chef from NYC\'s #1 rated pizzeria finally shares his secret dough recipe that took 20 years to perfect.',
-    thumbnail: 'https://images.unsplash.com/photo-1513104890138-7c749659a591?w=800&h=600&fit=crop',
-    creator: 'Tony Pizzaiolo',
-    restaurant: "Tony's Authentic NY",
-    category: 'Tutorial',
-    coins: 300,
-    xp: 150,
-    verified: true
+    title: 'The Secret Life of Sourdough',
+    description: 'Master baker Nancy Silverton reveals the ancient art of sourdough bread making in this exclusive documentary series.',
+    thumbnail: 'https://images.unsplash.com/photo-1509440159596-0249088772ff?w=800&h=600&fit=crop',
+    creator: 'Nancy Silverton',
+    channel: 'Artisan Bakers TV',
+    category: 'Documentary',
+    duration: '45 min',
+    rating: 4.9,
+    verified: true,
+    new: true
   },
   {
     id: '3',
-    title: 'Street Food Adventures: Bangkok',
-    description: 'Join us as we explore the hidden gems of Bangkok\'s street food scene, discovering incredible flavors and meeting amazing vendors.',
+    title: 'Street Food Chronicles: Tokyo',
+    description: 'Explore the hidden gems of Tokyo\'s street food scene with local vendors who have perfected their craft over generations.',
     thumbnail: 'https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=800&h=600&fit=crop',
-    creator: 'Food Explorer',
-    location: 'Bangkok, Thailand',
-    category: 'Review',
-    coins: 200,
-    xp: 100,
-    trending: true
+    creator: 'Kenji López-Alt',
+    network: 'Culinary Adventures',
+    location: 'Tokyo, Japan',
+    category: 'Travel',
+    duration: '38 min',
+    rating: 4.7,
+    trending: true,
+    verified: true
   }
 ];
 
-const gamingShows: FoodShow[] = [
+const forYouShows: FoodShow[] = [
   {
     id: '4',
-    title: 'Taco Tuesday Challenge',
-    creator: "Maria's Kitchen",
-    thumbnail: 'https://images.unsplash.com/photo-1565299624946-b28f40a0ca4b?w=400&h=300&fit=crop',
-    location: 'Los Angeles',
-    difficulty: 'Easy',
-    category: 'Challenge',
-    coins: 150,
-    xp: 75,
-    viewCount: '234K',
-    likes: '12K'
-  },
-  {
-    id: '5',
-    title: 'Perfect Pasta Techniques',
-    creator: "Nonna's Secrets",
+    title: 'Pasta Perfection with Nonna',
+    creator: "Nonna's Kitchen",
+    channel: "Italian Culinary Institute",
     thumbnail: 'https://images.unsplash.com/photo-1551183053-bf91a1d81141?w=400&h=300&fit=crop',
-    location: 'Rome',
-    difficulty: 'Medium',
+    location: 'Tuscany, Italy',
     category: 'Tutorial',
-    coins: 250,
-    xp: 125,
-    viewCount: '456K',
-    likes: '23K',
+    duration: '32 min',
+    viewCount: '2.4M',
+    likes: '156K',
+    rating: 4.9,
     verified: true
   },
   {
+    id: '5',
+    title: 'Michelin Stars: The Pursuit',
+    creator: "Fine Dining Docs",
+    network: "Gourmet TV",
+    thumbnail: 'https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=400&h=300&fit=crop',
+    category: 'Documentary',
+    duration: '58 min',
+    viewCount: '1.8M',
+    likes: '89K',
+    rating: 4.6,
+    verified: true,
+    new: true
+  },
+  {
     id: '6',
-    title: 'Sushi Master Class',
-    creator: "Tokyo Sushi Pro",
+    title: 'Sushi: Art in Motion',
+    creator: "Master Jiro",
+    channel: "Tokyo Culinary Arts",
     thumbnail: 'https://images.unsplash.com/photo-1553621042-f6e147245754?w=400&h=300&fit=crop',
-    location: 'Tokyo',
-    difficulty: 'Hard',
-    category: 'Tutorial',
-    coins: 400,
-    xp: 200,
-    viewCount: '789K',
-    likes: '34K',
+    location: 'Tokyo, Japan',
+    category: 'Documentary',
+    duration: '42 min',
+    viewCount: '3.1M',
+    likes: '203K',
+    rating: 4.8,
     verified: true
   },
   {
     id: '7',
-    title: 'Dessert Showdown',
-    creator: "Sweet Victory",
-    thumbnail: 'https://images.unsplash.com/photo-1551024506-0bccd828d307?w=400&h=300&fit=crop',
-    location: 'Paris',
-    difficulty: 'Medium',
-    category: 'Challenge',
-    coins: 300,
-    xp: 150,
-    viewCount: '345K',
-    likes: '18K',
+    title: 'Farm to Table Revolution',
+    creator: "Sustainable Chef",
+    channel: "Green Cuisine Network",
+    thumbnail: 'https://images.unsplash.com/photo-1498837167922-ddd27525d352?w=400&h=300&fit=crop',
+    category: 'Documentary',
+    duration: '48 min',
+    viewCount: '945K',
+    likes: '67K',
+    rating: 4.5,
     trending: true
   }
 ];
 
-const restaurantSpotlights: FoodShow[] = [
+const popularSeries: FoodShow[] = [
   {
     id: '8',
-    title: 'Behind the Kitchen: Michelin Star Magic',
-    creator: 'Restaurant Insider',
-    restaurant: "Le Bernardin",
-    thumbnail: 'https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=400&h=300&fit=crop',
-    viewCount: '1.2M',
-    likes: '67K',
-    category: 'Behind Scenes',
+    title: 'Anthony Bourdain: No Reservations',
+    creator: 'Anthony Bourdain',
+    network: 'Travel Channel',
+    thumbnail: 'https://images.unsplash.com/photo-1551218808-94e220e084d2?w=400&h=300&fit=crop',
+    viewCount: '12.5M',
+    likes: '890K',
+    category: 'Travel',
+    season: 8,
+    episode: 142,
+    duration: '45 min',
+    rating: 4.9,
     verified: true
   },
   {
     id: '9',
-    title: 'Farm to Fork Journey',
-    creator: 'Sustainable Eats',
-    restaurant: "Green Valley Bistro",
-    thumbnail: 'https://images.unsplash.com/photo-1498837167922-ddd27525d352?w=400&h=300&fit=crop',
-    viewCount: '890K',
-    likes: '45K',
-    category: 'Behind Scenes'
+    title: 'The French Chef',
+    creator: 'Julia Child',
+    network: 'PBS',
+    thumbnail: 'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=400&h=300&fit=crop',
+    viewCount: '5.2M',
+    likes: '234K',
+    category: 'Tutorial',
+    season: 10,
+    episode: 200,
+    duration: '30 min',
+    rating: 4.8,
+    verified: true
   },
   {
     id: '10',
-    title: 'BBQ Pit Master Secrets',
-    creator: 'Smoke & Fire',
-    restaurant: "Franklin BBQ",
-    thumbnail: 'https://images.unsplash.com/photo-1529692236671-f1f6cf9683ba?w=400&h=300&fit=crop',
-    viewCount: '654K',
-    likes: '32K',
-    category: 'Tutorial',
-    trending: true
+    title: 'Mind of a Chef',
+    creator: 'David Chang',
+    network: 'PBS',
+    thumbnail: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=300&fit=crop',
+    viewCount: '3.7M',
+    likes: '187K',
+    category: 'Series',
+    season: 5,
+    episode: 65,
+    duration: '55 min',
+    rating: 4.7,
+    trending: true,
+    verified: true
   }
 ];
 
@@ -204,21 +229,19 @@ export function LikTVPage({ onBack }: LikTVPageProps) {
     return () => clearInterval(interval);
   }, [isUserInteracting, isDragging]);
 
-  const getDifficultyColor = (difficulty?: string) => {
-    switch (difficulty) {
-      case 'Easy': return 'text-green-500';
-      case 'Medium': return 'text-yellow-500';
-      case 'Hard': return 'text-red-500';
-      default: return 'text-muted-foreground';
-    }
+  const getRatingStars = (rating?: number) => {
+    if (!rating) return '';
+    return '⭐'.repeat(Math.floor(rating));
   };
 
   const getCategoryIcon = (category?: string) => {
     switch (category) {
-      case 'Challenge': return '🏆';
-      case 'Tutorial': return '📚';
+      case 'Series': return '📺';
+      case 'Documentary': return '🎬';
+      case 'Tutorial': return '👨‍🍳';
+      case 'Behind Scenes': return '🎭';
       case 'Review': return '⭐';
-      case 'Behind Scenes': return '🎬';
+      case 'Travel': return '🌍';
       default: return '📺';
     }
   };
@@ -311,8 +334,15 @@ export function LikTVPage({ onBack }: LikTVPageProps) {
                   {/* Overlay */}
                   <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent" />
                   
+                  {/* New Badge */}
+                  {show.new && (
+                    <div className="absolute top-4 left-4 flex items-center space-x-1 bg-green-500/90 px-3 py-1 rounded-full">
+                      <span className="text-white text-xs font-bold">NEW</span>
+                    </div>
+                  )}
+
                   {/* Trending Badge */}
-                  {show.trending && (
+                  {show.trending && !show.new && (
                     <div className="absolute top-4 left-4 flex items-center space-x-1 bg-red-500/90 px-3 py-1 rounded-full">
                       <FireIcon className="w-4 h-4 text-white" />
                       <span className="text-white text-xs font-bold">TRENDING</span>
@@ -333,6 +363,11 @@ export function LikTVPage({ onBack }: LikTVPageProps) {
                       <span className="text-sm font-medium bg-white/20 px-2 py-1 rounded-full">
                         {show.category}
                       </span>
+                      {show.network && (
+                        <span className="text-sm font-medium bg-blue-500/20 px-2 py-1 rounded-full">
+                          {show.network}
+                        </span>
+                      )}
                     </div>
                     
                     <h2 className="text-2xl font-rum-raisin font-bold mb-2 text-shadow-lg">
@@ -352,16 +387,23 @@ export function LikTVPage({ onBack }: LikTVPageProps) {
                           Watch Now
                         </Button>
 
-                        {/* Rewards Display */}
+                        {/* Show Details */}
                         <div className="flex items-center space-x-2">
-                          <div className="flex items-center space-x-1 bg-yellow-500/20 px-2 py-1 rounded-full">
-                            <span className="text-yellow-400">🪙</span>
-                            <span className="text-yellow-400 text-xs font-bold">+{show.coins}</span>
-                          </div>
-                          <div className="flex items-center space-x-1 bg-purple-500/20 px-2 py-1 rounded-full">
-                            <span className="text-purple-400">⭐</span>
-                            <span className="text-purple-400 text-xs font-bold">+{show.xp} XP</span>
-                          </div>
+                          {show.duration && (
+                            <div className="flex items-center space-x-1 bg-white/20 px-2 py-1 rounded-full">
+                              <span className="text-white/80 text-xs">{show.duration}</span>
+                            </div>
+                          )}
+                          {show.rating && (
+                            <div className="flex items-center space-x-1 bg-yellow-500/20 px-2 py-1 rounded-full">
+                              <span className="text-yellow-400 text-xs">⭐ {show.rating}</span>
+                            </div>
+                          )}
+                          {show.season && (
+                            <div className="flex items-center space-x-1 bg-purple-500/20 px-2 py-1 rounded-full">
+                              <span className="text-purple-400 text-xs">S{show.season}</span>
+                            </div>
+                          )}
                         </div>
                       </div>
                     </div>
@@ -390,12 +432,12 @@ export function LikTVPage({ onBack }: LikTVPageProps) {
 
         {/* Content Sections */}
         <div className="px-4 space-y-8 pb-20">
-          {/* Gaming & Challenges Section */}
+          {/* For You Section */}
           <div>
             <div className="flex items-center justify-between mb-4">
               <h3 className="text-xl font-rum-raisin font-bold text-white text-shadow-lg flex items-center">
-                <span className="text-2xl mr-2">🎮</span>
-                Cooking Challenges & Tutorials
+                <span className="text-2xl mr-2">🎯</span>
+                For You
               </h3>
               <Button 
                 variant="ghost" 
@@ -406,7 +448,7 @@ export function LikTVPage({ onBack }: LikTVPageProps) {
             </div>
             
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              {gamingShows.map((show) => (
+              {forYouShows.map((show) => (
                 <div
                   key={show.id}
                   className="relative rounded-2xl overflow-hidden border-2 border-white/20 hover:scale-[1.02] transition-all duration-300 cursor-pointer group"
@@ -416,49 +458,56 @@ export function LikTVPage({ onBack }: LikTVPageProps) {
                     boxShadow: 'inset 0 0 20px rgba(255, 255, 255, 0.1), 0 8px 32px rgba(0, 0, 0, 0.2)'
                   }}
                 >
-                  <div className="flex h-28">
+                  <div className="flex h-32">
                     {/* Thumbnail */}
                     <div 
-                      className="w-32 bg-cover bg-center relative"
+                      className="w-40 bg-cover bg-center relative"
                       style={{ backgroundImage: `url(${show.thumbnail})` }}
                     >
                       <div className="absolute inset-0 bg-black/30 group-hover:bg-black/20 transition-colors" />
                       <div className="absolute inset-0 flex items-center justify-center">
                         <PlayIcon className="w-8 h-8 text-white opacity-80 group-hover:opacity-100 transition-opacity" />
                       </div>
+                      
+                      {show.new && (
+                        <div className="absolute top-2 left-2 bg-green-500/90 px-2 py-1 rounded-full">
+                          <span className="text-white text-xs font-bold">NEW</span>
+                        </div>
+                      )}
                     </div>
 
                     {/* Content */}
                     <div className="flex-1 p-4 text-white">
                       <div className="flex items-center justify-between mb-1">
                         <span className="text-lg">{getCategoryIcon(show.category)}</span>
-                        {show.verified && (
-                          <StarIcon className="w-4 h-4 text-blue-400" />
-                        )}
+                        <div className="flex items-center space-x-1">
+                          {show.verified && (
+                            <StarIcon className="w-4 h-4 text-blue-400" />
+                          )}
+                          {show.rating && (
+                            <span className="text-yellow-400 text-xs">⭐ {show.rating}</span>
+                          )}
+                        </div>
                       </div>
                       
                       <h4 className="font-rum-raisin font-bold text-sm mb-1 line-clamp-1 text-shadow">
                         {show.title}
                       </h4>
                       
-                      <p className="text-xs text-white/80 mb-2">{show.creator}</p>
+                      <p className="text-xs text-white/80 mb-1">{show.creator}</p>
+                      {show.channel && (
+                        <p className="text-xs text-blue-300 mb-2">{show.channel}</p>
+                      )}
                       
                       <div className="flex items-center justify-between">
-                        <div className="flex items-center space-x-2">
-                          {show.difficulty && (
-                            <span className={cn("text-xs font-bold", getDifficultyColor(show.difficulty))}>
-                              {show.difficulty}
-                            </span>
+                        <div className="flex items-center space-x-2 text-xs text-white/80">
+                          {show.duration && <span>{show.duration}</span>}
+                          {show.viewCount && (
+                            <>
+                              <span>•</span>
+                              <span>{show.viewCount} views</span>
+                            </>
                           )}
-                          <span className="text-white/60 text-xs">•</span>
-                          <span className="text-white/80 text-xs">{show.viewCount}</span>
-                        </div>
-                        
-                        <div className="flex items-center space-x-1">
-                          <div className="flex items-center space-x-1">
-                            <span className="text-yellow-400">🪙</span>
-                            <span className="text-yellow-400 text-xs font-bold">{show.coins}</span>
-                          </div>
                         </div>
                       </div>
                     </div>
@@ -474,12 +523,12 @@ export function LikTVPage({ onBack }: LikTVPageProps) {
             </div>
           </div>
 
-          {/* Restaurant Spotlights Section */}
+          {/* Popular Series Section */}
           <div className="pb-8">
             <div className="flex items-center justify-between mb-4">
               <h3 className="text-xl font-rum-raisin font-bold text-white text-shadow-lg flex items-center">
-                <span className="text-2xl mr-2">🍽️</span>
-                Restaurant Spotlights
+                <span className="text-2xl mr-2">📺</span>
+                Popular Series
               </h3>
               <Button 
                 variant="ghost" 
@@ -490,7 +539,7 @@ export function LikTVPage({ onBack }: LikTVPageProps) {
             </div>
             
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-              {restaurantSpotlights.map((show) => (
+              {popularSeries.map((show) => (
                 <div
                   key={show.id}
                   className="rounded-2xl overflow-hidden border-2 border-white/20 hover:scale-[1.02] transition-all duration-300 cursor-pointer group"
@@ -500,7 +549,7 @@ export function LikTVPage({ onBack }: LikTVPageProps) {
                     boxShadow: 'inset 0 0 20px rgba(255, 255, 255, 0.1), 0 8px 32px rgba(0, 0, 0, 0.2)'
                   }}
                 >
-                  <div className="relative h-32">
+                  <div className="relative h-40">
                     <img
                       src={show.thumbnail}
                       alt={show.title}
@@ -531,12 +580,17 @@ export function LikTVPage({ onBack }: LikTVPageProps) {
                       <p className="text-white font-rum-raisin font-bold text-sm line-clamp-1 text-shadow mb-1">
                         {show.title}
                       </p>
-                      <div className="flex items-center justify-between">
-                        <p className="text-white/80 text-xs">{show.restaurant || show.creator}</p>
-                        <div className="flex items-center space-x-2 text-xs text-white/80">
-                          <span>👁️ {show.viewCount}</span>
-                          <span>❤️ {show.likes}</span>
+                      <div className="flex items-center justify-between mb-1">
+                        <p className="text-white/80 text-xs">{show.network || show.creator}</p>
+                        <div className="flex items-center space-x-1 text-xs text-white/80">
+                          {show.rating && <span>⭐ {show.rating}</span>}
                         </div>
+                      </div>
+                      <div className="flex items-center justify-between text-xs text-white/70">
+                        <span>{show.viewCount} views</span>
+                        {show.season && show.episode && (
+                          <span>S{show.season} • {show.episode} episodes</span>
+                        )}
                       </div>
                     </div>
                   </div>
