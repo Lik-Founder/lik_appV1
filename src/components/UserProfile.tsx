@@ -31,23 +31,24 @@ import { toast } from 'sonner';
 interface UserProfileProps {
   userId: string;
   onBack: () => void;
+  onNavigate?: (page: string) => void;
 }
 
 // Mock user data - in a real app this would come from an API
 const mockUsers: Record<string, User> = {
   '1': {
     id: '1',
-    username: 'foodieexplorer',
-    displayName: 'FoodieExplorer',
-    avatar: 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=150&h=150&fit=crop&crop=face',
-    bio: '🍕 Food explorer & taste adventurer\n📍 NYC | Level 47 Foodie\n🏆 Top reviewer across all cuisines',
-    followerCount: 45000,
-    followingCount: 1200,
-    postCount: 450,
+    username: 'foodie_sarah',
+    displayName: 'Sarah Chen',
+    avatar: 'https://images.unsplash.com/photo-1494790108755-2616b612b786?w=150&h=150&fit=crop&crop=face',
+    bio: '🍕 Food explorer & taste adventurer\n📍 San Francisco | Level 12 Foodie\n🏆 Discovering the best local eats',
+    followerCount: 1200,
+    followingCount: 340,
+    postCount: 89,
     isFollowing: false,
-    location: 'New York, NY',
-    level: 47,
-    xp: 25500,
+    location: 'San Francisco, CA',
+    level: 12,
+    xp: 8500,
     streakCount: 18,
     likCoins: 4200,
     likTickets: 8,
@@ -72,37 +73,37 @@ const mockUsers: Record<string, User> = {
   },
   '2': {
     id: '2',
-    username: 'chefmaster',
-    displayName: 'ChefMaster',
-    avatar: 'https://images.unsplash.com/photo-1494790108755-2616b612b5bc?w=150&h=150&fit=crop&crop=face',
+    username: 'chef_marco',
+    displayName: 'Marco Rodriguez',
+    avatar: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face',
     bio: '👨‍🍳 Professional Chef & Food Critic\n🥘 Culinary Institute graduate\n🌟 Michelin-starred experience',
-    followerCount: 38000,
-    followingCount: 980,
-    postCount: 320,
+    followerCount: 5600,
+    followingCount: 120,
+    postCount: 245,
     isFollowing: true,
-    location: 'New York, NY',
-    level: 42,
-    xp: 22100,
-    streakCount: 25,
-    likCoins: 3800,
-    likTickets: 6,
-    joinDate: '2022-08-10',
-    isVerified: true,
+    location: 'Los Angeles, CA',
+    level: 8,
+    xp: 4500,
+    streakCount: 12,
+    likCoins: 2100,
+    likTickets: 4,
+    joinDate: '2023-03-15',
+    isVerified: false,
     favoriteAchievement: {
-      id: 'master_chef',
-      title: 'Master Chef',
-      description: 'Verified professional chef',
+      id: 'rising_chef',
+      title: 'Rising Chef',
+      description: 'Building culinary expertise',
       icon: '👨‍🍳',
-      rarity: 'legendary'
+      rarity: 'rare'
     },
     socialLinks: {
-      instagram: 'chefmaster_nyc',
-      youtube: 'ChefMasterCooking'
+      instagram: 'chef_marco_la',
+      youtube: 'MarcosCooking'
     },
     // Activity stats
-    bountiesCompleted: 156,
-    questsCompleted: 52,
-    reviewsWritten: 312
+    bountiesCompleted: 45,
+    questsCompleted: 18,
+    reviewsWritten: 127
   },
   '3': {
     id: '3',
@@ -207,7 +208,7 @@ const mockUsers: Record<string, User> = {
   }
 };
 
-export function UserProfile({ userId, onBack }: UserProfileProps) {
+export function UserProfile({ userId, onBack, onNavigate }: UserProfileProps) {
   const [posts] = useKV<PostType[]>('posts', generateMockPosts());
   const [activeTab, setActiveTab] = useState<'posts' | 'likes' | 'favorites' | 'guides'>('posts');
   const [searchQuery, setSearchQuery] = useState('');

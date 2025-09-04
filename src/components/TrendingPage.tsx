@@ -333,13 +333,19 @@ export function TrendingPage({ onNavigate, onSelectUser, onSelectRestaurant }: T
               variant="xp-ring"
               level={post.user.level}
               xpProgress={0.75}
-              onClick={() => onSelectUser?.(post.user.id)}
+              onClick={() => {
+                onSelectUser?.(post.user.id);
+                onNavigate('user-profile');
+              }}
             />
             <div className="flex-1 min-w-0">
               <div className="flex items-center gap-2">
                 <span 
                   className="text-white font-semibold text-sm font-rum-raisin cursor-pointer hover:underline truncate" 
-                  onClick={() => onSelectUser?.(post.user.id)}
+                  onClick={() => {
+                    onSelectUser?.(post.user.id);
+                    onNavigate('user-profile');
+                  }}
                 >
                   {post.user.displayName}
                 </span>
@@ -728,7 +734,10 @@ export function TrendingPage({ onNavigate, onSelectUser, onSelectRestaurant }: T
                           size="xs"
                           variant="default"
                           className="border border-white cursor-pointer hover:scale-110 transition-transform"
-                          onClick={() => onSelectUser?.(user.id)}
+                          onClick={() => {
+                            onSelectUser?.(user.id);
+                            onNavigate('user-profile');
+                          }}
                         />
                       ))}
                       {post.likedBy.length > 2 && (
