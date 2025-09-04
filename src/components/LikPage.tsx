@@ -224,7 +224,7 @@ export function LikPage({ onNavigate, onSelectBounty }: LikPageProps) {
 
   // Mock user data for dropdown
   const mockUser = {
-    avatar: '/src/assets/images/user-avatar.jpg',
+    avatar: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face',
     displayName: 'John Doe',
     username: '@johndoe',
     tasteTitle: 'Grand Master',
@@ -286,7 +286,7 @@ export function LikPage({ onNavigate, onSelectBounty }: LikPageProps) {
             onClick={handleAvatarClick}
           >
             <ProfileAvatar
-              src="/src/assets/images/user-avatar.jpg"
+              src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face"
               alt="User"
               level={userProgress.level}
               xp={userProgress.xp}

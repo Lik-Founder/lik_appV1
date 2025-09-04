@@ -27,6 +27,7 @@ import {
   ArrowRightIcon
 } from '@heroicons/react/24/outline';
 import likLogo from '@/assets/images/lik.png';
+import likLogoHeart from '@/assets/images/Lik_Logo_Heart_1.0.png';
 import ad1 from '@/assets/images/ad1.png';
 import ad2 from '@/assets/images/ad2.png';
 import ad3 from '@/assets/images/ad3.png';
@@ -610,7 +611,7 @@ export function HomeFeed({ onNavigate, onSelectUser, onSelectRestaurant }: HomeF
                         {/* Liked By */}
                         <div className="flex items-center gap-2">
                           <div className="flex items-center gap-1">
-                            <img src="/src/assets/images/Lik_Logo_Heart_1.0.png" alt="Lik" className="w-4 h-4" />
+                            <img src={likLogoHeart} alt="Lik" className="w-4 h-4" />
                             <span className="text-white text-sm nav-rum-raisin font-semibold text-shadow-lg">Liked By</span>
                           </div>
                           <div className="flex -space-x-2">

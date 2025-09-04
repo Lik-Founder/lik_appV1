@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { useCarouselSwipe } from '@/hooks';
 import { cn } from '@/lib/utils';
-import likLogo from '@/assets/Lik_Logo_Heart_1.0.png';
+import likLogo from '@/assets/images/Lik_Logo_Heart_1.0.png';
 
 interface LikTVPageProps {
   onBack: () => void;
