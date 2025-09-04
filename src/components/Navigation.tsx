@@ -23,37 +23,38 @@ export function Navigation({ activeTab, onTabChange }: NavigationProps) {
   return (
     <div className="fixed bottom-0 left-0 right-0 z-50 safe-bottom">
       {/* Game HUD Container with candy-glass gradient */}
-      <div className="relative px-2 pb-2">
+      <div className="relative px-3 pb-3">
         {/* Main navigation container - pill shaped with glossy gradient */}
         <div 
           className="relative mx-auto max-w-sm"
           style={{
-            background: 'linear-gradient(135deg, #FF7BAA 0%, #FF1A75 50%, #B30026 100%)',
-            border: '3px solid rgba(255, 255, 255, 0.9)',
-            borderRadius: '40px',
+            background: 'linear-gradient(135deg, rgba(255, 123, 170, 0.95) 0%, rgba(255, 26, 117, 0.97) 50%, rgba(179, 0, 38, 1) 100%)',
+            border: '3px solid rgba(255, 255, 255, 0.95)',
+            borderRadius: '32px',
             boxShadow: `
-              inset 0 0 30px rgba(255, 255, 255, 0.25),
-              inset 0 2px 4px rgba(255, 255, 255, 0.4),
-              inset 0 -2px 4px rgba(0, 0, 0, 0.2),
-              0 8px 32px rgba(255, 123, 170, 0.4),
-              0 4px 16px rgba(0, 0, 0, 0.25),
-              0 0 0 1px rgba(255, 255, 255, 0.2)
+              inset 0 0 30px rgba(255, 255, 255, 0.3),
+              inset 0 3px 6px rgba(255, 255, 255, 0.5),
+              inset 0 -2px 4px rgba(0, 0, 0, 0.25),
+              0 0 0 1px rgba(255, 255, 255, 0.4),
+              0 8px 32px rgba(255, 123, 170, 0.5),
+              0 4px 20px rgba(0, 0, 0, 0.3),
+              0 12px 40px rgba(255, 26, 117, 0.3)
             `,
-            backdropFilter: 'blur(16px)',
-            WebkitBackdropFilter: 'blur(16px)',
-            padding: '8px 12px 16px 12px',
-            minHeight: '72px',
+            backdropFilter: 'blur(20px)',
+            WebkitBackdropFilter: 'blur(20px)',
+            padding: '10px 16px 18px 16px',
+            minHeight: '80px',
             overflow: 'visible',
             position: 'relative'
           }}
         >
-          {/* Inner glass reflection for candy effect */}
+          {/* Inner glass reflection for enhanced candy effect */}
           <div 
             className="absolute inset-x-0 top-0 pointer-events-none"
             style={{
-              background: 'linear-gradient(to bottom, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0.15) 40%, transparent 100%)',
-              borderRadius: '37px 37px 20px 20px',
-              height: '50%'
+              background: 'linear-gradient(to bottom, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0.2) 30%, rgba(255, 255, 255, 0.1) 60%, transparent 100%)',
+              borderRadius: '29px 29px 16px 16px',
+              height: '45%'
             }}
           />
           
@@ -65,13 +66,15 @@ export function Navigation({ activeTab, onTabChange }: NavigationProps) {
               
               return (
                 <div key={tab.id} className="flex flex-col items-center relative">
-                  {/* Glowing halo for active tab */}
+                  {/* Glowing halo for active tab - yellow/orange glow */}
                   {isActive && (
                     <div 
-                      className="absolute -top-2 w-12 h-12 rounded-full opacity-70 blur-lg"
+                      className="absolute w-14 h-14 rounded-full opacity-80"
                       style={{
-                        background: 'linear-gradient(135deg, #fbbf24, #f59e0b, #d97706)',
-                        transform: 'translateY(-12px)'
+                        background: 'radial-gradient(circle, rgba(255, 193, 7, 0.8) 0%, rgba(255, 152, 0, 0.6) 40%, rgba(255, 87, 34, 0.3) 70%, transparent 100%)',
+                        filter: 'blur(8px)',
+                        transform: 'translateY(-20px)',
+                        zIndex: -1
                       }}
                     />
                   )}
@@ -81,16 +84,16 @@ export function Navigation({ activeTab, onTabChange }: NavigationProps) {
                     onClick={() => onTabChange(tab.id)}
                     className="relative flex flex-col items-center touch-target group"
                     style={{ 
-                      transform: isActive ? 'translateY(-16px)' : 'translateY(-8px)',
+                      transform: isActive ? 'translateY(-20px)' : 'translateY(-12px)',
                       transition: 'none' // No animations as requested
                     }}
                   >
-                    {/* Icon container */}
+                    {/* Icon container - exceeds top edge of nav bar */}
                     <div 
-                      className="relative mb-2"
+                      className="relative mb-3"
                       style={{
-                        width: isCenter ? '44px' : '36px',
-                        height: isCenter ? '44px' : '36px'
+                        width: isCenter ? '48px' : '40px',
+                        height: isCenter ? '48px' : '40px'
                       }}
                     >
                       <img 
@@ -99,37 +102,37 @@ export function Navigation({ activeTab, onTabChange }: NavigationProps) {
                         className="w-full h-full object-contain"
                         style={{
                           filter: `
-                            drop-shadow(0 4px 8px rgba(0, 0, 0, 0.4))
-                            drop-shadow(0 0 12px rgba(255, 255, 255, 0.3))
-                            ${isActive ? 'drop-shadow(0 0 20px rgba(251, 191, 36, 0.6))' : ''}
+                            drop-shadow(0 6px 12px rgba(0, 0, 0, 0.5))
+                            drop-shadow(0 2px 8px rgba(255, 255, 255, 0.4))
+                            ${isActive ? 'drop-shadow(0 0 24px rgba(255, 193, 7, 0.8)) drop-shadow(0 0 40px rgba(255, 152, 0, 0.5))' : 'drop-shadow(0 0 8px rgba(255, 255, 255, 0.2))'}
                           `
                         }}
                       />
                     </div>
                     
-                    {/* Candy badge label */}
+                    {/* Candy badge label with translucent glass background */}
                     <div 
-                      className="px-2.5 py-1 text-white font-rum-raisin font-bold uppercase tracking-wide"
+                      className="px-3 py-1.5 text-white font-rum-raisin font-bold uppercase tracking-wide"
                       style={{
                         background: isActive 
-                          ? 'linear-gradient(135deg, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0.3) 50%, rgba(255, 255, 255, 0.2) 100%)'
-                          : 'linear-gradient(135deg, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0.2) 50%, rgba(255, 255, 255, 0.1) 100%)',
+                          ? 'linear-gradient(135deg, rgba(255, 255, 255, 0.6) 0%, rgba(255, 255, 255, 0.4) 50%, rgba(255, 255, 255, 0.3) 100%)'
+                          : 'linear-gradient(135deg, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0.25) 50%, rgba(255, 255, 255, 0.15) 100%)',
                         border: isActive 
-                          ? '1.5px solid rgba(255, 255, 255, 0.8)'
-                          : '1px solid rgba(255, 255, 255, 0.5)',
-                        borderRadius: '12px',
-                        fontSize: '0.65rem',
+                          ? '2px solid rgba(255, 255, 255, 0.9)'
+                          : '1.5px solid rgba(255, 255, 255, 0.6)',
+                        borderRadius: '14px',
+                        fontSize: '0.7rem',
                         lineHeight: '1',
                         boxShadow: `
-                          inset 0 1px 2px rgba(255, 255, 255, 0.4),
-                          inset 0 -1px 1px rgba(0, 0, 0, 0.2),
-                          0 2px 8px rgba(0, 0, 0, 0.3),
-                          ${isActive ? '0 0 12px rgba(251, 191, 36, 0.4)' : '0 1px 3px rgba(0, 0, 0, 0.2)'}
+                          inset 0 2px 4px rgba(255, 255, 255, 0.5),
+                          inset 0 -1px 2px rgba(0, 0, 0, 0.25),
+                          0 4px 12px rgba(0, 0, 0, 0.4),
+                          ${isActive ? '0 0 16px rgba(255, 193, 7, 0.6), 0 0 32px rgba(255, 152, 0, 0.3)' : '0 2px 6px rgba(0, 0, 0, 0.3)'}
                         `,
-                        textShadow: '0 1px 2px rgba(0, 0, 0, 0.8)',
-                        backdropFilter: 'blur(4px)',
-                        WebkitBackdropFilter: 'blur(4px)',
-                        minWidth: '44px',
+                        textShadow: '0 2px 4px rgba(0, 0, 0, 0.9)',
+                        backdropFilter: 'blur(6px)',
+                        WebkitBackdropFilter: 'blur(6px)',
+                        minWidth: '50px',
                         textAlign: 'center'
                       }}
                     >
