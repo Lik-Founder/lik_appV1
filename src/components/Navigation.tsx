@@ -22,8 +22,9 @@ const tabs = [
 export function Navigation({ activeTab, onTabChange }: NavigationProps) {
   return (
     <nav 
-      className="fixed bottom-0 left-0 right-0 z-50 mobile-nav-safe-area overflow-visible"
+      className="fixed left-0 right-0 z-50 mobile-nav-safe-area overflow-visible"
       style={{
+        bottom: '2px', // Raised nav bar up 2 pixels
         background: `
           linear-gradient(to bottom,
             rgba(255, 123, 170, 0.9) 0%,
@@ -108,13 +109,13 @@ export function Navigation({ activeTab, onTabChange }: NavigationProps) {
               <div 
                 className="font-rum-raisin font-bold text-white tracking-wide"
                 style={{
-                  fontSize: '0.65rem',
+                  fontSize: '0.68rem', // Increased by 3 pixels (from 0.65rem)
                   lineHeight: '1',
                   fontWeight: '700',
                   textShadow: isActive
                     ? '0 1px 3px rgba(0, 0, 0, 0.8), 0 0 6px rgba(255, 215, 0, 0.2)'
                     : '0 1px 3px rgba(0, 0, 0, 0.8)',
-                  transform: 'translateY(-6px)' // Moved labels 2px further from icons
+                  transform: 'translateY(-9px)' // Increased space by 3 pixels (from -6px to -9px)
                 }}
               >
                 {tab.label}
