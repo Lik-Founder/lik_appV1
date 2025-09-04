@@ -556,8 +556,8 @@ export function UserProfile({ userId, onBack, onNavigate }: UserProfileProps) {
           )}
 
           {/* Compact Tabs */}
-          <div className="bg-white/50 mx-4 rounded-xl shadow-sm border border-pink-100/50 p-1.5 mb-4">
-            <Tabs value={activeTab} onValueChange={(value) => setActiveTab(value as any)} className="w-full">
+          <Tabs value={activeTab} onValueChange={(value) => setActiveTab(value as any)} className="w-full">
+            <div className="bg-white/50 mx-4 rounded-xl shadow-sm border border-pink-100/50 p-1.5 mb-4">
               <TabsList className="grid w-full grid-cols-4 bg-transparent border-0 h-10 gap-1">
                 <TabsTrigger 
                   value="posts" 
@@ -588,91 +588,91 @@ export function UserProfile({ userId, onBack, onNavigate }: UserProfileProps) {
                   <span className="text-xs">Guides</span>
                 </TabsTrigger>
               </TabsList>
-            </Tabs>
-          </div>
-
-          {/* Compact Search and Filter */}
-          <div className="px-4 mb-4">
-            <div className="relative">
-              <MagnifyingGlassIcon className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-500" />
-              <Input
-                placeholder={`🔍 Search ${activeTab}...`}
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                className="pl-10 bg-white/80 border-pink-200 h-9 text-sm rounded-full shadow-sm nav-rum-raisin placeholder:text-gray-500"
-              />
-              <Button 
-                variant="ghost" 
-                size="sm" 
-                className="absolute right-1 top-1/2 transform -translate-y-1/2 h-7 w-7 rounded-full bg-gradient-to-r from-pink-200 to-purple-200 hover:from-pink-300 hover:to-purple-300"
-              >
-                <AdjustmentsHorizontalIcon className="w-3 h-3 text-gray-600" />
-              </Button>
             </div>
-          </div>
 
-          {/* Compact Tab Content */}
-          <div className="px-4 pb-6">
-            <TabsContent value="posts" className="mt-0">
-              {userPosts.length > 0 ? (
-                <div className="grid grid-cols-3 gap-1.5">
-                  {userPosts.map((post) => (
-                    <div key={post.id} className="aspect-square bg-gradient-to-br from-pink-100 to-purple-100 rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-all">
-                      <img 
-                        src={post.imageUrl} 
-                        alt="Post" 
-                        className="w-full h-full object-cover"
-                      />
-                    </div>
-                  ))}
-                </div>
-              ) : (
-                <div className="bg-gradient-to-br from-pink-50 to-purple-50 rounded-2xl p-8 text-center border border-pink-100">
-                  <div className="text-4xl mb-4">📸</div>
-                  <h3 className="text-lg font-bold mb-3 text-gray-800 nav-rum-raisin">No posts yet</h3>
-                  <p className="text-sm text-gray-600 nav-rum-raisin">This user hasn't shared any posts</p>
-                </div>
-              )}
-            </TabsContent>
-
-            <TabsContent value="likes" className="mt-0">
-              {likedPosts.length > 0 ? (
-                <div className="grid grid-cols-3 gap-1.5">
-                  {likedPosts.map((post) => (
-                    <div key={`liked-${post.id}`} className="aspect-square bg-gradient-to-br from-red-100 to-pink-100 rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-all">
-                      <img 
-                        src={post.imageUrl} 
-                        alt="Liked post" 
-                        className="w-full h-full object-cover"
-                      />
-                    </div>
-                  ))}
-                </div>
-              ) : (
-                <div className="bg-gradient-to-br from-red-50 to-pink-50 rounded-2xl p-8 text-center border border-red-100">
-                  <div className="text-4xl mb-4">💖</div>
-                  <h3 className="text-lg font-bold mb-3 text-gray-800 nav-rum-raisin">No liked posts</h3>
-                  <p className="text-sm text-gray-600 nav-rum-raisin">This user hasn't liked any posts yet</p>
-                </div>
-              )}
-            </TabsContent>
-
-            <TabsContent value="favorites" className="mt-0">
-              <div className="bg-gradient-to-br from-yellow-50 to-orange-50 rounded-2xl p-8 text-center border border-yellow-100">
-                <div className="text-4xl mb-4">⭐</div>
-                <h3 className="text-lg font-bold mb-3 text-gray-800 nav-rum-raisin">No saved favorites</h3>
-                <p className="text-sm text-gray-600 nav-rum-raisin">This user hasn't saved any favorites</p>
+            {/* Compact Search and Filter */}
+            <div className="px-4 mb-4">
+              <div className="relative">
+                <MagnifyingGlassIcon className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-500" />
+                <Input
+                  placeholder={`🔍 Search ${activeTab}...`}
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  className="pl-10 bg-white/80 border-pink-200 h-9 text-sm rounded-full shadow-sm nav-rum-raisin placeholder:text-gray-500"
+                />
+                <Button 
+                  variant="ghost" 
+                  size="sm" 
+                  className="absolute right-1 top-1/2 transform -translate-y-1/2 h-7 w-7 rounded-full bg-gradient-to-r from-pink-200 to-purple-200 hover:from-pink-300 hover:to-purple-300"
+                >
+                  <AdjustmentsHorizontalIcon className="w-3 h-3 text-gray-600" />
+                </Button>
               </div>
-            </TabsContent>
+            </div>
 
-            <TabsContent value="guides" className="mt-0">
-              <div className="bg-gradient-to-br from-green-50 to-emerald-50 rounded-2xl p-8 text-center border border-green-100">
-                <div className="text-4xl mb-4">📚</div>
-                <h3 className="text-lg font-bold mb-3 text-gray-800 nav-rum-raisin">No guides created</h3>
-                <p className="text-sm text-gray-600 nav-rum-raisin">This user hasn't created any guides</p>
-              </div>
-            </TabsContent>
-          </div>
+            {/* Compact Tab Content */}
+            <div className="px-4 pb-6">
+              <TabsContent value="posts" className="mt-0">
+                {userPosts.length > 0 ? (
+                  <div className="grid grid-cols-3 gap-1.5">
+                    {userPosts.map((post) => (
+                      <div key={post.id} className="aspect-square bg-gradient-to-br from-pink-100 to-purple-100 rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-all">
+                        <img 
+                          src={post.imageUrl} 
+                          alt="Post" 
+                          className="w-full h-full object-cover"
+                        />
+                      </div>
+                    ))}
+                  </div>
+                ) : (
+                  <div className="bg-gradient-to-br from-pink-50 to-purple-50 rounded-2xl p-8 text-center border border-pink-100">
+                    <div className="text-4xl mb-4">📸</div>
+                    <h3 className="text-lg font-bold mb-3 text-gray-800 nav-rum-raisin">No posts yet</h3>
+                    <p className="text-sm text-gray-600 nav-rum-raisin">This user hasn't shared any posts</p>
+                  </div>
+                )}
+              </TabsContent>
+
+              <TabsContent value="likes" className="mt-0">
+                {likedPosts.length > 0 ? (
+                  <div className="grid grid-cols-3 gap-1.5">
+                    {likedPosts.map((post) => (
+                      <div key={`liked-${post.id}`} className="aspect-square bg-gradient-to-br from-red-100 to-pink-100 rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-all">
+                        <img 
+                          src={post.imageUrl} 
+                          alt="Liked post" 
+                          className="w-full h-full object-cover"
+                        />
+                      </div>
+                    ))}
+                  </div>
+                ) : (
+                  <div className="bg-gradient-to-br from-red-50 to-pink-50 rounded-2xl p-8 text-center border border-red-100">
+                    <div className="text-4xl mb-4">💖</div>
+                    <h3 className="text-lg font-bold mb-3 text-gray-800 nav-rum-raisin">No liked posts</h3>
+                    <p className="text-sm text-gray-600 nav-rum-raisin">This user hasn't liked any posts yet</p>
+                  </div>
+                )}
+              </TabsContent>
+
+              <TabsContent value="favorites" className="mt-0">
+                <div className="bg-gradient-to-br from-yellow-50 to-orange-50 rounded-2xl p-8 text-center border border-yellow-100">
+                  <div className="text-4xl mb-4">⭐</div>
+                  <h3 className="text-lg font-bold mb-3 text-gray-800 nav-rum-raisin">No saved favorites</h3>
+                  <p className="text-sm text-gray-600 nav-rum-raisin">This user hasn't saved any favorites</p>
+                </div>
+              </TabsContent>
+
+              <TabsContent value="guides" className="mt-0">
+                <div className="bg-gradient-to-br from-green-50 to-emerald-50 rounded-2xl p-8 text-center border border-green-100">
+                  <div className="text-4xl mb-4">📚</div>
+                  <h3 className="text-lg font-bold mb-3 text-gray-800 nav-rum-raisin">No guides created</h3>
+                  <p className="text-sm text-gray-600 nav-rum-raisin">This user hasn't created any guides</p>
+                </div>
+              </TabsContent>
+            </div>
+          </Tabs>
         </div>
       </ScrollArea>
     </div>
