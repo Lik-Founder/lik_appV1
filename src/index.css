@@ -3233,6 +3233,10 @@ input, textarea, select {
   animation: slideUpFromBottom 0.3s ease-out;
 }
 
+.animate-slideDown {
+  animation: slideDownToBottom 0.3s ease-in;
+}
+
 @keyframes slideUpFromBottom {
   0% {
     transform: translateY(100%);
@@ -3241,6 +3245,17 @@ input, textarea, select {
   100% {
     transform: translateY(0);
     opacity: 1;
+  }
+}
+
+@keyframes slideDownToBottom {
+  0% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-100%);
+    opacity: 0;
   }
 }
 

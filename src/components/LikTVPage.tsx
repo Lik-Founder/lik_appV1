@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { MagnifyingGlassIcon, PlayIcon, ChevronLeftIcon, FireIcon, TrophyIcon, StarIcon } from '@heroicons/react/24/outline';
+import { MagnifyingGlassIcon, PlayIcon, ChevronLeftIcon, FireIcon, TrophyIcon, StarIcon, FunnelIcon, ClockIcon, AdjustmentsHorizontalIcon } from '@heroicons/react/24/outline';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { useCarouselSwipe } from '@/hooks';
@@ -189,6 +189,9 @@ export function LikTVPage({ onBack }: LikTVPageProps) {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [searchQuery, setSearchQuery] = useState('');
   const [isUserInteracting, setIsUserInteracting] = useState(false);
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const [selectedFilter, setSelectedFilter] = useState('All');
+  const [sortBy, setSortBy] = useState('Latest');
 
   // Set up swipe gestures for carousel
   const { swipeHandlers, dragOffset, isDragging } = useCarouselSwipe({
@@ -246,56 +249,118 @@ export function LikTVPage({ onBack }: LikTVPageProps) {
     }
   };
 
+  const filterOptions = ['All', 'Series', 'Documentary', 'Tutorial', 'Travel', 'Review'];
+  const sortOptions = ['Latest', 'Popular', 'Trending', 'Top Rated', 'Duration'];
+
   return (
     <div className="flex flex-col h-full min-h-screen bg-black">
       
-      {/* Floating Navigation Bar */}
-      <div className="relative z-20 mx-4 mt-4 mb-2">
-        <div className="flex items-center justify-between p-4 rounded-2xl border-2 border-white/30"
-             style={{
-               background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.25) 0%, rgba(255, 255, 255, 0.15) 100%)',
-               backdropFilter: 'blur(16px)',
-               boxShadow: 'inset 0 0 20px rgba(255, 255, 255, 0.2), 0 8px 32px rgba(0, 0, 0, 0.2)'
-             }}>
-          {/* Back Button & Logo */}
+      {/* App Bar */}
+      <div className="sticky top-0 z-30 bg-black/95 backdrop-blur-lg border-b border-white/10">
+        <div className="flex items-center justify-between px-4 py-3">
+          {/* Left Side - Back Button & Logo */}
           <div className="flex items-center space-x-3">
             <Button
               variant="ghost"
               size="sm"
               onClick={onBack}
-              className="p-2 hover:bg-white/20 text-white border border-white/30 rounded-xl"
+              className="p-2 hover:bg-white/10 text-white rounded-xl"
             >
               <ChevronLeftIcon className="w-5 h-5" />
             </Button>
             <div className="flex items-center space-x-2">
               <img src={likLogo} alt="Lik" className="w-6 h-6" />
-              <h1 className="text-xl font-rum-raisin font-bold text-white text-shadow-lg">
+              <h1 className="text-xl font-rum-raisin font-bold text-white">
                 LikTV
               </h1>
             </div>
           </div>
 
-          {/* Search Bar */}
-          <div className="flex-1 max-w-md mx-4">
+          {/* Right Side - Search & Menu */}
+          <div className="flex items-center space-x-2">
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={() => setIsSearchOpen(!isSearchOpen)}
+              className="p-2 hover:bg-white/10 text-white rounded-xl"
+            >
+              <MagnifyingGlassIcon className="w-5 h-5" />
+            </Button>
+            <Button
+              variant="ghost"
+              size="sm"
+              className="p-2 hover:bg-white/10 text-white rounded-xl"
+            >
+              <AdjustmentsHorizontalIcon className="w-5 h-5" />
+            </Button>
+          </div>
+        </div>
+
+        {/* Expandable Search Bar */}
+        {isSearchOpen && (
+          <div className="px-4 pb-3 animate-slideUp">
             <div className="relative">
               <MagnifyingGlassIcon className="w-4 h-4 absolute left-3 top-1/2 transform -translate-y-1/2 text-white/70" />
               <Input
-                placeholder="Search food shows..."
+                placeholder="Search food shows and creators..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="pl-10 bg-white/20 border-white/30 text-white placeholder:text-white/70 rounded-xl focus:bg-white/30 focus:border-white/50"
+                className="pl-10 bg-white/10 border-white/20 text-white placeholder:text-white/70 rounded-xl focus:bg-white/20 focus:border-white/40"
+                autoFocus
               />
             </div>
           </div>
+        )}
 
-          {/* Right Icons */}
-          <div className="flex items-center space-x-2">
-            <div className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center text-white text-sm font-bold">
-              🔥
+        {/* Filter Chips */}
+        <div className="px-4 pb-3">
+          <div className="flex items-center space-x-2 overflow-x-auto scrollbar-hide">
+            {/* Category Filters */}
+            {filterOptions.map((filter) => (
+              <Button
+                key={filter}
+                variant="ghost"
+                size="sm"
+                onClick={() => setSelectedFilter(filter)}
+                className={cn(
+                  "px-4 py-2 rounded-full whitespace-nowrap text-sm font-medium transition-all",
+                  selectedFilter === filter
+                    ? "bg-red-500/80 text-white border border-red-400/50"
+                    : "bg-white/10 text-white/80 hover:bg-white/20 border border-white/20"
+                )}
+              >
+                {filter}
+              </Button>
+            ))}
+            
+            {/* Divider */}
+            <div className="w-px h-6 bg-white/20 mx-2" />
+            
+            {/* Sort Filter */}
+            <div className="flex items-center space-x-2">
+              <ClockIcon className="w-4 h-4 text-white/60" />
+              <select
+                value={sortBy}
+                onChange={(e) => setSortBy(e.target.value)}
+                className="bg-white/10 border border-white/20 text-white text-sm rounded-full px-3 py-2 focus:bg-white/20 focus:border-white/40 appearance-none"
+              >
+                {sortOptions.map((option) => (
+                  <option key={option} value={option} className="bg-black text-white">
+                    {option}
+                  </option>
+                ))}
+              </select>
             </div>
-            <div className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center text-white text-sm font-bold">
-              🏆
-            </div>
+            
+            {/* Trending Filter Button */}
+            <Button
+              variant="ghost"
+              size="sm"
+              className="px-4 py-2 rounded-full whitespace-nowrap text-sm font-medium bg-orange-500/20 text-orange-300 hover:bg-orange-500/30 border border-orange-400/30"
+            >
+              <FireIcon className="w-4 h-4 mr-1" />
+              Trending
+            </Button>
           </div>
         </div>
       </div>
@@ -303,7 +368,7 @@ export function LikTVPage({ onBack }: LikTVPageProps) {
       {/* Main Content */}
       <div className="flex-1 overflow-y-auto">
         {/* Hero Carousel Section */}
-        <div className="relative mx-4 mb-6">
+        <div className="relative mx-4 mb-6 mt-4">
           <div 
             className="liktv-carousel relative h-[300px] overflow-hidden bg-black/20 cursor-grab active:cursor-grabbing select-none rounded-2xl border-2 border-white/20"
             {...enhancedSwipeHandlers}
