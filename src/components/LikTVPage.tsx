@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react';
-import { MagnifyingGlassIcon, PlayIcon, ChevronLeftIcon, FireIcon, TrophyIcon, StarIcon, FunnelIcon, ClockIcon, AdjustmentsHorizontalIcon } from '@heroicons/react/24/outline';
+import { MagnifyingGlassIcon, PlayIcon, ChevronLeftIcon, FireIcon, TrophyIcon, StarIcon, FunnelIcon, ClockIcon, AdjustmentsHorizontalIcon, SparklesIcon, EyeIcon, HeartIcon } from '@heroicons/react/24/outline';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import { Badge } from '@/components/ui/badge';
 import { useCarouselSwipe } from '@/hooks';
 import { cn } from '@/lib/utils';
 import likLogo from '@/assets/images/Lik_Logo_Heart_1.0.png';
@@ -239,8 +240,9 @@ export function LikTVPage({ onBack }: LikTVPageProps) {
 
   const getCategoryIcon = (category?: string) => {
     switch (category) {
+      case 'All': return '🎬';
       case 'Series': return '📺';
-      case 'Documentary': return '🎬';
+      case 'Documentary': return '🎥';
       case 'Tutorial': return '👨‍🍳';
       case 'Behind Scenes': return '🎭';
       case 'Review': return '⭐';
@@ -253,128 +255,181 @@ export function LikTVPage({ onBack }: LikTVPageProps) {
   const sortOptions = ['Latest', 'Popular', 'Trending', 'Top Rated', 'Duration'];
 
   return (
-    <div className="flex flex-col h-full min-h-screen bg-black">
+    <div className="flex flex-col h-full min-h-screen bg-gradient-to-br from-slate-900 via-background to-slate-900">
       
-      {/* App Bar */}
-      <div className="sticky top-0 z-30 bg-background/95 backdrop-blur-lg border-b border-border">
-        <div className="flex items-center justify-between px-4 py-3">
-          {/* Left Side - Back Button & Logo */}
-          <div className="flex items-center space-x-3">
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={onBack}
-              className="p-2 hover:bg-muted text-foreground rounded-xl"
-            >
-              <ChevronLeftIcon className="w-5 h-5" />
-            </Button>
-            <div className="flex items-center space-x-2">
-              <img src={likLogo} alt="Lik" className="w-6 h-6" />
-              <h1 className="text-xl font-rum-raisin font-bold text-foreground">
-                LikTV
-              </h1>
-            </div>
-          </div>
-
-          {/* Right Side - Search & Menu */}
-          <div className="flex items-center space-x-2">
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={() => setIsSearchOpen(!isSearchOpen)}
-              className="p-2 hover:bg-muted text-foreground rounded-xl"
-            >
-              <MagnifyingGlassIcon className="w-5 h-5" />
-            </Button>
-            <Button
-              variant="ghost"
-              size="sm"
-              className="p-2 hover:bg-muted text-foreground rounded-xl"
-            >
-              <AdjustmentsHorizontalIcon className="w-5 h-5" />
-            </Button>
-          </div>
+      {/* Enhanced App Bar with Glassmorphic Design */}
+      <div className="sticky top-0 z-30">
+        {/* Gradient background */}
+        <div className="absolute inset-0 bg-gradient-to-r from-primary/10 via-secondary/10 to-accent/10 backdrop-blur-xl border-b border-primary/20"></div>
+        
+        {/* Floating light effects */}
+        <div className="absolute inset-0 overflow-hidden">
+          <div className="absolute top-0 left-1/4 w-32 h-32 bg-primary/10 rounded-full blur-3xl animate-pulse"></div>
+          <div className="absolute top-0 right-1/4 w-24 h-24 bg-accent/15 rounded-full blur-2xl animate-pulse" style={{ animationDelay: '1s' }}></div>
         </div>
-
-        {/* Expandable Search Bar */}
-        {isSearchOpen && (
-          <div className="px-4 pb-3 animate-slideUp">
-            <div className="relative">
-              <MagnifyingGlassIcon className="w-4 h-4 absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground" />
-              <Input
-                placeholder="Search food shows and creators..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                className="pl-10 bg-muted border-border text-foreground placeholder:text-muted-foreground rounded-xl focus:bg-card focus:border-primary"
-                autoFocus
-              />
-            </div>
-          </div>
-        )}
-
-        {/* Filter Chips */}
-        <div className="px-4 pb-3">
-          <div className="flex items-center space-x-2 overflow-x-auto scrollbar-hide">
-            {/* Category Filters */}
-            {filterOptions.map((filter) => (
+        
+        <div className="relative">
+          <div className="flex items-center justify-between px-4 py-3">
+            {/* Left Side - Back Button & Enhanced Logo */}
+            <div className="flex items-center space-x-3">
               <Button
-                key={filter}
                 variant="ghost"
                 size="sm"
-                onClick={() => setSelectedFilter(filter)}
+                onClick={onBack}
+                className="p-2 hover:bg-primary/20 text-foreground rounded-xl transition-all hover:scale-110 group"
+              >
+                <ChevronLeftIcon className="w-5 h-5 group-hover:translate-x-[-2px] transition-transform" />
+              </Button>
+              <div className="flex items-center space-x-2 group">
+                <div className="relative">
+                  <img src={likLogo} alt="Lik" className="w-8 h-8 transition-transform group-hover:scale-110" />
+                  <div className="absolute inset-0 bg-primary/20 rounded-full animate-ping opacity-30"></div>
+                </div>
+                <div className="flex flex-col">
+                  <h1 className="text-xl font-rum-raisin font-bold bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent">
+                    LikTV
+                  </h1>
+                  <span className="text-xs text-muted-foreground -mt-1">Food Content Platform</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Right Side - Enhanced Controls */}
+            <div className="flex items-center space-x-2">
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => setIsSearchOpen(!isSearchOpen)}
                 className={cn(
-                  "px-4 py-2 rounded-full whitespace-nowrap text-sm font-medium transition-all",
-                  selectedFilter === filter
-                    ? "bg-primary text-primary-foreground border border-primary/50"
-                    : "bg-muted text-muted-foreground hover:bg-primary/10 hover:text-primary border border-border"
+                  "p-2 rounded-xl transition-all hover:scale-110",
+                  isSearchOpen 
+                    ? "bg-primary text-primary-foreground shadow-lg shadow-primary/20" 
+                    : "hover:bg-primary/20 text-foreground"
                 )}
               >
-                {filter}
+                <MagnifyingGlassIcon className="w-5 h-5" />
               </Button>
-            ))}
-            
-            {/* Divider */}
-            <div className="w-px h-6 bg-border mx-2" />
-            
-            {/* Sort Filter */}
-            <div className="flex items-center space-x-2">
-              <ClockIcon className="w-4 h-4 text-muted-foreground" />
-              <select
-                value={sortBy}
-                onChange={(e) => setSortBy(e.target.value)}
-                className="bg-muted border border-border text-foreground text-sm rounded-full px-3 py-2 focus:bg-card focus:border-primary appearance-none"
+              <Button
+                variant="ghost"
+                size="sm"
+                className="p-2 hover:bg-accent/20 text-foreground rounded-xl transition-all hover:scale-110"
               >
-                {sortOptions.map((option) => (
-                  <option key={option} value={option} className="bg-background text-foreground">
-                    {option}
-                  </option>
-                ))}
-              </select>
+                <AdjustmentsHorizontalIcon className="w-5 h-5" />
+              </Button>
+              
+              {/* Live indicator */}
+              <div className="flex items-center space-x-1 bg-red-500/20 px-2 py-1 rounded-full liktv-badge-glow">
+                <div className="w-2 h-2 bg-red-500 rounded-full liktv-live-pulse"></div>
+                <span className="text-xs text-red-400 font-medium">LIVE</span>
+              </div>
             </div>
-            
-            {/* Trending Filter Button */}
-            <Button
-              variant="ghost"
-              size="sm"
-              className="px-4 py-2 rounded-full whitespace-nowrap text-sm font-medium bg-accent/20 text-accent-foreground hover:bg-accent/30 border border-accent/30"
-            >
-              <FireIcon className="w-4 h-4 mr-1" />
-              Trending
-            </Button>
+          </div>
+
+          {/* Enhanced Search Bar */}
+          {isSearchOpen && (
+            <div className="px-4 pb-3 liktv-search-expand">
+              <div className="relative">
+                <div className="absolute inset-0 bg-gradient-to-r from-primary/10 via-transparent to-accent/10 rounded-2xl blur-sm"></div>
+                <div className="relative liktv-backdrop-enhanced rounded-2xl p-1">
+                  <div className="flex items-center">
+                    <MagnifyingGlassIcon className="w-5 h-5 ml-3 text-primary" />
+                    <Input
+                      placeholder="Search culinary adventures..."
+                      value={searchQuery}
+                      onChange={(e) => setSearchQuery(e.target.value)}
+                      className="flex-1 bg-transparent border-none text-foreground placeholder:text-muted-foreground focus:outline-none px-3"
+                      autoFocus
+                    />
+                    <div className="flex items-center space-x-1 mr-2">
+                      <SparklesIcon className="w-4 h-4 text-accent animate-pulse" />
+                      <span className="text-xs text-accent font-medium">AI</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* Enhanced Filter Chips */}
+          <div className="px-4 pb-3">
+            <div className="flex items-center space-x-3 overflow-x-auto scrollbar-hide">
+              {/* Category Filters with Icons */}
+              {filterOptions.map((filter) => (
+                <Button
+                  key={filter}
+                  variant="ghost"
+                  size="sm"
+                  onClick={() => setSelectedFilter(filter)}
+                  className={cn(
+                    "px-4 py-2 rounded-full whitespace-nowrap text-sm font-medium transition-all relative overflow-hidden group",
+                    selectedFilter === filter
+                      ? "bg-gradient-to-r from-primary to-secondary text-primary-foreground shadow-lg shadow-primary/30 scale-105 liktv-filter-active"
+                      : "liktv-glass-card text-muted-foreground hover:bg-primary/20 hover:text-primary hover:border-primary/50"
+                  )}
+                >
+                  {selectedFilter === filter && (
+                    <div className="absolute inset-0 bg-gradient-to-r from-primary/20 via-transparent to-secondary/20 animate-pulse"></div>
+                  )}
+                  <span className="relative z-10 flex items-center space-x-1">
+                    <span>{getCategoryIcon(filter)}</span>
+                    <span>{filter}</span>
+                  </span>
+                </Button>
+              ))}
+              
+              {/* Enhanced Trending Button */}
+              <Button
+                variant="ghost"
+                size="sm"
+                className="px-4 py-2 rounded-full whitespace-nowrap text-sm font-medium relative overflow-hidden group bg-gradient-to-r from-orange-500/20 to-red-500/20 text-orange-300 hover:from-orange-500/30 hover:to-red-500/30 border border-orange-500/30"
+              >
+                <div className="absolute inset-0 bg-gradient-to-r from-orange-500/10 to-red-500/10 animate-pulse"></div>
+                <div className="relative z-10 flex items-center space-x-1">
+                  <FireIcon className="w-4 h-4 animate-pulse" />
+                  <span>Trending</span>
+                </div>
+              </Button>
+              
+              {/* Sort with enhanced styling */}
+              <div className="flex items-center space-x-2 bg-card/30 backdrop-blur-sm rounded-full px-3 py-2 border border-border/50">
+                <ClockIcon className="w-4 h-4 text-muted-foreground" />
+                <select
+                  value={sortBy}
+                  onChange={(e) => setSortBy(e.target.value)}
+                  className="bg-transparent text-foreground text-sm focus:outline-none appearance-none"
+                >
+                  {sortOptions.map((option) => (
+                    <option key={option} value={option} className="bg-background text-foreground">
+                      {option}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            </div>
           </div>
         </div>
       </div>
 
-      {/* Main Content */}
-      <div className="flex-1 overflow-y-auto">
-        {/* Hero Carousel Section */}
-        <div className="relative mx-4 mb-6 mt-4">
+      {/* Main Content with Enhanced Design */}
+      <div className="flex-1 overflow-y-auto relative">
+        {/* Floating background elements */}
+        <div className="fixed inset-0 overflow-hidden pointer-events-none">
+          <div className="liktv-floating-elements absolute top-1/4 left-1/4 w-64 h-64 bg-primary/5 rounded-full blur-3xl"></div>
+          <div className="liktv-floating-elements absolute bottom-1/4 right-1/4 w-48 h-48 bg-accent/5 rounded-full blur-3xl"></div>
+          <div className="liktv-floating-elements absolute top-3/4 left-1/2 w-32 h-32 bg-secondary/5 rounded-full blur-2xl"></div>
+        </div>
+
+        {/* Enhanced Hero Carousel Section */}
+        <div className="relative mx-4 mb-8 mt-6">
+          <div className="absolute inset-0 bg-gradient-to-r from-primary/20 via-transparent to-accent/20 rounded-3xl blur-xl"></div>
+          
           <div 
-            className="liktv-carousel relative h-[300px] overflow-hidden bg-card/50 cursor-grab active:cursor-grabbing select-none rounded-2xl border-2 border-border"
+            className="liktv-carousel relative h-[350px] overflow-hidden cursor-grab active:cursor-grabbing select-none rounded-3xl border border-primary/30 shadow-2xl shadow-primary/10"
             {...enhancedSwipeHandlers}
             style={{
-              backdropFilter: 'blur(10px)',
-              boxShadow: 'inset 0 0 20px rgba(255, 255, 255, 0.1), 0 8px 32px rgba(0, 0, 0, 0.3)'
+              background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%)',
+              backdropFilter: 'blur(20px)',
+              boxShadow: 'inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 20px 40px rgba(0, 0, 0, 0.3)'
             }}
           >
             <div 
@@ -390,268 +445,359 @@ export function LikTVPage({ onBack }: LikTVPageProps) {
               {featuredShows.map((show, index) => (
                 <div
                   key={show.id}
-                  className="min-w-full h-full relative bg-cover bg-center rounded-2xl overflow-hidden"
+                  className="min-w-full h-full relative bg-cover bg-center rounded-3xl overflow-hidden"
                   style={{ backgroundImage: `url(${show.thumbnail})` }}
                 >
-                  {/* Overlay */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-background/30 to-transparent" />
+                  {/* Enhanced Overlay with Gradient */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-background/95 via-background/40 to-transparent" />
+                  <div className="absolute inset-0 bg-gradient-to-r from-primary/20 via-transparent to-accent/20" />
                   
-                  {/* New Badge */}
-                  {show.new && (
-                    <div className="absolute top-4 left-4 flex items-center space-x-1 bg-green-500/90 px-3 py-1 rounded-full">
-                      <span className="text-white text-xs font-bold">NEW</span>
+                  {/* Premium Quality Badge */}
+                  {show.featured && (
+                    <div className="absolute top-6 left-6 flex items-center space-x-2 bg-gradient-to-r from-yellow-500/90 to-orange-500/90 px-4 py-2 rounded-full shadow-lg">
+                      <SparklesIcon className="w-4 h-4 text-white" />
+                      <span className="text-white text-sm font-bold">FEATURED</span>
                     </div>
                   )}
 
-                  {/* Trending Badge */}
-                  {show.trending && !show.new && (
-                    <div className="absolute top-4 left-4 flex items-center space-x-1 bg-primary/90 px-3 py-1 rounded-full">
-                      <FireIcon className="w-4 h-4 text-primary-foreground" />
-                      <span className="text-primary-foreground text-xs font-bold">TRENDING</span>
+                  {/* New Badge with Animation */}
+                  {show.new && !show.featured && (
+                    <div className="absolute top-6 left-6 flex items-center space-x-2 bg-gradient-to-r from-green-500/90 to-emerald-500/90 px-4 py-2 rounded-full shadow-lg animate-pulse">
+                      <div className="w-2 h-2 bg-white rounded-full animate-ping"></div>
+                      <span className="text-white text-sm font-bold">NEW</span>
                     </div>
                   )}
 
-                  {/* Verified Badge */}
+                  {/* Enhanced Trending Badge */}
+                  {show.trending && !show.new && !show.featured && (
+                    <div className="absolute top-6 left-6 flex items-center space-x-2 bg-gradient-to-r from-orange-500/90 to-red-500/90 px-4 py-2 rounded-full shadow-lg">
+                      <FireIcon className="w-4 h-4 text-white animate-pulse" />
+                      <span className="text-white text-sm font-bold">TRENDING</span>
+                    </div>
+                  )}
+
+                  {/* Enhanced Verified Badge */}
                   {show.verified && (
-                    <div className="absolute top-4 right-4 bg-blue-500/90 p-2 rounded-full">
-                      <StarIcon className="w-4 h-4 text-white" />
+                    <div className="absolute top-6 right-6 bg-gradient-to-r from-blue-500/90 to-purple-500/90 p-3 rounded-full shadow-lg">
+                      <StarIcon className="w-5 h-5 text-white" />
                     </div>
                   )}
                   
-                  {/* Content */}
-                  <div className="absolute bottom-0 left-0 right-0 p-6 text-foreground">
-                    <div className="flex items-center space-x-2 mb-2">
-                      <span className="text-lg">{getCategoryIcon(show.category)}</span>
-                      <span className="text-sm font-medium bg-card/60 text-card-foreground px-2 py-1 rounded-full">
+                  {/* Enhanced Content Section */}
+                  <div className="absolute bottom-0 left-0 right-0 p-8">
+                    {/* Category and Network Tags */}
+                    <div className="flex items-center space-x-3 mb-4">
+                      <Badge className="bg-card/80 backdrop-blur-sm text-card-foreground border border-border/50 text-sm px-3 py-1">
+                        <span className="mr-1">{getCategoryIcon(show.category)}</span>
                         {show.category}
-                      </span>
+                      </Badge>
                       {show.network && (
-                        <span className="text-sm font-medium bg-blue-500/20 text-blue-200 px-2 py-1 rounded-full">
+                        <Badge className="bg-blue-500/20 backdrop-blur-sm text-blue-200 border border-blue-500/30 text-sm px-3 py-1">
                           {show.network}
-                        </span>
+                        </Badge>
+                      )}
+                      {show.rating && (
+                        <Badge className="bg-yellow-500/20 backdrop-blur-sm text-yellow-300 border border-yellow-500/30 text-sm px-3 py-1">
+                          ⭐ {show.rating}
+                        </Badge>
                       )}
                     </div>
                     
-                    <h2 className="text-2xl font-rum-raisin font-bold mb-2 text-shadow-lg text-foreground">
+                    <h2 className="text-3xl font-rum-raisin font-bold mb-3 bg-gradient-to-r from-white via-white to-white/80 bg-clip-text text-transparent">
                       {show.title}
                     </h2>
                     
-                    <p className="text-sm mb-3 max-w-md opacity-90 line-clamp-2 text-shadow text-muted-foreground">
+                    <p className="text-base mb-6 max-w-2xl opacity-90 line-clamp-2 text-gray-200 leading-relaxed">
                       {show.description}
                     </p>
 
                     <div className="flex items-center justify-between">
                       <div className="flex items-center space-x-4">
                         <Button 
-                          className="glossy-red-pill font-rum-raisin text-primary-foreground px-6 py-2"
+                          className="glossy-red-pill font-rum-raisin text-white px-8 py-3 text-base shadow-xl hover:shadow-2xl hover:scale-105 transition-all"
                         >
-                          <PlayIcon className="w-4 h-4 mr-2" />
+                          <PlayIcon className="w-5 h-5 mr-3" />
                           Watch Now
                         </Button>
 
-                        {/* Show Details */}
-                        <div className="flex items-center space-x-2">
-                          {show.duration && (
-                            <div className="flex items-center space-x-1 bg-card/60 text-card-foreground px-2 py-1 rounded-full">
-                              <span className="text-xs">{show.duration}</span>
-                            </div>
-                          )}
-                          {show.rating && (
-                            <div className="flex items-center space-x-1 bg-yellow-500/20 px-2 py-1 rounded-full">
-                              <span className="text-yellow-400 text-xs">⭐ {show.rating}</span>
-                            </div>
-                          )}
-                          {show.season && (
-                            <div className="flex items-center space-x-1 bg-purple-500/20 px-2 py-1 rounded-full">
-                              <span className="text-purple-400 text-xs">S{show.season}</span>
-                            </div>
-                          )}
-                        </div>
+                        <Button 
+                          variant="outline"
+                          className="bg-card/20 backdrop-blur-sm border-border/50 text-foreground hover:bg-card/40 px-6 py-3 rounded-2xl"
+                        >
+                          <HeartIcon className="w-5 h-5 mr-2" />
+                          Save
+                        </Button>
+                      </div>
+
+                      {/* Enhanced Show Details */}
+                      <div className="flex items-center space-x-3">
+                        {show.duration && (
+                          <Badge className="bg-card/60 backdrop-blur-sm text-card-foreground border border-border/30 px-3 py-1">
+                            <ClockIcon className="w-4 h-4 mr-1" />
+                            {show.duration}
+                          </Badge>
+                        )}
+                        {show.season && (
+                          <Badge className="bg-purple-500/20 backdrop-blur-sm text-purple-300 border border-purple-500/30 px-3 py-1">
+                            Season {show.season}
+                          </Badge>
+                        )}
                       </div>
                     </div>
                   </div>
+
+                  {/* Enhanced Progress Bar for Current Episode */}
+                  {show.featured && (
+                    <div className="absolute bottom-0 left-0 right-0 h-1 bg-gray-600/50">
+                      <div className="h-full bg-gradient-to-r from-primary to-accent w-1/3 rounded-full"></div>
+                    </div>
+                  )}
                 </div>
               ))}
             </div>
 
-            {/* Dots Indicator */}
-            <div className="absolute bottom-6 right-6 flex space-x-2">
+            {/* Enhanced Dots Indicator */}
+            <div className="absolute bottom-8 right-8 flex space-x-3">
               {featuredShows.map((_, index) => (
                 <button
                   key={index}
                   className={cn(
-                    "w-3 h-3 rounded-full transition-all border border-border",
+                    "transition-all rounded-full border-2 hover:scale-110",
                     index === currentSlide 
-                      ? "bg-primary scale-110" 
-                      : "bg-muted hover:bg-muted-foreground/50"
+                      ? "w-12 h-3 bg-gradient-to-r from-primary to-accent border-white/50 shadow-lg" 
+                      : "w-3 h-3 bg-white/30 border-white/30 hover:bg-white/50"
                   )}
                   onClick={() => setCurrentSlide(index)}
                 />
               ))}
             </div>
+
+            {/* Auto-play Progress Indicator */}
+            <div className="absolute top-0 left-0 right-0 h-1 bg-white/10">
+              <div 
+                className="liktv-carousel-progress h-full bg-gradient-to-r from-primary via-secondary to-accent transition-all duration-300"
+                style={{ 
+                  width: `${((currentSlide + 1) / featuredShows.length) * 100}%`,
+                  opacity: isUserInteracting ? 0.3 : 1
+                }}
+              />
+            </div>
           </div>
         </div>
 
-        {/* Content Sections */}
-        <div className="px-4 space-y-8 pb-20">
-          {/* For You Section */}
+        {/* Enhanced Content Sections */}
+        <div className="px-4 space-y-10 pb-24 relative z-10">
+          {/* For You Section with Enhanced Design */}
           <div>
-            <div className="flex items-center justify-between mb-4">
-              <h3 className="text-xl font-rum-raisin font-bold text-foreground text-shadow-lg flex items-center">
-                <span className="text-2xl mr-2">🎯</span>
-                For You
-              </h3>
+            <div className="liktv-section-header flex items-center justify-between mb-6">
+              <div className="flex items-center space-x-3">
+                <div className="w-12 h-12 bg-gradient-to-r from-primary to-secondary rounded-full flex items-center justify-center shadow-lg">
+                  <span className="text-2xl">🎯</span>
+                </div>
+                <div>
+                  <h3 className="text-2xl font-rum-raisin font-bold bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent">
+                    Curated For You
+                  </h3>
+                  <p className="text-sm text-muted-foreground">Based on your food preferences</p>
+                </div>
+              </div>
               <Button 
                 variant="ghost" 
-                className="text-muted-foreground hover:text-foreground hover:bg-muted rounded-xl"
+                className="text-primary hover:text-primary-foreground hover:bg-primary rounded-xl px-4 py-2 font-medium transition-all hover:scale-105"
               >
-                View All
+                View All →
               </Button>
             </div>
             
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              {forYouShows.map((show) => (
+            <div className="liktv-content-grid grid grid-cols-1 md:grid-cols-2 gap-6">
+              {forYouShows.map((show, index) => (
                 <div
                   key={show.id}
-                  className="relative rounded-2xl overflow-hidden border-2 border-border hover:scale-[1.02] transition-all duration-300 cursor-pointer group"
-                  style={{
-                    background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0.05) 100%)',
-                    backdropFilter: 'blur(10px)',
-                    boxShadow: 'inset 0 0 20px rgba(255, 255, 255, 0.1), 0 8px 32px rgba(0, 0, 0, 0.2)'
-                  }}
+                  className="liktv-card-hover liktv-glass-card group relative rounded-3xl overflow-hidden border border-primary/20 hover:border-primary/50 cursor-pointer"
                 >
-                  <div className="flex h-32">
-                    {/* Thumbnail */}
+                  {/* Enhanced glass morphism effect */}
+                  <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-transparent to-accent/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                  
+                  <div className="flex h-36 relative z-10">
+                    {/* Enhanced Thumbnail */}
                     <div 
-                      className="w-40 bg-cover bg-center relative"
+                      className="w-44 bg-cover bg-center relative overflow-hidden"
                       style={{ backgroundImage: `url(${show.thumbnail})` }}
                     >
-                      <div className="absolute inset-0 bg-background/30 group-hover:bg-background/20 transition-colors" />
+                      <div className="absolute inset-0 bg-gradient-to-r from-transparent via-background/20 to-background/60 group-hover:from-transparent group-hover:via-background/10 group-hover:to-background/40 transition-all duration-500" />
+                      
+                      {/* Enhanced Play Button */}
                       <div className="absolute inset-0 flex items-center justify-center">
-                        <PlayIcon className="w-8 h-8 text-foreground opacity-80 group-hover:opacity-100 transition-opacity" />
+                        <div className="liktv-play-button w-12 h-12 bg-card/80 backdrop-blur-sm text-card-foreground rounded-full flex items-center justify-center border-2 border-primary/30 opacity-0 group-hover:opacity-100 transform scale-75 group-hover:scale-100 transition-all duration-300">
+                          <PlayIcon className="w-6 h-6 ml-1" />
+                        </div>
                       </div>
                       
+                      {/* Quality badges */}
                       {show.new && (
-                        <div className="absolute top-2 left-2 bg-green-500/90 px-2 py-1 rounded-full">
+                        <div className="absolute top-3 left-3 bg-gradient-to-r from-green-500 to-emerald-500 px-2 py-1 rounded-full shadow-lg">
                           <span className="text-white text-xs font-bold">NEW</span>
+                        </div>
+                      )}
+                      
+                      {/* View count overlay */}
+                      {show.viewCount && (
+                        <div className="absolute bottom-3 left-3 bg-background/80 backdrop-blur-sm px-2 py-1 rounded-full">
+                          <div className="flex items-center space-x-1">
+                            <EyeIcon className="w-3 h-3 text-muted-foreground" />
+                            <span className="text-xs text-muted-foreground font-medium">{show.viewCount}</span>
+                          </div>
                         </div>
                       )}
                     </div>
 
-                    {/* Content */}
-                    <div className="flex-1 p-4 text-foreground">
-                      <div className="flex items-center justify-between mb-1">
-                        <span className="text-lg">{getCategoryIcon(show.category)}</span>
-                        <div className="flex items-center space-x-1">
+                    {/* Enhanced Content */}
+                    <div className="flex-1 p-5 text-foreground">
+                      <div className="flex items-center justify-between mb-2">
+                        <div className="flex items-center space-x-2">
+                          <span className="text-lg">{getCategoryIcon(show.category)}</span>
+                          <Badge className="bg-card/50 text-card-foreground text-xs px-2 py-1">
+                            {show.category}
+                          </Badge>
+                        </div>
+                        <div className="flex items-center space-x-2">
                           {show.verified && (
                             <StarIcon className="w-4 h-4 text-blue-400" />
                           )}
                           {show.rating && (
-                            <span className="text-yellow-400 text-xs">⭐ {show.rating}</span>
+                            <div className="flex items-center space-x-1 bg-yellow-500/20 px-2 py-1 rounded-full">
+                              <span className="text-yellow-400 text-xs font-medium">⭐ {show.rating}</span>
+                            </div>
                           )}
                         </div>
                       </div>
                       
-                      <h4 className="font-rum-raisin font-bold text-sm mb-1 line-clamp-1 text-shadow text-foreground">
+                      <h4 className="font-rum-raisin font-bold text-base mb-2 line-clamp-1 text-foreground group-hover:text-primary transition-colors">
                         {show.title}
                       </h4>
                       
-                      <p className="text-xs text-muted-foreground mb-1">{show.creator}</p>
-                      {show.channel && (
-                        <p className="text-xs text-blue-300 mb-2">{show.channel}</p>
-                      )}
+                      <div className="space-y-1 mb-3">
+                        <p className="text-sm text-muted-foreground font-medium">{show.creator}</p>
+                        {show.channel && (
+                          <p className="text-xs text-blue-300">{show.channel}</p>
+                        )}
+                      </div>
                       
                       <div className="flex items-center justify-between">
-                        <div className="flex items-center space-x-2 text-xs text-muted-foreground">
-                          {show.duration && <span>{show.duration}</span>}
-                          {show.viewCount && (
-                            <>
-                              <span>•</span>
-                              <span>{show.viewCount} views</span>
-                            </>
+                        <div className="flex items-center space-x-3 text-xs text-muted-foreground">
+                          {show.duration && (
+                            <div className="flex items-center space-x-1">
+                              <ClockIcon className="w-3 h-3" />
+                              <span>{show.duration}</span>
+                            </div>
+                          )}
+                          {show.likes && (
+                            <div className="flex items-center space-x-1">
+                              <HeartIcon className="w-3 h-3" />
+                              <span>{show.likes}</span>
+                            </div>
                           )}
                         </div>
+                        
+                        {show.trending && (
+                          <Badge className="bg-gradient-to-r from-orange-500/20 to-red-500/20 text-orange-300 border border-orange-500/30 text-xs px-2 py-1">
+                            🔥 Hot
+                          </Badge>
+                        )}
                       </div>
                     </div>
                   </div>
-
-                  {show.trending && (
-                    <div className="absolute top-2 right-2 bg-primary/90 px-2 py-1 rounded-full">
-                      <span className="text-primary-foreground text-xs font-bold">🔥</span>
-                    </div>
-                  )}
                 </div>
               ))}
             </div>
           </div>
 
-          {/* Popular Series Section */}
+          {/* Enhanced Popular Series Section */}
           <div className="pb-8">
-            <div className="flex items-center justify-between mb-4">
-              <h3 className="text-xl font-rum-raisin font-bold text-foreground text-shadow-lg flex items-center">
-                <span className="text-2xl mr-2">📺</span>
-                Popular Series
-              </h3>
+            <div className="liktv-section-header flex items-center justify-between mb-6">
+              <div className="flex items-center space-x-3">
+                <div className="w-12 h-12 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full flex items-center justify-center shadow-lg">
+                  <span className="text-2xl">📺</span>
+                </div>
+                <div>
+                  <h3 className="text-2xl font-rum-raisin font-bold bg-gradient-to-r from-purple-400 via-pink-400 to-red-400 bg-clip-text text-transparent">
+                    Popular Series
+                  </h3>
+                  <p className="text-sm text-muted-foreground">Most watched food shows</p>
+                </div>
+              </div>
               <Button 
                 variant="ghost" 
-                className="text-muted-foreground hover:text-foreground hover:bg-muted rounded-xl"
+                className="text-purple-400 hover:text-white hover:bg-purple-500 rounded-xl px-4 py-2 font-medium transition-all hover:scale-105"
               >
-                View All
+                Explore →
               </Button>
             </div>
             
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            <div className="liktv-content-grid grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {popularSeries.map((show) => (
                 <div
                   key={show.id}
-                  className="rounded-2xl overflow-hidden border-2 border-border hover:scale-[1.02] transition-all duration-300 cursor-pointer group"
-                  style={{
-                    background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0.05) 100%)',
-                    backdropFilter: 'blur(10px)',
-                    boxShadow: 'inset 0 0 20px rgba(255, 255, 255, 0.1), 0 8px 32px rgba(0, 0, 0, 0.2)'
-                  }}
+                  className="liktv-card-hover liktv-glass-card group rounded-3xl overflow-hidden border border-purple-500/20 hover:border-purple-500/50 cursor-pointer"
                 >
-                  <div className="relative h-40">
+                  {/* Enhanced glass effect */}
+                  <div className="absolute inset-0 bg-gradient-to-br from-purple-500/10 via-transparent to-pink-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-3xl"></div>
+                  
+                  <div className="relative h-48 overflow-hidden">
                     <img
                       src={show.thumbnail}
                       alt={show.title}
-                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-background/20 to-transparent" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-background/20 to-transparent" />
                     
-                    {/* Play Button Overlay */}
-                    <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
-                      <div className="w-12 h-12 bg-card/60 text-card-foreground rounded-full flex items-center justify-center border border-border">
-                        <PlayIcon className="w-6 h-6" />
+                    {/* Enhanced Play Button Overlay */}
+                    <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300">
+                      <div className="liktv-play-button w-16 h-16 bg-card/80 backdrop-blur-sm text-card-foreground rounded-full flex items-center justify-center border-2 border-primary/50 shadow-xl transform scale-75 group-hover:scale-100 transition-all duration-300">
+                        <PlayIcon className="w-8 h-8 ml-1" />
                       </div>
                     </div>
 
+                    {/* Enhanced Badges */}
                     {show.verified && (
-                      <div className="absolute top-2 right-2 bg-blue-500/90 p-1 rounded-full">
-                        <StarIcon className="w-3 h-3 text-white" />
+                      <div className="absolute top-3 right-3 bg-gradient-to-r from-blue-500 to-purple-500 p-2 rounded-full shadow-lg">
+                        <StarIcon className="w-4 h-4 text-white" />
                       </div>
                     )}
 
                     {show.trending && (
-                      <div className="absolute top-2 left-2 bg-primary/90 px-2 py-1 rounded-full">
-                        <span className="text-primary-foreground text-xs font-bold">🔥</span>
+                      <div className="absolute top-3 left-3 bg-gradient-to-r from-orange-500 to-red-500 px-3 py-1 rounded-full shadow-lg">
+                        <span className="text-white text-xs font-bold flex items-center space-x-1">
+                          <FireIcon className="w-3 h-3" />
+                          <span>HOT</span>
+                        </span>
                       </div>
                     )}
 
-                    <div className="absolute bottom-2 left-2 right-2">
-                      <p className="text-foreground font-rum-raisin font-bold text-sm line-clamp-1 text-shadow mb-1">
+                    {/* Enhanced Content Overlay */}
+                    <div className="absolute bottom-0 left-0 right-0 p-4">
+                      <h4 className="font-rum-raisin font-bold text-lg mb-2 text-white group-hover:text-primary transition-colors line-clamp-1">
                         {show.title}
-                      </p>
-                      <div className="flex items-center justify-between mb-1">
-                        <p className="text-muted-foreground text-xs">{show.network || show.creator}</p>
-                        <div className="flex items-center space-x-1 text-xs text-muted-foreground">
-                          {show.rating && <span>⭐ {show.rating}</span>}
-                        </div>
+                      </h4>
+                      
+                      <div className="flex items-center justify-between mb-2">
+                        <p className="text-gray-300 text-sm font-medium">{show.network || show.creator}</p>
+                        {show.rating && (
+                          <div className="flex items-center space-x-1 bg-yellow-500/20 backdrop-blur-sm px-2 py-1 rounded-full">
+                            <span className="text-yellow-400 text-sm">⭐ {show.rating}</span>
+                          </div>
+                        )}
                       </div>
-                      <div className="flex items-center justify-between text-xs text-muted-foreground">
-                        <span>{show.viewCount} views</span>
+                      
+                      <div className="flex items-center justify-between text-sm text-gray-400">
+                        <div className="flex items-center space-x-1">
+                          <EyeIcon className="w-4 h-4" />
+                          <span>{show.viewCount}</span>
+                        </div>
                         {show.season && show.episode && (
-                          <span>S{show.season} • {show.episode} episodes</span>
+                          <Badge className="bg-purple-500/20 text-purple-300 border border-purple-500/30 text-xs px-2 py-1">
+                            S{show.season} • {show.episode} eps
+                          </Badge>
                         )}
                       </div>
                     </div>
