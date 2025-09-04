@@ -21,172 +21,172 @@ const tabs = [
 
 export function Navigation({ activeTab, onTabChange }: NavigationProps) {
   return (
-    <div className="fixed bottom-0 left-0 right-0 z-50 safe-bottom">
-      {/* Gamified Candy-Glass Navigation Container */}
-      <div className="relative px-4 pb-4">
-        {/* Main nav bar with breaking-border effect */}
+    <nav className="fixed bottom-0 left-0 right-0 z-50 mobile-nav-safe-area">
+      <div className="relative px-2 pb-2">
+        {/* Gamified candy-glass container with breaking border transparent top */}
         <div 
-          className="relative mx-auto max-w-md overflow-visible"
+          className="relative mx-auto overflow-visible"
           style={{
-            background: 'linear-gradient(135deg, #FF7BAA 0%, #FF1A75 50%, #B30026 100%)',
+            height: '72px',
+            background: `
+              linear-gradient(to bottom,
+                transparent 0%,
+                transparent 30%,
+                rgba(255, 123, 170, 0.9) 30%,
+                rgba(255, 26, 117, 0.95) 65%,
+                rgba(179, 0, 38, 1) 100%
+              )
+            `,
             border: '3px solid rgba(255, 255, 255, 0.9)',
-            borderRadius: '32px',
+            borderTop: 'none',
+            borderRadius: '0 0 32px 32px',
             boxShadow: `
               inset 0 0 30px rgba(255, 255, 255, 0.3),
-              inset 0 4px 12px rgba(255, 255, 255, 0.5),
-              inset 0 -4px 8px rgba(0, 0, 0, 0.2),
-              0 0 0 1px rgba(255, 255, 255, 0.4),
-              0 8px 32px rgba(0, 0, 0, 0.3),
-              0 16px 48px rgba(255, 123, 170, 0.3)
+              0 8px 32px rgba(255, 123, 170, 0.4),
+              0 4px 16px rgba(0, 0, 0, 0.2)
             `,
-            backdropFilter: 'blur(20px)',
-            WebkitBackdropFilter: 'blur(20px)',
-            padding: '12px 16px 20px 16px',
-            minHeight: '80px',
-            position: 'relative'
+            backdropFilter: 'blur(16px)',
+            WebkitBackdropFilter: 'blur(16px)'
           }}
         >
-          {/* Glass reflection overlay */}
+          {/* Glass reflection effect - only on visible background area */}
           <div 
-            className="absolute inset-x-3 top-3 pointer-events-none"
+            className="absolute pointer-events-none"
             style={{
-              background: 'linear-gradient(to bottom, rgba(255, 255, 255, 0.6) 0%, rgba(255, 255, 255, 0.3) 40%, rgba(255, 255, 255, 0.1) 70%, transparent 100%)',
-              borderRadius: '28px 28px 16px 16px',
-              height: '60%'
+              top: '30%',
+              left: '12px',
+              right: '12px',
+              height: '40%',
+              background: 'linear-gradient(to bottom, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0.1) 50%, transparent 100%)',
+              borderRadius: '28px 28px 16px 16px'
             }}
           />
           
-          {/* Inner glow */}
-          <div 
-            className="absolute inset-2 pointer-events-none rounded-[28px]"
-            style={{
-              background: 'radial-gradient(ellipse at center, rgba(255, 255, 255, 0.15) 0%, transparent 70%)'
-            }}
-          />
-          
-          {/* Navigation items with breaking border */}
-          <div className="flex items-end justify-around relative z-10" style={{ gap: '4px' }}>
+          {/* Navigation items */}
+          <div className="flex items-end justify-around px-4 py-2 relative h-full">
             {tabs.map((tab, index) => {
               const isActive = activeTab === tab.id;
-              const isCenter = index === 2; // LIK button is center and primary CTA
+              const isCenter = index === 2; // LIK is center
               
               return (
-                <div key={tab.id} className="flex flex-col items-center relative">
-                  {/* Active tab glowing halo - yellow/orange glow */}
+                <button
+                  key={tab.id}
+                  onClick={() => onTabChange(tab.id)}
+                  className={cn(
+                    "flex flex-col items-center relative touch-target",
+                    "focus:outline-none"
+                  )}
+                >
+                  {/* Active yellow/orange glow halo */}
                   {isActive && (
                     <div 
-                      className="absolute rounded-full"
+                      className="absolute rounded-full pointer-events-none"
                       style={{
-                        width: isCenter ? '70px' : '60px',
-                        height: isCenter ? '70px' : '60px',
+                        width: isCenter ? '64px' : '56px',
+                        height: isCenter ? '64px' : '56px',
                         background: 'radial-gradient(circle, rgba(255, 215, 0, 0.8) 0%, rgba(255, 193, 7, 0.6) 40%, rgba(255, 152, 0, 0.4) 70%, transparent 100%)',
                         filter: 'blur(8px)',
-                        transform: isCenter ? 'translateY(-32px)' : 'translateY(-28px)',
-                        zIndex: -1
+                        top: '-32px',
+                        left: '50%',
+                        transform: 'translateX(-50%)',
+                        zIndex: 0
                       }}
                     />
                   )}
                   
-                  {/* Breaking border button - icons exceed nav bar edge */}
-                  <button
-                    onClick={() => onTabChange(tab.id)}
-                    className="relative flex flex-col items-center touch-target"
-                    style={{ 
-                      transform: isCenter ? 'translateY(-28px)' : 'translateY(-24px)'
+                  {/* Icon container - breaking border effect (exceeds nav bar) */}
+                  <div 
+                    className="relative mb-2"
+                    style={{
+                      transform: 'translateY(-28px)',
+                      zIndex: 10
                     }}
                   >
-                    {/* Chunky candy-glass icon container */}
+                    {/* Candy-glass icon background */}
                     <div 
-                      className="relative mb-3"
                       style={{
-                        width: isCenter ? '56px' : '48px',
-                        height: isCenter ? '56px' : '48px',
+                        width: isCenter ? '52px' : '44px',
+                        height: isCenter ? '52px' : '44px',
                         background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0.2) 50%, rgba(255, 255, 255, 0.1) 100%)',
-                        border: '3px solid rgba(255, 255, 255, 0.8)',
-                        borderRadius: isCenter ? '18px' : '16px',
+                        border: '2px solid rgba(255, 255, 255, 0.8)',
+                        borderRadius: '16px',
                         boxShadow: `
-                          inset 0 3px 8px rgba(255, 255, 255, 0.6),
-                          inset 0 -3px 6px rgba(0, 0, 0, 0.2),
-                          0 6px 20px rgba(0, 0, 0, 0.4),
-                          0 2px 8px rgba(0, 0, 0, 0.3),
-                          ${isActive ? '0 0 24px rgba(255, 215, 0, 0.6)' : ''}
+                          inset 0 2px 4px rgba(255, 255, 255, 0.6),
+                          inset 0 -2px 4px rgba(0, 0, 0, 0.2),
+                          0 4px 12px rgba(0, 0, 0, 0.3),
+                          ${isActive ? '0 0 20px rgba(255, 215, 0, 0.6)' : '0 0 10px rgba(255, 255, 255, 0.2)'}
                         `,
                         backdropFilter: 'blur(4px)',
                         WebkitBackdropFilter: 'blur(4px)',
-                        padding: isCenter ? '10px' : '8px'
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        padding: isCenter ? '8px' : '6px'
                       }}
                     >
-                      {/* Beveled glass reflection */}
+                      {/* Inner glass reflection */}
                       <div 
-                        className="absolute inset-1 pointer-events-none"
+                        className="absolute inset-1 pointer-events-none rounded-[12px]"
                         style={{
-                          background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0.2) 30%, transparent 60%)',
-                          borderRadius: isCenter ? '14px' : '12px'
+                          background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0.2) 30%, transparent 60%)'
                         }}
                       />
                       
-                      {/* Icon with enhanced effects */}
+                      {/* Icon */}
                       <img 
                         src={tab.icon} 
-                        alt={tab.label}
-                        className="w-full h-full object-contain relative z-10"
+                        alt={`${tab.label} icon`}
+                        className="relative z-10 object-contain"
                         style={{
+                          width: isCenter ? '28px' : '24px',
+                          height: isCenter ? '28px' : '24px',
                           filter: isActive 
-                            ? `
-                                drop-shadow(0 4px 12px rgba(0, 0, 0, 0.7))
-                                drop-shadow(0 2px 6px rgba(255, 255, 255, 0.4))
-                                drop-shadow(0 0 16px rgba(255, 215, 0, 0.6))
-                                brightness(1.15)
-                                saturate(1.3)
-                              `
-                            : `
-                                drop-shadow(0 3px 8px rgba(0, 0, 0, 0.6))
-                                drop-shadow(0 1px 4px rgba(255, 255, 255, 0.3))
-                                brightness(0.9)
-                              `
+                            ? 'drop-shadow(0 2px 8px rgba(0, 0, 0, 0.6)) drop-shadow(0 0 12px rgba(255, 215, 0, 0.6)) brightness(1.1)'
+                            : 'drop-shadow(0 2px 6px rgba(0, 0, 0, 0.5)) brightness(0.95)'
                         }}
                       />
                     </div>
-                    
-                    {/* Rounded candy badge label */}
-                    <div 
-                      className="text-white font-rum-raisin font-bold uppercase tracking-wide"
-                      style={{
-                        background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0.2) 50%, rgba(255, 255, 255, 0.15) 100%)',
-                        border: '2px solid rgba(255, 255, 255, 0.6)',
-                        borderRadius: '14px',
-                        fontSize: '0.6rem',
-                        lineHeight: '1',
-                        fontWeight: '700',
-                        padding: '4px 8px',
-                        boxShadow: isActive
-                          ? `
-                              inset 0 2px 4px rgba(255, 255, 255, 0.4),
-                              inset 0 -2px 3px rgba(0, 0, 0, 0.3),
-                              0 4px 12px rgba(0, 0, 0, 0.5),
-                              0 0 16px rgba(255, 215, 0, 0.5)
-                            `
-                          : `
-                              inset 0 2px 4px rgba(255, 255, 255, 0.3),
-                              inset 0 -1px 2px rgba(0, 0, 0, 0.25),
-                              0 3px 8px rgba(0, 0, 0, 0.4)
-                            `,
-                        textShadow: '0 2px 4px rgba(0, 0, 0, 0.8)',
-                        backdropFilter: 'blur(4px)',
-                        WebkitBackdropFilter: 'blur(4px)',
-                        minWidth: isCenter ? '40px' : '36px',
-                        textAlign: 'center'
-                      }}
-                    >
-                      {tab.label}
-                    </div>
-                  </button>
-                </div>
+                  </div>
+                  
+                  {/* Candy badge label */}
+                  <div 
+                    className="font-rum-raisin font-bold text-white uppercase tracking-wide"
+                    style={{
+                      background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.25) 0%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.1) 100%)',
+                      border: '1px solid rgba(255, 255, 255, 0.6)',
+                      borderRadius: '12px',
+                      fontSize: '0.65rem',
+                      lineHeight: '1',
+                      fontWeight: '700',
+                      padding: '3px 6px',
+                      boxShadow: isActive
+                        ? `
+                            inset 0 1px 2px rgba(255, 255, 255, 0.4),
+                            inset 0 -1px 2px rgba(0, 0, 0, 0.25),
+                            0 2px 6px rgba(0, 0, 0, 0.4),
+                            0 0 12px rgba(255, 215, 0, 0.4)
+                          `
+                        : `
+                            inset 0 1px 2px rgba(255, 255, 255, 0.3),
+                            inset 0 -1px 1px rgba(0, 0, 0, 0.2),
+                            0 2px 4px rgba(0, 0, 0, 0.3)
+                          `,
+                      textShadow: '0 1px 3px rgba(0, 0, 0, 0.8)',
+                      backdropFilter: 'blur(4px)',
+                      WebkitBackdropFilter: 'blur(4px)',
+                      minWidth: '32px',
+                      textAlign: 'center',
+                      transform: 'translateY(-4px)'
+                    }}
+                  >
+                    {tab.label}
+                  </div>
+                </button>
               );
             })}
           </div>
         </div>
       </div>
-    </div>
+    </nav>
   );
 }

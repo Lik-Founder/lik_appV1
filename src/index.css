@@ -2826,22 +2826,20 @@ input, textarea, select {
   
   /* Ensure navigation text is always visible on mobile */
   .font-rum-raisin {
-    font-size: 0.75rem !important;
+    font-size: 0.65rem !important;
     line-height: 1 !important;
-    font-weight: 600 !important;
+    font-weight: 700 !important;
+    color: white !important;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8) !important;
   }
   
   /* Ensure navigation bar is always visible on mobile */
-  .nav-glossy-gradient {
-    position: fixed !important;
-    z-index: 9999 !important;
-    width: 100% !important;
-    min-height: 64px !important;
-    display: block !important;
-    visibility: visible !important;
-    bottom: 0 !important;
-    left: 0 !important;
-    right: 0 !important;
+  .mobile-nav-container {
+    bottom: 0;
+    left: 0;
+    right: 0;
+    position: fixed;
+    z-index: 9999;
   }
   
   /* Mobile safe area navigation */
@@ -2849,13 +2847,13 @@ input, textarea, select {
     padding-bottom: env(safe-area-inset-bottom, 0px);
   }
   
-  /* Enhanced mobile navigation visibility */
-  .mobile-nav-container {
-    bottom: 0;
-    left: 0;
-    right: 0;
-    position: fixed;
-    z-index: 9999;
+  /* Touch target optimization for mobile */
+  .touch-target {
+    min-height: 44px;
+    min-width: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 }
 
