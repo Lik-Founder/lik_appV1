@@ -82,11 +82,11 @@ export function Navigation({ activeTab, onTabChange }: NavigationProps) {
                     <div 
                       className="absolute rounded-full pointer-events-none"
                       style={{
-                        width: isCenter ? '64px' : '56px',
-                        height: isCenter ? '64px' : '56px',
+                        width: isCenter ? '80px' : '72px',
+                        height: isCenter ? '80px' : '72px',
                         background: 'radial-gradient(circle, rgba(255, 215, 0, 0.8) 0%, rgba(255, 193, 7, 0.6) 40%, rgba(255, 152, 0, 0.4) 70%, transparent 100%)',
                         filter: 'blur(8px)',
-                        top: '-32px',
+                        top: '-40px',
                         left: '50%',
                         transform: 'translateX(-50%)',
                         zIndex: 0
@@ -94,7 +94,7 @@ export function Navigation({ activeTab, onTabChange }: NavigationProps) {
                     />
                   )}
                   
-                  {/* Icon container - breaking border effect (exceeds nav bar) */}
+                  {/* Icon - breaking border effect (exceeds nav bar) */}
                   <div 
                     className="relative mb-2"
                     style={{
@@ -102,80 +102,31 @@ export function Navigation({ activeTab, onTabChange }: NavigationProps) {
                       zIndex: 10
                     }}
                   >
-                    {/* Candy-glass icon background */}
-                    <div 
+                    {/* Icon */}
+                    <img 
+                      src={tab.icon} 
+                      alt={`${tab.label} icon`}
+                      className="relative z-10 object-contain"
                       style={{
-                        width: isCenter ? '52px' : '44px',
-                        height: isCenter ? '52px' : '44px',
-                        background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0.2) 50%, rgba(255, 255, 255, 0.1) 100%)',
-                        border: '2px solid rgba(255, 255, 255, 0.8)',
-                        borderRadius: '16px',
-                        boxShadow: `
-                          inset 0 2px 4px rgba(255, 255, 255, 0.6),
-                          inset 0 -2px 4px rgba(0, 0, 0, 0.2),
-                          0 4px 12px rgba(0, 0, 0, 0.3),
-                          ${isActive ? '0 0 20px rgba(255, 215, 0, 0.6)' : '0 0 10px rgba(255, 255, 255, 0.2)'}
-                        `,
-                        backdropFilter: 'blur(4px)',
-                        WebkitBackdropFilter: 'blur(4px)',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        padding: isCenter ? '8px' : '6px'
+                        width: isCenter ? '48px' : '40px',
+                        height: isCenter ? '48px' : '40px',
+                        filter: isActive 
+                          ? 'drop-shadow(0 2px 8px rgba(0, 0, 0, 0.6)) drop-shadow(0 0 12px rgba(255, 215, 0, 0.6)) brightness(1.1)'
+                          : 'drop-shadow(0 2px 6px rgba(0, 0, 0, 0.5)) brightness(0.95)'
                       }}
-                    >
-                      {/* Inner glass reflection */}
-                      <div 
-                        className="absolute inset-1 pointer-events-none rounded-[12px]"
-                        style={{
-                          background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0.2) 30%, transparent 60%)'
-                        }}
-                      />
-                      
-                      {/* Icon */}
-                      <img 
-                        src={tab.icon} 
-                        alt={`${tab.label} icon`}
-                        className="relative z-10 object-contain"
-                        style={{
-                          width: isCenter ? '28px' : '24px',
-                          height: isCenter ? '28px' : '24px',
-                          filter: isActive 
-                            ? 'drop-shadow(0 2px 8px rgba(0, 0, 0, 0.6)) drop-shadow(0 0 12px rgba(255, 215, 0, 0.6)) brightness(1.1)'
-                            : 'drop-shadow(0 2px 6px rgba(0, 0, 0, 0.5)) brightness(0.95)'
-                        }}
-                      />
-                    </div>
+                    />
                   </div>
                   
-                  {/* Candy badge label */}
+                  {/* Text label */}
                   <div 
                     className="font-rum-raisin font-bold text-white uppercase tracking-wide"
                     style={{
-                      background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.25) 0%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.1) 100%)',
-                      border: '1px solid rgba(255, 255, 255, 0.6)',
-                      borderRadius: '12px',
                       fontSize: '0.65rem',
                       lineHeight: '1',
                       fontWeight: '700',
-                      padding: '3px 6px',
-                      boxShadow: isActive
-                        ? `
-                            inset 0 1px 2px rgba(255, 255, 255, 0.4),
-                            inset 0 -1px 2px rgba(0, 0, 0, 0.25),
-                            0 2px 6px rgba(0, 0, 0, 0.4),
-                            0 0 12px rgba(255, 215, 0, 0.4)
-                          `
-                        : `
-                            inset 0 1px 2px rgba(255, 255, 255, 0.3),
-                            inset 0 -1px 1px rgba(0, 0, 0, 0.2),
-                            0 2px 4px rgba(0, 0, 0, 0.3)
-                          `,
-                      textShadow: '0 1px 3px rgba(0, 0, 0, 0.8)',
-                      backdropFilter: 'blur(4px)',
-                      WebkitBackdropFilter: 'blur(4px)',
-                      minWidth: '32px',
-                      textAlign: 'center',
+                      textShadow: isActive
+                        ? '0 1px 3px rgba(0, 0, 0, 0.8), 0 0 12px rgba(255, 215, 0, 0.4)'
+                        : '0 1px 3px rgba(0, 0, 0, 0.8)',
                       transform: 'translateY(-4px)'
                     }}
                   >
