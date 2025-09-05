@@ -56,9 +56,9 @@ export function ProfilePage({ onNavigate }: ProfilePageProps) {
                 <img 
                   src={post.image} 
                   alt={`Post ${post.id}`}
-                  className="w-full h-full object-cover transition-all duration-300 group-hover:scale-105"
+                  className="w-full h-full object-cover"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-all duration-300 flex items-end justify-between p-3">
+                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 flex items-end justify-between p-3">
                   <div className="flex items-center gap-3 text-white text-sm font-medium">
                     <div className="flex items-center gap-1">
                       <Heart className="w-4 h-4 fill-white" />
@@ -77,7 +77,7 @@ export function ProfilePage({ onNavigate }: ProfilePageProps) {
       case 'likes':
         return (
           <div className="flex flex-col items-center justify-center py-20 text-center px-8">
-            <div className="w-20 h-20 rounded-full bg-gradient-to-br from-pink-100 to-red-100 flex items-center justify-center mb-6 animate-float">
+            <div className="w-20 h-20 rounded-full bg-gradient-to-br from-pink-100 to-red-100 flex items-center justify-center mb-6">
               <Heart className="w-10 h-10 text-red-400" />
             </div>
             <h3 className="text-xl font-bold mb-3 font-rum-raisin">No liked posts yet</h3>
@@ -89,7 +89,7 @@ export function ProfilePage({ onNavigate }: ProfilePageProps) {
       case 'saved':
         return (
           <div className="flex flex-col items-center justify-center py-20 text-center px-8">
-            <div className="w-20 h-20 rounded-full bg-gradient-to-br from-blue-100 to-indigo-100 flex items-center justify-center mb-6 animate-float delay-500">
+            <div className="w-20 h-20 rounded-full bg-gradient-to-br from-blue-100 to-indigo-100 flex items-center justify-center mb-6">
               <Bookmark className="w-10 h-10 text-blue-400" />
             </div>
             <h3 className="text-xl font-bold mb-3 font-rum-raisin">No saved posts yet</h3>
@@ -101,7 +101,7 @@ export function ProfilePage({ onNavigate }: ProfilePageProps) {
       case 'guides':
         return (
           <div className="flex flex-col items-center justify-center py-20 text-center px-8">
-            <div className="w-20 h-20 rounded-full bg-gradient-to-br from-green-100 to-emerald-100 flex items-center justify-center mb-6 animate-float delay-1000">
+            <div className="w-20 h-20 rounded-full bg-gradient-to-br from-green-100 to-emerald-100 flex items-center justify-center mb-6">
               <BookOpen className="w-10 h-10 text-green-400" />
             </div>
             <h3 className="text-xl font-bold mb-3 font-rum-raisin">No guides created</h3>
@@ -201,6 +201,12 @@ export function ProfilePage({ onNavigate }: ProfilePageProps) {
             >
               <Settings className="w-5 h-5" />
             </button>
+            {/* Bronze Rank Badge */}
+            <img 
+              src={bronzeRankIcon} 
+              alt="Bronze Rank" 
+              className="w-8 h-8 ml-2"
+            />
           </div>
         </div>
       </div>
@@ -219,13 +225,6 @@ export function ProfilePage({ onNavigate }: ProfilePageProps) {
                 xp={mockStats.xp}
                 maxXp={mockStats.maxXp}
                 size="xl"
-                className="animate-float"
-              />
-              {/* Bronze Rank Badge */}
-              <img 
-                src={bronzeRankIcon} 
-                alt="Bronze Rank" 
-                className="absolute -top-2 -right-2 w-8 h-8 animate-bounce"
               />
             </div>
           </div>
@@ -303,7 +302,7 @@ export function ProfilePage({ onNavigate }: ProfilePageProps) {
         <div className="px-6 mb-6">
           <div className="flex gap-4 overflow-x-auto scrollbar-hide pb-2">
             <div className="flex flex-col items-center gap-2 min-w-[68px]">
-              <div className="w-16 h-16 rounded-full border-2 border-dashed border-muted-foreground/30 flex items-center justify-center bg-gradient-to-br from-gray-100 to-gray-200 hover:from-gray-200 hover:to-gray-300 transition-all duration-300 cursor-pointer">
+              <div className="w-16 h-16 rounded-full border-2 border-dashed border-muted-foreground/30 flex items-center justify-center bg-gradient-to-br from-gray-100 to-gray-200 cursor-pointer">
                 <span className="text-xl text-muted-foreground">+</span>
               </div>
               <span className="text-xs text-muted-foreground font-medium">New</span>
@@ -315,7 +314,7 @@ export function ProfilePage({ onNavigate }: ProfilePageProps) {
               { name: 'Travel', emoji: '✈️', color: 'from-blue-400 to-indigo-400' }
             ].map((story, index) => (
               <div key={story.name} className="flex flex-col items-center gap-2 min-w-[68px] group cursor-pointer">
-                <div className="story-ring w-16 h-16 rounded-full p-0.5 group-hover:scale-105 transition-transform duration-200">
+                <div className="story-ring w-16 h-16 rounded-full p-0.5">
                   <div className={`w-full h-full bg-gradient-to-br ${story.color} rounded-full flex items-center justify-center shadow-lg`}>
                     <span className="text-lg">{story.emoji}</span>
                   </div>
@@ -338,7 +337,7 @@ export function ProfilePage({ onNavigate }: ProfilePageProps) {
               <button
                 key={tab.key}
                 onClick={() => setActiveTab(tab.key)}
-                className={`flex-1 max-w-24 py-4 flex flex-col items-center gap-1 text-xs font-medium transition-all duration-200 ${
+                className={`flex-1 max-w-24 py-4 flex flex-col items-center gap-1 text-xs font-medium ${
                   activeTab === tab.key
                     ? 'text-red-500 border-b-2 border-red-500'
                     : 'text-muted-foreground hover:text-foreground border-b-2 border-transparent'
