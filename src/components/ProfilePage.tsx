@@ -1,5 +1,10 @@
 import { useState } from 'react';
 import { ArrowLeft, Edit, Share, MoreHorizontal, Settings, Grid3X3, Heart, Bookmark, BookOpen, MessageCircle, Send } from 'lucide-react';
+import { 
+  DocumentTextIcon as PassportIcon, 
+  BellIcon as NotificationIcon, 
+  GiftIcon as RewardIcon 
+} from '@heroicons/react/24/outline';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
@@ -8,10 +13,8 @@ import { CreatePostFAB } from '@/components/CreatePostFAB';
 import { ProfileAvatar } from '@/components/ProfileAvatar';
 import { ProfileSwipeView } from '@/components/ProfileSwipeView';
 import { ProfileDropdown } from '@/components/ProfileDropdown';
-import notificationIcon from '@/assets/notification.png';
-import likPassportIcon from '@/assets/lik_passport.png';
-import bronzeRankIcon from '@/assets/Bronze_Rank.png';
-import rewardIcon from '@/assets/reward.png';
+// Using existing assets in images folder
+import bronzeRankIcon from '@/assets/images/Bronze_Rank.png';
 import { FloatingAppBar } from '@/components/FloatingAppBar';
 
 interface ProfilePageProps {
@@ -157,19 +160,19 @@ export function ProfilePage({ onNavigate }: ProfilePageProps) {
                   onClick={() => onNavigate('lik-passport')}
                   className="p-2 hover:bg-muted/50 rounded-lg transition-colors"
                 >
-                  <img src={likPassportIcon} alt="Passport" className="w-6 h-6" />
+                  <PassportIcon className="w-6 h-6" />
                 </button>
                 <button 
                   onClick={() => onNavigate('notifications')}
                   className="p-2 hover:bg-muted/50 rounded-lg transition-colors"
                 >
-                  <img src={notificationIcon} alt="Notifications" className="w-6 h-6" />
+                  <NotificationIcon className="w-6 h-6" />
                 </button>
                 <button 
                   onClick={() => onNavigate('my-rewards')}
                   className="p-2 hover:bg-muted/50 rounded-lg transition-colors"
                 >
-                  <img src={rewardIcon} alt="Rewards" className="w-6 h-6" />
+                  <RewardIcon className="w-6 h-6" />
                 </button>
                 <button className="p-2 hover:bg-muted/50 rounded-lg transition-colors">
                   <MoreHorizontal className="w-6 h-6" />
