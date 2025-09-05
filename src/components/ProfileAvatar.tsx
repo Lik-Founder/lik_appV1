@@ -3,10 +3,10 @@ import { cn } from '@/lib/utils';
 
 interface ProfileAvatarProps {
   src: string;
-  alt: string;
-  level: number;
-  xp: number;
-  maxXp: number;
+  alt?: string;
+  level?: number;
+  xp?: number;
+  maxXp?: number;
   size?: 'sm' | 'md' | 'lg' | 'xl';
   className?: string;
   showLevel?: boolean;
@@ -36,33 +36,33 @@ const sizeConfig = {
     strokeWidth: 3,
   },
   xl: {
-    container: 'w-24 h-24',
-    image: 'w-[5.5rem] h-[5.5rem]',
-    ring: 'w-24 h-24',
-    levelBadge: 'w-12 h-7 text-base',
+    container: 'w-28 h-28',
+    image: 'w-24 h-24',
+    ring: 'w-28 h-28',
+    levelBadge: 'w-12 h-7 text-sm',
     strokeWidth: 4,
   },
 };
 
 export function ProfileAvatar({ 
   src, 
-  alt, 
-  level, 
-  xp, 
-  maxXp, 
+  alt = 'Profile', 
+  level = 1, 
+  xp = 0, 
+  maxXp = 100, 
   size = 'lg', 
   className, 
   showLevel = true,
   onClick 
 }: ProfileAvatarProps) {
   const config = sizeConfig[size];
-  const progressPercentage = (xp / maxXp) * 100;
-  const circumference = 2 * Math.PI * 50;
+  const progressPercentage = Math.min((xp / maxXp) * 100, 100);
+  const circumference = 2 * Math.PI * 46;
   const strokeDashoffset = circumference - (progressPercentage / 100) * circumference;
 
   return (
     <div 
-      className={cn("relative flex items-center justify-center", config.container, className)}
+      className={cn("relative flex items-center justify-center cursor-pointer", config.container, className)}
       onClick={onClick}
     >
       {/* XP Progress Ring */}
@@ -75,11 +75,11 @@ export function ProfileAvatar({
           cx="50"
           cy="50"
           r="46"
-          stroke="rgba(255, 255, 255, 0.1)"
+          stroke="rgba(220, 20, 60, 0.15)"
           strokeWidth={config.strokeWidth}
           fill="transparent"
         />
-        {/* Progress Ring */}
+        {/* Progress Ring with red glow */}
         <circle
           cx="50"
           cy="50"
@@ -90,13 +90,13 @@ export function ProfileAvatar({
           strokeDasharray={circumference}
           strokeDashoffset={strokeDashoffset}
           strokeLinecap="round"
-          className="transition-all duration-500 ease-out"
+          className="transition-all duration-500 ease-out drop-shadow-[0_0_6px_rgba(220,20,60,0.4)]"
         />
         <defs>
           <linearGradient id="xpGradient" x1="0%" y1="0%" x2="100%" y2="0%">
             <stop offset="0%" stopColor="#FF7BAA" />
             <stop offset="50%" stopColor="#FF1A75" />
-            <stop offset="100%" stopColor="#B30026" />
+            <stop offset="100%" stopColor="#DC143C" />
           </linearGradient>
         </defs>
       </svg>
@@ -106,16 +106,20 @@ export function ProfileAvatar({
         src={src}
         alt={alt}
         className={cn(
-          "rounded-full object-cover border-2 border-white/20",
+          "rounded-full object-cover border-3 border-white/30 shadow-lg",
           config.image
         )}
+        onError={(e) => {
+          const target = e.target as HTMLImageElement;
+          target.src = 'https://images.unsplash.com/photo-1494790108755-2616b612b786?w=150&h=150&fit=crop&crop=face';
+        }}
       />
 
       {/* Level Badge */}
-      {showLevel && (
+      {showLevel && level && (
         <div 
           className={cn(
-            "absolute -bottom-1 left-1/2 transform -translate-x-1/2 bg-gradient-to-r from-[#FF7BAA] via-[#FF1A75] to-[#B30026] text-white font-bold rounded-full flex items-center justify-center border-2 border-white/30",
+            "absolute -bottom-2 left-1/2 transform -translate-x-1/2 bg-gradient-to-r from-[#FF7BAA] via-[#FF1A75] to-[#DC143C] text-white font-bold rounded-full flex items-center justify-center border-2 border-white/50 shadow-md font-rum-raisin",
             config.levelBadge
           )}
         >

@@ -1,21 +1,18 @@
 import { useState } from 'react';
-import { ArrowLeft, Edit, Share, MoreHorizontal, Settings, Grid3X3, Heart, Bookmark, BookOpen, MessageCircle, Send } from 'lucide-react';
+import { Settings, Grid3X3, Heart, Bookmark, BookOpen, MessageCircle, MapPin, TrendingUp } from 'lucide-react';
 import { 
   DocumentTextIcon as PassportIcon, 
   BellIcon as NotificationIcon, 
   GiftIcon as RewardIcon 
 } from '@heroicons/react/24/outline';
 import { Button } from '@/components/ui/button';
-import { Card } from '@/components/ui/card';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Badge } from '@/components/ui/badge';
 import { CreatePostFAB } from '@/components/CreatePostFAB';
 import { ProfileAvatar } from '@/components/ProfileAvatar';
 import { ProfileSwipeView } from '@/components/ProfileSwipeView';
 import { ProfileDropdown } from '@/components/ProfileDropdown';
-// Using existing assets in images folder
 import bronzeRankIcon from '@/assets/images/Bronze_Rank.png';
-import { FloatingAppBar } from '@/components/FloatingAppBar';
+import likHeartIcon from '@/assets/images/Lik_Logo_Heart_1.0.png';
 
 interface ProfilePageProps {
   onNavigate: (page: string) => void;
@@ -32,7 +29,10 @@ export function ProfilePage({ onNavigate }: ProfilePageProps) {
     following: '892', 
     bounties: '45',
     quests: '23',
-    reviews: '284'
+    reviews: '284',
+    level: 124,
+    xp: 18750,
+    maxXp: 25000
   };
 
   const mockPosts = [
@@ -51,22 +51,22 @@ export function ProfilePage({ onNavigate }: ProfilePageProps) {
     switch (activeTab) {
       case 'posts':
         return (
-          <div className="grid grid-cols-3 gap-1">
+          <div className="grid grid-cols-3 gap-1 p-1">
             {mockPosts.map((post) => (
-              <div key={post.id} className="aspect-square relative group cursor-pointer">
+              <div key={post.id} className="aspect-square relative group cursor-pointer overflow-hidden rounded-lg">
                 <img 
                   src={post.image} 
                   alt={`Post ${post.id}`}
-                  className="w-full h-full object-cover transition-transform duration-200 group-hover:scale-105"
+                  className="w-full h-full object-cover transition-all duration-300 group-hover:scale-105"
                 />
-                <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-200 flex items-center justify-center">
-                  <div className="flex items-center gap-6 text-white font-semibold">
+                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-all duration-300 flex items-end justify-between p-3">
+                  <div className="flex items-center gap-3 text-white text-sm font-medium">
                     <div className="flex items-center gap-1">
-                      <Heart className="w-5 h-5 fill-white" />
+                      <Heart className="w-4 h-4 fill-white" />
                       <span>{post.likes}</span>
                     </div>
                     <div className="flex items-center gap-1">
-                      <MessageCircle className="w-5 h-5 fill-white" />
+                      <MessageCircle className="w-4 h-4 fill-white" />
                       <span>{post.comments}</span>
                     </div>
                   </div>
@@ -77,37 +77,37 @@ export function ProfilePage({ onNavigate }: ProfilePageProps) {
         );
       case 'likes':
         return (
-          <div className="flex flex-col items-center justify-center py-16 text-center">
-            <div className="w-16 h-16 rounded-full bg-muted flex items-center justify-center mb-4">
-              <Heart className="w-8 h-8 text-muted-foreground" />
+          <div className="flex flex-col items-center justify-center py-20 text-center px-8">
+            <div className="w-20 h-20 rounded-full bg-gradient-to-br from-pink-100 to-red-100 flex items-center justify-center mb-6 animate-float">
+              <Heart className="w-10 h-10 text-red-400" />
             </div>
-            <h3 className="text-lg font-semibold mb-2">No liked posts yet</h3>
-            <p className="text-muted-foreground text-sm max-w-sm">
-              When you like posts, they'll appear here.
+            <h3 className="text-xl font-bold mb-3 font-rum-raisin">No liked posts yet</h3>
+            <p className="text-muted-foreground text-sm max-w-xs leading-relaxed">
+              When you like posts, they'll appear here like little treasures! ✨
             </p>
           </div>
         );
       case 'saved':
         return (
-          <div className="flex flex-col items-center justify-center py-16 text-center">
-            <div className="w-16 h-16 rounded-full bg-muted flex items-center justify-center mb-4">
-              <Bookmark className="w-8 h-8 text-muted-foreground" />
+          <div className="flex flex-col items-center justify-center py-20 text-center px-8">
+            <div className="w-20 h-20 rounded-full bg-gradient-to-br from-blue-100 to-indigo-100 flex items-center justify-center mb-6 animate-float delay-500">
+              <Bookmark className="w-10 h-10 text-blue-400" />
             </div>
-            <h3 className="text-lg font-semibold mb-2">No saved posts yet</h3>
-            <p className="text-muted-foreground text-sm max-w-sm">
-              Save posts you want to see again here.
+            <h3 className="text-xl font-bold mb-3 font-rum-raisin">No saved posts yet</h3>
+            <p className="text-muted-foreground text-sm max-w-xs leading-relaxed">
+              Save your favorite food adventures here for easy access! 🍽️
             </p>
           </div>
         );
       case 'guides':
         return (
-          <div className="flex flex-col items-center justify-center py-16 text-center">
-            <div className="w-16 h-16 rounded-full bg-muted flex items-center justify-center mb-4">
-              <BookOpen className="w-8 h-8 text-muted-foreground" />
+          <div className="flex flex-col items-center justify-center py-20 text-center px-8">
+            <div className="w-20 h-20 rounded-full bg-gradient-to-br from-green-100 to-emerald-100 flex items-center justify-center mb-6 animate-float delay-1000">
+              <BookOpen className="w-10 h-10 text-green-400" />
             </div>
-            <h3 className="text-lg font-semibold mb-2">No guides created</h3>
-            <p className="text-muted-foreground text-sm max-w-sm">
-              Create your first food guide to share your favorite spots.
+            <h3 className="text-xl font-bold mb-3 font-rum-raisin">No guides created</h3>
+            <p className="text-muted-foreground text-sm max-w-xs leading-relaxed">
+              Create your first food guide and become a culinary navigator! 🗺️
             </p>
           </div>
         );
@@ -117,221 +117,229 @@ export function ProfilePage({ onNavigate }: ProfilePageProps) {
   };
 
   return (
-    <>
-      {/* Floating App Bar */}
-      <FloatingAppBar title="Profile" />
-      
-      <div className="flex flex-col h-full max-h-screen bg-background overflow-hidden">
-        <div className="flex-1 overflow-y-auto">
-          {/* Header Section */}
-          <div className="px-4 pt-4 pb-0">
-            {/* Top Bar */}
-            <div className="flex items-center justify-between mb-6">
-              <div className="flex items-center gap-3">
-                <div className="relative">
-                  <button
-                    onClick={() => setShowDropdown(!showDropdown)}
-                    className="flex items-center gap-2 hover:opacity-80 transition-opacity"
-                  >
-                    <h1 className="text-xl font-semibold">sarah_chen</h1>
-                    <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-                      <path d="M7 10l5 5 5-5z"/>
-                    </svg>
-                  </button>
-                  {showDropdown && (
-                    <ProfileDropdown 
-                      onClose={() => setShowDropdown(false)}
-                      onNavigate={onNavigate}
-                    />
-                  )}
+    <div className="flex flex-col h-full max-h-screen bg-background overflow-hidden">
+      {/* Top Navigation Bar (Fixed) */}
+      <div className="sticky top-0 z-50 bg-background/95 backdrop-blur-sm border-b border-border/20">
+        <div className="flex items-center justify-between px-4 py-3">
+          {/* Left: Rank/Level Badge */}
+          <div className="flex items-center gap-3">
+            <div className="relative">
+              <button
+                onClick={() => setShowDropdown(!showDropdown)}
+                className="flex items-center gap-2 hover:opacity-80 transition-opacity"
+              >
+                <div className="flex items-center gap-2 px-3 py-1.5 bg-gradient-to-r from-orange-400/20 via-red-400/20 to-pink-400/20 rounded-full border border-orange-300/30">
+                  <TrendingUp className="w-4 h-4 text-orange-500" />
+                  <span className="text-sm font-bold text-orange-600 font-rum-raisin">Level {mockStats.level}</span>
                 </div>
-              </div>
-
-              <div className="flex items-center gap-3">
-                <button 
-                  onClick={() => onNavigate('create-post')}
-                  className="p-2 hover:bg-muted/50 rounded-lg transition-colors"
-                >
-                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 4v16m8-8H4" />
-                  </svg>
-                </button>
-                <button 
-                  onClick={() => onNavigate('lik-passport')}
-                  className="p-2 hover:bg-muted/50 rounded-lg transition-colors"
-                >
-                  <PassportIcon className="w-6 h-6" />
-                </button>
-                <button 
-                  onClick={() => onNavigate('notifications')}
-                  className="p-2 hover:bg-muted/50 rounded-lg transition-colors"
-                >
-                  <NotificationIcon className="w-6 h-6" />
-                </button>
-                <button 
-                  onClick={() => onNavigate('my-rewards')}
-                  className="p-2 hover:bg-muted/50 rounded-lg transition-colors"
-                >
-                  <RewardIcon className="w-6 h-6" />
-                </button>
-                <button className="p-2 hover:bg-muted/50 rounded-lg transition-colors">
-                  <MoreHorizontal className="w-6 h-6" />
-                </button>
-              </div>
-            </div>
-
-            {/* Profile Info */}
-            <div className="flex items-start gap-4 mb-6">
-              {/* Profile Picture */}
-              <div className="relative">
-                <ProfileAvatar 
-                  size="lg"
-                  level={124}
-                  src="https://images.unsplash.com/photo-1494790108755-2616b612b786?w=150&h=150&fit=crop&crop=face"
+                <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M7 10l5 5 5-5z"/>
+                </svg>
+              </button>
+              {showDropdown && (
+                <ProfileDropdown 
+                  onClose={() => setShowDropdown(false)}
+                  onNavigate={onNavigate}
                 />
-                <img 
-                  src={bronzeRankIcon} 
-                  alt="Bronze Rank" 
-                  className="absolute -top-1 -right-1 w-7 h-7"
-                />
-              </div>
-
-              {/* Stats */}
-              <div className="flex-1">
-                <div className="flex items-center justify-between mb-4">
-                  <div className="text-center">
-                    <div className="text-xl font-bold">{mockStats.posts}</div>
-                    <div className="text-sm text-muted-foreground">Posts</div>
-                  </div>
-                  <div className="text-center">
-                    <div className="text-xl font-bold">{mockStats.followers}</div>
-                    <div className="text-sm text-muted-foreground">Followers</div>
-                  </div>
-                  <div className="text-center">
-                    <div className="text-xl font-bold">{mockStats.following}</div>
-                    <div className="text-sm text-muted-foreground">Following</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Bio Section */}
-            <div className="mb-4">
-              <h2 className="font-semibold text-base mb-1">Sarah Chen</h2>
-              <p className="text-sm text-muted-foreground mb-2">🍕 Food Explorer | 📍 Los Angeles</p>
-              <p className="text-sm leading-relaxed">
-                Exploring the best eats in LA one bite at a time ✨<br/>
-                Currently on a mission to find the perfect ramen 🍜
-              </p>
-            </div>
-
-            {/* Secondary Stats */}
-            <div className="flex items-center justify-between text-center mb-6 p-3 bg-muted/30 rounded-lg">
-              <div>
-                <div className="font-semibold text-sm font-rum-raisin">{mockStats.bounties}</div>
-                <div className="text-xs text-muted-foreground">Bounties</div>
-              </div>
-              <div>
-                <div className="font-semibold text-sm font-rum-raisin">{mockStats.quests}</div>
-                <div className="text-xs text-muted-foreground">Quests</div>
-              </div>
-              <div>
-                <div className="font-semibold text-sm font-rum-raisin">{mockStats.reviews}</div>
-                <div className="text-xs text-muted-foreground">Reviews</div>
-              </div>
-            </div>
-
-            {/* Action Buttons */}
-            <div className="flex gap-2 mb-6">
-              <Button 
-                variant="outline" 
-                className="flex-1 h-9 text-sm font-medium bg-muted/50 hover:bg-muted border-muted-foreground/20"
-                onClick={() => setShowSwipeView(true)}
-              >
-                Edit Profile
-              </Button>
-              <Button 
-                variant="outline" 
-                className="flex-1 h-9 text-sm font-medium bg-muted/50 hover:bg-muted border-muted-foreground/20"
-              >
-                Share Profile
-              </Button>
-              <Button 
-                variant="outline" 
-                size="sm"
-                className="px-3 h-9 bg-muted/50 hover:bg-muted border-muted-foreground/20"
-              >
-                <Send className="w-4 h-4" />
-              </Button>
-            </div>
-
-            {/* Stories Section */}
-            <div className="mb-6">
-              <div className="flex gap-4 overflow-x-auto scrollbar-hide pb-2">
-                <div className="flex flex-col items-center gap-2 min-w-[64px]">
-                  <div className="w-16 h-16 rounded-full border-2 border-dashed border-muted-foreground/30 flex items-center justify-center bg-muted/30">
-                    <span className="text-xl text-muted-foreground">+</span>
-                  </div>
-                  <span className="text-xs text-muted-foreground">New</span>
-                </div>
-                {['Dinner', 'Brunch', 'Coffee', 'Travel'].map((story, index) => (
-                  <div key={story} className="flex flex-col items-center gap-2 min-w-[64px]">
-                    <div className="story-ring w-16 h-16 rounded-full p-0.5">
-                      <div className="w-full h-full bg-gradient-to-br from-orange-400 to-pink-400 rounded-full flex items-center justify-center">
-                        <span className="text-lg">
-                          {index === 0 ? '🍽️' : index === 1 ? '🥐' : index === 2 ? '☕' : '✈️'}
-                        </span>
-                      </div>
-                    </div>
-                    <span className="text-xs text-muted-foreground">{story}</span>
-                  </div>
-                ))}
-              </div>
+              )}
             </div>
           </div>
 
-          {/* Tabs */}
-          <div className="sticky top-0 bg-background/90 backdrop-blur-sm border-t border-border/20 z-10">
-            <div className="flex">
-              {[
-                { key: 'posts', label: 'Posts', icon: Grid3X3 },
-                { key: 'likes', label: 'Likes', icon: Heart },
-                { key: 'saved', label: 'Saved', icon: Bookmark },
-                { key: 'guides', label: 'Guides', icon: BookOpen }
-              ].map((tab) => (
-                <button
-                  key={tab.key}
-                  onClick={() => setActiveTab(tab.key)}
-                  className={`flex-1 py-4 flex items-center justify-center gap-2 text-sm font-medium border-b-2 transition-all duration-200 ${
-                    activeTab === tab.key
-                      ? 'border-foreground text-foreground'
-                      : 'border-transparent text-muted-foreground hover:text-foreground'
-                  }`}
-                >
-                  <tab.icon className="w-5 h-5" />
-                  <span className="hidden sm:inline">{tab.label}</span>
-                </button>
-              ))}
+          {/* Right Icons */}
+          <div className="flex items-center gap-2">
+            <button 
+              onClick={() => onNavigate('lik-passport')}
+              className="p-2 hover:bg-muted/50 rounded-lg transition-colors"
+              title="Lik Passport"
+            >
+              <PassportIcon className="w-5 h-5" />
+            </button>
+            <button 
+              onClick={() => onNavigate('notifications')}
+              className="p-2 hover:bg-muted/50 rounded-lg transition-colors"
+              title="Notifications"
+            >
+              <NotificationIcon className="w-5 h-5" />
+            </button>
+            <button 
+              onClick={() => onNavigate('my-rewards')}
+              className="p-2 hover:bg-muted/50 rounded-lg transition-colors"
+              title="My Rewards"
+            >
+              <RewardIcon className="w-5 h-5" />
+            </button>
+            <button 
+              className="p-2 hover:bg-muted/50 rounded-lg transition-colors"
+              title="Settings"
+            >
+              <Settings className="w-5 h-5" />
+            </button>
+          </div>
+        </div>
+      </div>
+
+      {/* Scrollable Content */}
+      <div className="flex-1 overflow-y-auto">
+        {/* Profile Header */}
+        <div className="px-6 py-6 text-center">
+          {/* Profile Image with XP Ring */}
+          <div className="relative mb-6 flex justify-center">
+            <div className="relative">
+              <ProfileAvatar 
+                src="https://images.unsplash.com/photo-1494790108755-2616b612b786?w=150&h=150&fit=crop&crop=face"
+                alt="Sarah Chen"
+                level={mockStats.level}
+                xp={mockStats.xp}
+                maxXp={mockStats.maxXp}
+                size="xl"
+                className="animate-float"
+              />
+              {/* Bronze Rank Badge */}
+              <img 
+                src={bronzeRankIcon} 
+                alt="Bronze Rank" 
+                className="absolute -top-2 -right-2 w-8 h-8 animate-bounce"
+              />
             </div>
           </div>
 
-          {/* Tab Content */}
-          <div className="px-1">
-            {renderTabContent()}
+          {/* Display Name & Username */}
+          <div className="mb-4">
+            <h1 className="text-2xl font-bold mb-1 flex items-center justify-center gap-2">
+              Sarah Chen
+              <div className="w-6 h-6 bg-blue-500 rounded-full flex items-center justify-center">
+                <svg className="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                </svg>
+              </div>
+            </h1>
+            <p className="text-muted-foreground font-medium">@sarah_chen</p>
+          </div>
+
+          {/* Account Stats Row */}
+          <div className="flex justify-center items-center gap-8 mb-6">
+            <div className="text-center">
+              <div className="text-2xl font-bold font-rum-raisin">{mockStats.following}</div>
+              <div className="text-sm text-muted-foreground">Following</div>
+            </div>
+            <div className="text-center">
+              <div className="text-2xl font-bold font-rum-raisin">{mockStats.followers}</div>
+              <div className="text-sm text-muted-foreground">Followers</div>
+            </div>
+            <div className="text-center">
+              <div className="text-2xl font-bold font-rum-raisin">{mockStats.posts}</div>
+              <div className="text-sm text-muted-foreground">Posts</div>
+            </div>
+          </div>
+
+          {/* Location */}
+          <div className="flex items-center justify-center gap-2 mb-6">
+            <MapPin className="w-4 h-4 text-muted-foreground" />
+            <span className="text-muted-foreground">Los Angeles, CA</span>
+          </div>
+
+          {/* Gamification Stats */}
+          <div className="flex justify-center items-center gap-6 mb-6 p-4 bg-gradient-to-r from-purple-50 via-pink-50 to-red-50 rounded-2xl">
+            <div className="text-center">
+              <div className="text-lg font-bold text-purple-600 font-rum-raisin">{mockStats.bounties}</div>
+              <div className="text-xs text-purple-500 font-medium">Bounties</div>
+            </div>
+            <div className="text-center">
+              <div className="text-lg font-bold text-pink-600 font-rum-raisin">{mockStats.quests}</div>
+              <div className="text-xs text-pink-500 font-medium">Quests</div>
+            </div>
+            <div className="text-center">
+              <div className="text-lg font-bold text-red-600 font-rum-raisin">{mockStats.reviews}</div>
+              <div className="text-xs text-red-500 font-medium">Reviews</div>
+            </div>
+          </div>
+
+          {/* Action Buttons */}
+          <div className="flex gap-3 mb-6 justify-center">
+            <Button 
+              variant="outline" 
+              className="flex-1 max-w-32 h-10 text-sm font-medium font-rum-raisin bg-muted/50 hover:bg-muted border-muted-foreground/20"
+              onClick={() => setShowSwipeView(true)}
+            >
+              Edit Profile
+            </Button>
+            <Button 
+              variant="outline" 
+              className="flex-1 max-w-32 h-10 text-sm font-medium font-rum-raisin bg-muted/50 hover:bg-muted border-muted-foreground/20"
+            >
+              Share Profile
+            </Button>
           </div>
         </div>
 
-        {/* Swipe View */}
-        {showSwipeView && (
-          <ProfileSwipeView onClose={() => setShowSwipeView(false)} />
-        )}
+        {/* Stories Section */}
+        <div className="px-6 mb-6">
+          <div className="flex gap-4 overflow-x-auto scrollbar-hide pb-2">
+            <div className="flex flex-col items-center gap-2 min-w-[68px]">
+              <div className="w-16 h-16 rounded-full border-2 border-dashed border-muted-foreground/30 flex items-center justify-center bg-gradient-to-br from-gray-100 to-gray-200 hover:from-gray-200 hover:to-gray-300 transition-all duration-300 cursor-pointer">
+                <span className="text-xl text-muted-foreground">+</span>
+              </div>
+              <span className="text-xs text-muted-foreground font-medium">New</span>
+            </div>
+            {[
+              { name: 'Dinner', emoji: '🍽️', color: 'from-orange-400 to-red-400' },
+              { name: 'Brunch', emoji: '🥐', color: 'from-yellow-400 to-orange-400' },
+              { name: 'Coffee', emoji: '☕', color: 'from-amber-400 to-yellow-400' },
+              { name: 'Travel', emoji: '✈️', color: 'from-blue-400 to-indigo-400' }
+            ].map((story, index) => (
+              <div key={story.name} className="flex flex-col items-center gap-2 min-w-[68px] group cursor-pointer">
+                <div className="story-ring w-16 h-16 rounded-full p-0.5 group-hover:scale-105 transition-transform duration-200">
+                  <div className={`w-full h-full bg-gradient-to-br ${story.color} rounded-full flex items-center justify-center shadow-lg`}>
+                    <span className="text-lg">{story.emoji}</span>
+                  </div>
+                </div>
+                <span className="text-xs text-muted-foreground font-medium">{story.name}</span>
+              </div>
+            ))}
+          </div>
+        </div>
 
-        {/* FAB */}
-        <CreatePostFAB 
-          onClick={() => onNavigate('create-post')}
-          style={{ bottom: '100px', right: '20px' }}
-        />
+        {/* Tab Bar (Content Categories) */}
+        <div className="sticky top-16 bg-background/95 backdrop-blur-sm border-t border-b border-border/20 z-40">
+          <div className="flex justify-center">
+            {[
+              { key: 'posts', label: 'Posts', icon: Grid3X3 },
+              { key: 'likes', label: 'Likes', icon: Heart },
+              { key: 'saved', label: 'Saved', icon: Bookmark },
+              { key: 'guides', label: 'Guides', icon: BookOpen }
+            ].map((tab) => (
+              <button
+                key={tab.key}
+                onClick={() => setActiveTab(tab.key)}
+                className={`flex-1 max-w-24 py-4 flex flex-col items-center gap-1 text-xs font-medium transition-all duration-200 ${
+                  activeTab === tab.key
+                    ? 'text-red-500 border-b-2 border-red-500'
+                    : 'text-muted-foreground hover:text-foreground border-b-2 border-transparent'
+                } font-rum-raisin`}
+              >
+                <tab.icon className={`w-5 h-5 ${activeTab === tab.key ? 'text-red-500' : ''}`} />
+                <span>{tab.label}</span>
+              </button>
+            ))}
+          </div>
+        </div>
+
+        {/* Tab Content */}
+        <div className="min-h-screen">
+          {renderTabContent()}
+        </div>
       </div>
-    </>
+
+      {/* Swipe View */}
+      {showSwipeView && (
+        <ProfileSwipeView onClose={() => setShowSwipeView(false)} />
+      )}
+
+      {/* FAB */}
+      <CreatePostFAB 
+        onClick={() => onNavigate('create-post')}
+        style={{ bottom: '90px', right: '20px' }}
+      />
+    </div>
   );
 }
