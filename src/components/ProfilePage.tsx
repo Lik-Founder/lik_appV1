@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Settings, Grid3X3, Heart, Bookmark, BookOpen, MessageCircle, MapPin, TrendingUp } from 'lucide-react';
+import { Settings, Grid3X3, Heart, Bookmark, BookOpen, MessageCircle, MapPin } from 'lucide-react';
 import { 
   DocumentTextIcon as PassportIcon, 
   BellIcon as NotificationIcon, 
@@ -120,17 +120,18 @@ export function ProfilePage({ onNavigate }: ProfilePageProps) {
       {/* Top Navigation Bar (Fixed) */}
       <div className="sticky top-0 z-50 bg-background/95 backdrop-blur-sm border-b border-border/20">
         <div className="flex items-center justify-between px-4 py-3">
-          {/* Left: Rank/Level Badge */}
+          {/* Left: Bronze Rank Badge */}
           <div className="flex items-center gap-3">
             <div className="relative">
               <button
                 onClick={() => setShowDropdown(!showDropdown)}
                 className="flex items-center gap-2 hover:opacity-80 transition-opacity"
               >
-                <div className="flex items-center gap-2 px-3 py-1.5 bg-gradient-to-r from-orange-400/20 via-red-400/20 to-pink-400/20 rounded-full border border-orange-300/30">
-                  <TrendingUp className="w-4 h-4 text-orange-500" />
-                  <span className="text-sm font-bold text-orange-600 font-rum-raisin">Level {mockStats.level}</span>
-                </div>
+                <img 
+                  src={bronzeRankIcon} 
+                  alt="Bronze Rank" 
+                  className="w-8 h-8"
+                />
                 <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
                   <path d="M7 10l5 5 5-5z"/>
                 </svg>
@@ -201,12 +202,6 @@ export function ProfilePage({ onNavigate }: ProfilePageProps) {
             >
               <Settings className="w-5 h-5" />
             </button>
-            {/* Bronze Rank Badge */}
-            <img 
-              src={bronzeRankIcon} 
-              alt="Bronze Rank" 
-              className="w-8 h-8 ml-2"
-            />
           </div>
         </div>
       </div>
