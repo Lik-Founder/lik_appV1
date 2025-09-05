@@ -151,12 +151,12 @@ export const NotificationsPage: React.FC<NotificationsPageProps> = ({ onBack }) 
       case 'follow': return <UsersIcon className="w-5 h-5 text-green-500" />;
       case 'quest': return <BoltIcon className="w-5 h-5 text-purple-500" />;
       case 'bounty': return <MapPinIcon className="w-5 h-5 text-blue-500" />;
-      case 'achievement': return <Trophy className="w-5 h-5 text-yellow-500" />;
-      case 'coin': return <Gift className="w-5 h-5 text-green-500" />;
-      case 'level': return <Crown className="w-5 h-5 text-orange-500" />;
-      case 'restaurant': return <Star className="w-5 h-5 text-orange-500" />;
-      case 'event': return <Clock className="w-5 h-5 text-pink-500" />;
-      default: return <Star className="w-5 h-5 text-gray-500" />;
+      case 'achievement': return <TrophyIcon className="w-5 h-5 text-yellow-500" />;
+      case 'coin': return <GiftIcon className="w-5 h-5 text-green-500" />;
+      case 'level': return <CrownIcon className="w-5 h-5 text-orange-500" />;
+      case 'restaurant': return <StarIcon className="w-5 h-5 text-orange-500" />;
+      case 'event': return <ClockIcon className="w-5 h-5 text-pink-500" />;
+      default: return <StarIcon className="w-5 h-5 text-gray-500" />;
     }
   };
 
@@ -302,7 +302,7 @@ export const NotificationsPage: React.FC<NotificationsPageProps> = ({ onBack }) 
 
                   {notification.reward && (
                     <div className="mt-2 inline-flex items-center gap-1 bg-gradient-to-r from-yellow-100 to-orange-100 text-orange-700 text-xs font-medium px-2 py-1 rounded-full border border-orange-200">
-                      <Gift className="w-3 h-3" />
+                      <GiftIcon className="w-3 h-3" />
                       {notification.reward}
                     </div>
                   )}
