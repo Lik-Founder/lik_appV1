@@ -193,7 +193,7 @@ export const NotificationsPage: React.FC<NotificationsPageProps> = ({ onBack }) 
             onClick={markAllAsRead}
             className="text-purple-600 border-purple-200 hover:bg-purple-50"
           >
-            <Check className="w-4 h-4 mr-1" />
+            <CheckIcon className="w-4 h-4 mr-1" />
             Mark all read
           </Button>
         )}
