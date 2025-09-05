@@ -7,7 +7,6 @@ import {
 } from '@heroicons/react/24/outline';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { CreatePostFAB } from '@/components/CreatePostFAB';
 import { ProfileAvatar } from '@/components/ProfileAvatar';
 import { ProfileSwipeView } from '@/components/ProfileSwipeView';
 import { ProfileDropdown } from '@/components/ProfileDropdown';
@@ -362,12 +361,6 @@ export function ProfilePage({ onNavigate }: ProfilePageProps) {
       {showSwipeView && (
         <ProfileSwipeView onClose={() => setShowSwipeView(false)} />
       )}
-
-      {/* FAB */}
-      <CreatePostFAB 
-        onClick={() => onNavigate('create-post')}
-        style={{ bottom: '90px', right: '20px' }}
-      />
     </div>
   );
 }

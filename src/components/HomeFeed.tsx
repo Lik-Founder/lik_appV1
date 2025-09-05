@@ -9,6 +9,7 @@ import { ProfileAvatar } from '@/components/ProfileAvatar';
 import { Carousel } from '@/components/Carousel';
 import { HorizontalCarousel } from '@/components/HorizontalCarousel';
 import { useDevice } from '@/hooks/use-device';
+import { useSwipeGestures } from '@/hooks/use-swipe-gestures';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -24,7 +25,8 @@ import {
   MapPinIcon,
   CalendarIcon,
   ClockIcon,
-  ArrowRightIcon
+  ArrowRightIcon,
+  PlusIcon as Plus
 } from '@heroicons/react/24/outline';
 import likLogo from '@/assets/images/lik.png';
 import likLogoHeart from '@/assets/images/Lik_Logo_Heart_1.0.png';
@@ -356,6 +358,27 @@ export function HomeFeed({ onNavigate, onSelectUser, onSelectRestaurant }: HomeF
     }
   }, [lastScrollY]);
 
+  // Swipe gesture handlers
+  const [showSwipeHint, setShowSwipeHint] = useState(false);
+  
+  const swipeHandlers = useSwipeGestures({
+    onSwipeRight: () => {
+      // Navigate to create post page when swiping right
+      onNavigate('create-post');
+    },
+    threshold: 100 // Require a longer swipe to prevent accidental navigation
+  });
+
+  // Show swipe hint periodically
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setShowSwipeHint(true);
+      setTimeout(() => setShowSwipeHint(false), 3000);
+    }, 5000);
+    
+    return () => clearTimeout(timer);
+  }, []);
+
   return (
     <div className="h-full bg-background">
       {/* Top Navigation Bar */}
@@ -417,6 +440,7 @@ export function HomeFeed({ onNavigate, onSelectUser, onSelectRestaurant }: HomeF
           "mx-auto",
           device.type === 'tablet' ? "max-w-2xl" : "w-full"
         )}
+        {...swipeHandlers}
       >
         
         {/* Hero Carousel */}
@@ -740,6 +764,16 @@ export function HomeFeed({ onNavigate, onSelectUser, onSelectRestaurant }: HomeF
           </HorizontalCarousel>
         </div>
       </div>
+      
+      {/* Swipe Hint */}
+      {showSwipeHint && (
+        <div className="fixed bottom-32 right-4 z-50 animate-fadeIn">
+          <div className="bg-gradient-to-r from-red-400 to-pink-500 text-white px-4 py-2 rounded-full flex items-center gap-2 shadow-lg">
+            <Plus className="w-4 h-4" />
+            <span className="text-sm font-semibold font-rum-raisin">Swipe right to create →</span>
+          </div>
+        </div>
+      )}
       
       {/* Create Story Modal */}
       <CreateStoryModal 
