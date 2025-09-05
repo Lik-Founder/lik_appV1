@@ -106,8 +106,10 @@ export const ProfileDropdown: React.FC<ProfileDropdownProps> = ({
     }
   }, [isOpen]);
 
-  // Calculate XP percentage
-  const xpPercentage = (user.xp / user.maxXp) * 100;
+  // Calculate XP percentage with safety checks
+  const safeXp = typeof user?.xp === 'number' ? user.xp : 0;
+  const safeMaxXp = typeof user?.maxXp === 'number' && user.maxXp > 0 ? user.maxXp : 100;
+  const xpPercentage = (safeXp / safeMaxXp) * 100;
 
   // Calculate position
   const getDropdownStyle = () => {
@@ -148,7 +150,7 @@ export const ProfileDropdown: React.FC<ProfileDropdownProps> = ({
     };
   };
 
-  if (!isOpen) return null;
+  if (!isOpen || !user) return null;
 
   return (
     <>
@@ -177,8 +179,8 @@ export const ProfileDropdown: React.FC<ProfileDropdownProps> = ({
               src={user.avatar}
               alt={user.displayName}
               level={user.level}
-              xp={user.xp}
-              maxXp={user.maxXp}
+              xp={safeXp}
+              maxXp={safeMaxXp}
               size="md"
             />
           </div>

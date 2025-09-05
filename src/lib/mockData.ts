@@ -166,5 +166,8 @@ export const getCurrentUser = (): User => ({
   followerCount: 42,
   followingCount: 156,
   postCount: 12,
-  isFollowing: false
+  isFollowing: false,
+  level: 34,
+  xp: 18000,
+  maxXp: 20000
 });

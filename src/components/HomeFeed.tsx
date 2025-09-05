@@ -100,13 +100,13 @@ export function HomeFeed({ onNavigate, onSelectUser, onSelectRestaurant }: HomeF
 
   // Mock data for profile dropdown
   const profileDropdownUser = {
-    avatar: currentUser.avatar,
-    displayName: currentUser.username,
-    username: currentUser.username,
+    avatar: currentUser?.avatar || 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=150&h=150&fit=crop&crop=face',
+    displayName: currentUser?.displayName || 'User',
+    username: currentUser?.username || '@user',
     tasteTitle: "Flavor Explorer",
-    level: 34,
-    xp: 18000,
-    maxXp: 20000,
+    level: currentUser?.level || 34,
+    xp: currentUser?.xp || 18000,
+    maxXp: currentUser?.maxXp || 20000,
     badges: [
       { id: "verified", icon: "✓", label: "Verified" },
       { id: "creator", icon: "⭐", label: "Creator" }
@@ -748,15 +748,17 @@ export function HomeFeed({ onNavigate, onSelectUser, onSelectRestaurant }: HomeF
       />
 
       {/* Profile Dropdown */}
-      <ProfileDropdown
-        isOpen={isProfileDropdownOpen}
-        onClose={() => setIsProfileDropdownOpen(false)}
-        anchorRect={avatarRect}
-        user={profileDropdownUser}
-        stats={profileDropdownStats}
-        dailyProgress={profileDropdownDailyProgress}
-        onNavigate={handleProfileNavigate}
-      />
+      {currentUser && (
+        <ProfileDropdown
+          isOpen={isProfileDropdownOpen}
+          onClose={() => setIsProfileDropdownOpen(false)}
+          anchorRect={avatarRect}
+          user={profileDropdownUser}
+          stats={profileDropdownStats}
+          dailyProgress={profileDropdownDailyProgress}
+          onNavigate={handleProfileNavigate}
+        />
+      )}
     </div>
   );
 }

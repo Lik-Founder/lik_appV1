@@ -11,6 +11,7 @@ export interface User {
   location?: string;
   level?: number;
   xp?: number;
+  maxXp?: number;
   streakCount?: number;
   likCoins?: number;
   likTickets?: number;

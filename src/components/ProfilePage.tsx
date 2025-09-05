@@ -138,7 +138,35 @@ export function ProfilePage({ onNavigate }: ProfilePageProps) {
               </button>
               {showDropdown && (
                 <ProfileDropdown 
+                  isOpen={showDropdown}
                   onClose={() => setShowDropdown(false)}
+                  anchorRect={null}
+                  user={{
+                    avatar: "https://images.unsplash.com/photo-1494790108755-2616b612b786?w=150&h=150&fit=crop&crop=face",
+                    displayName: "Sarah Chen",
+                    username: "@sarah_chen",
+                    tasteTitle: "Flavor Explorer",
+                    level: mockStats.level,
+                    xp: mockStats.xp,
+                    maxXp: mockStats.maxXp,
+                    badges: [
+                      { id: "verified", icon: "✓", label: "Verified" },
+                      { id: "creator", icon: "⭐", label: "Creator" }
+                    ]
+                  }}
+                  stats={{
+                    streak: 4,
+                    tickets: 2,
+                    likCoins: "1.2k",
+                    hearts: "3.2k"
+                  }}
+                  dailyProgress={{
+                    currentTime: "00:00",
+                    targetTime: "02:00", 
+                    bonusReward: "+600 LP",
+                    streakDays: 7,
+                    currentStreak: 4
+                  }}
                   onNavigate={onNavigate}
                 />
               )}

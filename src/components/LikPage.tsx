@@ -189,7 +189,9 @@ export function LikPage({ onNavigate, onSelectBounty }: LikPageProps) {
   const [dropdownAnchorRect, setDropdownAnchorRect] = useState<DOMRect | null>(null);
   const avatarRef = useRef<HTMLDivElement>(null);
 
-  const xpProgress = (userProgress.xp / userProgress.xpToNextLevel) * 100;
+  const xpProgress = userProgress?.xp && userProgress?.xpToNextLevel 
+    ? (userProgress.xp / userProgress.xpToNextLevel) * 100 
+    : 0;
 
   // Handle avatar click for dropdown
   const handleAvatarClick = () => {
@@ -228,9 +230,9 @@ export function LikPage({ onNavigate, onSelectBounty }: LikPageProps) {
     displayName: 'John Doe',
     username: '@johndoe',
     tasteTitle: 'Grand Master',
-    level: userProgress.level,
-    xp: userProgress.xp,
-    maxXp: userProgress.xpToNextLevel,
+    level: userProgress?.level || 24,
+    xp: userProgress?.xp || 1250,
+    maxXp: userProgress?.xpToNextLevel || 1500,
     badges: [
       { id: '1', icon: '🏆', label: 'Top Reviewer', verified: true },
       { id: '2', icon: '🍕', label: 'Pizza Expert' }
@@ -288,9 +290,9 @@ export function LikPage({ onNavigate, onSelectBounty }: LikPageProps) {
             <ProfileAvatar
               src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face"
               alt="User"
-              level={userProgress.level}
-              xp={userProgress.xp}
-              maxXp={userProgress.xpToNextLevel}
+              level={userProgress?.level || 24}
+              xp={userProgress?.xp || 1250}
+              maxXp={userProgress?.xpToNextLevel || 1500}
               size="md"
             />
           </div>

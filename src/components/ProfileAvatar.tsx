@@ -56,7 +56,12 @@ export function ProfileAvatar({
   onClick 
 }: ProfileAvatarProps) {
   const config = sizeConfig[size];
-  const progressPercentage = Math.min((xp / maxXp) * 100, 100);
+  
+  // Ensure we have valid numbers for calculation
+  const safeXp = typeof xp === 'number' ? xp : 0;
+  const safeMaxXp = typeof maxXp === 'number' && maxXp > 0 ? maxXp : 100;
+  const progressPercentage = Math.min((safeXp / safeMaxXp) * 100, 100);
+  
   const circumference = 2 * Math.PI * 46;
   const strokeDashoffset = circumference - (progressPercentage / 100) * circumference;
 
