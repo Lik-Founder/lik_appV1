@@ -84,8 +84,8 @@ export function UserProfile({ userId, onBack, onNavigate }: UserProfileProps) {
             <div className="w-20 h-20 rounded-full bg-gradient-to-br from-pink-100 to-red-100 flex items-center justify-center mb-6 animate-float">
               <Heart className="w-10 h-10 text-red-400" />
             </div>
-            <h3 className="text-xl font-bold mb-3 font-rum-raisin">No liked posts yet</h3>
-            <p className="text-muted-foreground text-sm max-w-xs leading-relaxed">
+            <h3 className="text-2xl font-bold mb-3 font-rum-raisin text-black">No liked posts yet</h3>
+            <p className="text-black text-base max-w-xs leading-relaxed font-medium">
               When they like posts, they'll appear here! ✨
             </p>
           </div>
@@ -96,8 +96,8 @@ export function UserProfile({ userId, onBack, onNavigate }: UserProfileProps) {
             <div className="w-20 h-20 rounded-full bg-gradient-to-br from-blue-100 to-indigo-100 flex items-center justify-center mb-6 animate-float delay-500">
               <Bookmark className="w-10 h-10 text-blue-400" />
             </div>
-            <h3 className="text-xl font-bold mb-3 font-rum-raisin">Private saved posts</h3>
-            <p className="text-muted-foreground text-sm max-w-xs leading-relaxed">
+            <h3 className="text-2xl font-bold mb-3 font-rum-raisin text-black">Private saved posts</h3>
+            <p className="text-black text-base max-w-xs leading-relaxed font-medium">
               Their saved posts are private! 🔒
             </p>
           </div>
@@ -108,8 +108,8 @@ export function UserProfile({ userId, onBack, onNavigate }: UserProfileProps) {
             <div className="w-20 h-20 rounded-full bg-gradient-to-br from-green-100 to-emerald-100 flex items-center justify-center mb-6 animate-float delay-1000">
               <BookOpen className="w-10 h-10 text-green-400" />
             </div>
-            <h3 className="text-xl font-bold mb-3 font-rum-raisin">No guides yet</h3>
-            <p className="text-muted-foreground text-sm max-w-xs leading-relaxed">
+            <h3 className="text-2xl font-bold mb-3 font-rum-raisin text-black">No guides yet</h3>
+            <p className="text-black text-base max-w-xs leading-relaxed font-medium">
               They haven't created any food guides yet! 🗺️
             </p>
           </div>
@@ -130,7 +130,7 @@ export function UserProfile({ userId, onBack, onNavigate }: UserProfileProps) {
             className="flex items-center gap-2 hover:opacity-80 transition-opacity"
           >
             <ArrowLeft className="w-5 h-5" />
-            <span className="text-sm font-medium">Back</span>
+            <span className="text-sm font-medium text-black">Back</span>
           </button>
 
           {/* Right: Actions */}
@@ -172,7 +172,7 @@ export function UserProfile({ userId, onBack, onNavigate }: UserProfileProps) {
 
           {/* Display Name & Username */}
           <div className="mb-4">
-            <h1 className="text-2xl font-bold mb-1 flex items-center justify-center gap-2">
+            <h1 className="text-3xl font-bold mb-1 flex items-center justify-center gap-2 text-black">
               {mockUser.displayName}
               {mockUser.isVerified && (
                 <div className="w-6 h-6 bg-blue-500 rounded-full flex items-center justify-center">
@@ -180,12 +180,12 @@ export function UserProfile({ userId, onBack, onNavigate }: UserProfileProps) {
                 </div>
               )}
             </h1>
-            <p className="text-muted-foreground font-medium">@{mockUser.username}</p>
+            <p className="text-black font-medium text-lg">@{mockUser.username}</p>
           </div>
 
           {/* Bio */}
           <div className="mb-6">
-            <p className="text-sm leading-relaxed whitespace-pre-line max-w-sm mx-auto">
+            <p className="text-base leading-relaxed whitespace-pre-line max-w-sm mx-auto text-black font-medium">
               {mockUser.bio}
             </p>
           </div>
@@ -193,38 +193,38 @@ export function UserProfile({ userId, onBack, onNavigate }: UserProfileProps) {
           {/* Account Stats Row */}
           <div className="flex justify-center items-center gap-8 mb-6">
             <div className="text-center">
-              <div className="text-2xl font-bold font-rum-raisin">{mockUser.following}</div>
-              <div className="text-sm text-muted-foreground">Following</div>
+              <div className="text-3xl font-bold font-rum-raisin text-black">{mockUser.following}</div>
+              <div className="text-base text-black font-medium">Following</div>
             </div>
             <div className="text-center">
-              <div className="text-2xl font-bold font-rum-raisin">{mockUser.followers}</div>
-              <div className="text-sm text-muted-foreground">Followers</div>
+              <div className="text-3xl font-bold font-rum-raisin text-black">{mockUser.followers}</div>
+              <div className="text-base text-black font-medium">Followers</div>
             </div>
             <div className="text-center">
-              <div className="text-2xl font-bold font-rum-raisin">{mockUser.posts}</div>
-              <div className="text-sm text-muted-foreground">Posts</div>
+              <div className="text-3xl font-bold font-rum-raisin text-black">{mockUser.posts}</div>
+              <div className="text-base text-black font-medium">Posts</div>
             </div>
           </div>
 
           {/* Location */}
           <div className="flex items-center justify-center gap-2 mb-6">
-            <MapPin className="w-4 h-4 text-muted-foreground" />
-            <span className="text-muted-foreground">{mockUser.location}</span>
+            <MapPin className="w-5 h-5 text-black" />
+            <span className="text-black text-lg font-medium">{mockUser.location}</span>
           </div>
 
           {/* Gamification Stats */}
           <div className="flex justify-center items-center gap-6 mb-6 p-4 bg-gradient-to-r from-purple-50 via-pink-50 to-red-50 rounded-2xl">
             <div className="text-center">
-              <div className="text-lg font-bold text-purple-600 font-rum-raisin">{mockUser.bounties}</div>
-              <div className="text-xs text-purple-500 font-medium">Bounties</div>
+              <div className="text-xl font-bold text-purple-600 font-rum-raisin">{mockUser.bounties}</div>
+              <div className="text-sm text-purple-600 font-semibold">Bounties</div>
             </div>
             <div className="text-center">
-              <div className="text-lg font-bold text-pink-600 font-rum-raisin">{mockUser.quests}</div>
-              <div className="text-xs text-pink-500 font-medium">Quests</div>
+              <div className="text-xl font-bold text-pink-600 font-rum-raisin">{mockUser.quests}</div>
+              <div className="text-sm text-pink-600 font-semibold">Quests</div>
             </div>
             <div className="text-center">
-              <div className="text-lg font-bold text-red-600 font-rum-raisin">{mockUser.reviews}</div>
-              <div className="text-xs text-red-500 font-medium">Reviews</div>
+              <div className="text-xl font-bold text-red-600 font-rum-raisin">{mockUser.reviews}</div>
+              <div className="text-sm text-red-600 font-semibold">Reviews</div>
             </div>
           </div>
 
@@ -232,9 +232,9 @@ export function UserProfile({ userId, onBack, onNavigate }: UserProfileProps) {
           <div className="flex gap-3 mb-6 justify-center">
             <Button 
               onClick={handleFollow}
-              className={`flex-1 max-w-32 h-10 text-sm font-medium font-rum-raisin ${
+              className={`flex-1 max-w-32 h-10 text-base font-medium font-rum-raisin ${
                 isFollowing 
-                  ? 'bg-muted/50 hover:bg-muted text-foreground border border-muted-foreground/20' 
+                  ? 'bg-muted/50 hover:bg-muted text-black border border-muted-foreground/20' 
                   : 'bg-red-500 hover:bg-red-600 text-white'
               }`}
               variant={isFollowing ? 'outline' : 'default'}
@@ -253,7 +253,7 @@ export function UserProfile({ userId, onBack, onNavigate }: UserProfileProps) {
             </Button>
             <Button 
               variant="outline" 
-              className="flex-1 max-w-32 h-10 text-sm font-medium font-rum-raisin bg-muted/50 hover:bg-muted border-muted-foreground/20"
+              className="flex-1 max-w-32 h-10 text-base font-medium font-rum-raisin bg-muted/50 hover:bg-muted border-muted-foreground/20 text-black"
             >
               <MessageCircle className="w-4 h-4 mr-2" />
               Message
@@ -276,7 +276,7 @@ export function UserProfile({ userId, onBack, onNavigate }: UserProfileProps) {
                     <span className="text-lg">{story.emoji}</span>
                   </div>
                 </div>
-                <span className="text-xs text-muted-foreground font-medium">{story.name}</span>
+                <span className="text-sm text-black font-medium">{story.name}</span>
               </div>
             ))}
           </div>
@@ -294,10 +294,10 @@ export function UserProfile({ userId, onBack, onNavigate }: UserProfileProps) {
               <button
                 key={tab.key}
                 onClick={() => setActiveTab(tab.key)}
-                className={`flex-1 max-w-24 py-4 flex flex-col items-center gap-1 text-xs font-medium transition-all duration-200 ${
+                className={`flex-1 max-w-24 py-4 flex flex-col items-center gap-1 text-sm font-medium transition-all duration-200 ${
                   activeTab === tab.key
                     ? 'text-red-500 border-b-2 border-red-500'
-                    : 'text-muted-foreground hover:text-foreground border-b-2 border-transparent'
+                    : 'text-black hover:text-red-400 border-b-2 border-transparent'
                 } font-rum-raisin`}
               >
                 <tab.icon className={`w-5 h-5 ${activeTab === tab.key ? 'text-red-500' : ''}`} />

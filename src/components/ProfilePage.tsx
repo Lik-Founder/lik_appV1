@@ -80,8 +80,8 @@ export function ProfilePage({ onNavigate }: ProfilePageProps) {
             <div className="w-20 h-20 rounded-full bg-gradient-to-br from-pink-100 to-red-100 flex items-center justify-center mb-6">
               <Heart className="w-10 h-10 text-red-400" />
             </div>
-            <h3 className="text-xl font-bold mb-3 font-rum-raisin">No liked posts yet</h3>
-            <p className="text-muted-foreground text-sm max-w-xs leading-relaxed">
+            <h3 className="text-2xl font-bold mb-3 font-rum-raisin text-black">No liked posts yet</h3>
+            <p className="text-black text-base max-w-xs leading-relaxed font-medium">
               When you like posts, they'll appear here like little treasures! ✨
             </p>
           </div>
@@ -92,8 +92,8 @@ export function ProfilePage({ onNavigate }: ProfilePageProps) {
             <div className="w-20 h-20 rounded-full bg-gradient-to-br from-blue-100 to-indigo-100 flex items-center justify-center mb-6">
               <Bookmark className="w-10 h-10 text-blue-400" />
             </div>
-            <h3 className="text-xl font-bold mb-3 font-rum-raisin">No saved posts yet</h3>
-            <p className="text-muted-foreground text-sm max-w-xs leading-relaxed">
+            <h3 className="text-2xl font-bold mb-3 font-rum-raisin text-black">No saved posts yet</h3>
+            <p className="text-black text-base max-w-xs leading-relaxed font-medium">
               Save your favorite food adventures here for easy access! 🍽️
             </p>
           </div>
@@ -104,8 +104,8 @@ export function ProfilePage({ onNavigate }: ProfilePageProps) {
             <div className="w-20 h-20 rounded-full bg-gradient-to-br from-green-100 to-emerald-100 flex items-center justify-center mb-6">
               <BookOpen className="w-10 h-10 text-green-400" />
             </div>
-            <h3 className="text-xl font-bold mb-3 font-rum-raisin">No guides created</h3>
-            <p className="text-muted-foreground text-sm max-w-xs leading-relaxed">
+            <h3 className="text-2xl font-bold mb-3 font-rum-raisin text-black">No guides created</h3>
+            <p className="text-black text-base max-w-xs leading-relaxed font-medium">
               Create your first food guide and become a culinary navigator! 🗺️
             </p>
           </div>
@@ -226,7 +226,7 @@ export function ProfilePage({ onNavigate }: ProfilePageProps) {
 
           {/* Display Name & Username */}
           <div className="mb-4">
-            <h1 className="text-2xl font-bold mb-1 flex items-center justify-center gap-2">
+            <h1 className="text-3xl font-bold mb-1 flex items-center justify-center gap-2 text-black">
               Sarah Chen
               <div className="w-6 h-6 bg-blue-500 rounded-full flex items-center justify-center">
                 <svg className="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 24 24">
@@ -234,44 +234,44 @@ export function ProfilePage({ onNavigate }: ProfilePageProps) {
                 </svg>
               </div>
             </h1>
-            <p className="text-muted-foreground font-medium">@sarah_chen</p>
+            <p className="text-black font-medium text-lg">@sarah_chen</p>
           </div>
 
           {/* Account Stats Row */}
           <div className="flex justify-center items-center gap-8 mb-6">
             <div className="text-center">
-              <div className="text-2xl font-bold font-rum-raisin">{mockStats.following}</div>
-              <div className="text-sm text-muted-foreground">Following</div>
+              <div className="text-3xl font-bold font-rum-raisin text-black">{mockStats.following}</div>
+              <div className="text-base text-black font-medium">Following</div>
             </div>
             <div className="text-center">
-              <div className="text-2xl font-bold font-rum-raisin">{mockStats.followers}</div>
-              <div className="text-sm text-muted-foreground">Followers</div>
+              <div className="text-3xl font-bold font-rum-raisin text-black">{mockStats.followers}</div>
+              <div className="text-base text-black font-medium">Followers</div>
             </div>
             <div className="text-center">
-              <div className="text-2xl font-bold font-rum-raisin">{mockStats.posts}</div>
-              <div className="text-sm text-muted-foreground">Posts</div>
+              <div className="text-3xl font-bold font-rum-raisin text-black">{mockStats.posts}</div>
+              <div className="text-base text-black font-medium">Posts</div>
             </div>
           </div>
 
           {/* Location */}
           <div className="flex items-center justify-center gap-2 mb-6">
-            <MapPin className="w-4 h-4 text-muted-foreground" />
-            <span className="text-muted-foreground">Los Angeles, CA</span>
+            <MapPin className="w-5 h-5 text-black" />
+            <span className="text-black text-lg font-medium">Los Angeles, CA</span>
           </div>
 
           {/* Gamification Stats */}
           <div className="flex justify-center items-center gap-6 mb-6 p-4 bg-gradient-to-r from-purple-50 via-pink-50 to-red-50 rounded-2xl">
             <div className="text-center">
-              <div className="text-lg font-bold text-purple-600 font-rum-raisin">{mockStats.bounties}</div>
-              <div className="text-xs text-purple-500 font-medium">Bounties</div>
+              <div className="text-xl font-bold text-purple-600 font-rum-raisin">{mockStats.bounties}</div>
+              <div className="text-sm text-purple-600 font-semibold">Bounties</div>
             </div>
             <div className="text-center">
-              <div className="text-lg font-bold text-pink-600 font-rum-raisin">{mockStats.quests}</div>
-              <div className="text-xs text-pink-500 font-medium">Quests</div>
+              <div className="text-xl font-bold text-pink-600 font-rum-raisin">{mockStats.quests}</div>
+              <div className="text-sm text-pink-600 font-semibold">Quests</div>
             </div>
             <div className="text-center">
-              <div className="text-lg font-bold text-red-600 font-rum-raisin">{mockStats.reviews}</div>
-              <div className="text-xs text-red-500 font-medium">Reviews</div>
+              <div className="text-xl font-bold text-red-600 font-rum-raisin">{mockStats.reviews}</div>
+              <div className="text-sm text-red-600 font-semibold">Reviews</div>
             </div>
           </div>
 
@@ -279,14 +279,14 @@ export function ProfilePage({ onNavigate }: ProfilePageProps) {
           <div className="flex gap-3 mb-6 justify-center">
             <Button 
               variant="outline" 
-              className="flex-1 max-w-32 h-10 text-sm font-medium font-rum-raisin bg-muted/50 hover:bg-muted border-muted-foreground/20"
+              className="flex-1 max-w-32 h-10 text-base font-medium font-rum-raisin bg-muted/50 hover:bg-muted border-muted-foreground/20 text-black"
               onClick={() => setShowSwipeView(true)}
             >
               Edit Profile
             </Button>
             <Button 
               variant="outline" 
-              className="flex-1 max-w-32 h-10 text-sm font-medium font-rum-raisin bg-muted/50 hover:bg-muted border-muted-foreground/20"
+              className="flex-1 max-w-32 h-10 text-base font-medium font-rum-raisin bg-muted/50 hover:bg-muted border-muted-foreground/20 text-black"
             >
               Share Profile
             </Button>
@@ -300,7 +300,7 @@ export function ProfilePage({ onNavigate }: ProfilePageProps) {
               <div className="w-16 h-16 rounded-full border-2 border-dashed border-muted-foreground/30 flex items-center justify-center bg-gradient-to-br from-gray-100 to-gray-200 cursor-pointer">
                 <span className="text-xl text-muted-foreground">+</span>
               </div>
-              <span className="text-xs text-muted-foreground font-medium">New</span>
+              <span className="text-sm text-black font-medium">New</span>
             </div>
             {[
               { name: 'Dinner', emoji: '🍽️', color: 'from-orange-400 to-red-400' },
@@ -314,7 +314,7 @@ export function ProfilePage({ onNavigate }: ProfilePageProps) {
                     <span className="text-lg">{story.emoji}</span>
                   </div>
                 </div>
-                <span className="text-xs text-muted-foreground font-medium">{story.name}</span>
+                <span className="text-sm text-black font-medium">{story.name}</span>
               </div>
             ))}
           </div>
@@ -332,10 +332,10 @@ export function ProfilePage({ onNavigate }: ProfilePageProps) {
               <button
                 key={tab.key}
                 onClick={() => setActiveTab(tab.key)}
-                className={`flex-1 max-w-24 py-4 flex flex-col items-center gap-1 text-xs font-medium ${
+                className={`flex-1 max-w-24 py-4 flex flex-col items-center gap-1 text-sm font-medium ${
                   activeTab === tab.key
                     ? 'text-red-500 border-b-2 border-red-500'
-                    : 'text-muted-foreground hover:text-foreground border-b-2 border-transparent'
+                    : 'text-black hover:text-red-400 border-b-2 border-transparent'
                 } font-rum-raisin`}
               >
                 <tab.icon className={`w-5 h-5 ${activeTab === tab.key ? 'text-red-500' : ''}`} />
