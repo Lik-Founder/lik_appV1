@@ -240,16 +240,16 @@ export function ProfilePage({ onNavigate }: ProfilePageProps) {
           {/* Account Stats Row */}
           <div className="flex justify-center items-center gap-8 mb-6">
             <div className="text-center">
-              <div className="text-3xl font-bold font-rum-raisin text-black">{mockStats.following}</div>
-              <div className="text-base text-black font-medium">Following</div>
+              <div className="text-4xl font-bold font-rum-raisin text-black">{mockStats.following}</div>
+              <div className="text-lg text-black font-medium">Following</div>
             </div>
             <div className="text-center">
-              <div className="text-3xl font-bold font-rum-raisin text-black">{mockStats.followers}</div>
-              <div className="text-base text-black font-medium">Followers</div>
+              <div className="text-4xl font-bold font-rum-raisin text-black">{mockStats.followers}</div>
+              <div className="text-lg text-black font-medium">Followers</div>
             </div>
             <div className="text-center">
-              <div className="text-3xl font-bold font-rum-raisin text-black">{mockStats.posts}</div>
-              <div className="text-base text-black font-medium">Posts</div>
+              <div className="text-4xl font-bold font-rum-raisin text-black">{mockStats.posts}</div>
+              <div className="text-lg text-black font-medium">Posts</div>
             </div>
           </div>
 
@@ -262,16 +262,16 @@ export function ProfilePage({ onNavigate }: ProfilePageProps) {
           {/* Gamification Stats */}
           <div className="flex justify-center items-center gap-6 mb-6 p-4 bg-gradient-to-r from-purple-50 via-pink-50 to-red-50 rounded-2xl">
             <div className="text-center">
-              <div className="text-xl font-bold text-purple-600 font-rum-raisin">{mockStats.bounties}</div>
-              <div className="text-sm text-purple-600 font-semibold">Bounties</div>
+              <div className="text-2xl font-bold text-black font-rum-raisin">{mockStats.bounties}</div>
+              <div className="text-base text-black font-semibold">Bounties</div>
             </div>
             <div className="text-center">
-              <div className="text-xl font-bold text-pink-600 font-rum-raisin">{mockStats.quests}</div>
-              <div className="text-sm text-pink-600 font-semibold">Quests</div>
+              <div className="text-2xl font-bold text-black font-rum-raisin">{mockStats.quests}</div>
+              <div className="text-base text-black font-semibold">Quests</div>
             </div>
             <div className="text-center">
-              <div className="text-xl font-bold text-red-600 font-rum-raisin">{mockStats.reviews}</div>
-              <div className="text-sm text-red-600 font-semibold">Reviews</div>
+              <div className="text-2xl font-bold text-black font-rum-raisin">{mockStats.reviews}</div>
+              <div className="text-base text-black font-semibold">Reviews</div>
             </div>
           </div>
 
@@ -332,7 +332,7 @@ export function ProfilePage({ onNavigate }: ProfilePageProps) {
               <button
                 key={tab.key}
                 onClick={() => setActiveTab(tab.key)}
-                className={`flex-1 max-w-24 py-4 flex flex-col items-center gap-1 text-sm font-medium ${
+                className={`flex-1 max-w-24 py-4 flex flex-col items-center gap-1 text-base font-medium ${
                   activeTab === tab.key
                     ? 'text-red-500 border-b-2 border-red-500'
                     : 'text-black hover:text-red-400 border-b-2 border-transparent'
