@@ -1086,6 +1086,21 @@ function QuestsView({ quests, onQuestClick }: {
           ))}
         </div>
       </div>
+
+      {/* Map Button */}
+      <Button
+        onClick={() => onNavigate('bounty-quest-map')}
+        variant="ghost"
+        className={cn(
+          "fixed z-10 rounded-full shadow-lg bg-background/90 backdrop-blur-sm text-foreground",
+          "hover:bg-muted transition-all duration-200 border-0",
+          "bottom-20 left-1/2 transform -translate-x-1/2",
+          "h-10 px-4"
+        )}
+      >
+        <MapPin className="mr-2 w-4 h-4" />
+        <span className="text-sm font-medium">Map</span>
+      </Button>
     </div>
   );
 }
