@@ -255,10 +255,10 @@ export function LikTVPage({ onBack }: LikTVPageProps) {
   };
 
   return (
-    <div className="flex flex-col h-full min-h-screen bg-black">
+    <div className="flex flex-col h-full min-h-screen bg-gradient-to-b from-red-500 via-red-600 to-red-900">
       
       {/* Netflix-style App Bar */}
-      <div className="sticky top-0 z-50 bg-gradient-to-b from-black/90 via-black/70 to-transparent backdrop-blur-sm">
+      <div className="sticky top-0 z-50 bg-gradient-to-b from-red-900/90 via-red-800/70 to-transparent backdrop-blur-sm">
         <div className="flex items-center justify-between px-4 py-4">
           {/* Left Side - Logo */}
           <div className="flex items-center space-x-4">
@@ -272,7 +272,7 @@ export function LikTVPage({ onBack }: LikTVPageProps) {
             </Button>
             <div className="flex items-center space-x-3">
               <img src={likLogo} alt="Lik" className="w-8 h-8" />
-              <h1 className="text-xl md:text-2xl font-rum-raisin font-bold text-white">
+              <h1 className="text-2xl md:text-3xl font-rum-raisin font-bold text-white">
                 LikTV
               </h1>
             </div>
@@ -300,7 +300,7 @@ export function LikTVPage({ onBack }: LikTVPageProps) {
                 placeholder="Search shows, creators..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full bg-gray-800 border-gray-600 text-white placeholder-gray-400 pl-10 rounded-lg focus:border-white"
+                className="w-full bg-red-800/50 border-red-600 text-white placeholder-gray-400 pl-10 rounded-lg focus:border-white backdrop-blur-sm"
                 autoFocus
               />
             </div>
@@ -354,8 +354,8 @@ export function LikTVPage({ onBack }: LikTVPageProps) {
                 }}
               >
                 {/* Overlay */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent" />
-                <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-transparent to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-red-900 via-red-800/40 to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-r from-red-900/60 via-transparent to-transparent" />
                 
                 {/* Content */}
                 <div className="absolute bottom-0 left-0 right-0 p-8 md:p-12">
@@ -376,16 +376,16 @@ export function LikTVPage({ onBack }: LikTVPageProps) {
                       )}
                     </div>
 
-                    <h1 className="text-3xl md:text-5xl font-rum-raisin font-bold text-white mb-4 leading-tight">
+                    <h1 className="text-4xl md:text-6xl font-rum-raisin font-bold text-white mb-4 leading-tight">
                       {show.title}
                     </h1>
                     
-                    <p className="text-sm md:text-base text-gray-200 mb-6 max-w-xl leading-relaxed">
+                    <p className="text-lg md:text-xl text-gray-200 mb-6 max-w-xl leading-relaxed">
                       {show.description}
                     </p>
 
                     {/* Show Info */}
-                    <div className="flex items-center space-x-4 mb-6 text-gray-300">
+                    <div className="flex items-center space-x-4 mb-6 text-gray-300 text-base">
                       <span className="font-medium">{show.creator}</span>
                       {show.network && (
                         <>
@@ -428,7 +428,7 @@ export function LikTVPage({ onBack }: LikTVPageProps) {
                       <Button 
                         variant="outline"
                         size="lg"
-                        className="bg-gray-600/70 backdrop-blur-sm border-gray-600 text-white hover:bg-gray-600 px-6 py-3 rounded-lg"
+                        className="bg-red-600/70 backdrop-blur-sm border-red-500 text-white hover:bg-red-500 px-6 py-3 rounded-lg"
                       >
                         <PlusIcon className="w-5 h-5 mr-2" />
                         My List
@@ -458,9 +458,9 @@ export function LikTVPage({ onBack }: LikTVPageProps) {
                           <span>Continue watching</span>
                           <span>{show.progress}% complete</span>
                         </div>
-                        <div className="w-full bg-gray-700 rounded-full h-1">
+                        <div className="w-full bg-red-800/50 rounded-full h-1">
                           <div 
-                            className="bg-red-600 h-1 rounded-full transition-all duration-300"
+                            className="bg-red-400 h-1 rounded-full transition-all duration-300"
                             style={{ width: `${show.progress}%` }}
                           />
                         </div>
@@ -499,14 +499,14 @@ export function LikTVPage({ onBack }: LikTVPageProps) {
         </div>
 
         {/* Content Sections */}
-        <div className="px-4 md:px-8 space-y-12 py-12 bg-gradient-to-b from-black to-gray-900">
+        <div className="px-4 md:px-8 space-y-12 py-12 bg-gradient-to-b from-red-900 to-red-950">
           
           {/* Live Now Section */}
           {liveShows.length > 0 && (
             <div>
               <div className="flex items-center space-x-3 mb-6">
                 <div className="w-3 h-3 bg-red-500 rounded-full animate-pulse" />
-                <h2 className="text-xl md:text-2xl font-rum-raisin font-bold text-white">
+                <h2 className="text-2xl md:text-3xl font-rum-raisin font-bold text-white">
                   Live Now
                 </h2>
               </div>
@@ -514,7 +514,7 @@ export function LikTVPage({ onBack }: LikTVPageProps) {
                 {liveShows.map((show) => (
                   <div
                     key={show.id}
-                    className="min-w-[280px] bg-gray-800 rounded-lg overflow-hidden hover:bg-gray-700 transition-all cursor-pointer group"
+                    className="min-w-[280px] bg-red-800/30 backdrop-blur-sm rounded-lg overflow-hidden hover:bg-red-700/40 transition-all cursor-pointer group"
                   >
                     <div className="relative">
                       <img
@@ -531,9 +531,9 @@ export function LikTVPage({ onBack }: LikTVPageProps) {
                       </div>
                     </div>
                     <div className="p-4">
-                      <h3 className="text-base font-rum-raisin font-bold text-white mb-1">{show.title}</h3>
-                      <p className="text-gray-400 text-xs mb-2">{show.creator}</p>
-                      <div className="flex items-center justify-between text-xs text-gray-500">
+                      <h3 className="text-lg font-rum-raisin font-bold text-white mb-1">{show.title}</h3>
+                      <p className="text-gray-400 text-sm mb-2">{show.creator}</p>
+                      <div className="flex items-center justify-between text-sm text-gray-500">
                         <span>{show.viewCount}</span>
                         {show.verified && <StarIcon className="w-4 h-4 text-blue-400" />}
                       </div>
@@ -549,7 +549,7 @@ export function LikTVPage({ onBack }: LikTVPageProps) {
             <div className="flex items-center justify-between mb-6">
               <div className="flex items-center space-x-3">
                 <FireIcon className="w-6 h-6 text-orange-500" />
-                <h2 className="text-xl md:text-2xl font-rum-raisin font-bold text-white">
+                <h2 className="text-2xl md:text-3xl font-rum-raisin font-bold text-white">
                   Trending Now
                 </h2>
               </div>
@@ -581,11 +581,11 @@ export function LikTVPage({ onBack }: LikTVPageProps) {
                       </div>
                     )}
                   </div>
-                  <h3 className="text-base font-rum-raisin font-bold text-white mb-1 line-clamp-1 group-hover:text-red-400 transition-colors">
+                  <h3 className="text-lg font-rum-raisin font-bold text-white mb-1 line-clamp-1 group-hover:text-red-400 transition-colors">
                     {show.title}
                   </h3>
-                  <p className="text-gray-400 text-xs mb-1">{show.creator}</p>
-                  <div className="flex items-center justify-between text-xs text-gray-500">
+                  <p className="text-gray-400 text-sm mb-1">{show.creator}</p>
+                  <div className="flex items-center justify-between text-sm text-gray-500">
                     <span>{show.viewCount}</span>
                     <div className="flex items-center space-x-1">
                       {show.verified && <StarIcon className="w-3 h-3 text-blue-400" />}
@@ -603,7 +603,7 @@ export function LikTVPage({ onBack }: LikTVPageProps) {
           <div>
             <div className="flex items-center space-x-3 mb-6">
               <BookmarkIcon className="w-6 h-6 text-white" />
-              <h2 className="text-xl md:text-2xl font-rum-raisin font-bold text-white">
+              <h2 className="text-2xl md:text-3xl font-rum-raisin font-bold text-white">
                 Continue Watching
               </h2>
             </div>
@@ -611,7 +611,7 @@ export function LikTVPage({ onBack }: LikTVPageProps) {
               {featuredShows.filter(show => show.progress && show.progress > 0).map((show) => (
                 <div
                   key={show.id}
-                  className="min-w-[320px] bg-gray-800 rounded-lg overflow-hidden hover:bg-gray-700 transition-all cursor-pointer group"
+                  className="min-w-[320px] bg-red-800/30 backdrop-blur-sm rounded-lg overflow-hidden hover:bg-red-700/40 transition-all cursor-pointer group"
                 >
                   <div className="relative">
                     <img
@@ -624,17 +624,17 @@ export function LikTVPage({ onBack }: LikTVPageProps) {
                     </div>
                     
                     {/* Progress Bar */}
-                    <div className="absolute bottom-0 left-0 right-0 h-1 bg-gray-600">
+                    <div className="absolute bottom-0 left-0 right-0 h-1 bg-red-800/50">
                       <div 
-                        className="bg-red-600 h-1"
+                        className="bg-red-500 h-1"
                         style={{ width: `${show.progress}%` }}
                       />
                     </div>
                   </div>
                   <div className="p-4">
-                    <h3 className="text-base font-rum-raisin font-bold text-white mb-1">{show.title}</h3>
-                    <p className="text-gray-400 text-xs mb-2">{show.creator}</p>
-                    <div className="flex items-center justify-between text-xs">
+                    <h3 className="text-lg font-rum-raisin font-bold text-white mb-1">{show.title}</h3>
+                    <p className="text-gray-400 text-sm mb-2">{show.creator}</p>
+                    <div className="flex items-center justify-between text-sm">
                       <span className="text-gray-500">{show.progress}% complete</span>
                       <span className="text-gray-500">{show.duration}</span>
                     </div>
