@@ -145,12 +145,20 @@ body {
 }
 
 .instagram-gradient {
-  background: linear-gradient(45deg, #f09433 0%,#e6683c 25%,#dc2743 50%,#cc2366 75%,#bc1888 100%);
+  background: linear-gradient(135deg, 
+    rgba(255, 123, 170, 0.9) 0%,   /* #FF7BAA with transparency */
+    rgba(255, 26, 117, 0.95) 50%,  /* #FF1A75 with transparency */
+    rgba(179, 0, 38, 1) 100%       /* #B30026 solid */
+  );
 }
 
 /* Enhanced mobile interactions */
 .story-ring {
-  background: linear-gradient(45deg, #f09433 0%,#e6683c 25%,#dc2743 50%,#cc2366 75%,#bc1888 100%);
+  background: linear-gradient(135deg, 
+    rgba(255, 123, 170, 0.9) 0%,   /* #FF7BAA with transparency */
+    rgba(255, 26, 117, 0.95) 50%,  /* #FF1A75 with transparency */
+    rgba(179, 0, 38, 1) 100%       /* #B30026 solid */
+  );
   padding: 2px;
   border-radius: 50%;
   transition: transform 0.15s ease;
@@ -327,7 +335,11 @@ body {
 .fab {
   position: fixed;
   z-index: 10;
-  background: linear-gradient(45deg, #f09433 0%,#e6683c 25%,#dc2743 50%,#cc2366 75%,#bc1888 100%);
+  background: linear-gradient(135deg, 
+    rgba(255, 123, 170, 0.9) 0%,   /* #FF7BAA with transparency */
+    rgba(255, 26, 117, 0.95) 50%,  /* #FF1A75 with transparency */
+    rgba(179, 0, 38, 1) 100%       /* #B30026 solid */
+  );
   border-radius: 50%;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   transition: all 0.2s ease;
@@ -2426,25 +2438,25 @@ input, textarea, select {
   border: 1px solid rgba(249, 115, 22, 0.5);
 }
 
-/* Modern 3D Button Styling */
+/* Modern 3D Button Styling - Matching Nav Bar Colors */
 .glossy-red-pill {
   position: relative;
   background: linear-gradient(135deg, 
-    rgba(255, 165, 0, 0.9) 0%,   /* Orange top - semi-transparent */
-    rgba(255, 69, 0, 0.95) 50%,  /* Red-orange middle */
-    rgba(220, 20, 60, 1) 100%    /* Crimson bottom */
+    rgba(255, 123, 170, 0.9) 0%,   /* #FF7BAA with transparency */
+    rgba(255, 26, 117, 0.95) 50%,  /* #FF1A75 with transparency */
+    rgba(179, 0, 38, 1) 100%       /* #B30026 solid */
   );
-  border: 2px solid #DD1010;
+  border: 2px solid rgba(255, 255, 255, 0.9);
   border-radius: 25px;
   box-shadow: 
     inset 0 1px 0 rgba(255, 255, 255, 0.7),
     inset 0 3px 6px rgba(255, 255, 255, 0.4),
-    inset 0 -1px 0 rgba(221, 16, 16, 0.8),
+    inset 0 -1px 0 rgba(179, 0, 38, 0.8),
     inset 0 -3px 6px rgba(0, 0, 0, 0.2),
-    0 0 0 1px rgba(221, 16, 16, 0.3),
-    0 0 20px rgba(221, 16, 16, 0.4),
+    0 0 0 1px rgba(255, 123, 170, 0.3),
+    0 0 20px rgba(255, 123, 170, 0.4),
     0 4px 12px rgba(0, 0, 0, 0.15),
-    0 8px 25px rgba(221, 16, 16, 0.2);
+    0 8px 25px rgba(255, 26, 117, 0.2);
   color: white;
   font-weight: 600;
   text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
@@ -2488,16 +2500,16 @@ input, textarea, select {
 
 .glossy-red-pill:hover {
   transform: translateY(-2px);
-  border-color: #DD1010;
+  border-color: rgba(255, 255, 255, 0.9);
   box-shadow: 
     inset 0 1px 0 rgba(255, 255, 255, 0.8),
     inset 0 3px 8px rgba(255, 255, 255, 0.5),
-    inset 0 -1px 0 rgba(221, 16, 16, 0.9),
+    inset 0 -1px 0 rgba(179, 0, 38, 0.9),
     inset 0 -3px 8px rgba(0, 0, 0, 0.25),
-    0 0 0 2px rgba(221, 16, 16, 0.4),
-    0 0 30px rgba(221, 16, 16, 0.6),
+    0 0 0 2px rgba(255, 123, 170, 0.4),
+    0 0 30px rgba(255, 123, 170, 0.6),
     0 6px 15px rgba(0, 0, 0, 0.2),
-    0 12px 30px rgba(221, 16, 16, 0.3);
+    0 12px 30px rgba(255, 26, 117, 0.3);
 }
 
 .glossy-red-pill:hover::after {
@@ -2509,10 +2521,10 @@ input, textarea, select {
   box-shadow: 
     inset 0 1px 0 rgba(255, 255, 255, 0.5),
     inset 0 2px 4px rgba(255, 255, 255, 0.3),
-    inset 0 -1px 0 rgba(221, 16, 16, 1),
+    inset 0 -1px 0 rgba(179, 0, 38, 1),
     inset 0 -2px 4px rgba(0, 0, 0, 0.3),
-    0 0 0 1px rgba(221, 16, 16, 0.5),
-    0 0 15px rgba(221, 16, 16, 0.8),
+    0 0 0 1px rgba(255, 123, 170, 0.5),
+    0 0 15px rgba(255, 123, 170, 0.8),
     0 2px 8px rgba(0, 0, 0, 0.2);
 }
 
