@@ -272,7 +272,7 @@ export function LikTVPage({ onBack }: LikTVPageProps) {
             </Button>
             <div className="flex items-center space-x-3">
               <img src={likLogo} alt="Lik" className="w-8 h-8" />
-              <h1 className="text-2xl font-rum-raisin font-bold text-white">
+              <h1 className="text-xl md:text-2xl font-rum-raisin font-bold text-white">
                 LikTV
               </h1>
             </div>
@@ -376,11 +376,11 @@ export function LikTVPage({ onBack }: LikTVPageProps) {
                       )}
                     </div>
 
-                    <h1 className="text-4xl md:text-6xl font-rum-raisin font-bold text-white mb-4 leading-tight">
+                    <h1 className="text-3xl md:text-5xl font-rum-raisin font-bold text-white mb-4 leading-tight">
                       {show.title}
                     </h1>
                     
-                    <p className="text-lg text-gray-200 mb-6 max-w-xl leading-relaxed">
+                    <p className="text-sm md:text-base text-gray-200 mb-6 max-w-xl leading-relaxed">
                       {show.description}
                     </p>
 
@@ -506,7 +506,7 @@ export function LikTVPage({ onBack }: LikTVPageProps) {
             <div>
               <div className="flex items-center space-x-3 mb-6">
                 <div className="w-3 h-3 bg-red-500 rounded-full animate-pulse" />
-                <h2 className="text-2xl font-rum-raisin font-bold text-white">
+                <h2 className="text-xl md:text-2xl font-rum-raisin font-bold text-white">
                   Live Now
                 </h2>
               </div>
@@ -531,8 +531,8 @@ export function LikTVPage({ onBack }: LikTVPageProps) {
                       </div>
                     </div>
                     <div className="p-4">
-                      <h3 className="font-bold text-white mb-1">{show.title}</h3>
-                      <p className="text-gray-400 text-sm mb-2">{show.creator}</p>
+                      <h3 className="text-base font-rum-raisin font-bold text-white mb-1">{show.title}</h3>
+                      <p className="text-gray-400 text-xs mb-2">{show.creator}</p>
                       <div className="flex items-center justify-between text-xs text-gray-500">
                         <span>{show.viewCount}</span>
                         {show.verified && <StarIcon className="w-4 h-4 text-blue-400" />}
@@ -549,7 +549,7 @@ export function LikTVPage({ onBack }: LikTVPageProps) {
             <div className="flex items-center justify-between mb-6">
               <div className="flex items-center space-x-3">
                 <FireIcon className="w-6 h-6 text-orange-500" />
-                <h2 className="text-2xl font-rum-raisin font-bold text-white">
+                <h2 className="text-xl md:text-2xl font-rum-raisin font-bold text-white">
                   Trending Now
                 </h2>
               </div>
@@ -581,7 +581,7 @@ export function LikTVPage({ onBack }: LikTVPageProps) {
                       </div>
                     )}
                   </div>
-                  <h3 className="font-bold text-white text-sm mb-1 line-clamp-1 group-hover:text-red-400 transition-colors">
+                  <h3 className="text-base font-rum-raisin font-bold text-white mb-1 line-clamp-1 group-hover:text-red-400 transition-colors">
                     {show.title}
                   </h3>
                   <p className="text-gray-400 text-xs mb-1">{show.creator}</p>
@@ -603,7 +603,7 @@ export function LikTVPage({ onBack }: LikTVPageProps) {
           <div>
             <div className="flex items-center space-x-3 mb-6">
               <BookmarkIcon className="w-6 h-6 text-white" />
-              <h2 className="text-2xl font-rum-raisin font-bold text-white">
+              <h2 className="text-xl md:text-2xl font-rum-raisin font-bold text-white">
                 Continue Watching
               </h2>
             </div>
@@ -632,8 +632,8 @@ export function LikTVPage({ onBack }: LikTVPageProps) {
                     </div>
                   </div>
                   <div className="p-4">
-                    <h3 className="font-bold text-white mb-1">{show.title}</h3>
-                    <p className="text-gray-400 text-sm mb-2">{show.creator}</p>
+                    <h3 className="text-base font-rum-raisin font-bold text-white mb-1">{show.title}</h3>
+                    <p className="text-gray-400 text-xs mb-2">{show.creator}</p>
                     <div className="flex items-center justify-between text-xs">
                       <span className="text-gray-500">{show.progress}% complete</span>
                       <span className="text-gray-500">{show.duration}</span>
