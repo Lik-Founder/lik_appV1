@@ -2742,6 +2742,15 @@ input, textarea, select {
   border-width: 3px;
 }
 
+/* Custom bottom spacing classes for floating buttons */
+.bottom-35 {
+  bottom: 8.75rem; /* 140px - 15px above bottom-20 (80px) */
+}
+
+.bottom-39 {
+  bottom: 9.75rem; /* 156px - 15px above bottom-24 (96px) */
+}
+
 /* Gamified Candy-Glass Navigation Styles */
 .nav-candy-glass {
   background: linear-gradient(135deg, 

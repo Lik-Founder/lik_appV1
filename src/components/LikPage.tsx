@@ -514,7 +514,7 @@ export function LikPage({ onNavigate, onSelectBounty }: LikPageProps) {
       </div>
 
       {/* Enhanced Floating Map Button with Modern Design */}
-      <div className="fixed bottom-20 sm:bottom-24 left-1/2 transform -translate-x-1/2 z-10">
+      <div className="fixed bottom-35 sm:bottom-39 left-1/2 transform -translate-x-1/2 z-10">
         <div className="relative">
           {/* Multi-layer glow effects */}
           <div className="absolute inset-0 bg-gradient-to-r from-orange-500 via-amber-500 to-red-500 rounded-full blur-xl opacity-50"></div>
