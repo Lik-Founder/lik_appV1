@@ -490,9 +490,10 @@ export function SearchPage({ onNavigate, onSelectUser, onSelectRestaurant }: Sea
       {!isDeliveryMode && (
         <Button
           onClick={openMap}
+          variant="ghost"
           className={cn(
-            "fixed z-10 rounded-full shadow-lg bg-background border border-border text-foreground",
-            "hover:bg-muted transition-all duration-200",
+            "fixed z-10 rounded-full shadow-lg bg-background/90 backdrop-blur-sm text-foreground",
+            "hover:bg-muted transition-all duration-200 border-0",
             "bottom-20 left-1/2 transform -translate-x-1/2",
             device.type === 'tablet' ? "h-12 px-6" : "h-10 px-4"
           )}
