@@ -1,26 +1,30 @@
 import { useSwipe } from './use-swipe';
 import { TabType } from '@/lib/types';
-import { useCallback } from 'react';
+import { useCallback, useState } from 'react';
 
 const TAB_ORDER: TabType[] = ['home', 'search', 'lik', 'trending', 'profile'];
 
 interface UseTabSwipeProps {
-  activeTab: TabType;
+  tabs: TabType[];
   onTabChange: (tab: TabType) => void;
+  currentTab: TabType;
   onShowCreatePost?: () => void;
   disabled?: boolean;
 }
 
-export function useTabSwipe({ activeTab, onTabChange, onShowCreatePost, disabled }: UseTabSwipeProps) {
+export function useTabSwipe({ tabs, onTabChange, currentTab, onShowCreatePost, disabled }: UseTabSwipeProps) {
+  const [swipeProgress, setSwipeProgress] = useState(0);
+  const [swipeDirection, setSwipeDirection] = useState<'left' | 'right' | 'none'>('none');
+  const [isSwipeIndicatorVisible, setIsSwipeIndicatorVisible] = useState(false);
   const getCurrentIndex = useCallback(() => {
-    return TAB_ORDER.indexOf(activeTab);
-  }, [activeTab]);
+    return tabs.indexOf(currentTab);
+  }, [currentTab, tabs]);
 
   const goToNextTab = useCallback(() => {
     const currentIndex = getCurrentIndex();
-    const nextIndex = (currentIndex + 1) % TAB_ORDER.length;
-    onTabChange(TAB_ORDER[nextIndex]);
-  }, [getCurrentIndex, onTabChange]);
+    const nextIndex = (currentIndex + 1) % tabs.length;
+    onTabChange(tabs[nextIndex]);
+  }, [getCurrentIndex, onTabChange, tabs]);
 
   const goToPreviousTab = useCallback(() => {
     const currentIndex = getCurrentIndex();
@@ -31,19 +35,31 @@ export function useTabSwipe({ activeTab, onTabChange, onShowCreatePost, disabled
       return;
     }
     
-    const prevIndex = currentIndex === 0 ? TAB_ORDER.length - 1 : currentIndex - 1;
-    onTabChange(TAB_ORDER[prevIndex]);
-  }, [getCurrentIndex, onTabChange, onShowCreatePost]);
+    const prevIndex = currentIndex === 0 ? tabs.length - 1 : currentIndex - 1;
+    onTabChange(tabs[prevIndex]);
+  }, [getCurrentIndex, onTabChange, onShowCreatePost, tabs]);
 
   const swipeHandlers = useSwipe({
     onSwipedLeft: () => {
       if (!disabled) {
+        setSwipeDirection('left');
+        setIsSwipeIndicatorVisible(true);
         goToNextTab();
+        setTimeout(() => {
+          setSwipeDirection('none');
+          setIsSwipeIndicatorVisible(false);
+        }, 300);
       }
     },
     onSwipedRight: () => {
       if (!disabled) {
+        setSwipeDirection('right');
+        setIsSwipeIndicatorVisible(true);
         goToPreviousTab();
+        setTimeout(() => {
+          setSwipeDirection('none');
+          setIsSwipeIndicatorVisible(false);
+        }, 300);
       }
     },
   }, {
@@ -54,10 +70,14 @@ export function useTabSwipe({ activeTab, onTabChange, onShowCreatePost, disabled
   });
 
   return {
-    ...swipeHandlers,
+    currentIndex: getCurrentIndex(),
+    swipeHandlers,
+    swipeProgress,
+    swipeDirection,
+    isSwipeIndicatorVisible,
     goToNextTab,
     goToPreviousTab,
     currentTabIndex: getCurrentIndex(),
-    totalTabs: TAB_ORDER.length,
+    totalTabs: tabs.length,
   };
 }

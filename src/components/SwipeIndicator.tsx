@@ -2,57 +2,35 @@ import { useState, useEffect } from 'react';
 import { TabType } from '@/lib/types';
 
 interface SwipeIndicatorProps {
-  activeTab: TabType;
-  isVisible: boolean;
+  direction: 'left' | 'right' | 'none';
+  progress: number;
 }
 
-const TAB_ORDER: TabType[] = ['home', 'search', 'lik', 'trending', 'profile'];
-
-const TAB_NAMES = {
-  home: 'Home',
-  search: 'Explore', 
-  lik: 'Lik',
-  trending: 'Trending',
-  profile: 'Profile',
-};
-
-export function SwipeIndicator({ activeTab, isVisible }: SwipeIndicatorProps) {
+export function SwipeIndicator({ direction, progress }: SwipeIndicatorProps) {
   const [showIndicator, setShowIndicator] = useState(false);
   
   useEffect(() => {
-    if (isVisible) {
+    if (direction !== 'none' && progress > 0) {
       setShowIndicator(true);
       const timer = setTimeout(() => {
         setShowIndicator(false);
-      }, 2000);
+      }, 1000);
       return () => clearTimeout(timer);
+    } else {
+      setShowIndicator(false);
     }
-  }, [isVisible]);
+  }, [direction, progress]);
 
-  const currentIndex = TAB_ORDER.indexOf(activeTab);
+  if (!showIndicator) return null;
 
   return (
-    <>
-      {/* Tab indicator dots */}
-      <div className={`swipe-indicator-dots ${showIndicator ? 'active' : ''}`}>
-        {TAB_ORDER.map((tab, index) => (
-          <div
-            key={tab}
-            className={`swipe-indicator-dot ${index === currentIndex ? 'active' : ''}`}
-          />
-        ))}
-      </div>
-
-      {/* Current tab name indicator */}
-      {showIndicator && (
-        <div className="swipe-feedback-indicator active" style={{ 
-          left: '50%', 
-          transform: 'translateX(-50%) translateY(-50%)',
-          top: '45%'
-        }}>
-          {TAB_NAMES[activeTab]}
-        </div>
-      )}
-    </>
+    <div className="swipe-feedback-indicator active" style={{ 
+      left: direction === 'right' ? '20px' : 'auto',
+      right: direction === 'left' ? '20px' : 'auto', 
+      transform: 'translateY(-50%)',
+      top: '50%'
+    }}>
+      {direction === 'left' ? '→' : '←'}
+    </div>
   );
 }

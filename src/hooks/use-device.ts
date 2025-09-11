@@ -3,7 +3,7 @@ import { useEffect, useState } from "react"
 export type DeviceType = 'phone' | 'tablet' | 'foldable'
 export type Orientation = 'portrait' | 'landscape'
 
-interface DeviceInfo {
+export interface DeviceInfo {
   type: DeviceType
   orientation: Orientation
   isIOS: boolean
@@ -11,6 +11,14 @@ interface DeviceInfo {
   hasNotch: boolean
   screenHeight: number
   screenWidth: number
+  isMobile: boolean
+}
+
+export interface SafeAreaInfo {
+  top: number
+  bottom: number
+  left: number
+  right: number
 }
 
 export function useDevice() {
@@ -21,7 +29,8 @@ export function useDevice() {
     isAndroid: false,
     hasNotch: false,
     screenHeight: 0,
-    screenWidth: 0
+    screenWidth: 0,
+    isMobile: true
   })
 
   useEffect(() => {
@@ -67,7 +76,8 @@ export function useDevice() {
         isAndroid,
         hasNotch,
         screenHeight: height,
-        screenWidth: width
+        screenWidth: width,
+        isMobile: type === 'phone' || isIOS || isAndroid
       })
     }
 
@@ -85,8 +95,8 @@ export function useDevice() {
 }
 
 // Safe area utilities for iOS devices
-export function useSafeArea() {
-  const [safeArea, setSafeArea] = useState({
+export function useSafeArea(): SafeAreaInfo {
+  const [safeArea, setSafeArea] = useState<SafeAreaInfo>({
     top: 0,
     bottom: 0,
     left: 0,
