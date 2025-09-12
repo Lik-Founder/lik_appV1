@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { ArrowLeft, Search, Bell, User, Play, Filter, X, Zap, Star, TrendingUp, Clock, Users, Heart, Bookmark, Share, Volume2, Eye, ChevronRight, Info } from 'lucide-react';
+import { ArrowLeft, Search, Bell, User, Play, Filter, X, Zap, Star, TrendingUp, Clock, Users, Heart, Bookmark, Share, Volume2, Eye, ChevronRight, Info, LucideIcon } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { cn } from '@/lib/utils';
@@ -8,7 +8,46 @@ interface LikTVPageProps {
   onBack: () => void;
 }
 
-const featuredShows = [
+interface FeaturedShow {
+  id: number;
+  title: string;
+  description: string;
+  image: string;
+  type: string;
+  rating: number;
+  duration: string;
+  episodes: number;
+  genre: string;
+  year: number;
+  viewers: string;
+}
+
+interface ContentShow {
+  id: number;
+  title: string;
+  creator: string;
+  network: string;
+  thumbnail: string;
+  views: string;
+  duration: string;
+  rating: number;
+  likes: string;
+  type: string;
+  episodes?: number;
+  isNew?: boolean;
+  isPopular?: boolean;
+  isExclusive?: boolean;
+  isLive?: boolean;
+}
+
+interface ContentSection {
+  title: string;
+  icon: LucideIcon;
+  description: string;
+  shows: ContentShow[];
+}
+
+const featuredShows: FeaturedShow[] = [
   {
     id: 1,
     title: 'Chef\'s Table: Culinary Masters',
@@ -50,7 +89,7 @@ const featuredShows = [
   }
 ];
 
-const contentSections = [
+const contentSections: ContentSection[] = [
   {
     title: 'Trending Now',
     icon: TrendingUp,
@@ -421,7 +460,7 @@ export function LikTVPage({ onBack }: LikTVPageProps) {
             ref={carouselRef}
             className="flex transition-transform duration-1000 ease-out h-full"
             style={{
-              transform: `translateX(${(-currentSlide * 100) + (isDragging ? (currentPos / window.innerWidth) * 100 : 0)}%)`
+              transform: `translateX(${(-currentSlide * 100) + (isDragging ? (currentPos / (typeof window !== 'undefined' ? window.innerWidth : 800)) * 100 : 0)}%)`
             }}
             onMouseDown={handleMouseDown}
             onMouseMove={handleMouseMove}
