@@ -97,7 +97,7 @@ export function Navigation({ activeTab, onTabChange }: NavigationProps) {
               
               {/* Text label */}
               <div 
-                className="font-rum-raisin font-bold text-white tracking-wide"
+                className="font-rum-raisin font-bold text-white tracking-wide flex items-center justify-center"
                 style={{
                   fontSize: '0.68rem',
                   lineHeight: '1',
@@ -105,7 +105,9 @@ export function Navigation({ activeTab, onTabChange }: NavigationProps) {
                   textShadow: isActive
                     ? '0 1px 3px rgba(0, 0, 0, 0.8), 0 0 6px rgba(255, 215, 0, 0.2)'
                     : '0 1px 3px rgba(0, 0, 0, 0.8)',
-                  transform: 'translateY(-7px)' // Moved labels down 2 pixels (from -9px to -7px)
+                  transform: 'translateY(-7px)',
+                  minHeight: '14px', // Ensure consistent height for all labels
+                  alignItems: 'center' // Vertically center the text
                 }}
               >
                 {tab.label}
