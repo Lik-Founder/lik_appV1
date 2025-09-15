@@ -494,7 +494,7 @@ export function SearchPage({ onNavigate, onSelectUser, onSelectRestaurant }: Sea
           className={cn(
             "fixed z-10 rounded-full shadow-lg bg-background/90 backdrop-blur-sm text-foreground",
             "hover:bg-muted transition-all duration-200 border-0",
-            "bottom-16 left-1/2 transform -translate-x-1/2",
+            "bottom-map-mobile left-1/2 transform -translate-x-1/2",
             device.type === 'tablet' ? "h-12 px-6" : "h-10 px-4"
           )}
         >
@@ -510,7 +510,7 @@ export function SearchPage({ onNavigate, onSelectUser, onSelectRestaurant }: Sea
           className={cn(
             "fixed z-10 rounded-full shadow-lg bg-primary text-primary-foreground",
             "hover:bg-primary/90 transition-all duration-200",
-            "bottom-16 left-1/2 transform -translate-x-1/2",
+            "bottom-map-mobile left-1/2 transform -translate-x-1/2",
             device.type === 'tablet' ? "h-12 px-6" : "h-10 px-4"
           )}
         >

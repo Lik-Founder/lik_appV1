@@ -2763,6 +2763,11 @@ input, textarea, select {
   bottom: 9.75rem; /* 156px - 15px above bottom-24 (96px) */
 }
 
+/* Map button positioning - 15px above nav bar */
+.bottom-map-mobile {
+  bottom: 4.75rem; /* 76px - 15px above 64px nav bar */
+}
+
 /* Gamified Candy-Glass Navigation Styles */
 .nav-candy-glass {
   background: linear-gradient(135deg, 
