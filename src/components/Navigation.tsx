@@ -106,8 +106,13 @@ export function Navigation({ activeTab, onTabChange }: NavigationProps) {
                     ? '0 1px 3px rgba(0, 0, 0, 0.8), 0 0 6px rgba(255, 215, 0, 0.2)'
                     : '0 1px 3px rgba(0, 0, 0, 0.8)',
                   transform: 'translateY(-7px)',
-                  minHeight: '14px', // Ensure consistent height for all labels
-                  alignItems: 'center' // Vertically center the text
+                  minHeight: '14px',
+                  alignItems: 'center',
+                  display: 'flex',
+                  position: 'relative',
+                  // Fix for "Lik" text alignment - ensure baseline alignment
+                  verticalAlign: 'baseline',
+                  top: tab.label === 'Lik' ? '1px' : '0px' // Move "Lik" text up by 1px to match other labels
                 }}
               >
                 {tab.label}
