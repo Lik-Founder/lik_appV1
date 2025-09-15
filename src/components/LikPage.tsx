@@ -7,6 +7,7 @@ import { ProfileAvatar } from '@/components/ProfileAvatar';
 import { ProfileDropdown } from '@/components/ProfileDropdown';
 import { BountyCardModal } from '@/components/BountyCardModal';
 import { QuestCardModal } from '@/components/QuestCardModal';
+import likBackground from '@/assets/images/lik_background.png';
 import { 
   FireIcon, 
   DocumentIcon as TicketIcon, 
@@ -255,38 +256,49 @@ export function LikPage({ onNavigate, onSelectBounty }: LikPageProps) {
   };
 
   return (
-    <div className="h-full flex flex-col bg-gradient-to-br from-orange-500/10 via-red-500/8 to-red-700/10 overflow-hidden relative">
-      {/* Modern Background Effects */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        {/* Floating Glossy Orbs */}
-        <div className="absolute top-10 left-10 w-20 h-20 bg-gradient-to-br from-orange-400/30 to-red-500/20 rounded-full blur-sm"></div>
-        <div className="absolute top-32 right-16 w-16 h-16 bg-gradient-to-br from-red-500/25 to-red-700/15 rounded-full blur-sm"></div>
-        <div className="absolute bottom-20 left-1/4 w-12 h-12 bg-gradient-to-br from-amber-500/20 to-orange-500/15 rounded-full blur-sm"></div>
-        <div className="absolute top-1/2 right-8 w-8 h-8 bg-gradient-to-br from-orange-500/30 to-red-500/25 rounded-full blur-sm"></div>
+    <div className="h-full flex flex-col overflow-hidden relative">
+      {/* Enhanced Background with Lik Background Image */}
+      <div 
+        className="absolute inset-0 bg-cover bg-center bg-no-repeat overflow-hidden"
+        style={{ 
+          backgroundImage: `url(${likBackground})`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center'
+        }}
+      >
+        {/* Dark overlay for better text readability */}
+        <div className="absolute inset-0 bg-black/30"></div>
         
-        {/* Ambient Glow Particles */}
-        <div className="absolute top-20 left-1/3 w-4 h-4 bg-orange-500/40 rounded-full animate-pulse"></div>
-        <div className="absolute bottom-40 right-1/3 w-6 h-6 bg-amber-500/30 rounded-full animate-pulse" style={{ animationDelay: '1s' }}></div>
-        <div className="absolute top-1/3 left-16 w-3 h-3 bg-red-500/35 rounded-full animate-pulse" style={{ animationDelay: '2s' }}></div>
+        {/* Candy-glass gradient overlay */}
+        <div className="absolute inset-0 bg-gradient-to-br from-[#FF7BAA]/20 via-[#FF1A75]/10 to-[#B30026]/15"></div>
         
-        {/* Floating Sparkles */}
-        <div className="absolute top-24 right-24 text-orange-500/50 animate-pulse">✨</div>
-        <div className="absolute bottom-32 left-20 text-amber-500/40 animate-pulse" style={{ animationDelay: '1.5s' }}>💫</div>
-        <div className="absolute top-48 left-1/2 text-red-500/45 animate-pulse" style={{ animationDelay: '0.5s' }}>⭐</div>
+        {/* Floating magical effects */}
+        <div className="absolute inset-0 overflow-hidden pointer-events-none">
+          {/* Floating Candy-Gloss Orbs */}
+          <div className="absolute top-16 left-8 w-16 h-16 bg-gradient-to-br from-[#FF7BAA]/40 to-[#FF1A75]/30 rounded-full blur-lg animate-pulse"></div>
+          <div className="absolute top-40 right-12 w-12 h-12 bg-gradient-to-br from-[#FF4D88]/35 to-[#B30026]/25 rounded-full blur-md animate-pulse" style={{ animationDelay: '1s' }}></div>
+          <div className="absolute bottom-32 left-1/4 w-20 h-20 bg-gradient-to-br from-[#FF1A75]/30 to-[#8B0000]/20 rounded-full blur-xl animate-pulse" style={{ animationDelay: '2s' }}></div>
+          <div className="absolute top-1/2 right-16 w-14 h-14 bg-gradient-to-br from-[#FF7BAA]/35 to-[#FF4D88]/25 rounded-full blur-lg animate-pulse" style={{ animationDelay: '0.5s' }}></div>
+          
+          {/* Magical Sparkles */}
+          <div className="absolute top-24 right-20 text-3xl text-[#FF7BAA]/70 animate-pulse">✨</div>
+          <div className="absolute bottom-40 left-16 text-2xl text-[#FF4D88]/60 animate-pulse" style={{ animationDelay: '1.5s' }}>🌟</div>
+          <div className="absolute top-56 left-1/3 text-xl text-[#FF1A75]/65 animate-pulse" style={{ animationDelay: '0.8s' }}>💫</div>
+          <div className="absolute bottom-20 right-1/3 text-2xl text-[#B30026]/50 animate-pulse" style={{ animationDelay: '2.3s' }}>⭐</div>
+        </div>
       </div>
 
-      {/* Modern Header with Enhanced 3D Effects */}
-      <div className="bg-gradient-to-r from-orange-500/15 via-red-500/10 to-red-700/15 backdrop-blur-lg border-b border-orange-500/20 shadow-[0_8px_32px_rgba(255,165,0,0.12)] relative">
-        {/* Header Glow Effect */}
-        <div className="absolute inset-0 bg-gradient-to-r from-orange-500/5 via-amber-500/8 to-red-500/5 blur-xl"></div>
-        {/* Top Section - Enhanced User Progress with Candy-Gloss Effects */}
-        <div className="relative px-3 sm:px-4 py-3 sm:py-4 flex items-center justify-between">
-          {/* Profile with Modern XP Ring */}
+      {/* Header without App Bar - Direct Content */}
+      <div className="relative z-10 px-4 py-6 flex flex-col gap-6">
+        {/* Enhanced User Progress Header */}
+        <div className="flex items-center justify-between">
+          {/* Profile Avatar with Enhanced Glow */}
           <div 
             ref={avatarRef}
             className="relative cursor-pointer group flex-shrink-0"
             onClick={handleAvatarClick}
           >
+            <div className="absolute -inset-2 bg-gradient-to-r from-[#FF7BAA] to-[#FF4D88] rounded-full blur-lg opacity-60 group-hover:opacity-80 transition-opacity"></div>
             <ProfileAvatar
               src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face"
               alt="User"
@@ -297,178 +309,164 @@ export function LikPage({ onNavigate, onSelectBounty }: LikPageProps) {
             />
           </div>
 
-          {/* Enhanced Stats Row with Modern Effects */}
-          <div className="flex items-center gap-2 sm:gap-4 lg:gap-6">
-            {/* Streak with Modern Effect */}
+          {/* Enhanced Stats with Better Visibility */}
+          <div className="flex items-center gap-4">
+            {/* Streak */}
             <div className="flex flex-col items-center">
               <div className="relative">
-                {/* Glow effect */}
-                <div className="absolute inset-0 bg-gradient-to-r from-orange-500 to-red-500 rounded-full blur-sm opacity-60"></div>
-                <div className="relative flex items-center gap-1 glossy-red-pill px-2 sm:px-3 py-1 sm:py-2 shadow-[0_0_16px_rgba(255,165,0,0.5)]">
-                  <FireIcon width={14} height={14} className="text-white drop-shadow-sm fill-current" />
-                  <span className="font-bold text-xs sm:text-sm text-white">{userProgress.streakCount}</span>
+                <div className="absolute inset-0 bg-gradient-to-r from-[#FF7BAA] to-[#FF1A75] rounded-full blur-lg opacity-70"></div>
+                <div className="relative glossy-red-pill px-3 py-2 shadow-[0_0_20px_rgba(255,77,136,0.6)]">
+                  <FireIcon width={16} height={16} className="text-white drop-shadow-lg inline mr-1" />
+                  <span className="font-bold text-sm text-white font-rum-raisin">{userProgress.streakCount}</span>
                 </div>
               </div>
-              <span className="text-xs text-gray-600 mt-1 font-medium hidden sm:inline">Streak</span>
+              <span className="text-xs text-white/80 mt-1 font-medium drop-shadow-md">Streak</span>
             </div>
 
-            {/* Tickets with Modern Effect */}
+            {/* Tickets */}
             <div className="flex flex-col items-center">
               <div className="relative">
-                {/* Glow effect */}
-                <div className="absolute inset-0 bg-gradient-to-r from-red-500 to-red-700 rounded-full blur-sm opacity-60"></div>
-                <div className="relative flex items-center gap-1 glossy-red-pill px-2 sm:px-3 py-1 sm:py-2 shadow-[0_0_16px_rgba(220,20,60,0.5)]">
-                  <TicketIcon className="w-3.5 h-3.5 text-white drop-shadow-sm fill-current" />
-                  <span className="font-bold text-xs sm:text-sm text-white">{userProgress.likTickets}</span>
+                <div className="absolute inset-0 bg-gradient-to-r from-[#FF4D88] to-[#B30026] rounded-full blur-lg opacity-70"></div>
+                <div className="relative glossy-red-pill px-3 py-2 shadow-[0_0_20px_rgba(255,77,136,0.6)]">
+                  <TicketIcon className="w-4 h-4 text-white drop-shadow-lg inline mr-1" />
+                  <span className="font-bold text-sm text-white font-rum-raisin">{userProgress.likTickets}</span>
                 </div>
               </div>
-              <span className="text-xs text-gray-600 mt-1 font-medium hidden sm:inline">Tickets</span>
+              <span className="text-xs text-white/80 mt-1 font-medium drop-shadow-md">Tickets</span>
             </div>
 
-            {/* Coins with Modern Effect */}
+            {/* Coins */}
             <div className="flex flex-col items-center">
               <div className="relative">
-                {/* Glow effect */}
-                <div className="absolute inset-0 bg-gradient-to-r from-amber-500 to-orange-500 rounded-full blur-sm opacity-60"></div>
-                <div className="relative flex items-center gap-1 glossy-red-pill px-2 sm:px-3 py-1 sm:py-2 shadow-[0_0_16px_rgba(255,165,0,0.5)]">
-                  <CoinsIcon className="w-3.5 h-3.5 text-white drop-shadow-sm fill-current animate-pulse" />
-                  <span className="font-bold text-xs sm:text-sm text-white">{userProgress.likCoins > 999 ? `${(userProgress.likCoins / 1000).toFixed(1)}k` : userProgress.likCoins}</span>
+                <div className="absolute inset-0 bg-gradient-to-r from-[#FF1A75] to-[#8B0000] rounded-full blur-lg opacity-70"></div>
+                <div className="relative glossy-red-pill px-3 py-2 shadow-[0_0_20px_rgba(255,77,136,0.6)]">
+                  <CoinsIcon className="w-4 h-4 text-white drop-shadow-lg inline mr-1 animate-pulse" />
+                  <span className="font-bold text-sm text-white font-rum-raisin">{userProgress.likCoins > 999 ? `${(userProgress.likCoins / 1000).toFixed(1)}k` : userProgress.likCoins}</span>
                 </div>
               </div>
-              <span className="text-xs text-gray-600 mt-1 font-medium hidden sm:inline">Coins</span>
+              <span className="text-xs text-white/80 mt-1 font-medium drop-shadow-md">Coins</span>
             </div>
           </div>
         </div>
 
-        {/* Secondary Navigation with Enhanced Modern Effects */}
-        <div className="relative px-3 sm:px-4 py-2 sm:py-3 flex items-center justify-center">
-          {/* Navigation Background Glow */}
-          <div className="absolute inset-0 bg-gradient-to-r from-orange-500/5 via-amber-500/8 to-red-500/5 blur-lg"></div>
-          
-          <div className="relative flex items-center gap-3 sm:gap-4 lg:gap-6 w-full max-w-md justify-center">
-            {/* Leaderboard with Modern Style */}
-            <div className="relative">
-              <div className="absolute inset-0 bg-orange-500/30 rounded-full blur-md"></div>
-              <Button 
-                variant="ghost" 
-                size="sm" 
-                onClick={() => onNavigate('leaderboard')}
-                className="relative bg-white/60 hover:bg-white/80 backdrop-blur-sm rounded-full p-2 sm:p-3 shadow-[0_0_12px_rgba(255,165,0,0.3)] border border-orange-500/20 transition-all duration-300 hover:shadow-[0_0_20px_rgba(255,165,0,0.5)] hover:scale-105"
+        {/* Enhanced Navigation Row */}
+        <div className="flex items-center justify-center gap-6">
+          {/* Leaderboard */}
+          <div className="relative">
+            <div className="absolute inset-0 bg-[#FF7BAA]/40 rounded-full blur-md"></div>
+            <Button 
+              variant="ghost" 
+              size="sm" 
+              onClick={() => onNavigate('leaderboard')}
+              className="relative bg-white/20 hover:bg-white/30 backdrop-blur-md rounded-full p-3 shadow-[0_0_16px_rgba(255,123,170,0.4)] border border-white/30 transition-all duration-300 hover:shadow-[0_0_24px_rgba(255,123,170,0.6)] hover:scale-110"
+            >
+              <TrophyIcon className="w-5 h-5 text-white drop-shadow-lg" />
+            </Button>
+          </div>
+
+          {/* Enhanced Tab Selector */}
+          <div className="relative">
+            <div className="absolute inset-0 bg-gradient-to-r from-[#FF7BAA]/30 via-[#FF4D88]/40 to-[#FF1A75]/30 rounded-2xl blur-lg"></div>
+            
+            <div className="relative bg-white/20 backdrop-blur-md rounded-2xl p-2 flex shadow-[0_0_24px_rgba(255,123,170,0.3)] border border-white/30">
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => setActiveView('bounties')}
+                className={cn(
+                  "font-rum-raisin rounded-xl px-6 py-3 relative overflow-hidden transition-all duration-300",
+                  activeView === 'bounties' 
+                    ? "glossy-red-pill text-white font-bold shadow-[0_0_20px_rgba(255,123,170,0.7)]" 
+                    : "text-white/80 font-medium hover:bg-white/20 hover:text-white hover:shadow-[0_0_12px_rgba(255,123,170,0.3)]"
+                )}
               >
-                <TrophyIcon className="w-4 h-4 text-red-600 drop-shadow-sm" />
+                <TargetIcon className="w-4 h-4 mr-2" />
+                Bounties
+                {activeView === 'bounties' && (
+                  <SparklesIcon className="w-3 h-3 ml-2 text-white drop-shadow-lg" />
+                )}
+              </Button>
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => setActiveView('quests')}
+                className={cn(
+                  "font-rum-raisin rounded-xl px-6 py-3 relative overflow-hidden transition-all duration-300",
+                  activeView === 'quests' 
+                    ? "glossy-red-pill text-white font-bold shadow-[0_0_20px_rgba(255,123,170,0.7)]" 
+                    : "text-white/80 font-medium hover:bg-white/20 hover:text-white hover:shadow-[0_0_12px_rgba(255,123,170,0.3)]"
+                )}
+              >
+                <SwordIcon className="w-4 h-4 mr-2" />
+                Quests
+                {activeView === 'quests' && (
+                  <ShieldCheckIcon className="w-3 h-3 ml-2 text-white drop-shadow-lg" />
+                )}
               </Button>
             </div>
+          </div>
 
-            {/* Enhanced Tab Selector with Modern Design */}
-            <div className="relative">
-              {/* Tab Container Glow */}
-              <div className="absolute inset-0 bg-gradient-to-r from-orange-500/20 via-amber-500/25 to-red-500/20 rounded-xl sm:rounded-2xl blur-lg"></div>
-              
-              <div className="relative bg-white/70 backdrop-blur-md rounded-xl sm:rounded-2xl p-1 sm:p-1.5 flex shadow-[0_0_20px_rgba(255,165,0,0.2)] border border-orange-500/30 flex-1 max-w-xs">
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  onClick={() => setActiveView('bounties')}
-                  className={cn(
-                    "font-rum-raisin rounded-lg sm:rounded-xl px-3 sm:px-4 py-2 sm:py-3 relative overflow-hidden flex-1 text-xs sm:text-sm transition-all duration-300",
-                    activeView === 'bounties' 
-                      ? "glossy-red-pill text-white font-bold shadow-[0_0_16px_rgba(255,165,0,0.6)]" 
-                      : "text-gray-600 font-medium hover:bg-white/50 hover:text-red-600 hover:shadow-[0_0_8px_rgba(255,165,0,0.2)]"
-                  )}
-                >
-                  <TargetIcon className="w-3 h-3 mr-1 sm:mr-2" />
-                  <span className="hidden sm:inline">Bounties</span>
-                  <span className="sm:hidden">Bounty</span>
-                  {activeView === 'bounties' && (
-                    <SparklesIcon className="w-2.5 h-2.5 ml-1 sm:ml-2 text-white drop-shadow-sm" />
-                  )}
-                </Button>
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  onClick={() => setActiveView('quests')}
-                  className={cn(
-                    "font-rum-raisin rounded-lg sm:rounded-xl px-3 sm:px-4 py-2 sm:py-3 relative overflow-hidden flex-1 text-xs sm:text-sm transition-all duration-300",
-                    activeView === 'quests' 
-                      ? "glossy-red-pill text-white font-bold shadow-[0_0_16px_rgba(255,165,0,0.6)]" 
-                      : "text-gray-600 font-medium hover:bg-white/50 hover:text-red-600 hover:shadow-[0_0_8px_rgba(255,165,0,0.2)]"
-                  )}
-                >
-                  <SwordIcon className="w-3 h-3 mr-1 sm:mr-2" />
-                  <span className="hidden sm:inline">Quests</span>
-                  <span className="sm:hidden">Quest</span>
-                  {activeView === 'quests' && (
-                    <ShieldCheckIcon className="w-2.5 h-2.5 ml-1 sm:ml-2 text-white drop-shadow-sm" />
-                  )}
-                </Button>
+          {/* Rewards */}
+          <div className="relative">
+            <div className="absolute inset-0 bg-[#FF4D88]/40 rounded-full blur-md"></div>
+            <Button 
+              variant="ghost" 
+              size="sm" 
+              onClick={() => onNavigate('rewards')}
+              className="relative bg-white/20 hover:bg-white/30 backdrop-blur-md rounded-full p-3 shadow-[0_0_16px_rgba(255,77,136,0.4)] border border-white/30 transition-all duration-300 hover:shadow-[0_0_24px_rgba(255,77,136,0.6)] hover:scale-110"
+            >
+              <GiftIcon className="w-5 h-5 text-white drop-shadow-lg" />
+              <div className="absolute -top-1 -right-1">
+                <ConfettiIcon className="w-3 h-3 text-[#FF7BAA] drop-shadow-[0_0_6px_rgba(255,123,170,0.8)]" />
               </div>
-            </div>
-
-            {/* Rewards with Modern Style */}
-            <div className="relative">
-              <div className="absolute inset-0 bg-amber-500/30 rounded-full blur-md"></div>
-              <Button 
-                variant="ghost" 
-                size="sm" 
-                onClick={() => onNavigate('rewards')}
-                className="relative bg-white/60 hover:bg-white/80 backdrop-blur-sm rounded-full p-2 sm:p-3 shadow-[0_0_12px_rgba(245,158,11,0.3)] border border-amber-500/20 transition-all duration-300 hover:shadow-[0_0_20px_rgba(245,158,11,0.5)] hover:scale-105"
-              >
-                <GiftIcon className="w-4 h-4 text-red-600 drop-shadow-sm" />
-                <div className="absolute -top-0.5 -right-0.5">
-                  <ConfettiIcon className="w-2.5 h-2.5 text-orange-500 drop-shadow-[0_0_4px_rgba(255,165,0,0.8)]" />
-                </div>
-              </Button>
-            </div>
+            </Button>
           </div>
         </div>
       </div>
 
       {/* Scrollable Content */}
-      <div className="flex-1 overflow-y-auto scrollbar-hide pb-20">
-        {/* Enhanced Filter Tabs with Modern Design */}
+      <div className="flex-1 overflow-y-auto scrollbar-hide pb-20 relative z-10">
+        {/* Enhanced Filter Tabs */}
         {activeView === 'bounties' && (
           <>
-            <div className="px-3 sm:px-4 py-4 sm:py-6 flex justify-center">
-              <div className="flex gap-2 sm:gap-3 flex-wrap justify-center max-w-sm sm:max-w-none">
+            <div className="px-4 py-6 flex justify-center">
+              <div className="flex gap-3 flex-wrap justify-center">
                 {(['nearby', 'most-wanted', 'for-you'] as const).map((filter) => (
                   <div key={filter} className="relative">
                     {selectedFilter === filter && (
-                      <div className="absolute inset-0 bg-gradient-to-r from-orange-500/40 via-amber-500/50 to-red-500/40 rounded-full blur-md"></div>
+                      <div className="absolute inset-0 bg-gradient-to-r from-[#FF7BAA]/50 via-[#FF4D88]/60 to-[#FF1A75]/50 rounded-full blur-lg"></div>
                     )}
                     <Button
                       variant="ghost"
                       size="sm"
                       onClick={() => setSelectedFilter(filter)}
                       className={cn(
-                        "relative rounded-full font-rum-raisin px-3 sm:px-4 py-1.5 sm:py-2 overflow-hidden text-xs sm:text-sm transition-all duration-300",
+                        "relative rounded-full font-rum-raisin px-4 py-2 overflow-hidden transition-all duration-300",
                         selectedFilter === filter 
-                          ? "glossy-red-pill text-white font-bold shadow-[0_0_16px_rgba(255,165,0,0.6)]" 
-                          : "bg-white/60 backdrop-blur-sm text-gray-600 font-medium hover:bg-white/80 shadow-md hover:shadow-[0_0_12px_rgba(255,165,0,0.3)] hover:text-red-600 hover:scale-105"
+                          ? "glossy-red-pill text-white font-bold shadow-[0_0_20px_rgba(255,123,170,0.7)]" 
+                          : "bg-white/20 backdrop-blur-md text-white/90 font-medium hover:bg-white/30 shadow-md hover:shadow-[0_0_16px_rgba(255,123,170,0.4)] hover:text-white hover:scale-105 border border-white/30"
                       )}
                     >
                       {filter === 'nearby' && (
                         <>
-                          <MapPin className="w-3 h-3 mr-1 sm:mr-1.5" />
-                          <span className="hidden xs:inline">Nearby</span>
-                          <span className="xs:hidden">Near</span>
+                          <MapPin className="w-3 h-3 mr-2" />
+                          Nearby
                         </>
                       )}
                       {filter === 'most-wanted' && (
                         <>
-                          <LightningIcon className="w-3 h-3 mr-1 sm:mr-1.5" />
-                          <span className="hidden sm:inline">Most Wanted</span>
-                          <span className="sm:hidden">Hot</span>
+                          <LightningIcon className="w-3 h-3 mr-2" />
+                          Most Wanted
                         </>
                       )}
                       {filter === 'for-you' && (
                         <>
-                          <StarIcon className="w-3 h-3 mr-1 sm:mr-1.5" />
-                          <span className="hidden xs:inline">For You</span>
-                          <span className="xs:hidden">You</span>
+                          <StarIcon className="w-3 h-3 mr-2" />
+                          For You
                         </>
                       )}
                       {selectedFilter === filter && (
-                        <SparklesIcon className="w-2 h-2 ml-1 sm:ml-1.5 text-white drop-shadow-sm" />
+                        <SparklesIcon className="w-2.5 h-2.5 ml-2 text-white drop-shadow-lg" />
                       )}
                     </Button>
                   </div>
@@ -476,23 +474,22 @@ export function LikPage({ onNavigate, onSelectBounty }: LikPageProps) {
               </div>
             </div>
 
-            {/* Enhanced Search Bar with Modern Effects */}
-            <div className="px-3 sm:px-4 pb-4 sm:pb-6">
+            {/* Enhanced Search Bar */}
+            <div className="px-4 pb-6">
               <div className="relative max-w-md mx-auto">
-                {/* Multi-layer glow effect */}
-                <div className="absolute inset-0 bg-gradient-to-r from-orange-500/20 via-amber-500/30 to-red-500/20 rounded-xl sm:rounded-2xl blur-lg"></div>
-                <div className="absolute inset-0 bg-gradient-to-r from-orange-500/10 via-amber-500/15 to-red-500/10 rounded-xl sm:rounded-2xl blur-sm"></div>
+                <div className="absolute inset-0 bg-gradient-to-r from-[#FF7BAA]/30 via-[#FF4D88]/40 to-[#FF1A75]/30 rounded-2xl blur-xl"></div>
+                <div className="absolute inset-0 bg-gradient-to-r from-[#FF7BAA]/20 via-[#FF4D88]/25 to-[#FF1A75]/20 rounded-2xl blur-lg"></div>
                 
-                <div className="relative bg-white/80 backdrop-blur-md rounded-xl sm:rounded-2xl border border-orange-500/30 shadow-[0_0_20px_rgba(255,165,0,0.15)]">
-                  <MagnifyingGlassIcon className="absolute left-3 sm:left-4 top-1/2 transform -translate-y-1/2 w-4 h-4 text-red-600 drop-shadow-sm" />
+                <div className="relative bg-white/25 backdrop-blur-md rounded-2xl border border-white/40 shadow-[0_0_24px_rgba(255,123,170,0.2)]">
+                  <MagnifyingGlassIcon className="absolute left-4 top-1/2 transform -translate-y-1/2 w-4 h-4 text-white drop-shadow-lg" />
                   <Input
                     placeholder="🔍 Discover epic bounties..."
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
-                    className="pl-10 sm:pl-12 pr-10 sm:pr-12 py-2.5 sm:py-3 bg-transparent border-none text-gray-700 placeholder-gray-500 font-medium text-sm sm:text-base focus:ring-2 focus:ring-orange-500/40"
+                    className="pl-12 pr-12 py-3 bg-transparent border-none text-white placeholder-white/70 font-medium focus:ring-2 focus:ring-[#FF7BAA]/50"
                   />
-                  <div className="absolute right-3 sm:right-4 top-1/2 transform -translate-y-1/2">
-                    <div className="w-2 h-2 bg-gradient-to-r from-orange-500 to-red-500 rounded-full shadow-[0_0_8px_rgba(255,165,0,0.6)] animate-pulse"></div>
+                  <div className="absolute right-4 top-1/2 transform -translate-y-1/2">
+                    <div className="w-2 h-2 bg-gradient-to-r from-[#FF7BAA] to-[#FF1A75] rounded-full shadow-[0_0_8px_rgba(255,123,170,0.8)] animate-pulse"></div>
                   </div>
                 </div>
               </div>
@@ -513,26 +510,25 @@ export function LikPage({ onNavigate, onSelectBounty }: LikPageProps) {
         )}
       </div>
 
-      {/* Enhanced Floating Map Button with Modern Design */}
-      <div className="fixed bottom-map-mobile sm:bottom-20 left-1/2 transform -translate-x-1/2 z-10">
+      {/* Enhanced Floating Map Button */}
+      <div className="fixed bottom-map-mobile left-1/2 transform -translate-x-1/2 z-10">
         <div className="relative">
           {/* Multi-layer glow effects */}
-          <div className="absolute inset-0 bg-gradient-to-r from-orange-500 via-amber-500 to-red-500 rounded-full blur-xl opacity-50"></div>
-          <div className="absolute inset-0 bg-gradient-to-r from-red-500 to-red-700 rounded-full blur-lg opacity-40"></div>
+          <div className="absolute inset-0 bg-gradient-to-r from-[#FF7BAA] via-[#FF4D88] to-[#FF1A75] rounded-full blur-xl opacity-60"></div>
+          <div className="absolute inset-0 bg-gradient-to-r from-[#FF4D88] to-[#B30026] rounded-full blur-lg opacity-50"></div>
           
           {/* Pulsing Ring Effect */}
-          <div className="absolute inset-0 rounded-full border-2 border-orange-500/30 animate-pulse"></div>
-          <div className="absolute inset-0 rounded-full border border-amber-500/20 animate-pulse" style={{ animationDelay: '0.5s' }}></div>
+          <div className="absolute inset-0 rounded-full border-2 border-[#FF7BAA]/40 animate-pulse"></div>
+          <div className="absolute inset-0 rounded-full border border-[#FF4D88]/30 animate-pulse" style={{ animationDelay: '0.5s' }}></div>
           
           <Button 
             size="sm" 
-            className="glossy-red-pill relative px-4 sm:px-6 py-2 sm:py-3 rounded-full text-sm sm:text-base shadow-[0_0_24px_rgba(255,165,0,0.6)] hover:shadow-[0_0_32px_rgba(255,165,0,0.8)] transition-all duration-300 hover:scale-110"
+            className="glossy-red-pill relative px-6 py-3 rounded-full text-base shadow-[0_0_28px_rgba(255,123,170,0.7)] hover:shadow-[0_0_36px_rgba(255,123,170,0.9)] transition-all duration-300 hover:scale-110"
             onClick={() => onNavigate('bounty-quest-map')}
           >
-            <MapPin className="w-3.5 h-3.5 mr-1 sm:mr-2 text-white drop-shadow-sm" />
-            <span className="font-bold hidden xs:inline text-white">Explore Map</span>
-            <span className="font-bold xs:hidden text-white">Map</span>
-            <SparklesIcon className="w-2.5 h-2.5 ml-1 sm:ml-2 text-white drop-shadow-sm animate-pulse" />
+            <MapPin className="w-4 h-4 mr-2 text-white drop-shadow-lg" />
+            <span className="font-bold text-white font-rum-raisin">Explore Map</span>
+            <SparklesIcon className="w-3 h-3 ml-2 text-white drop-shadow-lg animate-pulse" />
           </Button>
         </div>
       </div>
@@ -606,15 +602,15 @@ function BountiesView({ bounties, onBountyClick }: {
   ];
 
   return (
-    <div className="px-3 sm:px-4 space-y-6 pb-6">
-      {/* Enhanced Bounties Section with Modern Theme */}
+    <div className="px-4 space-y-6 pb-6">
+      {/* Enhanced Bounties Section */}
       <div className="space-y-4">
         <div className="text-center relative py-2">
           <div className="absolute inset-0 flex items-center justify-center">
-            <div className="w-24 sm:w-32 h-1 bg-gradient-to-r from-transparent via-red-600/40 to-transparent blur-sm"></div>
-            <div className="w-16 sm:w-20 h-0.5 bg-gradient-to-r from-orange-500 via-red-600 to-red-800"></div>
+            <div className="w-32 h-1 bg-gradient-to-r from-transparent via-[#FF7BAA]/40 to-transparent blur-sm"></div>
+            <div className="w-20 h-0.5 bg-gradient-to-r from-[#FF7BAA] via-[#FF4D88] to-[#FF1A75]"></div>
           </div>
-          <h3 className="relative bg-gradient-to-r from-orange-500 via-red-600 to-red-800 bg-clip-text text-transparent px-3 font-bold text-base sm:text-lg font-rum-raisin drop-shadow-sm">
+          <h3 className="relative bg-gradient-to-r from-[#FF7BAA] via-[#FF4D88] to-[#FF1A75] bg-clip-text text-transparent px-3 font-bold text-lg font-rum-raisin drop-shadow-lg">
             ✨ LEGENDARY BOUNTIES ✨
           </h3>
         </div>
@@ -624,66 +620,66 @@ function BountiesView({ bounties, onBountyClick }: {
           {bounties.slice(0, 2).map((bounty, index) => (
             <div key={bounty.id} className="relative perspective-1000 w-full max-w-sm mx-auto">
               {/* Enhanced Multi-layer Glow Effects */}
-              <div className="absolute -inset-2 bg-gradient-to-r from-orange-500/30 via-red-600/40 to-red-800/30 rounded-2xl blur-xl opacity-60"></div>
-              <div className="absolute -inset-1 bg-gradient-to-r from-red-600/20 via-orange-500/25 to-red-800/20 rounded-2xl blur-lg opacity-80"></div>
+              <div className="absolute -inset-2 bg-gradient-to-r from-[#FF7BAA]/40 via-[#FF4D88]/50 to-[#FF1A75]/40 rounded-2xl blur-xl opacity-60"></div>
+              <div className="absolute -inset-1 bg-gradient-to-r from-[#FF4D88]/30 via-[#FF1A75]/35 to-[#B30026]/30 rounded-2xl blur-lg opacity-80"></div>
               
               <div 
                 className={cn(
-                  "relative w-full h-[200px] sm:h-[240px] transform-style-preserve-3d transition-all duration-700 cursor-pointer",
+                  "relative w-full h-[240px] transform-style-preserve-3d transition-all duration-700 cursor-pointer",
                   flippedCards.has(bounty.id) && "rotate-y-180"
                 )}
                 onClick={() => onBountyClick?.(bounty)}
               >
                 {/* Front Side */}
                 <div className="absolute inset-0 backface-hidden">
-                  <Card className="h-full overflow-hidden bg-gradient-to-br from-white/95 to-white/90 backdrop-blur-lg border-2 border-orange-500/30 shadow-[0_0_24px_rgba(255,165,0,0.2)] rounded-2xl">
+                  <Card className="h-full overflow-hidden bg-gradient-to-br from-white/95 to-white/85 backdrop-blur-xl border-2 border-[#FF7BAA]/40 shadow-[0_0_28px_rgba(255,123,170,0.3)] rounded-2xl">
                     {/* Background Image with Enhanced Overlay */}
                     <div 
                       className="absolute inset-0 bg-cover bg-center bg-no-repeat"
                       style={{ backgroundImage: `url(${foodImages[index % foodImages.length]})` }}
                     >
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-[#FF1A75]/20 to-transparent"></div>
-                      <div className="absolute inset-0 bg-gradient-to-br from-[#FF7BAA]/10 via-transparent to-[#FF1A75]/10"></div>
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-[#FF1A75]/15 to-transparent"></div>
+                      <div className="absolute inset-0 bg-gradient-to-br from-[#FF7BAA]/15 via-transparent to-[#FF4D88]/10"></div>
                     </div>
 
-                    {/* Enhanced Bounty Badge with Candy-Gloss */}
+                    {/* Enhanced Bounty Badge */}
                     <div className="absolute top-3 left-3 z-20">
                       <div className="relative">
-                        <div className="absolute inset-0 bg-gradient-to-r from-[#FF7BAA] to-[#FF1A75] rounded-full blur-sm opacity-60"></div>
-                        <div className="relative glossy-red-pill px-2 py-1 text-xs font-bold shadow-[0_0_12px_rgba(255,77,136,0.6)] flex items-center gap-1">
-                          <CrownIcon className="w-2.5 h-2.5 text-white drop-shadow-sm" />
+                        <div className="absolute inset-0 bg-gradient-to-r from-[#FF7BAA] to-[#FF4D88] rounded-full blur-md opacity-70"></div>
+                        <div className="relative glossy-red-pill px-2 py-1 text-xs font-bold shadow-[0_0_16px_rgba(255,123,170,0.7)] flex items-center gap-1">
+                          <CrownIcon className="w-3 h-3 text-white drop-shadow-lg" />
                           <span className="text-white font-rum-raisin">BOUNTY</span>
                         </div>
                       </div>
                     </div>
 
-                    {/* Enhanced Difficulty Indicator with Candy-Gloss */}
+                    {/* Enhanced Difficulty Indicator */}
                     <div className="absolute top-3 right-3 z-20">
                       <div className="relative">
                         <div className={cn(
-                          "absolute inset-0 rounded-full blur-sm opacity-60",
+                          "absolute inset-0 rounded-full blur-md opacity-70",
                           bounty.difficulty === 'Easy' && "bg-gradient-to-r from-emerald-400 to-green-500",
                           bounty.difficulty === 'Medium' && "bg-gradient-to-r from-[#FF7BAA] to-[#FF4D88]",
                           bounty.difficulty === 'Hard' && "bg-gradient-to-r from-[#FF1A75] to-[#B30026]"
                         )}></div>
                         <div className={cn(
-                          "relative px-2 py-1 rounded-full text-xs font-bold text-white shadow-[0_0_12px_rgba(255,77,136,0.4)] border border-white/30 flex items-center gap-1",
+                          "relative px-2 py-1 rounded-full text-xs font-bold text-white shadow-[0_0_16px_rgba(255,123,170,0.5)] border border-white/40 flex items-center gap-1",
                           bounty.difficulty === 'Easy' && "bg-gradient-to-r from-emerald-400 to-green-500",
                           bounty.difficulty === 'Medium' && "bg-gradient-to-r from-[#FF7BAA] to-[#FF4D88]",
                           bounty.difficulty === 'Hard' && "bg-gradient-to-r from-[#FF1A75] to-[#B30026]"
                         )}>
-                          <LightningIcon className="w-2.5 h-2.5 text-white drop-shadow-sm" />
+                          <LightningIcon className="w-3 h-3 text-white drop-shadow-lg" />
                           <span className="font-rum-raisin">{bounty.difficulty}</span>
                         </div>
                       </div>
                     </div>
 
-                    {/* Enhanced Timer Badge with Candy-Gloss */}
+                    {/* Enhanced Timer Badge */}
                     <div className="absolute top-12 right-3 z-20">
                       <div className="relative">
-                        <div className="absolute inset-0 bg-gradient-to-r from-[#FF1A75]/80 to-[#B30026]/80 rounded-full blur-sm"></div>
-                        <div className="relative bg-black/70 backdrop-blur-sm rounded-full px-2 py-1 text-white text-xs font-bold border border-[#FF4D88]/30 shadow-[0_0_8px_rgba(255,77,136,0.4)]">
-                          <TimerIcon className="w-2.5 h-2.5 inline mr-1 text-[#FF4D88] drop-shadow-sm" />
+                        <div className="absolute inset-0 bg-gradient-to-r from-[#FF1A75]/90 to-[#B30026]/90 rounded-full blur-md"></div>
+                        <div className="relative bg-black/80 backdrop-blur-md rounded-full px-2 py-1 text-white text-xs font-bold border border-[#FF7BAA]/40 shadow-[0_0_12px_rgba(255,123,170,0.5)]">
+                          <TimerIcon className="w-3 h-3 inline mr-1 text-[#FF7BAA] drop-shadow-lg" />
                           <span className="font-rum-raisin">{bounty.timeRemaining}</span>
                         </div>
                       </div>
@@ -691,57 +687,56 @@ function BountiesView({ bounties, onBountyClick }: {
 
                     {/* Content */}
                     <div className="absolute bottom-0 left-0 right-0 p-4 text-white z-10">
-                      {/* Enhanced Taste Match and Friends with Candy-Gloss */}
+                      {/* Enhanced Taste Match and Friends */}
                       <div className="flex items-center gap-2 mb-2">
                         <div className="relative">
-                          <div className="absolute inset-0 bg-gradient-to-r from-emerald-400 to-green-500 rounded-full blur-sm opacity-60"></div>
-                          <div className="relative bg-gradient-to-r from-emerald-400 to-green-500 px-2 py-1 rounded-full text-xs font-bold text-white shadow-[0_0_8px_rgba(34,197,94,0.5)]">
+                          <div className="absolute inset-0 bg-gradient-to-r from-emerald-400 to-green-500 rounded-full blur-md opacity-70"></div>
+                          <div className="relative bg-gradient-to-r from-emerald-400 to-green-500 px-2 py-1 rounded-full text-xs font-bold text-white shadow-[0_0_12px_rgba(34,197,94,0.6)]">
                             <span className="font-rum-raisin">92% Match</span>
                           </div>
                         </div>
                         <div className="flex -space-x-1">
                           {[1, 2, 3].map((i) => (
-                            <div key={i} className="w-5 h-5 bg-white rounded-full border-2 border-[#FF4D88]/50 flex items-center justify-center shadow-[0_0_6px_rgba(255,77,136,0.3)]">
+                            <div key={i} className="w-5 h-5 bg-white rounded-full border-2 border-[#FF7BAA]/60 flex items-center justify-center shadow-[0_0_8px_rgba(255,123,170,0.4)]">
                               <span className="text-xs">👤</span>
                             </div>
                           ))}
                         </div>
                       </div>
 
-                      <h4 className="font-bold text-lg sm:text-xl mb-1 text-shadow-lg line-clamp-1 font-rum-raisin">
+                      <h4 className="font-bold text-xl mb-1 text-shadow-lg line-clamp-1 font-rum-raisin">
                         {bounty.dishName}
                       </h4>
                       <p 
-                        className="text-sm sm:text-base opacity-90 cursor-pointer hover:underline mb-3 line-clamp-1 font-medium"
+                        className="text-base opacity-90 cursor-pointer hover:underline mb-3 line-clamp-1 font-medium"
                         onClick={(e) => {
                           e.stopPropagation();
-                          // Restaurant profile navigation removed
                         }}
                       >
                         {bounty.restaurantName}
                       </p>
 
-                      {/* Enhanced Reward Section with Candy-Gloss */}
+                      {/* Enhanced Reward Section */}
                       <div className="flex items-center justify-between gap-2">
                         <div className="flex items-center gap-2 flex-wrap">
                           <div className="relative">
-                            <div className="absolute inset-0 bg-gradient-to-r from-[#FF7BAA] to-[#FF4D88] rounded-full blur-sm opacity-60"></div>
-                            <div className="relative flex items-center gap-1 bg-gradient-to-r from-[#FF7BAA] to-[#FF4D88] px-2 py-1 rounded-full shadow-[0_0_8px_rgba(255,77,136,0.5)]">
-                              <CoinsIcon className="w-3 h-3 text-white drop-shadow-sm fill-current" />
+                            <div className="absolute inset-0 bg-gradient-to-r from-[#FF7BAA] to-[#FF4D88] rounded-full blur-md opacity-70"></div>
+                            <div className="relative flex items-center gap-1 bg-gradient-to-r from-[#FF7BAA] to-[#FF4D88] px-2 py-1 rounded-full shadow-[0_0_12px_rgba(255,123,170,0.6)]">
+                              <CoinsIcon className="w-3 h-3 text-white drop-shadow-lg fill-current" />
                               <span className="font-bold text-xs text-white font-rum-raisin">+{bounty.reward}</span>
                             </div>
                           </div>
                           <div className="relative">
-                            <div className="absolute inset-0 bg-gradient-to-r from-[#FF1A75] to-[#B30026] rounded-full blur-sm opacity-60"></div>
-                            <div className="relative flex items-center gap-1 bg-gradient-to-r from-[#FF1A75] to-[#B30026] px-2 py-1 rounded-full shadow-[0_0_8px_rgba(179,0,38,0.5)]">
-                              <LightningIcon className="w-3 h-3 text-white drop-shadow-sm" />
+                            <div className="absolute inset-0 bg-gradient-to-r from-[#FF1A75] to-[#B30026] rounded-full blur-md opacity-70"></div>
+                            <div className="relative flex items-center gap-1 bg-gradient-to-r from-[#FF1A75] to-[#B30026] px-2 py-1 rounded-full shadow-[0_0_12px_rgba(255,26,117,0.6)]">
+                              <LightningIcon className="w-3 h-3 text-white drop-shadow-lg" />
                               <span className="font-bold text-xs text-white font-rum-raisin">+50 XP</span>
                             </div>
                           </div>
                         </div>
                         <Button 
                           size="sm" 
-                          className="glossy-red-pill font-bold px-3 py-1 rounded-full text-xs shadow-[0_0_12px_rgba(255,77,136,0.6)] hover:shadow-[0_0_16px_rgba(255,77,136,0.8)] transition-all duration-300"
+                          className="glossy-red-pill font-bold px-3 py-1 rounded-full text-xs shadow-[0_0_16px_rgba(255,123,170,0.7)] hover:shadow-[0_0_20px_rgba(255,123,170,0.9)] transition-all duration-300"
                           onClick={(e) => e.stopPropagation()}
                         >
                           <span className="font-rum-raisin">Accept</span>
@@ -751,15 +746,15 @@ function BountiesView({ bounties, onBountyClick }: {
 
                     {/* Tap to flip hint */}
                     <div className="absolute bottom-1 left-1/2 transform -translate-x-1/2 text-white/60 text-xs flex items-center gap-1">
-                      <RotateCcwIcon className="w-2.5 h-2.5" />
-                      <span className="hidden sm:inline">Tap to flip</span>
+                      <RotateCcwIcon className="w-3 h-3" />
+                      <span>Tap to flip</span>
                     </div>
                   </Card>
                 </div>
 
                 {/* Back Side */}
                 <div className="absolute inset-0 backface-hidden rotate-y-180">
-                  <Card className="h-full overflow-hidden bg-gradient-to-br from-slate-900 to-slate-800 border border-[#FF1A75]/30 shadow-xl rounded-2xl p-4 text-white">
+                  <Card className="h-full overflow-hidden bg-gradient-to-br from-slate-900 to-slate-800 border border-[#FF7BAA]/40 shadow-xl rounded-2xl p-4 text-white">
                     <div className="h-full flex flex-col justify-between">
                       <div>
                         <h4 className="font-bold text-lg mb-3 text-center text-[#FF7BAA]">
@@ -768,26 +763,26 @@ function BountiesView({ bounties, onBountyClick }: {
                         
                         <div className="space-y-2">
                           <div className="flex items-center gap-2">
-                            <MapPin className="w-3.5 h-3.5 text-[#FF4D88]" />
+                            <MapPin className="w-4 h-4 text-[#FF7BAA]" />
                             <span className="text-sm">0.8 miles away</span>
                           </div>
                           <div className="flex items-center gap-2">
-                            <StarIcon className="w-3.5 h-3.5 text-yellow-400" />
+                            <StarIcon className="w-4 h-4 text-yellow-400" />
                             <span className="text-sm">{bounty.rating} rating</span>
                           </div>
                           <div className="flex items-center gap-2">
-                            <UsersIcon className="w-3.5 h-3.5 text-green-400" />
+                            <UsersIcon className="w-4 h-4 text-green-400" />
                             <span className="text-sm">12 friends completed</span>
                           </div>
                         </div>
 
-                        <div className="mt-3 p-2 bg-[#8B0000]/30 rounded-lg">
+                        <div className="mt-3 p-2 bg-[#FF1A75]/20 rounded-lg">
                           <p className="text-xs text-[#FF7BAA] line-clamp-2">
                             "Amazing flavors and perfect spice level. Worth every coin!"
                           </p>
                           <div className="flex items-center gap-1 mt-1">
                             {[1, 2, 3, 4, 5].map((i) => (
-                              <StarIcon key={i} className="w-2.5 h-2.5 text-yellow-400 fill-current" />
+                              <StarIcon key={i} className="w-3 h-3 text-yellow-400 fill-current" />
                             ))}
                           </div>
                         </div>
@@ -797,7 +792,7 @@ function BountiesView({ bounties, onBountyClick }: {
                         <Button 
                           size="sm" 
                           variant="outline" 
-                          className="flex-1 border-red-400 text-red-300 hover:bg-red-400/10 text-xs py-1"
+                          className="flex-1 border-[#FF7BAA] text-[#FF7BAA] hover:bg-[#FF7BAA]/10 text-xs py-1"
                           onClick={(e) => e.stopPropagation()}
                         >
                           Save
@@ -819,108 +814,104 @@ function BountiesView({ bounties, onBountyClick }: {
         </div>
       </div>
 
-      {/* Enhanced Local Bounties Grid with Candy-Gloss Theme */}
+      {/* Enhanced Local Bounties Grid */}
       <div className="space-y-4">
         <div className="text-center relative py-2">
           <div className="absolute inset-0 flex items-center justify-center">
-            <div className="w-24 sm:w-32 h-1 bg-gradient-to-r from-transparent via-[#FF4D88]/30 to-transparent blur-sm"></div>
-            <div className="w-16 sm:w-20 h-0.5 bg-gradient-to-r from-[#FF4D88] via-[#FF1A75] to-[#B30026]"></div>
+            <div className="w-32 h-1 bg-gradient-to-r from-transparent via-[#FF4D88]/40 to-transparent blur-sm"></div>
+            <div className="w-20 h-0.5 bg-gradient-to-r from-[#FF4D88] via-[#FF1A75] to-[#B30026]"></div>
           </div>
-          <h3 className="relative bg-gradient-to-r from-[#FF4D88] via-[#FF1A75] to-[#B30026] bg-clip-text text-transparent px-3 font-bold text-base sm:text-lg font-rum-raisin drop-shadow-sm">
+          <h3 className="relative bg-gradient-to-r from-[#FF4D88] via-[#FF1A75] to-[#B30026] bg-clip-text text-transparent px-3 font-bold text-lg font-rum-raisin drop-shadow-lg">
             🎯 NEARBY ADVENTURES
           </h3>
         </div>
         
-        {/* Mobile-optimized grid with proper spacing */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 max-w-lg sm:max-w-none mx-auto">
+        {/* Mobile-optimized grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-lg sm:max-w-none mx-auto">
           {bounties.map((bounty, index) => (
             <div key={`local-${bounty.id}`} className="relative perspective-1000">
-              {/* Enhanced Candy-Gloss Glow Effects */}
-              <div className="absolute -inset-1 bg-gradient-to-r from-[#FF4D88]/20 via-[#FF1A75]/25 to-[#B30026]/20 rounded-xl blur-lg opacity-60"></div>
-              <div className="absolute -inset-0.5 bg-gradient-to-r from-[#FF7BAA]/15 via-[#FF4D88]/20 to-[#FF1A75]/15 rounded-xl blur-md opacity-80"></div>
+              {/* Enhanced Glow Effects */}
+              <div className="absolute -inset-1 bg-gradient-to-r from-[#FF7BAA]/30 via-[#FF4D88]/35 to-[#FF1A75]/30 rounded-xl blur-lg opacity-60"></div>
+              <div className="absolute -inset-0.5 bg-gradient-to-r from-[#FF4D88]/25 via-[#FF1A75]/30 to-[#B30026]/25 rounded-xl blur-md opacity-80"></div>
               
               <div 
-                className="relative h-40 sm:h-48 cursor-pointer group"
+                className="relative h-48 cursor-pointer group"
                 onClick={() => onBountyClick?.(bounty)}
               >
-                {/* Front Side */}
-                <div className="absolute inset-0 backface-hidden">
-                  <Card className="h-full overflow-hidden bg-white/95 backdrop-blur-sm border-2 border-[#FF4D88]/25 shadow-[0_0_16px_rgba(255,77,136,0.15)] rounded-xl group-hover:shadow-[0_0_24px_rgba(255,77,136,0.25)] transition-all duration-300">
-                    {/* Enhanced Background Image with Candy-Gloss Overlay */}
-                    <div 
-                      className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-                      style={{ backgroundImage: `url(${foodImages[(index + 2) % foodImages.length]})` }}
+                <Card className="h-full overflow-hidden bg-white/90 backdrop-blur-md border-2 border-[#FF7BAA]/30 shadow-[0_0_20px_rgba(255,123,170,0.2)] rounded-xl group-hover:shadow-[0_0_28px_rgba(255,123,170,0.3)] transition-all duration-300">
+                  {/* Enhanced Background Image */}
+                  <div 
+                    className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+                    style={{ backgroundImage: `url(${foodImages[(index + 2) % foodImages.length]})` }}
+                  >
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-[#FF1A75]/10 to-transparent"></div>
+                    <div className="absolute inset-0 bg-gradient-to-br from-[#FF7BAA]/8 via-transparent to-[#FF4D88]/8"></div>
+                  </div>
+
+                  {/* Enhanced Difficulty Indicator */}
+                  <div className="absolute top-2 left-2 z-10">
+                    <div className="relative">
+                      <div className={cn(
+                        "absolute inset-0 rounded-full blur-md opacity-70",
+                        bounty.difficulty === 'Easy' && "bg-emerald-400",
+                        bounty.difficulty === 'Medium' && "bg-[#FF7BAA]",
+                        bounty.difficulty === 'Hard' && "bg-[#FF1A75]"
+                      )}></div>
+                      <div className={cn(
+                        "relative w-3 h-3 rounded-full border-2 border-white shadow-[0_0_12px_rgba(255,123,170,0.5)]",
+                        bounty.difficulty === 'Easy' && "bg-emerald-400",
+                        bounty.difficulty === 'Medium' && "bg-[#FF7BAA]",
+                        bounty.difficulty === 'Hard' && "bg-[#FF1A75]"
+                      )}></div>
+                    </div>
+                  </div>
+
+                  {/* Enhanced Content */}
+                  <div className="absolute bottom-0 left-0 right-0 p-3 text-white z-10">
+                    <h4 className="font-bold text-base mb-1 line-clamp-1 font-rum-raisin">
+                      {bounty.dishName}
+                    </h4>
+                    <p 
+                      className="text-sm opacity-90 cursor-pointer hover:underline mb-2 line-clamp-1"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                      }}
                     >
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-[#FF1A75]/10 to-transparent"></div>
-                      <div className="absolute inset-0 bg-gradient-to-br from-[#FF7BAA]/5 via-transparent to-[#FF4D88]/5"></div>
-                    </div>
-
-                    {/* Enhanced Difficulty Indicator with Candy-Gloss */}
-                    <div className="absolute top-2 left-2 z-10">
+                      {bounty.restaurantName}
+                    </p>
+                    
+                    <div className="flex items-center justify-between gap-1">
                       <div className="relative">
-                        <div className={cn(
-                          "absolute inset-0 rounded-full blur-sm opacity-60",
-                          bounty.difficulty === 'Easy' && "bg-emerald-400",
-                          bounty.difficulty === 'Medium' && "bg-[#FF4D88]",
-                          bounty.difficulty === 'Hard' && "bg-[#FF1A75]"
-                        )}></div>
-                        <div className={cn(
-                          "relative w-3 h-3 rounded-full border-2 border-white shadow-[0_0_8px_rgba(255,77,136,0.4)]",
-                          bounty.difficulty === 'Easy' && "bg-emerald-400",
-                          bounty.difficulty === 'Medium' && "bg-[#FF4D88]",
-                          bounty.difficulty === 'Hard' && "bg-[#FF1A75]"
-                        )}></div>
+                        <div className="absolute inset-0 bg-[#FF1A75]/70 rounded-full blur-md"></div>
+                        <div className="relative flex items-center gap-1 bg-[#FF1A75]/90 text-white px-2 py-1 rounded-full text-xs shadow-[0_0_12px_rgba(255,26,117,0.5)]">
+                          <TimerIcon className="w-3 h-3 text-white drop-shadow-lg" />
+                          <span className="font-medium font-rum-raisin">{bounty.timeRemaining}</span>
+                        </div>
+                      </div>
+                      <div className="relative">
+                        <div className="absolute inset-0 bg-[#FF7BAA]/70 rounded-full blur-md"></div>
+                        <div className="relative flex items-center gap-1 bg-[#FF7BAA]/90 text-white px-2 py-1 rounded-full text-xs shadow-[0_0_12px_rgba(255,123,170,0.5)]">
+                          <span className="font-bold font-rum-raisin">+{bounty.reward}</span>
+                          <CoinsIcon className="w-3 h-3 text-white drop-shadow-lg fill-current" />
+                        </div>
                       </div>
                     </div>
+                  </div>
 
-                    {/* Enhanced Content with Candy-Gloss */}
-                    <div className="absolute bottom-0 left-0 right-0 p-3 text-white z-10">
-                      <h4 className="font-bold text-sm sm:text-base mb-1 line-clamp-1 font-rum-raisin">
-                        {bounty.dishName}
-                      </h4>
-                      <p 
-                        className="text-xs sm:text-sm opacity-90 cursor-pointer hover:underline mb-2 line-clamp-1"
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          // Restaurant profile navigation removed
-                        }}
+                  {/* Enhanced Accept Button */}
+                  <div className="absolute top-2 right-2 z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                    <div className="relative">
+                      <div className="absolute inset-0 bg-gradient-to-r from-[#FF7BAA] to-[#FF4D88] rounded-full blur-md opacity-70"></div>
+                      <Button 
+                        size="sm" 
+                        className="relative glossy-red-pill text-white px-2 py-1 text-xs rounded-full shadow-[0_0_16px_rgba(255,123,170,0.6)] hover:shadow-[0_0_20px_rgba(255,123,170,0.8)] transition-all duration-300"
+                        onClick={(e) => e.stopPropagation()}
                       >
-                        {bounty.restaurantName}
-                      </p>
-                      
-                      <div className="flex items-center justify-between gap-1">
-                        <div className="relative">
-                          <div className="absolute inset-0 bg-[#FF1A75]/60 rounded-full blur-sm"></div>
-                          <div className="relative flex items-center gap-1 bg-[#FF1A75]/80 text-white px-2 py-1 rounded-full text-xs shadow-[0_0_8px_rgba(255,26,117,0.4)]">
-                            <TimerIcon className="w-2.5 h-2.5 text-white drop-shadow-sm" />
-                            <span className="font-medium font-rum-raisin">{bounty.timeRemaining}</span>
-                          </div>
-                        </div>
-                        <div className="relative">
-                          <div className="absolute inset-0 bg-[#FF4D88]/60 rounded-full blur-sm"></div>
-                          <div className="relative flex items-center gap-1 bg-[#FF4D88]/80 text-white px-2 py-1 rounded-full text-xs shadow-[0_0_8px_rgba(255,77,136,0.4)]">
-                            <span className="font-bold font-rum-raisin">+{bounty.reward}</span>
-                            <CoinsIcon className="w-2.5 h-2.5 text-white drop-shadow-sm fill-current" />
-                          </div>
-                        </div>
-                      </div>
+                        <span className="font-rum-raisin">Accept</span>
+                      </Button>
                     </div>
-
-                    {/* Enhanced Accept Button with Candy-Gloss */}
-                    <div className="absolute top-2 right-2 z-10 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity duration-300">
-                      <div className="relative">
-                        <div className="absolute inset-0 bg-gradient-to-r from-[#FF7BAA] to-[#FF4D88] rounded-full blur-sm opacity-60"></div>
-                        <Button 
-                          size="sm" 
-                          className="relative glossy-red-pill text-white px-2 py-1 text-xs rounded-full shadow-[0_0_12px_rgba(255,77,136,0.5)] hover:shadow-[0_0_16px_rgba(255,77,136,0.7)] transition-all duration-300"
-                          onClick={(e) => e.stopPropagation()}
-                        >
-                          <span className="font-rum-raisin">Accept</span>
-                        </Button>
-                      </div>
-                    </div>
-                  </Card>
-                </div>
+                  </div>
+                </Card>
               </div>
             </div>
           ))}
@@ -935,15 +926,15 @@ function QuestsView({ quests, onQuestClick }: {
   onQuestClick?: (quest: Quest) => void 
 }) {
   return (
-    <div className="px-3 sm:px-4 space-y-6 pb-6">
-      {/* Enhanced Epic Quests with Candy-Gloss Theme */}
+    <div className="px-4 space-y-6 pb-6">
+      {/* Enhanced Epic Quests */}
       <div className="space-y-4">
         <div className="text-center relative py-2">
           <div className="absolute inset-0 flex items-center justify-center">
-            <div className="w-32 sm:w-40 h-1 bg-gradient-to-r from-transparent via-[#DC143C]/40 to-transparent blur-sm"></div>
-            <div className="w-20 sm:w-24 h-0.5 bg-gradient-to-r from-[#FF1A75] via-[#DC143C] to-[#8B0000]"></div>
+            <div className="w-40 h-1 bg-gradient-to-r from-transparent via-[#FF1A75]/40 to-transparent blur-sm"></div>
+            <div className="w-24 h-0.5 bg-gradient-to-r from-[#FF1A75] via-[#B30026] to-[#8B0000]"></div>
           </div>
-          <h3 className="relative bg-gradient-to-r from-[#FF1A75] via-[#DC143C] to-[#8B0000] bg-clip-text text-transparent px-3 font-bold text-base sm:text-lg font-rum-raisin drop-shadow-sm">
+          <h3 className="relative bg-gradient-to-r from-[#FF1A75] via-[#B30026] to-[#8B0000] bg-clip-text text-transparent px-3 font-bold text-lg font-rum-raisin drop-shadow-lg">
             ⚔️ LEGENDARY QUESTS ⚔️
           </h3>
         </div>
@@ -952,131 +943,131 @@ function QuestsView({ quests, onQuestClick }: {
           {quests.map((quest, index) => (
             <div key={quest.id} className="relative">
               {/* Enhanced Multi-layer Glow Effects */}
-              <div className="absolute -inset-2 bg-gradient-to-r from-[#FF1A75]/25 via-[#DC143C]/35 to-[#8B0000]/25 rounded-2xl sm:rounded-3xl blur-xl opacity-60"></div>
-              <div className="absolute -inset-1 bg-gradient-to-r from-[#DC143C]/15 via-[#FF1A75]/20 to-[#8B0000]/15 rounded-2xl sm:rounded-3xl blur-lg opacity-80"></div>
+              <div className="absolute -inset-2 bg-gradient-to-r from-[#FF1A75]/35 via-[#B30026]/45 to-[#8B0000]/35 rounded-3xl blur-xl opacity-60"></div>
+              <div className="absolute -inset-1 bg-gradient-to-r from-[#B30026]/25 via-[#FF1A75]/30 to-[#8B0000]/25 rounded-3xl blur-lg opacity-80"></div>
               
               <Card 
-                className="relative overflow-hidden bg-white/90 backdrop-blur-md border-2 border-[#FF4D88]/30 shadow-[0_0_24px_rgba(255,77,136,0.2)] rounded-2xl sm:rounded-3xl cursor-pointer hover:shadow-[0_0_32px_rgba(255,77,136,0.3)] transition-all duration-300"
+                className="relative overflow-hidden bg-white/90 backdrop-blur-xl border-2 border-[#FF7BAA]/40 shadow-[0_0_28px_rgba(255,123,170,0.3)] rounded-3xl cursor-pointer hover:shadow-[0_0_36px_rgba(255,123,170,0.4)] transition-all duration-300"
                 onClick={() => onQuestClick?.(quest)}
               >
-                {/* Enhanced Quest Type Badge with Candy-Gloss */}
-                <div className="absolute top-3 sm:top-4 right-3 sm:right-4 z-10">
+                {/* Enhanced Quest Type Badge */}
+                <div className="absolute top-4 right-4 z-10">
                   <div className="relative">
                     <div className={cn(
-                      "absolute inset-0 rounded-full blur-sm opacity-60",
+                      "absolute inset-0 rounded-full blur-md opacity-70",
                       quest.type === 'team' 
                         ? "bg-gradient-to-r from-[#FF1A75] to-[#B30026]" 
                         : "bg-gradient-to-r from-[#FF7BAA] to-[#FF4D88]"
                     )}></div>
                     <div className={cn(
-                      "relative px-2 sm:px-3 py-1 sm:py-2 rounded-full text-white shadow-[0_0_12px_rgba(255,77,136,0.5)] border border-white/30 flex items-center gap-1 sm:gap-2",
+                      "relative px-3 py-2 rounded-full text-white shadow-[0_0_16px_rgba(255,123,170,0.6)] border border-white/40 flex items-center gap-2",
                       quest.type === 'team' 
                         ? "bg-gradient-to-r from-[#FF1A75] to-[#B30026]" 
                         : "bg-gradient-to-r from-[#FF7BAA] to-[#FF4D88]"
                     )}>
                       {quest.type === 'team' ? (
                         <>
-                          <UsersIcon className="w-3 h-3 text-white drop-shadow-sm" />
-                          <span className="text-xs font-bold font-rum-raisin">TEAM</span>
+                          <UsersIcon className="w-4 h-4 text-white drop-shadow-lg" />
+                          <span className="text-sm font-bold font-rum-raisin">TEAM</span>
                         </>
                       ) : (
                         <>
-                          <ShieldCheckIcon className="w-3 h-3 text-white drop-shadow-sm" />
-                          <span className="text-xs font-bold font-rum-raisin">SOLO</span>
+                          <ShieldCheckIcon className="w-4 h-4 text-white drop-shadow-lg" />
+                          <span className="text-sm font-bold font-rum-raisin">SOLO</span>
                         </>
                       )}
                     </div>
                   </div>
                 </div>
 
-                {/* Enhanced Difficulty Badge with Candy-Gloss */}
-                <div className="absolute top-3 sm:top-4 left-3 sm:left-4 z-10">
+                {/* Enhanced Difficulty Badge */}
+                <div className="absolute top-4 left-4 z-10">
                   <div className="relative">
                     <div className={cn(
-                      "absolute inset-0 rounded-full blur-sm opacity-60",
+                      "absolute inset-0 rounded-full blur-md opacity-70",
                       quest.difficulty === 'Easy' && "bg-gradient-to-r from-emerald-400 to-green-500",
                       quest.difficulty === 'Medium' && "bg-gradient-to-r from-[#FF7BAA] to-[#FF4D88]",
                       quest.difficulty === 'Hard' && "bg-gradient-to-r from-[#FF1A75] to-[#B30026]",
                       quest.difficulty === 'Extreme' && "bg-gradient-to-r from-[#B30026] to-[#8B0000]"
                     )}></div>
                     <div className={cn(
-                      "relative px-2 sm:px-3 py-1 rounded-full text-xs font-bold text-white shadow-[0_0_12px_rgba(255,77,136,0.4)] border border-white/30",
+                      "relative px-3 py-1 rounded-full text-sm font-bold text-white shadow-[0_0_16px_rgba(255,123,170,0.5)] border border-white/40",
                       quest.difficulty === 'Easy' && "bg-gradient-to-r from-emerald-400 to-green-500",
                       quest.difficulty === 'Medium' && "bg-gradient-to-r from-[#FF7BAA] to-[#FF4D88]",
                       quest.difficulty === 'Hard' && "bg-gradient-to-r from-[#FF1A75] to-[#B30026]",
                       quest.difficulty === 'Extreme' && "bg-gradient-to-r from-[#B30026] to-[#8B0000]"
                     )}>
-                      <SwordIcon className="w-2 h-2 inline mr-1 text-white drop-shadow-sm" />
+                      <SwordIcon className="w-3 h-3 inline mr-1 text-white drop-shadow-lg" />
                       <span className="font-rum-raisin">{quest.difficulty}</span>
                     </div>
                   </div>
                 </div>
 
-                <div className="p-4 sm:p-6">
-                  {/* Enhanced Quest Header with Candy-Gloss */}
-                  <div className="mb-4 pt-6 sm:pt-8">
-                    <h4 className="font-bold text-lg sm:text-xl mb-2 flex items-center font-rum-raisin">
-                      <TrophyIcon className="w-[18px] h-[18px] text-[#FF4D88] mr-2 flex-shrink-0 drop-shadow-sm" />
+                <div className="p-6">
+                  {/* Enhanced Quest Header */}
+                  <div className="mb-4 pt-8">
+                    <h4 className="font-bold text-xl mb-2 flex items-center font-rum-raisin">
+                      <TrophyIcon className="w-5 h-5 text-[#FF7BAA] mr-2 flex-shrink-0 drop-shadow-lg" />
                       <span className="line-clamp-1">{quest.name}</span>
                     </h4>
-                    <p className="text-gray-600 text-sm sm:text-base leading-relaxed bg-gradient-to-r from-[#FF7BAA]/5 to-[#FF4D88]/5 rounded-lg p-2 sm:p-3 border border-[#FF4D88]/20 line-clamp-2 sm:line-clamp-none">
+                    <p className="text-gray-700 text-base leading-relaxed bg-gradient-to-r from-[#FF7BAA]/8 to-[#FF4D88]/8 rounded-lg p-3 border border-[#FF7BAA]/30 line-clamp-2">
                       {quest.description}
                     </p>
                   </div>
 
-                  {/* Enhanced Quest Stats with Candy-Gloss */}
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 mb-4">
+                  {/* Enhanced Quest Stats */}
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
                     {/* Reward */}
                     <div className="relative">
-                      <div className="absolute inset-0 bg-gradient-to-r from-[#FF7BAA]/20 to-[#FF4D88]/20 rounded-xl blur-sm"></div>
-                      <div className="relative bg-gradient-to-r from-[#FF7BAA]/10 to-[#FF4D88]/10 rounded-xl p-3 border border-[#FF4D88]/30 shadow-[0_0_12px_rgba(255,77,136,0.1)]">
+                      <div className="absolute inset-0 bg-gradient-to-r from-[#FF7BAA]/25 to-[#FF4D88]/25 rounded-xl blur-md"></div>
+                      <div className="relative bg-gradient-to-r from-[#FF7BAA]/15 to-[#FF4D88]/15 rounded-xl p-3 border border-[#FF7BAA]/40 shadow-[0_0_16px_rgba(255,123,170,0.15)]">
                         <div className="flex items-center gap-2 mb-1">
-                          <CoinsIcon className="w-4 h-4 text-[#FF1A75] flex-shrink-0 drop-shadow-sm fill-current" />
-                          <span className="font-bold text-[#FF1A75] text-sm sm:text-base font-rum-raisin">Epic Reward</span>
+                          <CoinsIcon className="w-4 h-4 text-[#FF1A75] flex-shrink-0 drop-shadow-lg fill-current" />
+                          <span className="font-bold text-[#FF1A75] text-base font-rum-raisin">Epic Reward</span>
                         </div>
-                        <div className="text-lg sm:text-xl font-black text-[#B30026] font-rum-raisin">+{quest.reward} LKC</div>
+                        <div className="text-xl font-black text-[#B30026] font-rum-raisin">+{quest.reward} LKC</div>
                       </div>
                     </div>
 
                     {/* Locations */}
                     <div className="relative">
-                      <div className="absolute inset-0 bg-gradient-to-r from-[#FF4D88]/20 to-[#FF1A75]/20 rounded-xl blur-sm"></div>
-                      <div className="relative bg-gradient-to-r from-[#FF4D88]/10 to-[#FF1A75]/10 rounded-xl p-3 border border-[#FF1A75]/30 shadow-[0_0_12px_rgba(255,26,117,0.1)]">
+                      <div className="absolute inset-0 bg-gradient-to-r from-[#FF4D88]/25 to-[#FF1A75]/25 rounded-xl blur-md"></div>
+                      <div className="relative bg-gradient-to-r from-[#FF4D88]/15 to-[#FF1A75]/15 rounded-xl p-3 border border-[#FF1A75]/40 shadow-[0_0_16px_rgba(255,26,117,0.15)]">
                         <div className="flex items-center gap-2 mb-1">
-                          <MapPin className="w-4 h-4 text-[#FF1A75] flex-shrink-0 drop-shadow-sm" />
-                          <span className="font-bold text-[#FF1A75] text-sm sm:text-base font-rum-raisin">Journey</span>
+                          <MapPin className="w-4 h-4 text-[#FF1A75] flex-shrink-0 drop-shadow-lg" />
+                          <span className="font-bold text-[#FF1A75] text-base font-rum-raisin">Journey</span>
                         </div>
-                        <div className="text-lg sm:text-xl font-black text-[#B30026] font-rum-raisin">{quest.locationCount} Places</div>
+                        <div className="text-xl font-black text-[#B30026] font-rum-raisin">{quest.locationCount} Places</div>
                       </div>
                     </div>
                   </div>
 
-                  {/* Enhanced Quest Footer with Candy-Gloss */}
+                  {/* Enhanced Quest Footer */}
                   <div className="relative mb-4">
-                    <div className="absolute inset-0 bg-gradient-to-r from-[#FF7BAA]/5 to-[#FF4D88]/5 rounded-xl blur-sm"></div>
-                    <div className="relative flex items-center justify-between bg-gradient-to-r from-white/60 to-white/80 rounded-xl p-3 border border-[#FF4D88]/20 shadow-[0_0_8px_rgba(255,77,136,0.1)]">
+                    <div className="absolute inset-0 bg-gradient-to-r from-[#FF7BAA]/8 to-[#FF4D88]/8 rounded-xl blur-md"></div>
+                    <div className="relative flex items-center justify-between bg-gradient-to-r from-white/70 to-white/90 rounded-xl p-3 border border-[#FF7BAA]/30 shadow-[0_0_12px_rgba(255,123,170,0.15)]">
                       <div className="flex items-center gap-2">
-                        <ClockIcon className="w-3.5 h-3.5 text-[#FF1A75] flex-shrink-0 drop-shadow-sm" />
+                        <ClockIcon className="w-4 h-4 text-[#FF1A75] flex-shrink-0 drop-shadow-lg" />
                         <span className="text-sm font-medium text-[#FF1A75] font-rum-raisin">Time Limit</span>
                       </div>
                       <div className="relative">
-                        <div className="absolute inset-0 bg-gradient-to-r from-[#FF4D88]/20 to-[#FF1A75]/20 rounded-lg blur-sm"></div>
-                        <div className="relative flex items-center gap-2 bg-white rounded-lg px-2 sm:px-3 py-1 shadow-[0_0_8px_rgba(255,77,136,0.2)] border border-[#FF4D88]/20">
-                          <TimerIcon className="w-3 h-3 text-[#FF1A75] flex-shrink-0 drop-shadow-sm" />
+                        <div className="absolute inset-0 bg-gradient-to-r from-[#FF7BAA]/30 to-[#FF1A75]/30 rounded-lg blur-md"></div>
+                        <div className="relative flex items-center gap-2 bg-white rounded-lg px-3 py-1 shadow-[0_0_12px_rgba(255,123,170,0.3)] border border-[#FF7BAA]/30">
+                          <TimerIcon className="w-3 h-3 text-[#FF1A75] flex-shrink-0 drop-shadow-lg" />
                           <span className="font-bold text-[#B30026] text-sm font-rum-raisin">{quest.timeLimit}</span>
                         </div>
                       </div>
                     </div>
                   </div>
 
-                  {/* Enhanced Action Button with Candy-Gloss */}
+                  {/* Enhanced Action Button */}
                   <div className="flex justify-center">
                     <div className="relative">
-                      <div className="absolute inset-0 bg-gradient-to-r from-[#FF7BAA] via-[#FF4D88] to-[#FF1A75] rounded-xl blur-lg opacity-40"></div>
-                      <Button className="glossy-red-pill font-bold px-6 sm:px-8 py-2 sm:py-3 rounded-xl text-sm sm:text-base shadow-[0_0_16px_rgba(255,77,136,0.6)] hover:shadow-[0_0_24px_rgba(255,77,136,0.8)] transition-all duration-300 hover:scale-105">
-                        <LightningIcon className="w-3.5 h-3.5 mr-2 text-white drop-shadow-sm" />
+                      <div className="absolute inset-0 bg-gradient-to-r from-[#FF7BAA] via-[#FF4D88] to-[#FF1A75] rounded-xl blur-lg opacity-50"></div>
+                      <Button className="glossy-red-pill font-bold px-8 py-3 rounded-xl text-base shadow-[0_0_20px_rgba(255,123,170,0.7)] hover:shadow-[0_0_28px_rgba(255,123,170,0.9)] transition-all duration-300 hover:scale-105">
+                        <LightningIcon className="w-4 h-4 mr-2 text-white drop-shadow-lg" />
                         <span className="font-rum-raisin">Accept Quest</span>
-                        <SparklesIcon className="w-3 h-3 ml-2 text-white drop-shadow-sm" />
+                        <SparklesIcon className="w-3 h-3 ml-2 text-white drop-shadow-lg" />
                       </Button>
                     </div>
                   </div>
@@ -1086,22 +1077,6 @@ function QuestsView({ quests, onQuestClick }: {
           ))}
         </div>
       </div>
-
-      {/* Map Button */}
-      <Button
-        onClick={() => onNavigate('bounty-quest-map')}
-        variant="ghost"
-        className={cn(
-          "fixed z-10 rounded-full shadow-lg bg-background/90 backdrop-blur-sm text-foreground",
-          "hover:bg-muted transition-all duration-200 border-0",
-          "left-1/2 transform -translate-x-1/2",
-          "bottom-[4rem]", // 64px - lowered closer to nav bar
-          "h-10 px-4"
-        )}
-      >
-        <MapPin className="mr-2 w-4 h-4" />
-        <span className="text-sm font-medium">Map</span>
-      </Button>
     </div>
   );
 }
