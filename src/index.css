@@ -2763,9 +2763,9 @@ input, textarea, select {
   bottom: 9.75rem; /* 156px - 15px above bottom-24 (96px) */
 }
 
-/* Map button positioning - 5px above nav bar */
+/* Map button positioning - closer to nav bar */
 .bottom-map-mobile {
-  bottom: 4.25rem; /* 68px - 5px above 64px nav bar */
+  bottom: 4.5rem; /* 72px - closer to nav bar */
 }
 
 /* Gamified Candy-Glass Navigation Styles */
