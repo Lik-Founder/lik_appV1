@@ -2743,6 +2743,18 @@ input, textarea, select {
 }
 
 /* Custom bottom spacing classes for floating buttons */
+.bottom-16 {
+  bottom: 4rem; /* 64px */
+}
+
+.bottom-24 {
+  bottom: 6rem; /* 96px */
+}
+
+.bottom-28 {
+  bottom: 7rem; /* 112px */
+}
+
 .bottom-35 {
   bottom: 8.75rem; /* 140px - 15px above bottom-20 (80px) */
 }
