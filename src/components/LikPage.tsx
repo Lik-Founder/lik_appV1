@@ -1095,7 +1095,7 @@ function QuestsView({ quests, onQuestClick }: {
           "fixed z-10 rounded-full shadow-lg bg-background/90 backdrop-blur-sm text-foreground",
           "hover:bg-muted transition-all duration-200 border-0",
           "left-1/2 transform -translate-x-1/2",
-          "bottom-[4.5rem]", // 72px - closer to nav bar
+          "bottom-[4rem]", // 64px - lowered closer to nav bar
           "h-10 px-4"
         )}
       >
