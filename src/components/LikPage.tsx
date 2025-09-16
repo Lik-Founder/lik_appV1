@@ -28,7 +28,8 @@ import {
   StarIcon as TargetIcon,
   StarIcon as SwordIcon,
   ShieldCheckIcon,
-  ArrowPathIcon as RotateCcwIcon
+  ArrowPathIcon as RotateCcwIcon,
+  FunnelIcon
 } from '@heroicons/react/24/outline';
 import { cn } from '@/lib/utils';
 import { UserProgress, Bounty, Quest } from '@/lib/types';
@@ -432,6 +433,18 @@ export function LikPage({ onNavigate, onSelectBounty }: LikPageProps) {
         {activeView === 'bounties' && (
           <div className="px-4 py-2 flex justify-center">
             <div className="flex items-center gap-3 flex-wrap justify-center">
+              {/* Filter Icon */}
+              <div className="relative">
+                <div className="absolute inset-0 bg-[#FF4D88]/40 rounded-full blur-md"></div>
+                <Button 
+                  variant="ghost" 
+                  size="sm" 
+                  className="relative bg-white/20 hover:bg-white/30 backdrop-blur-md rounded-full p-3 shadow-[0_0_16px_rgba(255,77,136,0.4)] border border-white/30 transition-all duration-300 hover:shadow-[0_0_24px_rgba(255,77,136,0.6)] hover:scale-110"
+                >
+                  <FunnelIcon className="w-4 h-4 text-white drop-shadow-lg" />
+                </Button>
+              </div>
+              
               {(['nearby', 'most-wanted', 'for-you'] as const).map((filter) => (
                 <div key={filter} className="relative">
                   {selectedFilter === filter && (
@@ -595,17 +608,7 @@ function BountiesView({ bounties, onBountyClick }: {
   return (
     <div className="px-4 space-y-6 pb-6">
       {/* Enhanced Bounties Section */}
-      <div className="space-y-4">
-        <div className="text-center relative py-2">
-          <div className="absolute inset-0 flex items-center justify-center">
-            <div className="w-32 h-1 bg-gradient-to-r from-transparent via-[#FF7BAA]/40 to-transparent blur-sm"></div>
-            <div className="w-20 h-0.5 bg-gradient-to-r from-[#FF7BAA] via-[#FF4D88] to-[#FF1A75]"></div>
-          </div>
-          <h3 className="relative bg-gradient-to-r from-[#FF7BAA] via-[#FF4D88] to-[#FF1A75] bg-clip-text text-transparent px-3 font-bold text-lg font-rum-raisin drop-shadow-lg">
-            ✨ LEGENDARY BOUNTIES ✨
-          </h3>
-        </div>
-        
+      <div className="space-y-4">        
         {/* Mobile-optimized single column layout */}
         <div className="space-y-4">
           {bounties.slice(0, 2).map((bounty, index) => (
@@ -920,16 +923,6 @@ function QuestsView({ quests, onQuestClick }: {
     <div className="px-4 space-y-6 pb-6">
       {/* Enhanced Epic Quests */}
       <div className="space-y-4">
-        <div className="text-center relative py-2">
-          <div className="absolute inset-0 flex items-center justify-center">
-            <div className="w-40 h-1 bg-gradient-to-r from-transparent via-[#FF1A75]/40 to-transparent blur-sm"></div>
-            <div className="w-24 h-0.5 bg-gradient-to-r from-[#FF1A75] via-[#B30026] to-[#8B0000]"></div>
-          </div>
-          <h3 className="relative bg-gradient-to-r from-[#FF1A75] via-[#B30026] to-[#8B0000] bg-clip-text text-transparent px-3 font-bold text-lg font-rum-raisin drop-shadow-lg">
-            ⚔️ LEGENDARY QUESTS ⚔️
-          </h3>
-        </div>
-        
         <div className="space-y-4 max-w-lg mx-auto lg:max-w-none">
           {quests.map((quest, index) => (
             <div key={quest.id} className="relative">
