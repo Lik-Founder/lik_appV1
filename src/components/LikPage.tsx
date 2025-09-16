@@ -350,84 +350,84 @@ export function LikPage({ onNavigate, onSelectBounty }: LikPageProps) {
         </div>
       </div>
 
-      {/* Enhanced Navigation Row - Moved Below Header and Positioned Off App Bar */}
-      <div className="relative z-10 px-4 pb-6">
-        <div className="flex items-center justify-center gap-6">
-          {/* Leaderboard */}
-          <div className="relative">
-            <div className="absolute inset-0 bg-[#FF7BAA]/40 rounded-full blur-md"></div>
-            <Button 
-              variant="ghost" 
-              size="sm" 
-              onClick={() => onNavigate('leaderboard')}
-              className="relative bg-white/20 hover:bg-white/30 backdrop-blur-md rounded-full p-3 shadow-[0_0_16px_rgba(255,123,170,0.4)] border border-white/30 transition-all duration-300 hover:shadow-[0_0_24px_rgba(255,123,170,0.6)] hover:scale-110"
-            >
-              <TrophyIcon className="w-5 h-5 text-white drop-shadow-lg" />
-            </Button>
-          </div>
-
-          {/* Enhanced Tab Selector */}
-          <div className="relative">
-            <div className="absolute inset-0 bg-gradient-to-r from-[#FF7BAA]/30 via-[#FF4D88]/40 to-[#FF1A75]/30 rounded-2xl blur-lg"></div>
-            
-            <div className="relative bg-white/20 backdrop-blur-md rounded-2xl p-2 flex shadow-[0_0_24px_rgba(255,123,170,0.3)] border border-white/30">
-              <Button
-                variant="ghost"
-                size="sm"
-                onClick={() => setActiveView('bounties')}
-                className={cn(
-                  "font-rum-raisin rounded-xl px-6 py-3 relative overflow-hidden transition-all duration-300",
-                  activeView === 'bounties' 
-                    ? "glossy-red-pill text-white font-bold shadow-[0_0_20px_rgba(255,123,170,0.7)]" 
-                    : "text-white/80 font-medium hover:bg-white/20 hover:text-white hover:shadow-[0_0_12px_rgba(255,123,170,0.3)]"
-                )}
+      {/* Scrollable Content */}
+      <div className="flex-1 overflow-y-auto scrollbar-hide pb-20 relative z-10">
+        {/* Enhanced Navigation Row - Moved Below Header and Off App Bar */}
+        <div className="relative z-10 px-4 pb-6">
+          <div className="flex items-center justify-center gap-6">
+            {/* Leaderboard */}
+            <div className="relative">
+              <div className="absolute inset-0 bg-[#FF7BAA]/40 rounded-full blur-md"></div>
+              <Button 
+                variant="ghost" 
+                size="sm" 
+                onClick={() => onNavigate('leaderboard')}
+                className="relative bg-white/20 hover:bg-white/30 backdrop-blur-md rounded-full p-3 shadow-[0_0_16px_rgba(255,123,170,0.4)] border border-white/30 transition-all duration-300 hover:shadow-[0_0_24px_rgba(255,123,170,0.6)] hover:scale-110"
               >
-                <TargetIcon className="w-4 h-4 mr-2" />
-                Bounties
-                {activeView === 'bounties' && (
-                  <SparklesIcon className="w-3 h-3 ml-2 text-white drop-shadow-lg" />
-                )}
+                <TrophyIcon className="w-5 h-5 text-white drop-shadow-lg" />
               </Button>
-              <Button
-                variant="ghost"
-                size="sm"
-                onClick={() => setActiveView('quests')}
-                className={cn(
-                  "font-rum-raisin rounded-xl px-6 py-3 relative overflow-hidden transition-all duration-300",
-                  activeView === 'quests' 
-                    ? "glossy-red-pill text-white font-bold shadow-[0_0_20px_rgba(255,123,170,0.7)]" 
-                    : "text-white/80 font-medium hover:bg-white/20 hover:text-white hover:shadow-[0_0_12px_rgba(255,123,170,0.3)]"
-                )}
+            </div>
+
+            {/* Enhanced Tab Selector */}
+            <div className="relative">
+              <div className="absolute inset-0 bg-gradient-to-r from-[#FF7BAA]/30 via-[#FF4D88]/40 to-[#FF1A75]/30 rounded-2xl blur-lg"></div>
+              
+              <div className="relative bg-white/20 backdrop-blur-md rounded-2xl p-2 flex shadow-[0_0_24px_rgba(255,123,170,0.3)] border border-white/30">
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={() => setActiveView('bounties')}
+                  className={cn(
+                    "font-rum-raisin rounded-xl px-6 py-3 relative overflow-hidden transition-all duration-300",
+                    activeView === 'bounties' 
+                      ? "glossy-red-pill text-white font-bold shadow-[0_0_20px_rgba(255,123,170,0.7)]" 
+                      : "text-white/80 font-medium hover:bg-white/20 hover:text-white hover:shadow-[0_0_12px_rgba(255,123,170,0.3)]"
+                  )}
+                >
+                  <TargetIcon className="w-4 h-4 mr-2" />
+                  Bounties
+                  {activeView === 'bounties' && (
+                    <SparklesIcon className="w-3 h-3 ml-2 text-white drop-shadow-lg" />
+                  )}
+                </Button>
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={() => setActiveView('quests')}
+                  className={cn(
+                    "font-rum-raisin rounded-xl px-6 py-3 relative overflow-hidden transition-all duration-300",
+                    activeView === 'quests' 
+                      ? "glossy-red-pill text-white font-bold shadow-[0_0_20px_rgba(255,123,170,0.7)]" 
+                      : "text-white/80 font-medium hover:bg-white/20 hover:text-white hover:shadow-[0_0_12px_rgba(255,123,170,0.3)]"
+                  )}
+                >
+                  <SwordIcon className="w-4 h-4 mr-2" />
+                  Quests
+                  {activeView === 'quests' && (
+                    <ShieldCheckIcon className="w-3 h-3 ml-2 text-white drop-shadow-lg" />
+                  )}
+                </Button>
+              </div>
+            </div>
+
+            {/* Rewards */}
+            <div className="relative">
+              <div className="absolute inset-0 bg-[#FF4D88]/40 rounded-full blur-md"></div>
+              <Button 
+                variant="ghost" 
+                size="sm" 
+                onClick={() => onNavigate('rewards')}
+                className="relative bg-white/20 hover:bg-white/30 backdrop-blur-md rounded-full p-3 shadow-[0_0_16px_rgba(255,77,136,0.4)] border border-white/30 transition-all duration-300 hover:shadow-[0_0_24px_rgba(255,77,136,0.6)] hover:scale-110"
               >
-                <SwordIcon className="w-4 h-4 mr-2" />
-                Quests
-                {activeView === 'quests' && (
-                  <ShieldCheckIcon className="w-3 h-3 ml-2 text-white drop-shadow-lg" />
-                )}
+                <GiftIcon className="w-5 h-5 text-white drop-shadow-lg" />
+                <div className="absolute -top-1 -right-1">
+                  <ConfettiIcon className="w-3 h-3 text-[#FF7BAA] drop-shadow-[0_0_6px_rgba(255,123,170,0.8)]" />
+                </div>
               </Button>
             </div>
           </div>
-
-          {/* Rewards */}
-          <div className="relative">
-            <div className="absolute inset-0 bg-[#FF4D88]/40 rounded-full blur-md"></div>
-            <Button 
-              variant="ghost" 
-              size="sm" 
-              onClick={() => onNavigate('rewards')}
-              className="relative bg-white/20 hover:bg-white/30 backdrop-blur-md rounded-full p-3 shadow-[0_0_16px_rgba(255,77,136,0.4)] border border-white/30 transition-all duration-300 hover:shadow-[0_0_24px_rgba(255,77,136,0.6)] hover:scale-110"
-            >
-              <GiftIcon className="w-5 h-5 text-white drop-shadow-lg" />
-              <div className="absolute -top-1 -right-1">
-                <ConfettiIcon className="w-3 h-3 text-[#FF7BAA] drop-shadow-[0_0_6px_rgba(255,123,170,0.8)]" />
-              </div>
-            </Button>
-          </div>
         </div>
-      </div>
 
-      {/* Scrollable Content */}
-      <div className="flex-1 overflow-y-auto scrollbar-hide pb-20 relative z-10">
         {/* Enhanced Filter Tabs */}
         {activeView === 'bounties' && (
           <>
