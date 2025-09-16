@@ -348,8 +348,10 @@ export function LikPage({ onNavigate, onSelectBounty }: LikPageProps) {
             </div>
           </div>
         </div>
+      </div>
 
-        {/* Enhanced Navigation Row */}
+      {/* Enhanced Navigation Row - Moved Below Header */}
+      <div className="relative z-10 px-4 pb-4">
         <div className="flex items-center justify-center gap-6">
           {/* Leaderboard */}
           <div className="relative">
