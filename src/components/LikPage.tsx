@@ -289,7 +289,7 @@ export function LikPage({ onNavigate, onSelectBounty }: LikPageProps) {
       </div>
 
       {/* Header without App Bar - Direct Content */}
-      <div className="relative z-10 px-4 py-6 flex flex-col gap-6">
+      <div className="relative z-10 px-4 py-6">
         {/* Enhanced User Progress Header */}
         <div className="flex items-center justify-between">
           {/* Profile Avatar with Enhanced Glow */}
@@ -350,8 +350,8 @@ export function LikPage({ onNavigate, onSelectBounty }: LikPageProps) {
         </div>
       </div>
 
-      {/* Enhanced Navigation Row - Moved Below Header */}
-      <div className="relative z-10 px-4 pb-4">
+      {/* Enhanced Navigation Row - Moved Below Header and Positioned Off App Bar */}
+      <div className="relative z-10 px-4 pb-6">
         <div className="flex items-center justify-center gap-6">
           {/* Leaderboard */}
           <div className="relative">
