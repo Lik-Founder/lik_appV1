@@ -461,24 +461,9 @@ export function LikPage({ onNavigate, onSelectBounty }: LikPageProps) {
                         : "bg-white/20 backdrop-blur-md text-white/90 font-medium hover:bg-white/30 shadow-md hover:shadow-[0_0_16px_rgba(255,123,170,0.4)] hover:text-white hover:scale-105 border border-white/30"
                     )}
                   >
-                    {filter === 'nearby' && (
-                      <>
-                        <MapPin className="w-3 h-3 mr-2" />
-                        Nearby
-                      </>
-                    )}
-                    {filter === 'most-wanted' && (
-                      <>
-                        <LightningIcon className="w-3 h-3 mr-2" />
-                        Most Wanted
-                      </>
-                    )}
-                    {filter === 'for-you' && (
-                      <>
-                        <StarIcon className="w-3 h-3 mr-2" />
-                        For You
-                      </>
-                    )}
+                    {filter === 'nearby' && 'Nearby'}
+                    {filter === 'most-wanted' && 'Most Wanted'}
+                    {filter === 'for-you' && 'For You'}
                     {selectedFilter === filter && (
                       <SparklesIcon className="w-2.5 h-2.5 ml-2 text-white drop-shadow-lg" />
                     )}
