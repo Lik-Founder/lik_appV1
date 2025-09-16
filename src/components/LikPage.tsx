@@ -353,7 +353,7 @@ export function LikPage({ onNavigate, onSelectBounty }: LikPageProps) {
       {/* Scrollable Content */}
       <div className="flex-1 overflow-y-auto scrollbar-hide pb-20 relative z-10">
         {/* Enhanced Navigation Row - Moved Below Header and Off App Bar */}
-        <div className="relative z-10 px-4 pb-6">
+        <div className="relative z-10 px-4 pb-2">
           <div className="flex items-center justify-center gap-6">
             {/* Leaderboard */}
             <div className="relative">
@@ -430,73 +430,62 @@ export function LikPage({ onNavigate, onSelectBounty }: LikPageProps) {
 
         {/* Enhanced Filter Tabs */}
         {activeView === 'bounties' && (
-          <>
-            <div className="px-4 py-6 flex justify-center">
-              <div className="flex gap-3 flex-wrap justify-center">
-                {(['nearby', 'most-wanted', 'for-you'] as const).map((filter) => (
-                  <div key={filter} className="relative">
-                    {selectedFilter === filter && (
-                      <div className="absolute inset-0 bg-gradient-to-r from-[#FF7BAA]/50 via-[#FF4D88]/60 to-[#FF1A75]/50 rounded-full blur-lg"></div>
+          <div className="px-4 py-2 flex justify-center">
+            <div className="flex items-center gap-3 flex-wrap justify-center">
+              {(['nearby', 'most-wanted', 'for-you'] as const).map((filter) => (
+                <div key={filter} className="relative">
+                  {selectedFilter === filter && (
+                    <div className="absolute inset-0 bg-gradient-to-r from-[#FF7BAA]/50 via-[#FF4D88]/60 to-[#FF1A75]/50 rounded-full blur-lg"></div>
+                  )}
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    onClick={() => setSelectedFilter(filter)}
+                    className={cn(
+                      "relative rounded-full font-rum-raisin px-4 py-2 overflow-hidden transition-all duration-300",
+                      selectedFilter === filter 
+                        ? "glossy-red-pill text-white font-bold shadow-[0_0_20px_rgba(255,123,170,0.7)]" 
+                        : "bg-white/20 backdrop-blur-md text-white/90 font-medium hover:bg-white/30 shadow-md hover:shadow-[0_0_16px_rgba(255,123,170,0.4)] hover:text-white hover:scale-105 border border-white/30"
                     )}
-                    <Button
-                      variant="ghost"
-                      size="sm"
-                      onClick={() => setSelectedFilter(filter)}
-                      className={cn(
-                        "relative rounded-full font-rum-raisin px-4 py-2 overflow-hidden transition-all duration-300",
-                        selectedFilter === filter 
-                          ? "glossy-red-pill text-white font-bold shadow-[0_0_20px_rgba(255,123,170,0.7)]" 
-                          : "bg-white/20 backdrop-blur-md text-white/90 font-medium hover:bg-white/30 shadow-md hover:shadow-[0_0_16px_rgba(255,123,170,0.4)] hover:text-white hover:scale-105 border border-white/30"
-                      )}
-                    >
-                      {filter === 'nearby' && (
-                        <>
-                          <MapPin className="w-3 h-3 mr-2" />
-                          Nearby
-                        </>
-                      )}
-                      {filter === 'most-wanted' && (
-                        <>
-                          <LightningIcon className="w-3 h-3 mr-2" />
-                          Most Wanted
-                        </>
-                      )}
-                      {filter === 'for-you' && (
-                        <>
-                          <StarIcon className="w-3 h-3 mr-2" />
-                          For You
-                        </>
-                      )}
-                      {selectedFilter === filter && (
-                        <SparklesIcon className="w-2.5 h-2.5 ml-2 text-white drop-shadow-lg" />
-                      )}
-                    </Button>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* Enhanced Search Bar */}
-            <div className="px-4 pb-6">
-              <div className="relative max-w-md mx-auto">
-                <div className="absolute inset-0 bg-gradient-to-r from-[#FF7BAA]/30 via-[#FF4D88]/40 to-[#FF1A75]/30 rounded-2xl blur-xl"></div>
-                <div className="absolute inset-0 bg-gradient-to-r from-[#FF7BAA]/20 via-[#FF4D88]/25 to-[#FF1A75]/20 rounded-2xl blur-lg"></div>
-                
-                <div className="relative bg-white/25 backdrop-blur-md rounded-2xl border border-white/40 shadow-[0_0_24px_rgba(255,123,170,0.2)]">
-                  <MagnifyingGlassIcon className="absolute left-4 top-1/2 transform -translate-y-1/2 w-4 h-4 text-white drop-shadow-lg" />
-                  <Input
-                    placeholder="🔍 Discover epic bounties..."
-                    value={searchQuery}
-                    onChange={(e) => setSearchQuery(e.target.value)}
-                    className="pl-12 pr-12 py-3 bg-transparent border-none text-white placeholder-white/70 font-medium focus:ring-2 focus:ring-[#FF7BAA]/50"
-                  />
-                  <div className="absolute right-4 top-1/2 transform -translate-y-1/2">
-                    <div className="w-2 h-2 bg-gradient-to-r from-[#FF7BAA] to-[#FF1A75] rounded-full shadow-[0_0_8px_rgba(255,123,170,0.8)] animate-pulse"></div>
-                  </div>
+                  >
+                    {filter === 'nearby' && (
+                      <>
+                        <MapPin className="w-3 h-3 mr-2" />
+                        Nearby
+                      </>
+                    )}
+                    {filter === 'most-wanted' && (
+                      <>
+                        <LightningIcon className="w-3 h-3 mr-2" />
+                        Most Wanted
+                      </>
+                    )}
+                    {filter === 'for-you' && (
+                      <>
+                        <StarIcon className="w-3 h-3 mr-2" />
+                        For You
+                      </>
+                    )}
+                    {selectedFilter === filter && (
+                      <SparklesIcon className="w-2.5 h-2.5 ml-2 text-white drop-shadow-lg" />
+                    )}
+                  </Button>
                 </div>
+              ))}
+              
+              {/* Search Icon */}
+              <div className="relative">
+                <div className="absolute inset-0 bg-[#FF4D88]/40 rounded-full blur-md"></div>
+                <Button 
+                  variant="ghost" 
+                  size="sm" 
+                  className="relative bg-white/20 hover:bg-white/30 backdrop-blur-md rounded-full p-3 shadow-[0_0_16px_rgba(255,77,136,0.4)] border border-white/30 transition-all duration-300 hover:shadow-[0_0_24px_rgba(255,77,136,0.6)] hover:scale-110"
+                >
+                  <MagnifyingGlassIcon className="w-4 h-4 text-white drop-shadow-lg" />
+                </Button>
               </div>
             </div>
-          </>
+          </div>
         )}
 
         {activeView === 'bounties' ? (
