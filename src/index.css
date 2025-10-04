@@ -14,13 +14,13 @@
    * --background: Main page background
    * --foreground: Primary text color to use on the background
    */
-  --background: oklch(0.98 0.01 247);
-  --foreground: oklch(0.15 0.02 247);
+  --background: oklch(0.07 0.02 240);
+  --foreground: oklch(0.98 0.01 240);
 
-  --card: oklch(0.98 0.01 247);
-  --card-foreground: oklch(0.15 0.02 247);
-  --popover: oklch(0.98 0.01 247);
-  --popover-foreground: oklch(0.15 0.02 247);
+  --card: oklch(0.12 0.03 240);
+  --card-foreground: oklch(0.95 0.01 240);
+  --popover: oklch(0.12 0.03 240);
+  --popover-foreground: oklch(0.95 0.01 240);
 
   /*
    * Action colors that represent interactive elements
@@ -45,10 +45,10 @@
    * --input: Border color for form inputs
    * --ring: Focus indicator color
    */
-  --muted: oklch(0.95 0.02 247);
-  --muted-foreground: oklch(0.5 0.02 247);
-  --border: oklch(0.9 0.02 247);
-  --input: oklch(0.9 0.02 247);
+  --muted: oklch(0.20 0.03 240);
+  --muted-foreground: oklch(0.7 0.02 240);
+  --border: oklch(0.25 0.03 240);
+  --input: oklch(0.25 0.03 240);
   --ring: oklch(0.6 0.2 270);
 
   /*
