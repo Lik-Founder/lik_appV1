@@ -257,7 +257,7 @@ export function LikPage({ onNavigate, onSelectBounty }: LikPageProps) {
   };
 
   return (
-    <div className="h-full flex flex-col overflow-hidden relative">
+    <div className="h-full flex flex-col overflow-hidden relative bg-gradient-to-br from-[#FF7BAA] via-[#FF1A75] to-[#B30026]">
       {/* Enhanced Background with Lik Background Image */}
       <div 
         className="absolute inset-0 bg-cover bg-center bg-no-repeat overflow-hidden"
@@ -289,8 +289,10 @@ export function LikPage({ onNavigate, onSelectBounty }: LikPageProps) {
         </div>
       </div>
 
-      {/* Header without App Bar - Direct Content */}
-      <div className="relative z-10 px-4 py-6">
+      {/* Main Content - Fixed Header + Scrollable Body */}
+      <div className="relative z-10 flex-1 flex flex-col">
+        {/* Fixed Header */}
+        <div className="flex-shrink-0 px-4 py-6">
         {/* Enhanced User Progress Header */}
         <div className="flex items-center justify-between">
           {/* Profile Avatar with Enhanced Glow */}
@@ -486,17 +488,20 @@ export function LikPage({ onNavigate, onSelectBounty }: LikPageProps) {
           </div>
         )}
 
-        {activeView === 'bounties' ? (
-          <BountiesView 
-            bounties={bounties} 
-            onBountyClick={(bounty) => setSelectedBounty(getBountyModalData(bounty))}
-          />
-        ) : (
-          <QuestsView 
-            quests={quests} 
-            onQuestClick={(quest) => setSelectedQuest(getQuestModalData(quest))}
-          />
-        )}
+        {/* Scrollable Content Area */}
+        <div className="flex-1 overflow-y-auto px-4 pb-24 smooth-scroll-container">
+          {activeView === 'bounties' ? (
+            <BountiesView 
+              bounties={bounties} 
+              onBountyClick={(bounty) => setSelectedBounty(getBountyModalData(bounty))}
+            />
+          ) : (
+            <QuestsView 
+              quests={quests} 
+              onQuestClick={(quest) => setSelectedQuest(getQuestModalData(quest))}
+            />
+          )}
+        </div>
       </div>
 
       {/* Enhanced Floating Map Button */}
@@ -558,6 +563,7 @@ export function LikPage({ onNavigate, onSelectBounty }: LikPageProps) {
           }}
         />
       )}
+    </div>
     </div>
   );
 }
