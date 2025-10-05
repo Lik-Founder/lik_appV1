@@ -302,19 +302,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 export function useAuth() {
   const context = useContext(AuthContext)
   if (context === undefined) {
-    // Return a default context instead of throwing to prevent crashes
-    return {
-      session: null,
-      user: null,
-      profile: null,
-      loading: false,
-      signIn: async () => { throw new Error('Auth not configured') },
-      signUp: async () => { throw new Error('Auth not configured') },
-      signOut: async () => { throw new Error('Auth not configured') },
-      signInWithProvider: async () => { throw new Error('Auth not configured') },
-      updateProfile: async () => { throw new Error('Auth not configured') },
-      refreshProfile: async () => { throw new Error('Auth not configured') }
-    }
+    throw new Error('useAuth must be used within an AuthProvider')
   }
   return context
 }

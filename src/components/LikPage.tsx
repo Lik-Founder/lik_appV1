@@ -11,7 +11,6 @@ import likBackground from '@/assets/images/lik_background.png';
 import { 
   FireIcon, 
   DocumentIcon as TicketIcon, 
-  CurrencyDollarIcon as CoinsIcon, 
   ChartBarIcon, 
   GiftIcon, 
   MagnifyingGlassIcon,
@@ -19,18 +18,15 @@ import {
   ClockIcon,
   StarIcon,
   UsersIcon,
-  StarIcon as SparklesIcon,
-  ClockIcon as TimerIcon,
   BoltIcon as LightningIcon,
   TrophyIcon,
-  StarIcon as CrownIcon,
-  GiftIcon as ConfettiIcon,
-  StarIcon as TargetIcon,
-  StarIcon as SwordIcon,
   ShieldCheckIcon,
   ArrowPathIcon as RotateCcwIcon,
   FunnelIcon
 } from '@heroicons/react/24/outline';
+import { 
+  CurrencyDollarIcon as CoinsIcon
+} from '@heroicons/react/24/solid';
 import { cn } from '@/lib/utils';
 import { UserProgress, Bounty, Quest } from '@/lib/types';
 
@@ -257,7 +253,7 @@ export function LikPage({ onNavigate, onSelectBounty }: LikPageProps) {
   };
 
   return (
-    <div className="h-full flex flex-col overflow-hidden relative bg-gradient-to-br from-[#FF7BAA] via-[#FF1A75] to-[#B30026]">
+    <div className="h-full flex flex-col overflow-hidden relative">
       {/* Enhanced Background with Lik Background Image */}
       <div 
         className="absolute inset-0 bg-cover bg-center bg-no-repeat overflow-hidden"
@@ -289,10 +285,8 @@ export function LikPage({ onNavigate, onSelectBounty }: LikPageProps) {
         </div>
       </div>
 
-      {/* Main Content - Fixed Header + Scrollable Body */}
-      <div className="relative z-10 flex-1 flex flex-col">
-        {/* Fixed Header */}
-        <div className="flex-shrink-0 px-4 py-6">
+      {/* Header without App Bar - Direct Content */}
+      <div className="relative z-10 px-4 py-6">
         {/* Enhanced User Progress Header */}
         <div className="flex items-center justify-between">
           {/* Profile Avatar with Enhanced Glow */}
@@ -387,10 +381,10 @@ export function LikPage({ onNavigate, onSelectBounty }: LikPageProps) {
                       : "text-white/80 font-medium hover:bg-white/20 hover:text-white hover:shadow-[0_0_12px_rgba(255,123,170,0.3)]"
                   )}
                 >
-                  <TargetIcon className="w-4 h-4 mr-2" />
+                  <StarIcon className="w-4 h-4 mr-2" />
                   Bounties
                   {activeView === 'bounties' && (
-                    <SparklesIcon className="w-3 h-3 ml-2 text-white drop-shadow-lg" />
+                    <StarIcon className="w-3 h-3 ml-2 text-white drop-shadow-lg" />
                   )}
                 </Button>
                 <Button
@@ -404,7 +398,7 @@ export function LikPage({ onNavigate, onSelectBounty }: LikPageProps) {
                       : "text-white/80 font-medium hover:bg-white/20 hover:text-white hover:shadow-[0_0_12px_rgba(255,123,170,0.3)]"
                   )}
                 >
-                  <SwordIcon className="w-4 h-4 mr-2" />
+                  <StarIcon className="w-4 h-4 mr-2" />
                   Quests
                   {activeView === 'quests' && (
                     <ShieldCheckIcon className="w-3 h-3 ml-2 text-white drop-shadow-lg" />
@@ -424,7 +418,7 @@ export function LikPage({ onNavigate, onSelectBounty }: LikPageProps) {
               >
                 <GiftIcon className="w-5 h-5 text-white drop-shadow-lg" />
                 <div className="absolute -top-1 -right-1">
-                  <ConfettiIcon className="w-3 h-3 text-[#FF7BAA] drop-shadow-[0_0_6px_rgba(255,123,170,0.8)]" />
+                  <GiftIcon className="w-3 h-3 text-[#FF7BAA] drop-shadow-[0_0_6px_rgba(255,123,170,0.8)]" />
                 </div>
               </Button>
             </div>
@@ -467,7 +461,7 @@ export function LikPage({ onNavigate, onSelectBounty }: LikPageProps) {
                     {filter === 'most-wanted' && 'Most Wanted'}
                     {filter === 'for-you' && 'For You'}
                     {selectedFilter === filter && (
-                      <SparklesIcon className="w-2.5 h-2.5 ml-2 text-white drop-shadow-lg" />
+                      <StarIcon className="w-2.5 h-2.5 ml-2 text-white drop-shadow-lg" />
                     )}
                   </Button>
                 </div>
@@ -488,20 +482,17 @@ export function LikPage({ onNavigate, onSelectBounty }: LikPageProps) {
           </div>
         )}
 
-        {/* Scrollable Content Area */}
-        <div className="flex-1 overflow-y-auto px-4 pb-24 smooth-scroll-container">
-          {activeView === 'bounties' ? (
-            <BountiesView 
-              bounties={bounties} 
-              onBountyClick={(bounty) => setSelectedBounty(getBountyModalData(bounty))}
-            />
-          ) : (
-            <QuestsView 
-              quests={quests} 
-              onQuestClick={(quest) => setSelectedQuest(getQuestModalData(quest))}
-            />
-          )}
-        </div>
+        {activeView === 'bounties' ? (
+          <BountiesView 
+            bounties={bounties} 
+            onBountyClick={(bounty) => setSelectedBounty(getBountyModalData(bounty))}
+          />
+        ) : (
+          <QuestsView 
+            quests={quests} 
+            onQuestClick={(quest) => setSelectedQuest(getQuestModalData(quest))}
+          />
+        )}
       </div>
 
       {/* Enhanced Floating Map Button */}
@@ -522,7 +513,7 @@ export function LikPage({ onNavigate, onSelectBounty }: LikPageProps) {
           >
             <MapPin className="w-4 h-4 mr-2 text-white drop-shadow-lg" />
             <span className="font-bold text-white font-rum-raisin">Explore Map</span>
-            <SparklesIcon className="w-3 h-3 ml-2 text-white drop-shadow-lg animate-pulse" />
+            <StarIcon className="w-3 h-3 ml-2 text-white drop-shadow-lg animate-pulse" />
           </Button>
         </div>
       </div>
@@ -563,7 +554,6 @@ export function LikPage({ onNavigate, onSelectBounty }: LikPageProps) {
           }}
         />
       )}
-    </div>
     </div>
   );
 }
@@ -632,7 +622,7 @@ function BountiesView({ bounties, onBountyClick }: {
                       <div className="relative">
                         <div className="absolute inset-0 bg-gradient-to-r from-[#FF7BAA] to-[#FF4D88] rounded-full blur-md opacity-70"></div>
                         <div className="relative glossy-red-pill px-2 py-1 text-xs font-bold shadow-[0_0_16px_rgba(255,123,170,0.7)] flex items-center gap-1">
-                          <CrownIcon className="w-3 h-3 text-white drop-shadow-lg" />
+                          <StarIcon className="w-3 h-3 text-white drop-shadow-lg" />
                           <span className="text-white font-rum-raisin">BOUNTY</span>
                         </div>
                       </div>
@@ -664,7 +654,7 @@ function BountiesView({ bounties, onBountyClick }: {
                       <div className="relative">
                         <div className="absolute inset-0 bg-gradient-to-r from-[#FF1A75]/90 to-[#B30026]/90 rounded-full blur-md"></div>
                         <div className="relative bg-black/80 backdrop-blur-md rounded-full px-2 py-1 text-white text-xs font-bold border border-[#FF7BAA]/40 shadow-[0_0_12px_rgba(255,123,170,0.5)]">
-                          <TimerIcon className="w-3 h-3 inline mr-1 text-[#FF7BAA] drop-shadow-lg" />
+                          <ClockIcon className="w-3 h-3 inline mr-1 text-[#FF7BAA] drop-shadow-lg" />
                           <span className="font-rum-raisin">{bounty.timeRemaining}</span>
                         </div>
                       </div>
@@ -869,7 +859,7 @@ function BountiesView({ bounties, onBountyClick }: {
                       <div className="relative">
                         <div className="absolute inset-0 bg-[#FF1A75]/70 rounded-full blur-md"></div>
                         <div className="relative flex items-center gap-1 bg-[#FF1A75]/90 text-white px-2 py-1 rounded-full text-xs shadow-[0_0_12px_rgba(255,26,117,0.5)]">
-                          <TimerIcon className="w-3 h-3 text-white drop-shadow-lg" />
+                          <ClockIcon className="w-3 h-3 text-white drop-shadow-lg" />
                           <span className="font-medium font-rum-raisin">{bounty.timeRemaining}</span>
                         </div>
                       </div>
@@ -972,7 +962,7 @@ function QuestsView({ quests, onQuestClick }: {
                       quest.difficulty === 'Hard' && "bg-gradient-to-r from-[#FF1A75] to-[#B30026]",
                       quest.difficulty === 'Extreme' && "bg-gradient-to-r from-[#B30026] to-[#8B0000]"
                     )}>
-                      <SwordIcon className="w-3 h-3 inline mr-1 text-white drop-shadow-lg" />
+                      <StarIcon className="w-3 h-3 inline mr-1 text-white drop-shadow-lg" />
                       <span className="font-rum-raisin">{quest.difficulty}</span>
                     </div>
                   </div>
@@ -1028,7 +1018,7 @@ function QuestsView({ quests, onQuestClick }: {
                       <div className="relative">
                         <div className="absolute inset-0 bg-gradient-to-r from-[#FF7BAA]/30 to-[#FF1A75]/30 rounded-lg blur-md"></div>
                         <div className="relative flex items-center gap-2 bg-white rounded-lg px-3 py-1 shadow-[0_0_12px_rgba(255,123,170,0.3)] border border-[#FF7BAA]/30">
-                          <TimerIcon className="w-3 h-3 text-[#FF1A75] flex-shrink-0 drop-shadow-lg" />
+                          <ClockIcon className="w-3 h-3 text-[#FF1A75] flex-shrink-0 drop-shadow-lg" />
                           <span className="font-bold text-[#B30026] text-sm font-rum-raisin">{quest.timeLimit}</span>
                         </div>
                       </div>
@@ -1042,7 +1032,7 @@ function QuestsView({ quests, onQuestClick }: {
                       <Button className="glossy-red-pill font-bold px-8 py-3 rounded-xl text-base shadow-[0_0_20px_rgba(255,123,170,0.7)] hover:shadow-[0_0_28px_rgba(255,123,170,0.9)] transition-all duration-300 hover:scale-105">
                         <LightningIcon className="w-4 h-4 mr-2 text-white drop-shadow-lg" />
                         <span className="font-rum-raisin">Accept Quest</span>
-                        <SparklesIcon className="w-3 h-3 ml-2 text-white drop-shadow-lg" />
+                        <StarIcon className="w-3 h-3 ml-2 text-white drop-shadow-lg" />
                       </Button>
                     </div>
                   </div>
