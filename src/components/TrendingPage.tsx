@@ -341,7 +341,7 @@ export function TrendingPage({ onNavigate, onSelectUser, onSelectRestaurant }: T
             <div className="flex-1 min-w-0">
               <div className="flex items-center gap-2">
                 <span 
-                  className="text-white font-semibold text-sm font-rum-raisin cursor-pointer hover:underline truncate" 
+                  className="text-white font-semibold text-sm cursor-pointer hover:underline truncate" 
                   onClick={() => {
                     onSelectUser?.(post.user.id);
                     onNavigate('user-profile');
@@ -382,7 +382,7 @@ export function TrendingPage({ onNavigate, onSelectUser, onSelectRestaurant }: T
                 <span className="text-black font-bold font-rum-raisin">{post.review.price}</span>
               </div>
             </div>
-            <p className="text-white text-sm leading-relaxed font-rum-raisin line-clamp-2">{post.review.text}</p>
+            <p className="text-white text-sm leading-relaxed line-clamp-2">{post.review.text}</p>
             <div className="flex flex-wrap gap-1 mt-2">
               {post.review.tags.slice(0, 3).map((tag, index) => (
                 <span key={index} className="text-blue-300 text-xs bg-blue-900/30 px-2 py-1 rounded-full font-rum-raisin">
@@ -445,7 +445,7 @@ export function TrendingPage({ onNavigate, onSelectUser, onSelectRestaurant }: T
             <div className="flex-1 min-w-0">
               <div className="flex items-center gap-2">
                 <span 
-                  className="text-white font-semibold text-sm font-rum-raisin cursor-pointer hover:underline truncate" 
+                  className="text-white font-semibold text-sm cursor-pointer hover:underline truncate" 
                   onClick={() => onSelectRestaurant?.(post.restaurant.id)}
                 >
                   {post.restaurant.name}
@@ -476,7 +476,7 @@ export function TrendingPage({ onNavigate, onSelectUser, onSelectRestaurant }: T
               </div>
             </div>
             <div className="text-white/90 text-sm">
-              <span className="font-rum-raisin">{post.dish.calories} cal • {post.dish.description}</span>
+              <span className="">{post.dish.calories} cal • {post.dish.description}</span>
             </div>
             <div className="flex flex-wrap gap-1 mt-2">
               {post.dish.tags.slice(0, 3).map((tag, index) => (
@@ -528,7 +528,7 @@ export function TrendingPage({ onNavigate, onSelectUser, onSelectRestaurant }: T
             <div className="flex-1 min-w-0">
               <div className="flex items-center gap-2">
                 <span 
-                  className="text-white font-semibold text-sm font-rum-raisin cursor-pointer hover:underline truncate" 
+                  className="text-white font-semibold text-sm cursor-pointer hover:underline truncate" 
                   onClick={() => onSelectRestaurant?.(post.restaurant.id)}
                 >
                   {post.restaurant.name}
@@ -546,7 +546,7 @@ export function TrendingPage({ onNavigate, onSelectUser, onSelectRestaurant }: T
           
           {/* Promotion section */}
           <div className="space-y-3">
-            <p className="text-white text-base font-bold font-rum-raisin">{post.promotion.text}</p>
+            <p className="text-white text-base font-bold">{post.promotion.text}</p>
             <div className="flex items-center gap-2 flex-wrap">
               <Badge className="bg-gradient-to-r from-yellow-500 to-orange-500 text-black font-bold font-rum-raisin">
                 +{post.promotion.likCoinReward} Lik Coins
