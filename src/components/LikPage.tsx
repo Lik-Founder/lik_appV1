@@ -383,9 +383,6 @@ export function LikPage({ onNavigate, onSelectBounty }: LikPageProps) {
                 >
                   <StarIcon className="w-4 h-4 mr-2" />
                   Bounties
-                  {activeView === 'bounties' && (
-                    <StarIcon className="w-3 h-3 ml-2 text-white drop-shadow-lg" />
-                  )}
                 </Button>
                 <Button
                   variant="ghost"
@@ -457,9 +454,6 @@ export function LikPage({ onNavigate, onSelectBounty }: LikPageProps) {
                     {filter === 'nearby' && 'Nearby'}
                     {filter === 'most-wanted' && 'Most Wanted'}
                     {filter === 'for-you' && 'For You'}
-                    {selectedFilter === filter && (
-                      <StarIcon className="w-2.5 h-2.5 ml-2 text-white drop-shadow-lg" />
-                    )}
                   </Button>
                 </div>
               ))}
@@ -510,7 +504,6 @@ export function LikPage({ onNavigate, onSelectBounty }: LikPageProps) {
           >
             <MapPin className="w-4 h-4 mr-2 text-white drop-shadow-lg" />
             <span className="font-bold text-white font-rum-raisin">Explore Map</span>
-            <StarIcon className="w-3 h-3 ml-2 text-white drop-shadow-lg" />
           </Button>
         </div>
       </div>
@@ -619,7 +612,6 @@ function BountiesView({ bounties, onBountyClick }: {
                       <div className="relative">
                         <div className="absolute inset-0 bg-gradient-to-r from-[#FF7BAA] to-[#FF4D88] rounded-full blur-md opacity-70"></div>
                         <div className="relative glossy-red-pill px-2 py-1 text-xs font-bold shadow-[0_0_16px_rgba(255,123,170,0.7)] flex items-center gap-1">
-                          <StarIcon className="w-3 h-3 text-white drop-shadow-lg" />
                           <span className="text-white font-rum-raisin">BOUNTY</span>
                         </div>
                       </div>
@@ -959,7 +951,6 @@ function QuestsView({ quests, onQuestClick }: {
                       quest.difficulty === 'Hard' && "bg-gradient-to-r from-[#FF1A75] to-[#B30026]",
                       quest.difficulty === 'Extreme' && "bg-gradient-to-r from-[#B30026] to-[#8B0000]"
                     )}>
-                      <StarIcon className="w-3 h-3 inline mr-1 text-white drop-shadow-lg" />
                       <span className="font-rum-raisin">{quest.difficulty}</span>
                     </div>
                   </div>
@@ -1029,7 +1020,6 @@ function QuestsView({ quests, onQuestClick }: {
                       <Button className="glossy-red-pill font-bold px-8 py-3 rounded-xl text-base shadow-[0_0_20px_rgba(255,123,170,0.7)] hover:shadow-[0_0_28px_rgba(255,123,170,0.9)] transition-all duration-300">
                         <LightningIcon className="w-4 h-4 mr-2 text-white drop-shadow-lg" />
                         <span className="font-rum-raisin">Accept Quest</span>
-                        <StarIcon className="w-3 h-3 ml-2 text-white drop-shadow-lg" />
                       </Button>
                     </div>
                   </div>
