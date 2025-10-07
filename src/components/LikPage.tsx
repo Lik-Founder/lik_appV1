@@ -398,11 +398,8 @@ export function LikPage({ onNavigate, onSelectBounty }: LikPageProps) {
                       : "text-white/80 font-medium hover:bg-white/20 hover:text-white hover:shadow-[0_0_12px_rgba(255,123,170,0.3)]"
                   )}
                 >
-                  <StarIcon className="w-4 h-4 mr-2" />
+                  <ShieldCheckIcon className="w-4 h-4 mr-2" />
                   Quests
-                  {activeView === 'quests' && (
-                    <ShieldCheckIcon className="w-3 h-3 ml-2 text-white drop-shadow-lg" />
-                  )}
                 </Button>
               </div>
             </div>
