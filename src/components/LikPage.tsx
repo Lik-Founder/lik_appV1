@@ -272,16 +272,16 @@ export function LikPage({ onNavigate, onSelectBounty }: LikPageProps) {
         {/* Floating magical effects */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
           {/* Floating Candy-Gloss Orbs */}
-          <div className="absolute top-16 left-8 w-16 h-16 bg-gradient-to-br from-[#FF7BAA]/40 to-[#FF1A75]/30 rounded-full blur-lg animate-pulse"></div>
-          <div className="absolute top-40 right-12 w-12 h-12 bg-gradient-to-br from-[#FF4D88]/35 to-[#B30026]/25 rounded-full blur-md animate-pulse" style={{ animationDelay: '1s' }}></div>
-          <div className="absolute bottom-32 left-1/4 w-20 h-20 bg-gradient-to-br from-[#FF1A75]/30 to-[#8B0000]/20 rounded-full blur-xl animate-pulse" style={{ animationDelay: '2s' }}></div>
-          <div className="absolute top-1/2 right-16 w-14 h-14 bg-gradient-to-br from-[#FF7BAA]/35 to-[#FF4D88]/25 rounded-full blur-lg animate-pulse" style={{ animationDelay: '0.5s' }}></div>
+          <div className="absolute top-16 left-8 w-16 h-16 bg-gradient-to-br from-[#FF7BAA]/40 to-[#FF1A75]/30 rounded-full blur-lg"></div>
+          <div className="absolute top-40 right-12 w-12 h-12 bg-gradient-to-br from-[#FF4D88]/35 to-[#B30026]/25 rounded-full blur-md"></div>
+          <div className="absolute bottom-32 left-1/4 w-20 h-20 bg-gradient-to-br from-[#FF1A75]/30 to-[#8B0000]/20 rounded-full blur-xl"></div>
+          <div className="absolute top-1/2 right-16 w-14 h-14 bg-gradient-to-br from-[#FF7BAA]/35 to-[#FF4D88]/25 rounded-full blur-lg"></div>
           
           {/* Magical Sparkles */}
-          <div className="absolute top-24 right-20 text-3xl text-[#FF7BAA]/70 animate-pulse">✨</div>
-          <div className="absolute bottom-40 left-16 text-2xl text-[#FF4D88]/60 animate-pulse" style={{ animationDelay: '1.5s' }}>🌟</div>
-          <div className="absolute top-56 left-1/3 text-xl text-[#FF1A75]/65 animate-pulse" style={{ animationDelay: '0.8s' }}>💫</div>
-          <div className="absolute bottom-20 right-1/3 text-2xl text-[#B30026]/50 animate-pulse" style={{ animationDelay: '2.3s' }}>⭐</div>
+          <div className="absolute top-24 right-20 text-3xl text-[#FF7BAA]/70">✨</div>
+          <div className="absolute bottom-40 left-16 text-2xl text-[#FF4D88]/60">🌟</div>
+          <div className="absolute top-56 left-1/3 text-xl text-[#FF1A75]/65">💫</div>
+          <div className="absolute bottom-20 right-1/3 text-2xl text-[#B30026]/50">⭐</div>
         </div>
       </div>
 
@@ -337,7 +337,7 @@ export function LikPage({ onNavigate, onSelectBounty }: LikPageProps) {
               <div className="relative">
                 <div className="absolute inset-0 bg-gradient-to-r from-[#FF1A75] to-[#8B0000] rounded-full blur-lg opacity-70"></div>
                 <div className="relative glossy-red-pill px-3 py-2 shadow-[0_0_20px_rgba(255,77,136,0.6)]">
-                  <CoinsIcon className="w-4 h-4 text-white drop-shadow-lg inline mr-1 animate-pulse" />
+                  <CoinsIcon className="w-4 h-4 text-white drop-shadow-lg inline mr-1" />
                   <span className="font-bold text-sm text-white font-rum-raisin">{userProgress.likCoins > 999 ? `${(userProgress.likCoins / 1000).toFixed(1)}k` : userProgress.likCoins}</span>
                 </div>
               </div>
@@ -359,7 +359,7 @@ export function LikPage({ onNavigate, onSelectBounty }: LikPageProps) {
                 variant="ghost" 
                 size="sm" 
                 onClick={() => onNavigate('leaderboard')}
-                className="relative bg-white/20 hover:bg-white/30 backdrop-blur-md rounded-full p-3 shadow-[0_0_16px_rgba(255,123,170,0.4)] border border-white/30 transition-all duration-300 hover:shadow-[0_0_24px_rgba(255,123,170,0.6)] hover:scale-110"
+                className="relative bg-white/20 hover:bg-white/30 backdrop-blur-md rounded-full p-3 shadow-[0_0_16px_rgba(255,123,170,0.4)] border border-white/30 transition-all duration-300 hover:shadow-[0_0_24px_rgba(255,123,170,0.6)]"
               >
                 <TrophyIcon className="w-5 h-5 text-white drop-shadow-lg" />
               </Button>
@@ -414,7 +414,7 @@ export function LikPage({ onNavigate, onSelectBounty }: LikPageProps) {
                 variant="ghost" 
                 size="sm" 
                 onClick={() => onNavigate('rewards')}
-                className="relative bg-white/20 hover:bg-white/30 backdrop-blur-md rounded-full p-3 shadow-[0_0_16px_rgba(255,77,136,0.4)] border border-white/30 transition-all duration-300 hover:shadow-[0_0_24px_rgba(255,77,136,0.6)] hover:scale-110"
+                className="relative bg-white/20 hover:bg-white/30 backdrop-blur-md rounded-full p-3 shadow-[0_0_16px_rgba(255,77,136,0.4)] border border-white/30 transition-all duration-300 hover:shadow-[0_0_24px_rgba(255,77,136,0.6)]"
               >
                 <GiftIcon className="w-5 h-5 text-white drop-shadow-lg" />
                 <div className="absolute -top-1 -right-1">
@@ -435,7 +435,7 @@ export function LikPage({ onNavigate, onSelectBounty }: LikPageProps) {
                 <Button 
                   variant="ghost" 
                   size="sm" 
-                  className="relative bg-white/20 hover:bg-white/30 backdrop-blur-md rounded-full p-3 shadow-[0_0_16px_rgba(255,77,136,0.4)] border border-white/30 transition-all duration-300 hover:shadow-[0_0_24px_rgba(255,77,136,0.6)] hover:scale-110"
+                  className="relative bg-white/20 hover:bg-white/30 backdrop-blur-md rounded-full p-3 shadow-[0_0_16px_rgba(255,77,136,0.4)] border border-white/30 transition-all duration-300 hover:shadow-[0_0_24px_rgba(255,77,136,0.6)]"
                 >
                   <FunnelIcon className="w-4 h-4 text-white drop-shadow-lg" />
                 </Button>
@@ -454,7 +454,7 @@ export function LikPage({ onNavigate, onSelectBounty }: LikPageProps) {
                       "relative rounded-full font-rum-raisin px-4 py-2 overflow-hidden transition-all duration-300",
                       selectedFilter === filter 
                         ? "glossy-red-pill text-white font-bold shadow-[0_0_20px_rgba(255,123,170,0.7)]" 
-                        : "bg-white/20 backdrop-blur-md text-white/90 font-medium hover:bg-white/30 shadow-md hover:shadow-[0_0_16px_rgba(255,123,170,0.4)] hover:text-white hover:scale-105 border border-white/30"
+                        : "bg-white/20 backdrop-blur-md text-white/90 font-medium hover:bg-white/30 shadow-md hover:shadow-[0_0_16px_rgba(255,123,170,0.4)] hover:text-white border border-white/30"
                     )}
                   >
                     {filter === 'nearby' && 'Nearby'}
@@ -473,7 +473,7 @@ export function LikPage({ onNavigate, onSelectBounty }: LikPageProps) {
                 <Button 
                   variant="ghost" 
                   size="sm" 
-                  className="relative bg-white/20 hover:bg-white/30 backdrop-blur-md rounded-full p-3 shadow-[0_0_16px_rgba(255,77,136,0.4)] border border-white/30 transition-all duration-300 hover:shadow-[0_0_24px_rgba(255,77,136,0.6)] hover:scale-110"
+                  className="relative bg-white/20 hover:bg-white/30 backdrop-blur-md rounded-full p-3 shadow-[0_0_16px_rgba(255,77,136,0.4)] border border-white/30 transition-all duration-300 hover:shadow-[0_0_24px_rgba(255,77,136,0.6)]"
                 >
                   <MagnifyingGlassIcon className="w-4 h-4 text-white drop-shadow-lg" />
                 </Button>
@@ -503,17 +503,17 @@ export function LikPage({ onNavigate, onSelectBounty }: LikPageProps) {
           <div className="absolute inset-0 bg-gradient-to-r from-[#FF4D88] to-[#B30026] rounded-full blur-lg opacity-50"></div>
           
           {/* Pulsing Ring Effect */}
-          <div className="absolute inset-0 rounded-full border-2 border-[#FF7BAA]/40 animate-pulse"></div>
-          <div className="absolute inset-0 rounded-full border border-[#FF4D88]/30 animate-pulse" style={{ animationDelay: '0.5s' }}></div>
+          <div className="absolute inset-0 rounded-full border-2 border-[#FF7BAA]/40"></div>
+          <div className="absolute inset-0 rounded-full border border-[#FF4D88]/30"></div>
           
           <Button 
             size="sm" 
-            className="glossy-red-pill relative px-6 py-3 rounded-full text-base shadow-[0_0_28px_rgba(255,123,170,0.7)] hover:shadow-[0_0_36px_rgba(255,123,170,0.9)] transition-all duration-300 hover:scale-110"
+            className="glossy-red-pill relative px-6 py-3 rounded-full text-base shadow-[0_0_28px_rgba(255,123,170,0.7)] hover:shadow-[0_0_36px_rgba(255,123,170,0.9)] transition-all duration-300"
             onClick={() => onNavigate('bounty-quest-map')}
           >
             <MapPin className="w-4 h-4 mr-2 text-white drop-shadow-lg" />
             <span className="font-bold text-white font-rum-raisin">Explore Map</span>
-            <StarIcon className="w-3 h-3 ml-2 text-white drop-shadow-lg animate-pulse" />
+            <StarIcon className="w-3 h-3 ml-2 text-white drop-shadow-lg" />
           </Button>
         </div>
       </div>
@@ -1029,7 +1029,7 @@ function QuestsView({ quests, onQuestClick }: {
                   <div className="flex justify-center">
                     <div className="relative">
                       <div className="absolute inset-0 bg-gradient-to-r from-[#FF7BAA] via-[#FF4D88] to-[#FF1A75] rounded-xl blur-lg opacity-50"></div>
-                      <Button className="glossy-red-pill font-bold px-8 py-3 rounded-xl text-base shadow-[0_0_20px_rgba(255,123,170,0.7)] hover:shadow-[0_0_28px_rgba(255,123,170,0.9)] transition-all duration-300 hover:scale-105">
+                      <Button className="glossy-red-pill font-bold px-8 py-3 rounded-xl text-base shadow-[0_0_20px_rgba(255,123,170,0.7)] hover:shadow-[0_0_28px_rgba(255,123,170,0.9)] transition-all duration-300">
                         <LightningIcon className="w-4 h-4 mr-2 text-white drop-shadow-lg" />
                         <span className="font-rum-raisin">Accept Quest</span>
                         <StarIcon className="w-3 h-3 ml-2 text-white drop-shadow-lg" />
