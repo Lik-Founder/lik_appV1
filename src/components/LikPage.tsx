@@ -281,7 +281,6 @@ export function LikPage({ onNavigate, onSelectBounty }: LikPageProps) {
           <div className="absolute top-24 right-20 text-3xl text-[#FF7BAA]/70">✨</div>
           <div className="absolute bottom-40 left-16 text-2xl text-[#FF4D88]/60">🌟</div>
           <div className="absolute top-56 left-1/3 text-xl text-[#FF1A75]/65">💫</div>
-          <div className="absolute bottom-20 right-1/3 text-2xl text-[#B30026]/50">⭐</div>
         </div>
       </div>
 
