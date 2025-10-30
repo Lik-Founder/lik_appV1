@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Lik</string>
+    <string name="title_activity_main">Lik</string>
+    <string name="package_name">com.lik.app</string>
+    <string name="custom_url_scheme">com.lik.app</string>
+</resources>

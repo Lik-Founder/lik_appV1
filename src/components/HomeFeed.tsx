@@ -10,6 +10,7 @@ import { Carousel } from '@/components/Carousel';
 import { HorizontalCarousel } from '@/components/HorizontalCarousel';
 import { useDevice } from '@/hooks/use-device';
 import { useSwipeGestures } from '@/hooks/use-swipe-gestures';
+import { useStatusBar } from '@/hooks/use-status-bar';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -41,6 +42,8 @@ interface HomeFeedProps {
 }
 
 export function HomeFeed({ onNavigate, onSelectUser, onSelectRestaurant }: HomeFeedProps) {
+  useStatusBar('light'); // Light status bar for white background
+  
   const [stories, setStories] = useKV<StoryType[]>('stories', generateMockStories());
   const [users, setUsers] = useKV<User[]>('users', generateMockUsers());
   const [currentUser] = useKV<User>('currentUser', getCurrentUser());
@@ -386,7 +389,7 @@ export function HomeFeed({ onNavigate, onSelectUser, onSelectRestaurant }: HomeF
         "fixed top-0 left-0 right-0 z-40 bg-background/95 backdrop-blur-sm floating-app-bar floating-app-bar-backdrop",
         showAppBar ? "visible" : "hidden"
       )}>
-        <div className="flex items-center justify-between px-4 py-3">
+        <div className="flex items-center justify-between px-4 py-3 content-safe-top">
           {/* Left - User Icon */}
           <div className="flex items-center min-w-[60px]">
             <div 
@@ -436,7 +439,8 @@ export function HomeFeed({ onNavigate, onSelectUser, onSelectRestaurant }: HomeF
       <div 
         ref={scrollContainerRef}
         className={cn(
-          "h-full overflow-y-auto scrollbar-hide pt-[72px] smooth-scroll-container",
+          // Ensure content starts below the app bar: safe-area top + app bar height (~56px) + 10px gap
+          "h-full overflow-y-auto scrollbar-hide smooth-scroll-container pt-[calc(max(48px,env(safe-area-inset-top))+56px+10px)]",
           "mx-auto",
           device.type === 'tablet' ? "max-w-2xl" : "w-full"
         )}

@@ -19,6 +19,7 @@ import {
 
 import { cn } from '@/lib/utils';
 import { useKV } from '@github/spark/hooks';
+import { useStatusBar } from '@/hooks/use-status-bar';
 import { UserPost, RestaurantPost, AdPost, User, Comment } from '@/lib/types';
 // Asset imports - all verified to exist
 import LikLogoHeart from '@/assets/images/Lik_Logo_Heart_1.0.png';
@@ -207,6 +208,8 @@ interface TrendingPageProps {
 }
 
 export function TrendingPage({ onNavigate, onSelectUser, onSelectRestaurant }: TrendingPageProps) {
+  useStatusBar('dark'); // Dark status bar for black background
+  
   const [activeTab, setActiveTab] = useState<'following' | 'trending' | 'foryou'>('trending');
   const [currentIndex, setCurrentIndex] = useState(0);
   const [content, setContent] = useKV('trending-content', mockContent);
@@ -595,8 +598,8 @@ export function TrendingPage({ onNavigate, onSelectUser, onSelectRestaurant }: T
   return (
     <div className="h-full bg-black relative overflow-hidden">
       {/* Fixed top navigation */}
-      <div className="absolute top-0 left-0 right-0 z-20 bg-gradient-to-b from-black/80 to-transparent">
-        <div className="flex items-center justify-between p-3 safe-top">
+      <div className="absolute top-0 left-0 right-0 z-20 bg-gradient-to-b from-black/80 to-transparent pt-[max(48px,env(safe-area-inset-top))]">
+        <div className="flex items-center justify-between p-3">
           {/* Tab selector */}
           <div className="flex items-center gap-4">
             {['following', 'trending', 'foryou'].map((tab) => (

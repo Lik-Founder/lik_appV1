@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useKV } from '@github/spark/hooks';
 import { useDevice } from '@/hooks/use-device';
+import { useStatusBar } from '@/hooks/use-status-bar';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -81,6 +82,8 @@ interface SearchPageProps {
 }
 
 export function SearchPage({ onNavigate, onSelectUser, onSelectRestaurant }: SearchPageProps) {
+  useStatusBar('light'); // Light status bar for white background
+  
   const [searchQuery, setSearchQuery] = useState('');
   const [isDeliveryMode, setIsDeliveryMode] = useState(false);
   const [showMapView, setShowMapView] = useState(false);
@@ -324,9 +327,9 @@ export function SearchPage({ onNavigate, onSelectUser, onSelectRestaurant }: Sea
   }
 
   return (
-    <div className="h-full flex flex-col relative">
+    <div className="h-full flex flex-col relative overflow-hidden">
       {/* Fixed Header */}
-      <div className="bg-background/95 backdrop-blur-sm border-b border-border sticky top-0 z-20">
+      <div className="bg-background/95 backdrop-blur-sm border-b border-border flex-shrink-0 pt-[max(48px,env(safe-area-inset-top))]">
         {/* Top Navigation */}
         <div className={cn("flex items-center gap-3", padding, "pb-3")}>
           {/* Switch Component */}

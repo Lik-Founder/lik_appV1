@@ -88,6 +88,23 @@
   }
 }
 
+/* Mobile safe-area helpers and standardized bottom navigation height */
+:root {
+  --bottom-nav-height: 68px;
+}
+
+.content-safe-bottom {
+  padding-bottom: calc(var(--bottom-nav-height) + 10px);
+}
+
+.bottom-fixed-safe {
+  bottom: 10px;
+}
+
+.content-safe-top {
+  padding-top: env(safe-area-inset-top, 0px);
+}
+
 @layer base {
   #spark-app {
     --tomato-contrast: #fff;

@@ -10,6 +10,7 @@ import { Badge } from '@/components/ui/badge';
 import { ProfileAvatar } from '@/components/ProfileAvatar';
 import { ProfileSwipeView } from '@/components/ProfileSwipeView';
 import { ProfileDropdown } from '@/components/ProfileDropdown';
+import { useStatusBar } from '@/hooks/use-status-bar';
 import bronzeRankIcon from '@/assets/images/Bronze_Rank.png';
 import likHeartIcon from '@/assets/images/Lik_Logo_Heart_1.0.png';
 
@@ -18,6 +19,8 @@ interface ProfilePageProps {
 }
 
 export function ProfilePage({ onNavigate }: ProfilePageProps) {
+  useStatusBar('light'); // Light status bar for white background
+  
   const [activeTab, setActiveTab] = useState('posts');
   const [showSwipeView, setShowSwipeView] = useState(false);
   const [showDropdown, setShowDropdown] = useState(false);
@@ -116,9 +119,9 @@ export function ProfilePage({ onNavigate }: ProfilePageProps) {
   };
 
   return (
-    <div className="flex flex-col h-full max-h-screen bg-background overflow-hidden">
+    <div className="flex flex-col h-full bg-background overflow-hidden">
       {/* Top Navigation Bar (Fixed) */}
-      <div className="sticky top-0 z-50 bg-background/95 backdrop-blur-sm border-b border-border/20">
+      <div className="sticky top-0 z-50 bg-background/95 backdrop-blur-sm border-b border-border/20 pt-[max(48px,env(safe-area-inset-top))] flex-shrink-0">
         <div className="flex items-center justify-between px-4 py-3">
           {/* Left: Bronze Rank Badge */}
           <div className="flex items-center gap-3">

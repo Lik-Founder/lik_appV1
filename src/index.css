@@ -98,18 +98,23 @@
 
 /* Mobile-first responsive design */
 html {
-  /* Safe area support for iOS devices */
-  padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+  /* Fixed height to prevent whole-window scroll */
+  height: 100%;
+  overflow: hidden;
   
   /* Prevent zoom on input focus (iOS) */
   -webkit-text-size-adjust: 100%;
   
-  /* Smooth scrolling */
-  scroll-behavior: smooth;
+  /* Disable browser rubber-band */
+  overscroll-behavior: none;
 }
 
 body {
   font-family: 'Inter', sans-serif;
+  
+  /* Fixed height and no outer scroll */
+  height: 100%;
+  overflow: hidden;
   
   /* Prevent overscroll (iOS rubber band effect) */
   overscroll-behavior-y: none;
@@ -124,6 +129,26 @@ body {
   
   /* Disable pull-to-refresh on some browsers */
   overscroll-behavior: none;
+}
+
+/* Root container pinned to viewport; pages scroll inside */
+#root {
+  position: fixed;
+  inset: 0;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Prevent long-press/save on all images (icons, UI elements, etc.) */
+img {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-touch-callout: none; /* Prevents iOS long-press menu */
+  -webkit-user-drag: none;
+  pointer-events: auto;
 }
 
 /* Navigation font styling */
@@ -2459,7 +2484,6 @@ input, textarea, select {
     0 8px 25px rgba(255, 26, 117, 0.2);
   color: white;
   font-weight: 600;
-  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
   overflow: hidden;
   transform: translateZ(0);
   will-change: transform, box-shadow;
@@ -2546,7 +2570,7 @@ input, textarea, select {
 
 /* Text shadow for better readability */
 .text-shadow-lg {
-  text-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+  /* Removed text-shadow */
 }
 
 /* Enhanced bounty card animations */
@@ -2765,7 +2789,7 @@ input, textarea, select {
 
 /* Map button positioning - closer to nav bar */
 .bottom-map-mobile {
-  bottom: 4.5rem; /* 72px - closer to nav bar */
+  bottom: 6.0625rem; /* 97px - moved up 25px from 72px */
 }
 
 /* Gamified Candy-Glass Navigation Styles */
@@ -2869,11 +2893,11 @@ input, textarea, select {
 }
 
 .text-shadow {
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+  /* Removed text-shadow */
 }
 
 .text-shadow-lg {
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8), 0 0 8px rgba(0, 0, 0, 0.3);
+  /* Removed text-shadow */
 }
 
 /* Breaking border glow effects */
@@ -3161,17 +3185,15 @@ input, textarea, select {
     font-size: 0.7rem;
     line-height: 1;
     color: white !important;
-    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
     font-weight: 600;
   }
   
   /* Ensure navigation text is always visible on mobile */
-  .font-rum-raisin {
+  .mobile-nav-safe-area .font-rum-raisin {
     font-size: 0.65rem !important;
     line-height: 1 !important;
     font-weight: 700 !important;
     color: white !important;
-    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8) !important;
   }
   
   /* Ensure navigation bar is always visible on mobile */

@@ -9,8 +9,8 @@ interface FloatingAppBarProps {
 
 export function FloatingAppBar({ title, onBack, showBackButton = false }: FloatingAppBarProps) {
   return (
-    <div className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-md border-b border-border safe-top">
-      <div className="flex items-center justify-between h-14 px-4">
+    <div className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-md border-b border-border">
+      <div className="flex items-center justify-between h-14 px-4 content-safe-top">
         {showBackButton && onBack ? (
           <Button variant="ghost" size="icon" onClick={onBack}>
             <ArrowLeft className="w-5 h-5" />
